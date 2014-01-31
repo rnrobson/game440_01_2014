@@ -1,0 +1,1 @@
+This directory holds design documents that are shared among all teams.

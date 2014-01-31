@@ -1,0 +1,22 @@
+Repository Layout
+=================
+
+The repository is layed out like this:
+
+Design
+	Network		- network design documents
+	Client		- client design documents
+	Server		- weekly reports
+	Database	- database design documents
+	Common		- design documents common to all teams
+Implementation
+	Network		- network implementation
+	Client		- client implementation
+	Server		- server implementation
+	Database	- database implementation
+	Common		- master project implementation
+ScrumReports
+	Network		- weekly reports
+	Client		- weekly reports
+	Server		- weekly reports
+	Database	- weekly reports

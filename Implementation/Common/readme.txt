@@ -1,0 +1,1 @@
+This directory holds the master project which contains the contributions of all teams.
