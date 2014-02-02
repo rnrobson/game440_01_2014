@@ -1,0 +1,1 @@
+This directory holds content specific to the named team.
