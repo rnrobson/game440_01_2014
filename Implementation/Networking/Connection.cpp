@@ -22,7 +22,7 @@ Connection::Connection(TCPsocket sock) {
 	mRemoteIP = SDLNet_TCP_GetPeerAddress(mSocket);
 }
 
-int Connection::Open() {
+NETWORKING_API int Connection::Open() {
 	// Try to open a socket with IP data stored in mIPAddress
 	mSocket = SDLNet_TCP_Open(&mIPAddress);
 
@@ -36,7 +36,7 @@ int Connection::Open() {
 	return 0;
 }
 
-int Connection::Close() {
+NETWORKING_API int Connection::Close() {
 	// Simply close the socket and set the connection status to DISCONNECTED.
 	SDLNet_TCP_Close(mSocket);
 	mStatus = DISCONNECTED;
@@ -44,7 +44,7 @@ int Connection::Close() {
 	return 0;
 }
 
-Connection* Connection::Listen() {
+NETWORKING_API Connection* Connection::Listen() {
 	// Connection must be OPEN and set as a SERVER (host == NULL)
 	if (mSocket && mIPAddress.host == NULL) {
 		// Listen for a connection and grab it
@@ -60,29 +60,29 @@ Connection* Connection::Listen() {
 	return NULL;
 }
 
-int Connection::ReceiveData(byte* buf) {
+NETWORKING_API int Connection::ReceiveData(byte* buf) {
 	// Recieve some data.
 	// Coming soon to a repo near you.
 	return 0;
 }
 
-int Connection::SendData(byte* payload) {
+NETWORKING_API int Connection::SendData(byte* payload) {
 	// Send data over mSocket.
 	// Coming soon to a repo near you.
 	return 0;
 }
 
-int Connection::SendData(Packet& payload) {
+NETWORKING_API int Connection::SendData(Packet& payload) {
 	// Send data over mSocket
 	// Coming soon to a repo near you.
 	return 0;
 }
 
-std::string Connection::GetUsername() const {
+NETWORKING_API std::string Connection::GetUsername() const {
 	return mUsername;
 }
 
-IPaddress Connection::GetIP() const {
+NETWORKING_API IPaddress Connection::GetIP() const {
 	// If we have created a connection via an incoming socket,
 	// return the remoteIP info instead of the local IP.
 	if (mIPAddress.port == NULL) {
@@ -93,10 +93,10 @@ IPaddress Connection::GetIP() const {
 	return mIPAddress;
 }
 
-TCPsocket Connection::GetSocket() const {
+NETWORKING_API TCPsocket Connection::GetSocket() const {
 	return mSocket;
 }
 
-ConnectionStatus Connection::GetStatus() const {
+NETWORKING_API ConnectionStatus Connection::GetStatus() const {
 	return mStatus;
 }
