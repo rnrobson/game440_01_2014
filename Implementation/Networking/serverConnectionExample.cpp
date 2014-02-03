@@ -36,6 +36,9 @@ int main(void) {
 			
 			// Close your connections when you don't need them.
 			clientConn->Close();
+			
+			// Clean up
+			delete clientConn;
 			break;
 		}
 		else {
