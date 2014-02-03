@@ -1,8 +1,13 @@
 #pragma once
 
 #include <string>
-#include <SDL.h>
 #include <SDL_net.h>
+
+#ifdef NETWORKING_EXPORTS
+#define NETWORKING_API __declspec(dllexport)
+#else
+#define NETWORKING_API __declspec(dllimport)
+#endif
 
 // Erase when have packet class
 class Packet;
@@ -11,12 +16,12 @@ typedef unsigned char byte;
 
 namespace ManaCraft {
 	namespace Networking {
-		enum ConnectionStatus {
+		extern NETWORKING_API enum ConnectionStatus {
 			DISCONNECTED,
 			CONNECTED
 		};
 
-		class Connection {
+		class NETWORKING_API Connection {
 		private:
 			std::string mUsername;
 			IPaddress mIPAddress, *mRemoteIP; // Remote IP is for using Connection(TCPsocket& sock)
