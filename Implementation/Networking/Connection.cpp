@@ -17,6 +17,8 @@ Connection::Connection(TCPsocket sock) {
 	// This constructor is primarily used as the way of returning accepted sockets
 	// as a Connection object
 	mSocket = sock;
+	
+	// Get the address information of the socket
 	mRemoteIP = SDLNet_TCP_GetPeerAddress(mSocket);
 }
 
@@ -81,10 +83,13 @@ std::string Connection::GetUsername() const {
 }
 
 IPaddress Connection::GetIP() const {
+	// If we have created a connection via an incoming socket,
+	// return the remoteIP info instead of the local IP.
 	if (mIPAddress.port == NULL) {
 		return *mRemoteIP;
 	}
 
+	// Otherwise return the local IP information.
 	return mIPAddress;
 }
 
