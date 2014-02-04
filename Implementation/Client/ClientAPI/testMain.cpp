@@ -17,6 +17,7 @@ int testmain(int argc, char* args[])
 	ClientAPI::AddColour("Colour1", APIHelper::ColourHelper(155,205,225,205));//SDL_Color colour = { 155, 205, 225, 205 };
 	ClientAPI::AddFont("OGWEAR", Window::LoadFont("Resources/Fonts/OGWEAR.ttf", 24));//TTF_Font* font = Window::LoadFont("OGWEAR.ttf", 24);
 	
+	ClientAPI::AddButton("ImageButton", new Button(APIHelper::LoadPNGTexture("Resources/Images/evilTestingIcon.png"), APIHelper::RectHelper(100, 100, 200, 267)));
 	ClientAPI::AddButton("Button1", new Button(APIHelper::RectHelper(200, 200, 200, 100)));//Button* b = new Button(Window::RectHelper(200, 200, 200, 100));
 	ClientAPI::GetButton("Button1")->AddLabel("Button Label 25 Button Label 255", ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1"), true);// font, colour, true);
 	
