@@ -83,10 +83,12 @@
   <ItemGroup>
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DLL_Example.cpp" />
+    <ClCompile Include="Packet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connection.h" />
     <ClInclude Include="DLL_Example.h" />
+    <ClInclude Include="Packet.h" />
     <ClInclude Include="Serialize.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
