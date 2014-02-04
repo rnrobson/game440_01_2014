@@ -40,7 +40,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\..\SDL Files\SDL_ttf\include;..\..\SDL Files\SDL_image\include;..\..\SDL Files\SDL\include;..\ClientAPI;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\SDL Files\SDL_ttf\lib\x86;..\..\SDL Files\SDL_image\lib\x86;..\..\SDL Files\SDL\lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\Debug;..\..\SDL Files\SDL_ttf\lib\x86;..\..\SDL Files\SDL_image\lib\x86;..\..\SDL Files\SDL\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -52,7 +52,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;ClientAPI.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

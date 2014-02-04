@@ -5,7 +5,7 @@
 void Update(double time);
 void Draw();
 
-int main(int argc, char* args[])
+int testmain(int argc, char* args[])
 {
 	//-- Initialize the API
 	ClientAPI::Init();
