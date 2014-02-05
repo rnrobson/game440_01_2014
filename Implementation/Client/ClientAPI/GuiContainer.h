@@ -26,7 +26,7 @@ private:
 	vector<std::string> labelKeys;
 	vector<Label*> labels;
 
-	SDL_Rect offset;
+	SDL_Rect position;
 
 	void CleanMemory()
 	{
@@ -66,30 +66,40 @@ public:
 	void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)
 	{
 		guiContainerKeys.push_back(_key);
+
+		_guiContainer->SetPosition(position);
 		guiContainers.push_back(_guiContainer);
 	}
 
 	void AddGuiElement(std::string _key, GuiElement* _guiElement)
 	{
 		guiElementKeys.push_back(_key);
+
+		_guiElement->SetOffset(position);
 		guiElements.push_back(_guiElement);
 	}
 
 	void AddButton(std::string _key, Button* _button)
 	{
 		buttonKeys.push_back(_key);
+
+		_button->SetOffset(position);
 		buttons.push_back(_button);
 	}
 
 	void AddTextField(std::string _key, TextField* _textField)
 	{
 		textFieldKeys.push_back(_key);
+	
+		_textField->SetOffset(position);
 		textFields.push_back(_textField);
 	}
 
 	void AddLabel(std::string _key, Label* _label)
 	{
 		labelKeys.push_back(_key);
+
+		_label->SetOffset(position);
 		labels.push_back(_label);
 	}
 #pragma endregion
@@ -219,8 +229,8 @@ public:
 	void Update(double time);
 	void Draw();
 
-	SDL_Rect GetOffset() { return offset; }
-	void SetOffset(SDL_Rect _offset);
+	SDL_Rect GetPosition() { return position; }
+	void SetPosition(SDL_Rect _position);
 };
 
 #endif

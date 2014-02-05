@@ -24,6 +24,10 @@ public:
 
 	void AddLabel(const std::string &_text, TTF_Font* _font, SDL_Color _color, bool center = false);
 	void AddLabel(Label* _label);
+	Label* GetLabel();
+
+	virtual void SetOffset(SDL_Rect _rect);
+	virtual void SetPadding(SDL_Rect _rect);
 
 	virtual void Update(double _time);
 	virtual void Draw();

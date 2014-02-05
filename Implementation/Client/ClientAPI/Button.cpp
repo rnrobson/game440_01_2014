@@ -82,10 +82,33 @@ void Button::AddLabel(const std::string &_text, TTF_Font* _font, SDL_Color _colo
 	}
 
 	label = new Label(_text, _rect, _font, _color);
+	label->SetOffset(offset);
 }
 void Button::AddLabel(Label* _label)
 {
 	label = _label;
+	label->SetOffset(offset);
+}
+
+Label* Button::GetLabel()
+{
+	if (label == nullptr)
+		return nullptr;
+	return label;
+}
+
+void Button::SetOffset(SDL_Rect _rect)
+{
+	GuiElement::SetOffset(_rect);
+	if (label != nullptr)
+		label->SetOffset(_rect);
+}
+
+void Button::SetPadding(SDL_Rect _rect)
+{
+	GuiElement::SetPadding(_rect);
+	if (label != nullptr)
+		label->SetPadding(_rect);
 }
 
 void Button::Update(double _time)
@@ -104,10 +127,18 @@ void Button::Draw()
 			label->Draw();
 
 		if (isPressedDown) {
-			SDL_RenderCopyEx(Window::Renderer(), downTexture, NULL, &rect, 0., NULL, flip);
+			SDL_Rect rectangle = rect;
+			rectangle.x += offset.x + padding.x;
+			rectangle.y += offset.y + padding.y;
+
+			SDL_RenderCopyEx(Window::Renderer(), downTexture, NULL, &rectangle, 0., NULL, flip);
 		}
 		else if (isHovering) {
-			SDL_RenderCopyEx(Window::Renderer(), hoverTexture, NULL, &rect, 0., NULL, flip);
+			SDL_Rect rectangle = rect;
+			rectangle.x += offset.x + padding.x;
+			rectangle.y += offset.y + padding.y;
+
+			SDL_RenderCopyEx(Window::Renderer(), hoverTexture, NULL, &rectangle, 0., NULL, flip);
 		}
 	}
 }

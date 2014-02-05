@@ -15,36 +15,36 @@ GuiContainer::GuiContainer()
 	labels = vector<Label*>{};
 
 	Active = true;
-	SetOffset({ 0, 0, 0, 0 });
+	SetPosition({ 0, 0, 0, 0 });
 }
 
-void GuiContainer::SetOffset(SDL_Rect _offset)
+void GuiContainer::SetPosition(SDL_Rect _position)
 {
-	offset = _offset;
+	position = _position;
 
 	for (int i = 0; i < guiContainers.size(); i++)
 	{
-		guiContainers.at(i)->SetOffset(_offset);
+		guiContainers.at(i)->SetPosition(_position);
 	}
 
 	for (int i = 0; i < guiElements.size(); i++)
 	{
-		guiElements.at(i)->SetOffset(_offset);
+		guiElements.at(i)->SetOffset(_position);
 	}
 
 	for (int i = 0; i < buttons.size(); i++)
 	{
-		buttons.at(i)->SetOffset(_offset);
+		buttons.at(i)->SetOffset(_position);
 	}
 
 	for (int i = 0; i < textFields.size(); i++)
 	{
-		textFields.at(i)->SetOffset(_offset);
+		textFields.at(i)->SetOffset(_position);
 	}
 
 	for (int i = 0; i < labels.size(); i++)
 	{
-		labels.at(i)->SetOffset(_offset);
+		labels.at(i)->SetOffset(_position);
 	}
 
 }

@@ -13,6 +13,7 @@ protected:
 	SDL_Texture *texture;
 	SDL_Rect rect;
 	SDL_Rect offset;
+	SDL_Rect padding;
 	SDL_RendererFlip flip;
 public:
 	GuiElement()
@@ -20,12 +21,14 @@ public:
 		texture = nullptr;
 		rect = { 0, 0, 0, 0 };
 		offset = { 0, 0, 0, 0 };
+		padding = { 0, 0, 0, 0 };
 	}
 	GuiElement(SDL_Texture *_texture, SDL_Rect _rect)
 	{
 		texture = _texture;
 		rect = _rect;
 		offset = { 0, 0, 0, 0 };
+		padding = { 0, 0, 0, 0 };
 	}
 	~GuiElement() { Free(); }
 	virtual void Update(double _time) { if (Active) { } }
@@ -34,8 +37,8 @@ public:
 	{
 		if (Active) {
 			SDL_Rect rectangle = rect;
-			rectangle.x += offset.x;
-			rectangle.y += offset.y;
+			rectangle.x += offset.x + padding.x;
+			rectangle.y += offset.y + padding.y;
 
 			SDL_RenderCopyEx(Window::Renderer(), texture, NULL, &rectangle, 0, NULL, flip); //SDL_RenderCopyEx(Window::Renderer(), texture, NULL, &rect, 0, NULL, flip);
 		}
@@ -64,6 +67,8 @@ public:
 
 		delete &rect;
 		delete &flip;
+		delete &offset;
+		delete &padding;
 	}
 
 	bool Active = true;
@@ -92,7 +97,10 @@ public:
 	}
 
 	SDL_Rect GetOffset() { return offset; }
-	void SetOffset(SDL_Rect _rect){ offset = _rect; }
+	virtual void SetOffset(SDL_Rect _rect){ offset = _rect; }
+
+	SDL_Rect GetPadding() { return padding; }
+	virtual void SetPadding(SDL_Rect _rect) { padding = _rect; }
 };
 #endif
 

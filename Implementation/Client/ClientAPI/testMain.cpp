@@ -26,7 +26,7 @@ int testmain(int argc, char* args[])
 	ClientAPI::AddGuiContainer("Container 1", new GuiContainer());
 	ClientAPI::GetGuiContainer("Container 1")->AddButton("C Button 1", new Button(APIHelper::RectHelper(300, 500, 100, 100)));
 	ClientAPI::GetGuiContainer("Container 1")->AddLabel("C Label1", new Label("C Text Label 1", APIHelper::RectHelper(200, 600, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
-	ClientAPI::GetGuiContainer("Container 1")->SetOffset(APIHelper::RectHelper(200, -200, 0, 0));
+	ClientAPI::GetGuiContainer("Container 1")->SetPosition(APIHelper::RectHelper(200, -200, 0, 0));
 
 	ClientAPI::RemoveLabel("Label1");
 	ClientAPI::GetGuiContainer("Container 1")->Active = false; 
