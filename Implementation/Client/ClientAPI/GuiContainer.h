@@ -179,6 +179,7 @@ public:
 				return guiContainers.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	GuiElement* GetGuiElement(std::string _key)
@@ -190,6 +191,7 @@ public:
 				return guiElements.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	Button* GetButton(std::string _key)
@@ -201,6 +203,7 @@ public:
 				return buttons.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	TextField* GetTextField(std::string _key)
@@ -212,6 +215,7 @@ public:
 				return textFields.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	Label* GetLabel(std::string _key)
@@ -223,6 +227,7 @@ public:
 				return labels.at(i);
 			}
 		}
+		return nullptr;
 	}
 #pragma endregion
 

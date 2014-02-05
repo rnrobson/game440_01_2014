@@ -305,6 +305,7 @@ public:
 				return fonts.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static SDL_Texture* GetTexture(std::string _key)
@@ -316,6 +317,7 @@ public:
 				return textures.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static SDL_Color GetColor(std::string _key)
@@ -327,6 +329,7 @@ public:
 				return colours.at(i);
 			}
 		}
+		return { 0, 0, 0, 0 };
 	}
 
 	static GuiContainer* GetGuiContainer(std::string _key)
@@ -338,6 +341,7 @@ public:
 				return guiContainers.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static GuiElement* GetGuiElement(std::string _key)
@@ -349,6 +353,7 @@ public:
 				return guiElements.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static Button* GetButton(std::string _key)
@@ -360,6 +365,7 @@ public:
 				return buttons.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static TextField* GetTextField(std::string _key)
@@ -371,6 +377,7 @@ public:
 				return textFields.at(i);
 			}
 		}
+		return nullptr;
 	}
 
 	static Label* GetLabel(std::string _key)
@@ -382,6 +389,7 @@ public:
 				return labels.at(i);
 			}
 		}
+		return nullptr;
 	}
 	#pragma endregion
 	
