@@ -156,6 +156,7 @@ void Button::OnMouseHover(SDL_MouseMotionEvent e)
 }
 void Button::OnMouseClick()
 {
+	if (Intersects(APIEvents::MousePosition)) {}
 	cout << "I WAS CLICKED!" << endl;
 	GuiElement::OnMouseClick();
 }

@@ -4,6 +4,7 @@
 
 //#include "ClientAPI.h"
 #include "Includes.h"
+#include "APIEvents.h"
 #include <memory>
 
 //What we think our window class should look like

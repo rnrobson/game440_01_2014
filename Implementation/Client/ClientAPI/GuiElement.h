@@ -101,6 +101,8 @@ public:
 		{
 			return false;
 		}
+
+		return false;
 	}
 
 	int GetHeight() { return rect.h; }
