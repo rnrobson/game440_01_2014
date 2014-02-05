@@ -109,7 +109,7 @@ void GuiContainer::Draw()
 	}
 }
 
-void GuiContainer::CheckEvents()
+void GuiContainer::CheckEvents(SDL_Event e)
 {
 
 }

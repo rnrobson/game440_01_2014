@@ -4,6 +4,7 @@
 
 #include "Includes.h"
 #include "APIHelper.h"
+#include "APIEvents.h"
 
 #include "Window.h"
 #include "GuiContainer.h"
@@ -68,6 +69,10 @@ private:
 
 		CustomUpdateFunc = nullptr;
 		CustomDrawFunc = nullptr;
+
+		APIEvents::PreviousKeyboardState = SDL_GetKeyboardState(NULL);
+		APIEvents::PreviousMouseState = SDL_GetMouseState(NULL, NULL);
+		APIEvents::MousePosition = { -2, -2, 1, 1 };
 	}
 	static void CleanMemory()
 	{

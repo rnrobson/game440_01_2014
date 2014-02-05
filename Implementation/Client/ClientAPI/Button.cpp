@@ -142,3 +142,29 @@ void Button::Draw()
 		}
 	}
 }
+
+void Button::OnMouseHover(SDL_MouseMotionEvent e)
+{
+	if (!Active) return;
+
+	if (Intersects({ e.x, e.y, 1, 1 }))
+	{
+		isHovering = true;
+		GuiElement::OnMouseHover(e);
+	}
+	else isHovering = false;
+}
+void Button::OnMouseClick(SDL_MouseButtonEvent e)
+{
+	GuiElement::OnMouseClick(e);
+}
+void Button::OnMouseDown(SDL_MouseButtonEvent e)
+{
+	isPressedDown = true;
+	GuiElement::OnMouseDown(e);
+}
+void Button::OnMouseUp(SDL_MouseButtonEvent e)
+{
+	isPressedDown = false;
+	GuiElement::OnMouseUp(e);
+}

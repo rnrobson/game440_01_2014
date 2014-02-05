@@ -121,11 +121,19 @@ void ClientAPI::Draw()
 
 void ClientAPI::CheckEvents()
 {
-	SDL_Event event;
+	APIEvents::CurrentKeyboardState = SDL_GetKeyboardState(NULL);
+	APIEvents::CurrentMouseState = SDL_GetMouseState(NULL,NULL);
 
-	while (SDL_PollEvent(&event))
+	while (SDL_PollEvent(&APIEvents::Event))
 	{
-		if (event.type == SDL_QUIT)
+		if (APIEvents::Event.type == SDL_QUIT)
 			ExitMainLoop();
+		if (APIEvents::Event.type == SDL_MOUSEMOTION)
+			SDL_GetMouseState(&APIEvents::MousePosition.x, &APIEvents::MousePosition.y);
+
+		//if (APIEvents::Event.type == SDL_MOUSEBUTTONDOWN)
 	}
+
+	APIEvents::PreviousKeyboardState = APIEvents::CurrentKeyboardState;
+	APIEvents::PreviousMouseState = APIEvents::CurrentMouseState;
 }

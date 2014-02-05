@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="APIEvents.h" />
     <ClInclude Include="APIHelper.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ClientAPI.h" />
@@ -22,9 +23,11 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="APIEvents.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClientAPI.cpp" />
     <ClCompile Include="GuiContainer.cpp" />
+    <ClCompile Include="GuiElement.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TextField.cpp" />

@@ -226,7 +226,7 @@ public:
 	}
 #pragma endregion
 
-	void CheckEvents();
+	void CheckEvents(SDL_Event e);
 	void Update(double time);
 	void Draw();
 
