@@ -27,7 +27,6 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="ClientAPI.cpp" />
     <ClCompile Include="GuiContainer.cpp" />
-    <ClCompile Include="GuiElement.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TextField.cpp" />
