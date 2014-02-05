@@ -4,8 +4,10 @@
 class GameLobby
 {
 public:
-	static void Start()
+	static void Load()
 	{
+		ClientAPI::AddFont("OGWEAR", Window::LoadFont("Resources/Fonts/OGWEAR.ttf", 24));//TTF_Font* font = Window::LoadFont("OGWEAR.ttf", 24);
+
 		//add colors to be used for buttons, labels, etc
 		ClientAPI::AddColour("White", APIHelper::ColourHelper(255, 255, 255, 255));
 		ClientAPI::AddColour("Grey", APIHelper::ColourHelper(240, 240, 240, 50));
