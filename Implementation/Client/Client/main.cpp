@@ -6,7 +6,6 @@
 //-- Function Prototypes
 void Update(double time);
 void Draw();
-void LoadDeanna();
 
 int main(int argc, char* args[])
 {
