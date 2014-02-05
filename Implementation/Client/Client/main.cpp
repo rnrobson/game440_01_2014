@@ -29,13 +29,10 @@ int main(int argc, char* args[])
 
 void Update(double time)
 {
-	cout << "Entering Custom Update" << endl;
-
-	SDL_Delay(1000);
-	ClientAPI::ExitMainLoop();
+	//cout << "Entering Custom Update" << endl;
 }
 
 void Draw()
 {
-	cout << "Entering Custom Draw" << endl;
+	//cout << "Entering Custom Draw" << endl;
 }

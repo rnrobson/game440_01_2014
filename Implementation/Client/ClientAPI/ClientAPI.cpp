@@ -121,5 +121,11 @@ void ClientAPI::Draw()
 
 void ClientAPI::CheckEvents()
 {
+	SDL_Event event;
 
+	while (SDL_PollEvent(&event))
+	{
+		if (event.type == SDL_QUIT)
+			ExitMainLoop();
+	}
 }

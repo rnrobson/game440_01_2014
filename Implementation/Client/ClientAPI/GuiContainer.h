@@ -226,6 +226,7 @@ public:
 	}
 #pragma endregion
 
+	void CheckEvents();
 	void Update(double time);
 	void Draw();
 

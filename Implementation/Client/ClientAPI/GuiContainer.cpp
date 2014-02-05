@@ -108,3 +108,8 @@ void GuiContainer::Draw()
 		}
 	}
 }
+
+void GuiContainer::CheckEvents()
+{
+
+}
