@@ -1,7 +1,7 @@
 #include "GuiElement.h"
 
 void(*GuiElement::onMouseHoverFunc)(SDL_MouseMotionEvent e);
-void(*GuiElement::onMouseClickFunc)(SDL_MouseButtonEvent e);
+void(*GuiElement::onMouseClickFunc)();
 void(*GuiElement::onMouseDownFunc)(SDL_MouseButtonEvent e);
 void(*GuiElement::onMouseUpFunc)(SDL_MouseButtonEvent e);
 

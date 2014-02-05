@@ -118,6 +118,15 @@ private:
 		//delete &labelKeys;
 		//delete &labels;
 	}
+
+	static void HandleMouseMotionEvent(SDL_MouseMotionEvent e);
+	static void HandleMouseClickEvent();
+	static void HandleMouseDownEvent(SDL_MouseButtonEvent e);
+	static void HandleMouseUpEvent(SDL_MouseButtonEvent e);
+
+	static void HandleKeyboardDownEvent(SDL_KeyboardEvent e);
+	static void HandleKeyboardUpEvent(SDL_KeyboardEvent e);
+	static void HandleTextInputEvent(SDL_TextInputEvent e);
 	#pragma endregion
 
 	static void CheckEvents();

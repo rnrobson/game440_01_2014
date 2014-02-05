@@ -109,7 +109,77 @@ void GuiContainer::Draw()
 	}
 }
 
-void GuiContainer::CheckEvents(SDL_Event e)
+void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleMouseMotionEvent(e);
+		}
+	}
+	for each (Button* b in buttons)
+	{
+		if (b->Active) {
+			b->OnMouseHover(e);
+		}
+	}
+}
+void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
+{
+
+}
+void GuiContainer::HandleMouseClickEvent()
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleMouseClickEvent();
+		}
+	}
+	for each (Button* b in buttons)
+	{
+		if (b->Active) {
+			if (b->Intersects(APIEvents::MousePosition))
+				b->OnMouseClick();
+		}
+	}
+}
+void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleMouseDownEvent(e);
+		}
+	}
+	for each (Button* b in buttons)
+	{
+		if (b->Active) {
+			if (b->Intersects(APIEvents::MousePosition))
+				b->OnMouseDown(e);
+		}
+	}
+}
+void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleMouseUpEvent(e);
+		}
+	}
+	for each (Button* b in buttons)
+	{
+		if (b->Active) {
+			b->OnMouseUp(e);
+		}
+	}
+}
+void GuiContainer::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
+{
+
+}
+void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
 
 }

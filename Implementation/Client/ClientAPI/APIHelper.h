@@ -3,6 +3,7 @@
 #define API_HELPER_H
 
 #include "Includes.h"
+#include "APIEvents.h"
 #include "Window.h"
 
 class APIHelper
@@ -14,6 +15,9 @@ public:
 
 	static SDL_Rect RectHelper(int x, int y, int w, int h) { return { x, y, w, h }; } // Window::RectHelper(x, y, w, h); }
 	static SDL_Color ColourHelper(int r, int g, int b, int a) { return { r, g, b, a }; }
+
+	static bool DidKeyGetPressed(SDL_Scancode key) { return APIEvents::DidKeyGetPressed(key); }
+	static bool DidMouseClick() { return APIEvents::DidMouseClick(); }
 };
 
 #endif

@@ -33,7 +33,7 @@ public:
 	virtual void Draw();
 
 	virtual void OnMouseHover(SDL_MouseMotionEvent e);
-	virtual void OnMouseClick(SDL_MouseButtonEvent e);
+	virtual void OnMouseClick();
 	virtual void OnMouseDown(SDL_MouseButtonEvent e);
 	virtual void OnMouseUp(SDL_MouseButtonEvent e);
 

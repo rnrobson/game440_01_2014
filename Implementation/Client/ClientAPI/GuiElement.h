@@ -17,7 +17,7 @@ protected:
 	SDL_RendererFlip flip;
 
 	static void(*onMouseHoverFunc)(SDL_MouseMotionEvent e);
-	static void(*onMouseClickFunc)(SDL_MouseButtonEvent e);
+	static void(*onMouseClickFunc)();
 	static void(*onMouseDownFunc)(SDL_MouseButtonEvent e);
 	static void(*onMouseUpFunc)(SDL_MouseButtonEvent e);
 
@@ -118,7 +118,7 @@ public:
 	virtual void SetPadding(SDL_Rect _rect) { padding = _rect; }
 
 	static void SubscribeOnMouseHover(void(*func)(SDL_MouseMotionEvent e)) { onMouseHoverFunc = func; }
-	static void SubscribeOnMouseClick(void(*func)(SDL_MouseButtonEvent e)) { onMouseClickFunc = func; }
+	static void SubscribeOnMouseClick(void(*func)()) { onMouseClickFunc = func; }
 	static void SubscribeOnMouseDown(void(*func)(SDL_MouseButtonEvent e)) { onMouseDownFunc = func; }
 	static void SubscribeOnMouseUp(void(*func)(SDL_MouseButtonEvent e)) { onMouseUpFunc = func; }
 
@@ -127,7 +127,7 @@ public:
 	static void SubscribeOnTextInput(void(*func)(SDL_TextInputEvent e)) { onTextInputFunc = func; }
 
 	virtual void OnMouseHover(SDL_MouseMotionEvent e) { if (onMouseHoverFunc != NULL) { (*onMouseHoverFunc)(e); } }
-	virtual void OnMouseClick(SDL_MouseButtonEvent e) { if (onMouseClickFunc != NULL) { (*onMouseClickFunc)(e); } }
+	virtual void OnMouseClick() { if (onMouseClickFunc != NULL) { (*onMouseClickFunc)(); } }
 	virtual void OnMouseDown(SDL_MouseButtonEvent e) { if (onMouseDownFunc != NULL) { (*onMouseDownFunc)(e); } }
 	virtual void OnMouseUp(SDL_MouseButtonEvent e) { if (onMouseUpFunc != NULL) { (*onMouseUpFunc)(e); } }
 	

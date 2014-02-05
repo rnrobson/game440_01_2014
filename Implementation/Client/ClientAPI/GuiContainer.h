@@ -3,6 +3,8 @@
 #define GUI_CONTAINER_H
 
 #include "Includes.h"
+#include "APIEvents.h"
+
 #include "GuiElement.h"
 #include "Button.h"
 #include "Label.h"
@@ -237,6 +239,14 @@ public:
 
 	SDL_Rect GetPosition() { return position; }
 	void SetPosition(SDL_Rect _position);
+
+	void HandleMouseMotionEvent(SDL_MouseMotionEvent e);
+	void HandleTextInputEvent(SDL_TextInputEvent e);
+	void HandleMouseClickEvent();
+	void HandleMouseDownEvent(SDL_MouseButtonEvent e);
+	void HandleMouseUpEvent(SDL_MouseButtonEvent e);
+	void HandleKeyboardDownEvent(SDL_KeyboardEvent e);
+	void HandleKeyboardUpEvent(SDL_KeyboardEvent e);
 };
 
 #endif

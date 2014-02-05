@@ -19,6 +19,7 @@ int main(int argc, char* args[])
 	MainMenu::Load();
 	//GameLobby::Load();
 
+
 	//-- Start the APIs main loop
 	ClientAPI::BeginMainLoop();
 	//-- Quit the API once the APIs Main loop is over

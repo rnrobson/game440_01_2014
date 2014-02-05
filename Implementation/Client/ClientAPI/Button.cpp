@@ -154,9 +154,10 @@ void Button::OnMouseHover(SDL_MouseMotionEvent e)
 	}
 	else isHovering = false;
 }
-void Button::OnMouseClick(SDL_MouseButtonEvent e)
+void Button::OnMouseClick()
 {
-	GuiElement::OnMouseClick(e);
+	cout << "I WAS CLICKED!" << endl;
+	GuiElement::OnMouseClick();
 }
 void Button::OnMouseDown(SDL_MouseButtonEvent e)
 {
