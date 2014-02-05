@@ -17,7 +17,7 @@ int main(int argc, char* args[])
 
 	//--Call individual load methods
 	MainMenu::Load();
-	GameLobby::Load();
+	//GameLobby::Load();
 	
 
 	//-- Start the APIs main loop

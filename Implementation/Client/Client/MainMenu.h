@@ -9,7 +9,7 @@ public:
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
 		const int MARGIN_Y = 30;
-		const int BUTTON_SPC_Y = 5;
+		const int BUTTON_SPC_Y = 5, BUTTON_SPC_X = 5;
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
@@ -49,6 +49,9 @@ public:
 		SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
 		SDL_Rect longBtnRect = APIHelper::RectHelper(0, 0, 180, 35);
 		SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
+
+		//-- Additional button rects
+		SDL_Rect creditsBtnRect = APIHelper::RectHelper(SCREEN_WIDTH - medBtnRect.w - BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
 
 		//-- Add in menu assets
 
@@ -103,5 +106,9 @@ public:
 		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->AddLabel("Quit", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
+
+		ClientAPI::AddButton("CreditsBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), creditsBtnRect));
+		ClientAPI::GetButton("CreditsBtn")->AddLabel("Credits", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+		ClientAPI::GetButton("CreditsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
 	}
 };
