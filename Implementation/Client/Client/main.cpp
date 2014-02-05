@@ -3,6 +3,7 @@
 //-- Function Prototypes
 void Update(double time);
 void Draw();
+void LoadDeanna();
 
 int main(int argc, char* args[])
 {
@@ -12,22 +13,9 @@ int main(int argc, char* args[])
 	ClientAPI::SetCustomUpdate(Update);
 	ClientAPI::SetCustomDraw(Draw);
 
-	//-- Add in some Sample Assets
-	ClientAPI::AddColour("Colour1", APIHelper::ColourHelper(155, 205, 225, 205));//SDL_Color colour = { 155, 205, 225, 205 };
-	ClientAPI::AddFont("OGWEAR", APIHelper::LoadFont("Resources/Fonts/OGWEAR.ttf", 24));//TTF_Font* font = Window::LoadFont("OGWEAR.ttf", 24);
+	//--Call individual load methods
 
-	ClientAPI::AddButton("Button1", new Button(APIHelper::RectHelper(200, 200, 200, 100)));//Button* b = new Button(Window::RectHelper(200, 200, 200, 100));
-	ClientAPI::GetButton("Button1")->AddLabel("Button Label 25 Button Label 255", ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1"), true);// font, colour, true);
-
-	ClientAPI::AddLabel("Label1", new Label("Text Label 1", APIHelper::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
-
-	ClientAPI::AddGuiContainer("Container 1", new GuiContainer());
-	ClientAPI::GetGuiContainer("Container 1")->AddButton("C Button 1", new Button(APIHelper::RectHelper(300, 500, 100, 100)));
-	ClientAPI::GetGuiContainer("Container 1")->AddLabel("C Label1", new Label("C Text Label 1", APIHelper::RectHelper(200, 600, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
-	ClientAPI::GetGuiContainer("Container 1")->SetPosition(APIHelper::RectHelper(200, -200, 0, 0));
-
-	ClientAPI::RemoveLabel("Label1");
-	ClientAPI::GetGuiContainer("Container 1")->Active = false;
+	LoadDeanna();
 
 	//-- Start the APIs main loop
 	ClientAPI::BeginMainLoop();
@@ -40,11 +28,42 @@ void Update(double time)
 {
 	cout << "Entering Custom Update" << endl;
 
-	SDL_Delay(1000);
+	SDL_Delay(10000);
 	ClientAPI::ExitMainLoop();
 }
 
 void Draw()
 {
 	cout << "Entering Custom Draw" << endl;
+}
+
+void LoadDeanna()
+{
+	TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
+
+	//-- Main colors
+	SDL_Color black = APIHelper::ColourHelper(0, 0, 0, 255);
+	SDL_Color white = APIHelper::ColourHelper(255, 255, 255, 255);
+
+	SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
+	SDL_Texture *smallBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnHover.bmp");
+	SDL_Texture *smallBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnDown.bmp");
+	SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
+	SDL_Texture *medBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnHover.bmp");
+	SDL_Texture *medBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnDown.bmp");
+	SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
+	SDL_Texture *longBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnHover.bmp");
+	SDL_Texture *longBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnDown.bmp");
+
+	//-- Convienient rects
+	SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
+	SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
+	SDL_Rect longBtnRect = APIHelper::RectHelper(0, 0, 180, 35);
+
+	//-- Add in some Sample Assets
+	ClientAPI::AddColour("Black", black);
+	ClientAPI::AddFont("Systema", systema);
+	ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
+	ClientAPI::AddButton("PlayBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), medBtnRect));
+	ClientAPI::GetButton("PlayBtn")->AddLabel("Play", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 }
