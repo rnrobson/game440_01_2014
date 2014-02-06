@@ -52,7 +52,9 @@ void Label::RenderText(const std::string &_text)
 void Label::Update(double _time)
 {
 	if (Active) {
-		GuiElement::Update(_time);
+		if (Enabled) {
+			GuiElement::Update(_time);
+		}
 	}
 }
 

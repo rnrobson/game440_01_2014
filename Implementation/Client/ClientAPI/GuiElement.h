@@ -26,6 +26,7 @@ protected:
 	void(*onTextInputFunc)(SDL_TextInputEvent e);
 public:
 	bool Active = true;
+	bool Enabled = true;
 
 	GuiElement()
 	{
@@ -75,7 +76,7 @@ public:
 		delete &padding;
 	}
 
-	virtual void Update(double _time) { if (Active) { } }
+	virtual void Update(double _time) { if (Active) { if (Enabled) {} } }
 	virtual void Draw()
 	{
 		if (Active) {
@@ -128,14 +129,14 @@ public:
 	void SubscribeOnKeyboardUp(void(*func)(SDL_KeyboardEvent e)) { onKeyboardUpFunc = func; }
 	void SubscribeOnTextInput(void(*func)(SDL_TextInputEvent e)) { onTextInputFunc = func; }
 
-	virtual void OnMouseHover(SDL_MouseMotionEvent e) { if (onMouseHoverFunc != NULL) { (*onMouseHoverFunc)(e); } }
-	virtual void OnMouseClick() { if (onMouseClickFunc != NULL) { (*onMouseClickFunc)(); } }
-	virtual void OnMouseDown(SDL_MouseButtonEvent e) { if (onMouseDownFunc != NULL) { (*onMouseDownFunc)(e); } }
-	virtual void OnMouseUp(SDL_MouseButtonEvent e) { if (onMouseUpFunc != NULL) { (*onMouseUpFunc)(e); } }
+	virtual void OnMouseHover(SDL_MouseMotionEvent e) { if (Enabled && Active) { if (onMouseHoverFunc != NULL) { (*onMouseHoverFunc)(e); } } }
+	virtual void OnMouseClick() { if (Enabled && Active) { if (onMouseClickFunc != NULL) { (*onMouseClickFunc)(); } } }
+	virtual void OnMouseDown(SDL_MouseButtonEvent e) { if (Enabled && Active) { if (onMouseDownFunc != NULL) { (*onMouseDownFunc)(e); } } }
+	virtual void OnMouseUp(SDL_MouseButtonEvent e) { if (Enabled && Active) { if (onMouseUpFunc != NULL) { (*onMouseUpFunc)(e); } } }
 	
-	virtual void OnKeyboardDown(SDL_KeyboardEvent e) { if (onKeyboardDownFunc != NULL) { (*onKeyboardDownFunc)(e); } }
-	virtual void OnKeyboardUp(SDL_KeyboardEvent e) { if (onKeyboardUpFunc != NULL) { (*onKeyboardUpFunc)(e); } }
-	virtual void OnTextInput(SDL_TextInputEvent e) { if (onTextInputFunc != NULL) { (*onTextInputFunc)(e); } }
+	virtual void OnKeyboardDown(SDL_KeyboardEvent e) { if (Enabled && Active) { if (onKeyboardDownFunc != NULL) { (*onKeyboardDownFunc)(e); } } }
+	virtual void OnKeyboardUp(SDL_KeyboardEvent e) { if (Enabled && Active) { if (onKeyboardUpFunc != NULL) { (*onKeyboardUpFunc)(e); } } }
+	virtual void OnTextInput(SDL_TextInputEvent e) { if (Enabled && Active) { if (onTextInputFunc != NULL) { (*onTextInputFunc)(e); } } }
 };
 #endif
 

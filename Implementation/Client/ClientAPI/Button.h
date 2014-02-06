@@ -11,11 +11,15 @@ class Button :
 private:
 	SDL_Texture* downTexture;
 	SDL_Texture* hoverTexture;
+	SDL_Texture* disabledTexture;
 
 	Label* label = nullptr;
 
 	bool isPressedDown = false;
 	bool isHovering = false;
+
+	void LoadButtonTextures(SDL_Rect _rect);
+
 public:
 	//Button();
 	Button(SDL_Texture* _tex, SDL_Rect _rect);
