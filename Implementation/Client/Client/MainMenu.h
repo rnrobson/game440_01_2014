@@ -105,16 +105,53 @@ public:
 		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->AddLabel("Quit", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
-		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SubscribeOnMouseClick(MainMenu::Click_onQuitButton);
 		btnIndex++;
 
 		ClientAPI::AddButton("CreditsBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), creditsBtnRect));
 		ClientAPI::GetButton("CreditsBtn")->AddLabel("Credits", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetButton("CreditsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
+
+		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->SubscribeOnMouseClick(MainMenu::Click_loginButton);
+		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->SubscribeOnMouseClick(MainMenu::Click_createButton);
+		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->SubscribeOnMouseClick(MainMenu::Click_viewButton);
+		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SubscribeOnMouseClick(MainMenu::Click_optionsButton);
+		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->SubscribeOnMouseClick(MainMenu::Click_tutorialButton);
+		ClientAPI::GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SubscribeOnMouseClick(MainMenu::Click_quitButton);
+		ClientAPI::GetButton("CreditsBtn")->SubscribeOnMouseClick(MainMenu::Click_creditsButton);
 	}
 
-	static void Click_onQuitButton()
+	static void Click_loginButton()
+	{
+		cout << "Login to network.\n";
+	}
+
+	static void Click_createButton()
+	{
+		cout << "Create a new game.\n";
+	}
+
+	static void Click_viewButton()
+	{
+		cout << "View saved games.\n";
+	}
+
+	static void Click_optionsButton()
+	{
+		cout << "Open options menu.\n";
+	}
+
+	static void Click_tutorialButton()
+	{
+		cout << "View tutorial sequence.\n";
+	}
+
+	static void Click_quitButton()
 	{
 		ClientAPI::ExitMainLoop();
+	}
+
+	static void Click_creditsButton()
+	{
+		cout << "Show credits.\n";
 	}
 };
