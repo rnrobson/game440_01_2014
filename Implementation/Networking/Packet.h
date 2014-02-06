@@ -1,4 +1,3 @@
-// Packet.h
 #ifndef PACKET_H
 #define PACKET_H
 
@@ -29,12 +28,12 @@ namespace ManaCraft {
 
 			/// <summary>[Packet]
 			/// <para>Send data over the current network connection.</para>
-			/// <param name="securityHeader">[byte* securityHeader] Should point to 4 pre-allocated bytes.</param>
-			/// <param name="protocolID">[byte protocolID] A protocol id that represents the type of data being sent.</param>
-			/// <param name="objTypeID">[byte objTypeID] The id of the object's type being sent.</param>
-			/// <param name="objectNumID">[byte objectNumID] ID of the object.</param>
-			/// <param name="data">[byte* data] A pre-allocated array of bytes of data to be sent.</param>
-			/// <param name="dataLength">[int dataLength] The length of data.</param>
+			/// <para>[byte* securityHeader] Should point to 4 pre-allocated bytes.</para>
+			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
+			/// <para>[byte objTypeID] The id of the object's type being sent.</para>
+			/// <para>[byte objectNumID] ID of the object.</para>
+			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
+			/// <para>[int dataLength] The length of data.</para>
 			/// </summary>
 			Packet(byte* securityHeader, byte protocolID, byte objTypeID, byte objNumID, byte* data, int dataLength);
 
@@ -43,31 +42,31 @@ namespace ManaCraft {
 
 			/// <summary>[SetSecurityHeader]
 			/// <para>[SETTER] Set the packet security header.</para>
-			/// <param name="newHeader">[byte* newHeader] Should point to 4 pre-allocated bytes.</param>
+			/// <para>[byte* newHeader] Should point to 4 pre-allocated bytes.</para>
 			/// </summary>
 			void SetSecurityHeader(byte* newHeader);
 
 			/// <summary>[SetProtocolID]
 			/// <para>[SETTER] Set the packet porotocol ID.</para>
-			/// <param name="protocolID">[byte protocolID] A protocol id that represents the type of data being sent.</param>
+			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// </summary>
 			void SetProtocolID(byte newProtocolID);
 
 			/// <summary>[SetObjTypeID]
 			/// <para>[SETTER] Set the packet object type ID.</para>
-			/// <param name="objTypeID">[byte objTypeID] The id of the object's type being sent.</param>
+			/// <para>[byte objTypeID] The id of the object's type being sent.</para>
 			/// </summary>
 			void SetObjTypeID(byte newObjTypeID);
 
 			/// <summary>[SetObjNumID]
 			/// <para>[SETTER] Set the packet object number ID.</para>
-			/// <param name="objectNumID">[byte objectNumID] ID of the object.</param>
+			/// <para>[byte objectNumID] ID of the object.</para>
 			/// </summary>
 			void SetObjNumID(byte newObjNumID);
 
 			/// <summary>[SetData]
 			/// <para>[SETTER] Set the packet data.</para>
-			/// <param name="data">[byte* data] A pre-allocated array of bytes of data to be sent.</param>
+			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
 			/// </summary>
 			void SetData(byte* newData);
 
@@ -105,7 +104,7 @@ namespace ManaCraft {
 			/// <para>[GETTER] Get the length of the data.</para>
 			/// <returns>Returns the length of the data.</returns>
 			/// </summary>
-			int GetDataLength();
+			int GetDataLength() const;
 		};
 	}
 }

@@ -16,7 +16,7 @@ typedef unsigned char byte;
 
 namespace ManaCraft {
 	namespace Networking {
-		extern NETWORKING_API enum ConnectionStatus {
+		NETWORKING_API enum ConnectionStatus {
 			DISCONNECTED,
 			CONNECTED
 		};
@@ -30,12 +30,13 @@ namespace ManaCraft {
 
 		public:
 			/// <summary>[Connection]
-			/// <para>Create a connection via a host and port</para>
+			/// <para>Create a connection via a host and port.</para>
 			/// </summary>
 			Connection(char* host, Uint16 port);
 
 			/// <summary>[Connection]
-			/// <para>Create a connection via an existing TCPsocket</para>
+			/// <para>Create a connection via an existing TCPsocket.</para>
+			/// <para>[TCPsocket sock] TODO: INFO REQ.</para>
 			/// </summary>
 			Connection(TCPsocket sock);
 
@@ -53,34 +54,34 @@ namespace ManaCraft {
 
 			/// <summary>[Close]
 			/// <para>End the current socket connection.</para>
-			/// <returns>Always returns 0</returns>
+			/// <returns>Always returns 0.</returns>
 			/// </summary>
 			int Close();
 
 			/// <summary>[ReceiveData]
 			/// <para>Receive any data in the network buffer.</para>
-			/// <param name="buf">[byte* buf] The local buffer to recieve the data into.</param>
+			/// <para>[byte* buf] The local buffer to recieve the data into.</para>
 			/// <returns>Returns the length of the data received.</returns>
 			/// </summary>
 			int ReceiveData(byte* buf);
 
 			/// <summary>[SendData]
 			/// <para>Send data over the current network connection.</para>
-			/// <param name="payload">[byte* payload] The byte buffer to be sent.</param>
-			/// <returns>Returns the length of the data sent.</returns>
+			/// <para>[byte* payload] The byte buffer to be sent.</para>
+			/// <return>Returns the length of the data sent.</return>
 			/// </summary>
 			int SendData(byte* payload);
 
 			/// <summary>[SendData]
 			/// <para>Send data over the current network connection.</para>
-			/// <param name="payload">[Packet& payload] A reference to the packet object holding the data to be sent.</param>
-			/// <returns>Returns the length of the data send.</returns>
+			/// <para>[Packet(ref) payload] A reference to the packet object holding the data to be sent.</para>
+			/// <returns>Returns the length of the data sent.</returns>
 			/// </summary>
 			int SendData(Packet& payload);
 
 			/* Do we really need to store the username in the Connection class? */
 			/// <summary>[GetUsername]
-			/// <returns> Returns a std::string representation of the username associated with the Connection. </returns>
+			/// <returns>Returns a std::string representation of the username associated with the Connection.</returns>
 			/// </summary>
 			std::string GetUsername() const;
 
@@ -93,12 +94,12 @@ namespace ManaCraft {
 			 * by returning it from Open() */
 			/// <summary>[GetSocket]
 			/// <returns>Returns the TCPsocket associated with the Connection.</returns>
-			///</summary>
+			/// </summary>
 			TCPsocket GetSocket() const;
 
 			/// <summary>[GetStatus]
 			/// <returns>Returns the ConnectionStatus of the Connection.</returns>
-			///</summary>
+			/// </summary>
 			ConnectionStatus GetStatus() const;
 		};
 	}

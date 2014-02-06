@@ -1,4 +1,5 @@
-#ifndef SERIALIZATION_H
+// Now stored in Serializable.h
+/*#ifndef SERIALIZATION_H
 #define SERIALIZATION_H
 
 class Deserializable
@@ -15,3 +16,4 @@ public:
 	virtual int Deserialize(char* data, int length);
 };
 #endif
+*/
