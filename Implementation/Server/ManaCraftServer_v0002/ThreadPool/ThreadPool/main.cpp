@@ -12,6 +12,24 @@ int WorkerThread(void *ptr);
 int DbThread(void *ptr);
 int ClientThread(void *ptr);
 
+SDL_Thread *incoming, *outgoing; //Incoming and outgoing threads. Handle incoming/outgoing data.
+
+//These store ints temporarily, until we get the correct types.
+std::vector<int> connections; //Vector of connections.
+BlockingQueue<int> dataToWorker; //Data to be sent to the worker.
+BlockingQueue<int> dataToClient; //Data to be sent to a client/clients.
+BlockingQueue<int> dataReceived; //Data received from a client. Needs to be sent to the worker.
+
+bool clientLiaisonRunning; //duh
+
+void InitClientLiaison(); //Initializes required stuff for the client liaison
+void RunClientLiaison(); //Main client liaison thread function;
+void SendToWorker(); //Send the data to the worker
+
+int SendToClient(void*); //function for the outgoing thread. Handles outgoing data/messages/commands for clients.
+int ListenForConnections(void*); //function for the incoming thread. Handles incoming data/messages/commands.
+int SendToClient(void*); //function for the outgoing thread. Handles outgoing data/messages/commands.
+
 int main(int argc, char *argv[])
 {
     SDL_Thread *worker, *db, *client;
@@ -123,10 +141,60 @@ int DbThread(void *ptr)
 
 int ClientThread(void *ptr)
 {
+	InitClientLiaison();
 
+	RunClientLiaison();
 
     return 0;
 }
+
+void InitClientLiaison() {
+	clientLiaisonRunning = false;
+
+	dataReceived = BlockingQueue<int>();
+	dataToClient = BlockingQueue<int>();
+	dataToWorker = BlockingQueue<int>();
+}
+
+void RunClientLiaison() {
+	incoming = SDL_CreateThread(ListenForConnections, "Incoming", NULL);
+
+	if(incoming == NULL) {
+		std::cout << "Failed to create thread 'incoming': " << SDL_GetError << std::endl;
+	}
+
+	outgoing = SDL_CreateThread(SendToClient, "Outgoing", NULL);
+
+	if(outgoing == NULL) {
+		std::cout << "Failed to create thread 'outgoing': " << SDL_GetError << std::endl;
+	}
+
+	while(clientLiaisonRunning) {
+		SendToWorker();
+	}
+}
+
+void SendToWorker() {
+	while(!dataToWorker.empty()) {
+		//Send the data to the worker
+	}
+}
+
+int ListenForConnections(void* data) {
+	while(false) {
+		//Listen for client connections
+	}
+	return 0;
+} //function for the incoming thread. Handles incoming data/messages/commands.
+
+int SendToClient(void* data) {
+	while(false) {
+		//Send data to the client/clients
+	}
+	return 0;
+} //function for the outgoing thread. Handles data/messages/commands to clients.
+
+
 //*/
 
 /*
