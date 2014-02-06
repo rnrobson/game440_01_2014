@@ -2,6 +2,8 @@
 
 #include "GameLobby.h"
 #include "MainMenu.h"
+#include "Credits.h"
+#include "Options.h"
 
 //-- Function Prototypes
 void Update(double time);
@@ -17,11 +19,13 @@ int main(int argc, char* args[])
 
 	//--Call individual load methods
 	MainMenu::Load();
+	//Options::Load();
+	//Credits::Load();
 	//GameLobby::Load();
-
 
 	//-- Start the APIs main loop
 	ClientAPI::BeginMainLoop();
+
 	//-- Quit the API once the APIs Main loop is over
 	ClientAPI::Quit();
 	return 0;

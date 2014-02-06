@@ -16,14 +16,14 @@ protected:
 	SDL_Rect padding;
 	SDL_RendererFlip flip;
 
-	static void(*onMouseHoverFunc)(SDL_MouseMotionEvent e);
-	static void(*onMouseClickFunc)();
-	static void(*onMouseDownFunc)(SDL_MouseButtonEvent e);
-	static void(*onMouseUpFunc)(SDL_MouseButtonEvent e);
+	void(*onMouseHoverFunc)(SDL_MouseMotionEvent e);
+	void(*onMouseClickFunc)();
+	void(*onMouseDownFunc)(SDL_MouseButtonEvent e);
+	void(*onMouseUpFunc)(SDL_MouseButtonEvent e);
 
-	static void(*onKeyboardDownFunc)(SDL_KeyboardEvent e);
-	static void(*onKeyboardUpFunc)(SDL_KeyboardEvent e);
-	static void(*onTextInputFunc)(SDL_TextInputEvent e);
+	void(*onKeyboardDownFunc)(SDL_KeyboardEvent e);
+	void(*onKeyboardUpFunc)(SDL_KeyboardEvent e);
+	void(*onTextInputFunc)(SDL_TextInputEvent e);
 public:
 	bool Active = true;
 
@@ -119,14 +119,14 @@ public:
 	virtual void SetOffset(SDL_Rect _rect){ offset = _rect; }
 	virtual void SetPadding(SDL_Rect _rect) { padding = _rect; }
 
-	static void SubscribeOnMouseHover(void(*func)(SDL_MouseMotionEvent e)) { onMouseHoverFunc = func; }
-	static void SubscribeOnMouseClick(void(*func)()) { onMouseClickFunc = func; }
-	static void SubscribeOnMouseDown(void(*func)(SDL_MouseButtonEvent e)) { onMouseDownFunc = func; }
-	static void SubscribeOnMouseUp(void(*func)(SDL_MouseButtonEvent e)) { onMouseUpFunc = func; }
+	void SubscribeOnMouseHover(void(*func)(SDL_MouseMotionEvent e)) { onMouseHoverFunc = func; }
+	void SubscribeOnMouseClick(void(*func)()) { onMouseClickFunc = func; }
+	void SubscribeOnMouseDown(void(*func)(SDL_MouseButtonEvent e)) { onMouseDownFunc = func; }
+	void SubscribeOnMouseUp(void(*func)(SDL_MouseButtonEvent e)) { onMouseUpFunc = func; }
 
-	static void SubscribeOnKeyboardDown(void(*func)(SDL_KeyboardEvent e)) { onKeyboardDownFunc = func; }
-	static void SubscribeOnKeyboardUp(void(*func)(SDL_KeyboardEvent e)) { onKeyboardUpFunc = func; }
-	static void SubscribeOnTextInput(void(*func)(SDL_TextInputEvent e)) { onTextInputFunc = func; }
+	void SubscribeOnKeyboardDown(void(*func)(SDL_KeyboardEvent e)) { onKeyboardDownFunc = func; }
+	void SubscribeOnKeyboardUp(void(*func)(SDL_KeyboardEvent e)) { onKeyboardUpFunc = func; }
+	void SubscribeOnTextInput(void(*func)(SDL_TextInputEvent e)) { onTextInputFunc = func; }
 
 	virtual void OnMouseHover(SDL_MouseMotionEvent e) { if (onMouseHoverFunc != NULL) { (*onMouseHoverFunc)(e); } }
 	virtual void OnMouseClick() { if (onMouseClickFunc != NULL) { (*onMouseClickFunc)(); } }
