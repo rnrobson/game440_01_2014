@@ -63,6 +63,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\..\SDL Files\SDL_ttf\include;..\..\SDL Files\SDL_image\include;..\..\SDL Files\SDL\include;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\SDL Files\SDL_image\lib\x86;..\..\SDL Files\SDL_ttf\lib\x86;..\..\SDL Files\SDL\lib\x86;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

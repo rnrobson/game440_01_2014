@@ -56,7 +56,7 @@ public:
 		//-- Add in menu assets
 
 		//-- Logo
-		ClientAPI::AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 500, MARGIN_Y, 1000, 300)));
+		ClientAPI::AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
 
 
 		//-- Buttons

@@ -52,7 +52,7 @@ namespace ManaCraft {
 		/// <para>[float num] Num represents a 32 bit floating point number.</para>
 		/// </summary>
 		extern NETWORKING_API void SerializeFloat(byte* data, float num) {
-			return SerializeInt32(data, *(__int32*)&num);
+			SerializeInt32(data, *(__int32*)&num);
 		}
 
 		/// <summary>Converts a 64 bit double into 8 chars.
@@ -60,7 +60,7 @@ namespace ManaCraft {
 		/// <para>[double num] Num represents a 64 bit floating point number.</para>
 		/// </summary>
 		extern NETWORKING_API void SerializeDouble(byte* data, double num) {
-			return SerializeInt64(data, *(__int64*)&num);
+			SerializeInt64(data, *(__int64*)&num);
 		}
 
 		/// <summary> Converts 1 byte into a 8 bit integer.

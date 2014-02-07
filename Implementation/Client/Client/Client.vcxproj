@@ -40,7 +40,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>..\..\SDL Files\SDL_ttf\include;..\..\SDL Files\SDL_image\include;..\..\SDL Files\SDL\include;..\ClientAPI;$(IncludePath)</IncludePath>
-    <LibraryPath>..\Debug;..\..\SDL Files\SDL_ttf\lib\x86;..\..\SDL Files\SDL_image\lib\x86;..\..\SDL Files\SDL\lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>..\;Client\;..\Debug;..\..\SDL Files\SDL_ttf\lib\x86;..\..\SDL Files\SDL_image\lib\x86;..\..\SDL Files\SDL\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
