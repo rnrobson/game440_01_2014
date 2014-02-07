@@ -9,8 +9,8 @@
 		private var layer:Layer;
 		private var tileTest:TilePicker;
 		public function main() {
-			layer = new Layer(20,20);
-			tileTest = new TilePicker(32,32,10,10);
+			layer = new Layer(20,20,"ARTBACKGROUND");
+			tileTest = new TilePicker(32,32);
 			tileTest.x += 32*7*3;
 			addChild(layer);
 			addChild(tileTest);

@@ -31,7 +31,7 @@
 			Layer.currentSelectionBMP = new BitmapData(32,32);
 			Layer.currentSelectionBMP.copyPixels(TilePicker.spriteSheet.bitmapData, myRect, new Point(e.target.x, e.target.y), null, null, false);
 			Layer.currentSelectionID = ID;
-			e.target.graphics.lineStyle(1.5, 0x000000,1.0);
+			e.target.graphics.lineStyle(1.0, 0x000000,1.0);
 		}
 
 	}
