@@ -82,11 +82,6 @@ void GuiContainer::Update(double time)
 void GuiContainer::Draw()
 {
 	if (Active) {
-		for (int i = 0; i < guiContainers.size(); i++)
-		{
-			guiContainers.at(i)->Draw();
-		}
-
 		for (int i = 0; i < guiElements.size(); i++)
 		{
 			guiElements.at(i)->Draw();
@@ -105,6 +100,11 @@ void GuiContainer::Draw()
 		for (int i = 0; i < labels.size(); i++)
 		{
 			labels.at(i)->Draw();
+		}
+
+		for (int i = 0; i < guiContainers.size(); i++)
+		{
+			guiContainers.at(i)->Draw();
 		}
 	}
 }

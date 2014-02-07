@@ -87,11 +87,6 @@ void ClientAPI::Draw()
 	Window::Clear();
 
 	#pragma region Draw All Elements
-	for (size_t i = 0; i < guiContainers.size(); i++)
-	{
-		guiContainers.at(i)->Draw();
-	}
-
 	for (size_t i = 0; i < guiElements.size(); i++)
 	{
 		guiElements.at(i)->Draw();
@@ -110,6 +105,11 @@ void ClientAPI::Draw()
 	for (size_t i = 0; i < labels.size(); i++)
 	{
 		labels.at(i)->Draw();
+	}
+
+	for (size_t i = 0; i < guiContainers.size(); i++)
+	{
+		guiContainers.at(i)->Draw();
 	}
 	#pragma endregion
 
