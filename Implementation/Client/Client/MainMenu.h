@@ -22,6 +22,7 @@ public:
 		ClientAPI::AddColour("Black", black);
 		ClientAPI::AddColour("White", white);
 
+		SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/background.png");
 		SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraft.png");
 		SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
 		SDL_Texture *smallBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnHover.bmp");
@@ -33,6 +34,7 @@ public:
 		SDL_Texture *longBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnHover.bmp");
 		SDL_Texture *longBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnDown.bmp");
 
+		ClientAPI::AddTexture("Background", backgroundTex);
 		ClientAPI::AddTexture("GameLogo", logoTex);
 		ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
 		ClientAPI::AddTexture("SmallBtnHover", smallBtnHoverTex);
@@ -55,9 +57,11 @@ public:
 
 		//-- Add in menu assets
 
+		//-- Background
+		ClientAPI::AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("Background"), APIHelper::RectHelper(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)));
+
 		//-- Logo
 		ClientAPI::AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
-
 
 		//-- Buttons
 		ClientAPI::AddGuiContainer("BtnHolder", new GuiContainer());
