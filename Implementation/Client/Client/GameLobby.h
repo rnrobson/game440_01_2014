@@ -17,18 +17,23 @@ public:
 		API_Util::AddFont("OGWEAR", "Resources/Fonts/OGWEAR.ttf", 36);
 		API_Util::AddFont("Systema_11", "Resources/Fonts/9SYSTEMA.ttf", 11);
 		API_Util::AddFont("Systema_22", "Resources/Fonts/9SYSTEMA.ttf", 22);
+
 		//add colors to be used for buttons, labels, etc
 		API_Util::AddColor("White", 255, 255, 255, 255);
 		API_Util::AddColor("LightBlue", 0, 162, 232, 255);
 		API_Util::AddColor("Red", 255, 0, 0, 255);
 		
 		//add textures
+		API_Util::AddTexture("Background", "Resources/Images/background.png", API_Util::PNG);
 		API_Util::AddTexture("SmallBtnNormal", "Resources/GUITextures/smallBtnNormal.bmp", API_Util::BMP);
 		API_Util::AddTexture("SmallBtnHover", "Resources/GUITextures/smallBtnHover.bmp", API_Util::BMP);
 		API_Util::AddTexture("SmallBtnDown", "Resources/GUITextures/smallBtnDown.bmp", API_Util::BMP);
 		API_Util::AddTexture("MedBtnNormal", "Resources/GUITextures/medBtnNormal.bmp", API_Util::BMP);
 		API_Util::AddTexture("MedBtnHover", "Resources/GUITextures/medBtnHover.bmp", API_Util::BMP);
 		API_Util::AddTexture("MedBtnDown", "Resources/GUITextures/medBtnDown.bmp", API_Util::BMP);
+
+		//add background
+		ClientAPI::GetGuiContainer("GameLobby")->AddGuiElement("bg", new GuiElement(ClientAPI::GetTexture("Background"), { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }));
 
 		//add labels
 		ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("lblCon", new GuiContainer());
@@ -42,11 +47,11 @@ public:
 		//add join and leave buttons to container
 		ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("teamAllocBtnsCon", new GuiContainer());
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
-			"JoinI", { 100, 450, 100, 50 }, "MedBtnNormal");
+			"JoinI", { 100, 480, 100, 50 }, "MedBtnNormal");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
-			"JoinDO", { SCREEN_WIDTH - 200, 450, 100, 50 }, "MedBtnNormal");
+			"JoinDO", { SCREEN_WIDTH - 200, 480, 100, 50 }, "MedBtnNormal");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
-			"backToBench", { (SCREEN_WIDTH / 2) - 50, 490, 100, 60 }, "MedBtnNormal");
+			"backToBench", { (SCREEN_WIDTH / 2) - 50, 520, 100, 60 }, "MedBtnNormal");
 
 		//start with backToBench button disabled
 		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->Enabled = false;
@@ -55,13 +60,13 @@ public:
 		ClientAPI::AddGuiContainer("gameSetBtnsCon", new GuiContainer());
 		ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("gameSetBtnsCon", new GuiContainer());
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
-			"startGame", { 900, 600, 100, 30 }, "MedBtnNormal");
+			"startGame", { 900, 620, 100, 30 }, "MedBtnNormal");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
-			"closeGame", { 900, 630, 100, 30 }, "MedBtnNormal");
+			"closeGame", { 900, 650, 100, 30 }, "MedBtnNormal");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
-			"gameOptions", { 900, 660, 100, 30 }, "MedBtnNormal");
+			"gameOptions", { 900, 680, 100, 30 }, "MedBtnNormal");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
-			"returnToMainMenu", { 900, 690, 100, 30 }, "MedBtnNormal");
+			"returnToMainMenu", { 900, 720, 100, 30 }, "MedBtnNormal");
 
 		//add texts to buttons
 		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
@@ -111,6 +116,10 @@ public:
 			SubscribeOnMouseClick(ShowGameOptions);
 		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("returnToMainMenu")->
 			SubscribeOnMouseClick(ReturnToMainMenu);
+
+		//start with Game Lobby not active
+		//when the player clicks "Create Game" in the Main Menu, make Game Lobby active
+		ClientAPI::GetGuiContainer("GameLobby")->Active = false;
 	}
 	static void Update(double _time) //might not be needed
 	{
@@ -163,6 +172,7 @@ public:
 	static void ReturnToMainMenu()
 	{
 		ClientAPI::GetGuiContainer("GameLobby")->Active = false;
+		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 	}
 
 	static void EnableJoinBtns(bool _state)

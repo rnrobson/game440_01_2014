@@ -26,7 +26,7 @@ int main(int argc, char* args[])
 	MainMenu::Load();
 	//Options::Load();
 	//Credits::Load();
-	//GameLobby::Load();
+	GameLobby::Load();
 
 	//-- Start the APIs main loop
 	ClientAPI::BeginMainLoop();
