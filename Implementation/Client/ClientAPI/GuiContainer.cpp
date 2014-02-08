@@ -117,30 +117,32 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 			guic->HandleMouseMotionEvent(e);
 		}
 	}
-	for each (Button* b in buttons)
-	{
-		if (b->Active) {
-			b->OnMouseHover(e);
-		}
-	}
-}
-void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
-{
 
-}
-void GuiContainer::HandleMouseClickEvent()
-{
-	for each (GuiContainer* guic in guiContainers)
+	for each (GuiElement* element in guiElements)
 	{
-		if (guic->Active) {
-			guic->HandleMouseClickEvent();
+		if (element->Active) {
+			element->OnMouseMotion(e);
 		}
 	}
-	for each (Button* b in buttons)
+
+	for each (Button* button in buttons)
 	{
-		if (b->Active) {
-			if (b->Intersects(APIEvents::MousePosition))
-				b->OnMouseClick();
+		if (button->Active) {
+			button->OnMouseHover(e);
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnMouseHover(e);
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active) {
+			textField->OnMouseHover(e);
 		}
 	}
 }
@@ -152,11 +154,36 @@ void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 			guic->HandleMouseDownEvent(e);
 		}
 	}
-	for each (Button* b in buttons)
+
+	for each (GuiElement* element in guiElements)
 	{
-		if (b->Active) {
-			if (b->Intersects(APIEvents::MousePosition))
-				b->OnMouseDown(e);
+		if (element->Active) {
+			if (element->Intersects(APIEvents::MousePosition))
+				element->OnMouseDown(e);
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			if (button->Intersects(APIEvents::MousePosition))
+				button->OnMouseDown(e);
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			if (label->Intersects(APIEvents::MousePosition))
+				label->OnMouseDown(e);
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active) {
+			if (textField->Intersects(APIEvents::MousePosition))
+				textField->OnMouseDown(e);
 		}
 	}
 }
@@ -168,18 +195,185 @@ void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 			guic->HandleMouseUpEvent(e);
 		}
 	}
-	for each (Button* b in buttons)
+
+	for each (GuiElement* element in guiElements)
 	{
-		if (b->Active) {
-			b->OnMouseUp(e);
+		if (element->Active) {
+			element->OnMouseUp(e);
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			button->OnMouseUp(e);
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnMouseUp(e);
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active) {
+			textField->OnMouseUp(e);
+		}
+	}
+}
+void GuiContainer::HandleMouseClickEvent()
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleMouseClickEvent();
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			if (element->Intersects(APIEvents::MousePosition))
+				element->OnMouseClick();
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			if (button->Intersects(APIEvents::MousePosition))
+				button->OnMouseClick();
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			if (label->Intersects(APIEvents::MousePosition))
+				label->OnMouseClick();
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active) {
+			if (textField->Intersects(APIEvents::MousePosition))
+				textField->OnMouseClick();
+		}
+	}
+}
+
+void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleTextInputEvent(e);
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnTextInput(e);
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			button->OnTextInput(e);
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnTextInput(e);
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active && textField->Enabled) {
+			textField->OnTextInput(e);
 		}
 	}
 }
 void GuiContainer::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 {
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleKeyboardDownEvent(e);
+		}
+	}
 
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnKeyboardDown(e);
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			button->OnKeyboardDown(e);
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnKeyboardDown(e);
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active && textField->Enabled) {
+			textField->OnKeyboardDown(e);
+		}
+	}
 }
 void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleKeyboardUpEvent(e);
+		}
+	}
 
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnKeyboardUp(e);
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			button->OnKeyboardUp(e);
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnKeyboardUp(e);
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active && textField->Enabled) {
+			textField->OnKeyboardUp(e);
+		}
+	}
 }

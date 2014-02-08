@@ -3,33 +3,13 @@
 void Button::LoadButtonTextures(SDL_Rect _rect)
 {
 	//-- Down Texture
-	SDL_Surface *downSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, _rect.w, _rect.h, 32, 0, 0, 0, 1); // 16
-	SDL_FillRect(downSurface, NULL, SDL_MapRGB(downSurface->format, 0, 0, 0));
-
-	SDL_Texture *downTexture = SDL_CreateTextureFromSurface(Window::Renderer(), downSurface);
-	SDL_SetTextureAlphaMod(downTexture, 155);
-	Button::downTexture = downTexture;
+	Button::downTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 0, 0, 0, 155 });
 
 	//-- Hover Texture
-	SDL_Surface *hoverSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, _rect.w, _rect.h, 32, 0, 0, 0, 1); // 8
-	SDL_FillRect(hoverSurface, NULL, SDL_MapRGB(hoverSurface->format, 255, 255, 255));
-
-	SDL_Texture *hoverTexture = SDL_CreateTextureFromSurface(Window::Renderer(), hoverSurface);
-	SDL_SetTextureAlphaMod(hoverTexture, 155);
-	Button::hoverTexture = hoverTexture;
+	Button::hoverTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 255, 255, 255, 155 });
 
 	//-- Disabled Textures
-	SDL_Surface *disabledSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, _rect.w, _rect.h, 32, 0, 0, 0, 1);
-	SDL_FillRect(disabledSurface, NULL, SDL_MapRGB(disabledSurface->format, 255, 0, 0));
-
-	SDL_Texture *disabledTexture = SDL_CreateTextureFromSurface(Window::Renderer(), disabledSurface);
-	SDL_SetTextureAlphaMod(disabledTexture, 155);
-	Button::disabledTexture = disabledTexture;
-
-	//-- Free Surfaces
-	SDL_FreeSurface(downSurface);
-	SDL_FreeSurface(hoverSurface);
-	SDL_FreeSurface(disabledSurface);
+	Button::disabledTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 255, 0, 0, 155 });
 }
 
 Button::Button(SDL_Texture* _tex, SDL_Rect _rect)
@@ -44,14 +24,7 @@ Button::Button(SDL_Rect _rect)
 	LoadButtonTextures(_rect);
 
 	//-- Regular Texture
-	SDL_Surface *regularSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, _rect.w, _rect.h, 8, 0, 0, 0, 1);
-	SDL_FillRect(regularSurface, NULL, SDL_MapRGB(regularSurface->format, 0, 0, 0));
-
-	SDL_Texture *regularTexture = SDL_CreateTextureFromSurface(Window::Renderer(), regularSurface);
-	SDL_SetTextureAlphaMod(regularTexture, 255);
-	Button::texture = regularTexture;
-
-	SDL_FreeSurface(regularSurface);
+	Button::texture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 0, 0, 0, 255 });
 }
 
 Button::~Button()
