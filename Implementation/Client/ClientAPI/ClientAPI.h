@@ -12,6 +12,8 @@
 #include "Button.h"
 #include "Label.h"
 #include "TextField.h"
+#include "Checkbox.h"
+#include "Slider.h"
 
 class ClientAPI
 {
@@ -34,15 +36,6 @@ private:
 	static vector<std::string> guiElementKeys;
 	static vector<GuiElement*> guiElements;
 
-	static vector<std::string> buttonKeys;
-	static vector<Button*> buttons;
-
-	static vector<std::string> textFieldKeys;
-	static vector<TextField*> textFields;
-
-	static vector<std::string> labelKeys;
-	static vector<Label*> labels;
-
 	static bool quit;
 
 	static void (*CustomUpdateFunc)(double);
@@ -54,18 +47,12 @@ private:
 		colourKeys = vector<std::string>{};
 		guiContainerKeys = vector<std::string>{};
 		guiElementKeys = vector<std::string>{};
-		buttonKeys = vector<std::string>{};
-		textFieldKeys = vector<std::string>{};
-		labelKeys = vector<std::string>{};
 
 		fonts = vector<TTF_Font*>{};
 		textures = vector<SDL_Texture*>{};
 		colours = vector<SDL_Color>{};
 		guiContainers = vector<GuiContainer*>{};
 		guiElements = vector<GuiElement*>{};
-		buttons = vector<Button*>{};
-		textFields = vector<TextField*>{};
-		labels = vector<Label*>{};
 
 		CustomUpdateFunc = nullptr;
 		CustomDrawFunc = nullptr;
@@ -95,28 +82,6 @@ private:
 
 		guiElementKeys.clear();
 		guiElements.clear();
-
-		buttonKeys.clear();
-		buttons.clear();
-
-		textFieldKeys.clear();
-		textFields.clear();
-
-		labelKeys.clear();
-		labels.clear();
-
-		//delete &fontKeys;
-		//delete &fonts;
-		//delete &textureKeys;
-		//delete &textures;
-		//delete &guiElementKeys;
-		//delete &guiElements;
-		//delete &buttonKeys;
-		//delete &buttons;
-		//delete &textFieldKeys;
-		//delete &textFields;
-		//delete &labelKeys;
-		//delete &labels;
 	}
 
 	static void HandleMouseMotionEvent(SDL_MouseMotionEvent e);
@@ -178,25 +143,7 @@ public:
 		guiElementKeys.push_back(_key);
 		guiElements.push_back(_guiElement);
 	}
-
-	static void AddButton(std::string _key, Button* _button)
-	{
-		buttonKeys.push_back(_key);
-		buttons.push_back(_button);
-	}
-
-	static void AddTextField(std::string _key, TextField* _textField)
-	{
-		textFieldKeys.push_back(_key);
-		textFields.push_back(_textField);
-	}
-
-	static void AddLabel(std::string _key, Label* _label)
-	{
-		labelKeys.push_back(_key);
-		labels.push_back(_label);
-	}
-		#pragma endregion
+	#pragma endregion
 	#pragma region Removes
 	static void RemoveFont(std::string _key)
 	{
@@ -264,45 +211,6 @@ public:
 			}
 		}
 	}
-
-	static void RemoveButton(std::string _key)
-	{
-		for (size_t i = 0; i < buttonKeys.size(); i++)
-		{
-			if (buttonKeys.at(i) == _key)
-			{
-				buttonKeys.erase(buttonKeys.begin() + i);
-				buttons.erase(buttons.begin() + i);
-				break;
-			}
-		}
-	}
-
-	static void RemoveTextField(std::string _key)
-	{
-		for (size_t i = 0; i < textFieldKeys.size(); i++)
-		{
-			if (textFieldKeys.at(i) == _key)
-			{
-				textFieldKeys.erase(textFieldKeys.begin() + i);
-				textFields.erase(textFields.begin() + i);
-				break;
-			}
-		}
-	}
-
-	static void RemoveLabel(std::string _key)
-	{
-		for (size_t i = 0; i < labelKeys.size(); i++)
-		{
-			if (labelKeys.at(i) == _key)
-			{
-				labelKeys.erase(labelKeys.begin() + i);
-				labels.erase(labels.begin() + i);
-				break;
-			}
-		}
-	}
 	#pragma endregion
 	#pragma region Gets
 	static TTF_Font* GetFont(std::string _key)
@@ -360,42 +268,6 @@ public:
 			if (guiElementKeys.at(i) == _key)
 			{
 				return guiElements.at(i);
-			}
-		}
-		return nullptr;
-	}
-
-	static Button* GetButton(std::string _key)
-	{
-		for (size_t i = 0; i < buttonKeys.size(); i++)
-		{
-			if (buttonKeys.at(i) == _key)
-			{
-				return buttons.at(i);
-			}
-		}
-		return nullptr;
-	}
-
-	static TextField* GetTextField(std::string _key)
-	{
-		for (size_t i = 0; i < textFieldKeys.size(); i++)
-		{
-			if (textFieldKeys.at(i) == _key)
-			{
-				return textFields.at(i);
-			}
-		}
-		return nullptr;
-	}
-
-	static Label* GetLabel(std::string _key)
-	{
-		for (size_t i = 0; i < labelKeys.size(); i++)
-		{
-			if (labelKeys.at(i) == _key)
-			{
-				return labels.at(i);
 			}
 		}
 		return nullptr;

@@ -7,12 +7,14 @@ GuiContainer::GuiContainer()
 	buttonKeys = vector<std::string>{};
 	textFieldKeys = vector<std::string>{};
 	labelKeys = vector<std::string>{};
+	checkboxKeys = vector<std::string>{};
 
 	guiContainers = vector<GuiContainer*>{};
 	guiElements = vector<GuiElement*>{};
 	buttons = vector<Button*>{};
 	textFields = vector<TextField*>{};
 	labels = vector<Label*>{};
+	checkboxes = vector<Checkbox*>{};
 
 	Active = true;
 	SetPosition({ 0, 0, 0, 0 });
@@ -47,16 +49,16 @@ void GuiContainer::SetPosition(SDL_Rect _position)
 		labels.at(i)->SetOffset(_position);
 	}
 
+	for (size_t i = 0; i < checkboxes.size(); i++)
+	{
+		checkboxes.at(i)->SetOffset(_position);
+	}
+
 }
 
 void GuiContainer::Update(double time)
 {
 	if (Active){
-		for (int i = 0; i < guiContainers.size(); i++)
-		{
-			guiContainers.at(i)->Update(time);
-		}
-
 		for (int i = 0; i < guiElements.size(); i++)
 		{
 			guiElements.at(i)->Update(time);
@@ -76,9 +78,23 @@ void GuiContainer::Update(double time)
 		{
 			labels.at(i)->Update(time);
 		}
+
+		for (size_t i = 0; i < checkboxes.size(); i++)
+		{
+			checkboxes.at(i)->Update(time);
+		}
+
+		for (size_t i = 0; i < sliders.size(); i++)
+		{
+			sliders.at(i)->Update(time);
+		}
+
+		for (int i = 0; i < guiContainers.size(); i++)
+		{
+			guiContainers.at(i)->Update(time);
+		}
 	}
 }
-
 void GuiContainer::Draw()
 {
 	if (Active) {
@@ -100,6 +116,16 @@ void GuiContainer::Draw()
 		for (int i = 0; i < labels.size(); i++)
 		{
 			labels.at(i)->Draw();
+		}
+
+		for (size_t i = 0; i < checkboxes.size(); i++)
+		{
+			checkboxes.at(i)->Draw();
+		}
+
+		for (size_t i = 0; i < sliders.size(); i++)
+		{
+			sliders.at(i)->Draw();
 		}
 
 		for (int i = 0; i < guiContainers.size(); i++)
@@ -145,6 +171,20 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 			textField->OnMouseHover(e);
 		}
 	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnMouseHover(e);
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnMouseHover(e);
+		}
+	}
 }
 void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 {
@@ -186,6 +226,22 @@ void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 				textField->OnMouseDown(e);
 		}
 	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			if (checkbox->Intersects(APIEvents::MousePosition))
+				checkbox->OnMouseDown(e);
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			if (slider->Intersects(APIEvents::MousePosition))
+				slider->OnMouseDown(e);
+		}
+	}
 }
 void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 {
@@ -221,6 +277,20 @@ void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 	{
 		if (textField->Active) {
 			textField->OnMouseUp(e);
+		}
+	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnMouseUp(e);
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnMouseUp(e);
 		}
 	}
 }
@@ -264,6 +334,22 @@ void GuiContainer::HandleMouseClickEvent()
 				textField->OnMouseClick();
 		}
 	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			if (checkbox->Intersects(APIEvents::MousePosition))
+				checkbox->OnMouseClick();
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			if (slider->Intersects(APIEvents::MousePosition))
+				slider->OnMouseClick();
+		}
+	}
 }
 
 void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
@@ -300,6 +386,20 @@ void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
 	{
 		if (textField->Active && textField->Enabled) {
 			textField->OnTextInput(e);
+		}
+	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnTextInput(e);
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnTextInput(e);
 		}
 	}
 }
@@ -339,6 +439,20 @@ void GuiContainer::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 			textField->OnKeyboardDown(e);
 		}
 	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnKeyboardDown(e);
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnKeyboardDown(e);
+		}
+	}
 }
 void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
@@ -374,6 +488,20 @@ void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 	{
 		if (textField->Active && textField->Enabled) {
 			textField->OnKeyboardUp(e);
+		}
+	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnKeyboardUp(e);
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnKeyboardUp(e);
 		}
 	}
 }

@@ -29,13 +29,13 @@ Button::Button(SDL_Rect _rect)
 
 Button::~Button()
 {
-	Free();
-
 	if (label != nullptr)
 		delete label;
 
 	SDL_DestroyTexture(downTexture);
 	SDL_DestroyTexture(hoverTexture);
+
+	GuiElement::~GuiElement();
 }
 
 void Button::AddLabel(const std::string &_text, TTF_Font* _font, SDL_Color _color, bool center)

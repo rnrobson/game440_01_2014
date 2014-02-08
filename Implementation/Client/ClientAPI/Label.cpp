@@ -14,10 +14,10 @@ Label::Label(const std::string &_text, SDL_Rect _rect, TTF_Font* _font, SDL_Colo
 
 Label::~Label()
 {
-	Free();
-
 	delete &text;
 	delete &fontColor;
+
+	GuiElement::~GuiElement();
 }
 
 void Label::RenderText() { RenderText(text); }

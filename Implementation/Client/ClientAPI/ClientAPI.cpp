@@ -16,15 +16,6 @@ vector<GuiContainer*> ClientAPI::guiContainers;
 vector<std::string> ClientAPI::guiElementKeys;
 vector<GuiElement*> ClientAPI::guiElements;
 
-vector<std::string> ClientAPI::buttonKeys;
-vector<Button*> ClientAPI::buttons;
-
-vector<std::string> ClientAPI::textFieldKeys;
-vector<TextField*> ClientAPI::textFields;
-
-vector<std::string> ClientAPI::labelKeys;
-vector<Label*> ClientAPI::labels;
-
 void (*ClientAPI::CustomUpdateFunc)(double);
 void (*ClientAPI::CustomDrawFunc)();
 
@@ -61,21 +52,6 @@ void ClientAPI::Update(double time)
 	{
 		guiElements.at(i)->Update(time);
 	}
-
-	for (size_t i = 0; i < buttons.size(); i++)
-	{
-		buttons.at(i)->Update(time);
-	}
-
-	for (size_t i = 0; i < textFields.size(); i++)
-	{
-		textFields.at(i)->Update(time);
-	}
-
-	for (size_t i = 0; i < labels.size(); i++)
-	{
-		labels.at(i)->Update(time);
-	}
 	#pragma endregion
 
 	//-- Run Custom Update if it exists
@@ -90,21 +66,6 @@ void ClientAPI::Draw()
 	for (size_t i = 0; i < guiElements.size(); i++)
 	{
 		guiElements.at(i)->Draw();
-	}
-
-	for (size_t i = 0; i < buttons.size(); i++)
-	{
-		buttons.at(i)->Draw();
-	}
-
-	for (size_t i = 0; i < textFields.size(); i++)
-	{
-		textFields.at(i)->Draw();
-	}
-
-	for (size_t i = 0; i < labels.size(); i++)
-	{
-		labels.at(i)->Draw();
 	}
 
 	for (size_t i = 0; i < guiContainers.size(); i++)
@@ -184,27 +145,6 @@ void ClientAPI::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 			element->OnMouseMotion(e);
 		}
 	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			button->OnMouseHover(e);
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			label->OnMouseHover(e);
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active) {
-			textField->OnMouseHover(e);
-		}
-	}
 }
 void ClientAPI::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 {
@@ -222,30 +162,6 @@ void ClientAPI::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 				element->OnMouseDown(e);
 		}
 	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			if (button->Intersects(APIEvents::MousePosition))
-				button->OnMouseDown(e);
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			if (label->Intersects(APIEvents::MousePosition))
-				label->OnMouseDown(e);
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active) {
-			if (textField->Intersects(APIEvents::MousePosition))
-				textField->OnMouseDown(e);
-		}
-	}
 }
 void ClientAPI::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 {
@@ -260,27 +176,6 @@ void ClientAPI::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 	{
 		if (element->Active) {
 			element->OnMouseUp(e);
-		}
-	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			button->OnMouseUp(e);
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			label->OnMouseUp(e);
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active) {
-			textField->OnMouseUp(e);
 		}
 	}
 }
@@ -300,30 +195,6 @@ void ClientAPI::HandleMouseClickEvent()
 				element->OnMouseClick();
 		}
 	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			if (button->Intersects(APIEvents::MousePosition))
-				button->OnMouseClick();
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			if (label->Intersects(APIEvents::MousePosition))
-				label->OnMouseClick();
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active) {
-			if (textField->Intersects(APIEvents::MousePosition))
-				textField->OnMouseClick();
-		}
-	}
 }
 
 void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
@@ -339,27 +210,6 @@ void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
 	{
 		if (element->Active) {
 			element->OnTextInput(e);
-		}
-	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			button->OnTextInput(e);
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			label->OnTextInput(e);
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active && textField->Enabled) {
-			textField->OnTextInput(e);
 		}
 	}
 }
@@ -378,27 +228,6 @@ void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 			element->OnKeyboardDown(e);
 		}
 	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			button->OnKeyboardDown(e);
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			label->OnKeyboardDown(e);
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active && textField->Enabled) {
-			textField->OnKeyboardDown(e);
-		}
-	}
 }
 void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
@@ -413,27 +242,6 @@ void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 	{
 		if (element->Active) {
 			element->OnKeyboardUp(e);
-		}
-	}
-
-	for each (Button* button in buttons)
-	{
-		if (button->Active) {
-			button->OnKeyboardUp(e);
-		}
-	}
-
-	for each (Label* label in labels)
-	{
-		if (label->Active) {
-			label->OnKeyboardUp(e);
-		}
-	}
-
-	for each (TextField* textField in textFields)
-	{
-		if (textField->Active && textField->Enabled) {
-			textField->OnKeyboardUp(e);
 		}
 	}
 }

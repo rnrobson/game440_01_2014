@@ -12,11 +12,11 @@ public:
 		BMP
 	};
 
-	static void AddButton(string _btnName, SDL_Rect _rect, string _texName = "")
+	static void AddButton(string _containerName, string _btnName, SDL_Rect _rect, string _texName = "")
 	{
 		(_texName == "") ?
-			ClientAPI::AddButton(_btnName, new Button(_rect)) :
-			ClientAPI::AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
+			ClientAPI::GetGuiContainer(_containerName)->AddButton(_btnName, new Button(_rect)) :
+			ClientAPI::GetGuiContainer(_containerName)->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
 	}
 
 	static void AddButtonToContainer(GuiContainer *_cName, string _btnName, SDL_Rect _rect, string _texName = "")
@@ -36,9 +36,9 @@ public:
 		ClientAPI::AddFont(_fontName, Window::LoadFont(_filePath, _fontSize));
 	}
 
-	static void AddLabel(string _lblName, string _text, SDL_Rect _rect, string _fontName, string _clrName)
+	static void AddLabel(string _containerName, string _lblName, string _text, SDL_Rect _rect, string _fontName, string _clrName)
 	{
-		ClientAPI::AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
+		ClientAPI::GetGuiContainer(_containerName)->AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
 	}
 
 	static void AddLabelToContainer(GuiContainer *_cName, string _lblName, string _text, SDL_Rect _rect, string _fontName, string _clrName)
@@ -59,8 +59,8 @@ public:
 			ClientAPI::AddTexture(_texName, APIHelper::LoadPNGTexture(_filePath));
 	}
 
-	static void AddTextField(string _tfName, SDL_Rect _rect, string _fontName)
+	static void AddTextField(string _containerName, string _tfName, SDL_Rect _rect, string _fontName)
 	{
-		ClientAPI::AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName)));
+		ClientAPI::GetGuiContainer(_containerName)->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName)));
 	}
 };

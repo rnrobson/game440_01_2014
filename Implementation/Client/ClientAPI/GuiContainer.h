@@ -9,6 +9,8 @@
 #include "Button.h"
 #include "Label.h"
 #include "TextField.h"
+#include "Checkbox.h"
+#include "Slider.h"
 
 class GuiContainer
 {
@@ -28,10 +30,19 @@ private:
 	vector<std::string> labelKeys;
 	vector<Label*> labels;
 
+	vector<std::string> checkboxKeys;
+	vector<Checkbox*> checkboxes;
+
+	vector<std::string> sliderKeys;
+	vector<Slider*> sliders;
+
 	SDL_Rect position;
 
 	void CleanMemory()
 	{
+		guiContainerKeys.clear();
+		guiContainers.clear();
+
 		guiElementKeys.clear();
 		guiElements.clear();
 
@@ -44,18 +55,11 @@ private:
 		labelKeys.clear();
 		labels.clear();
 
-		//delete &fontKeys;
-		//delete &fonts;
-		//delete &textureKeys;
-		//delete &textures;
-		//delete &guiElementKeys;
-		//delete &guiElements;
-		//delete &buttonKeys;
-		//delete &buttons;
-		//delete &textFieldKeys;
-		//delete &textFields;
-		//delete &labelKeys;
-		//delete &labels;
+		checkboxKeys.clear();
+		checkboxes.clear();
+
+		sliderKeys.clear();
+		sliders.clear();
 	}
 
 public:
@@ -103,6 +107,22 @@ public:
 
 		_label->SetOffset(position);
 		labels.push_back(_label);
+	}
+
+	void AddCheckbox(std::string _key, Checkbox* _checkbox)
+	{
+		checkboxKeys.push_back(_key);
+
+		_checkbox->SetOffset(position);
+		checkboxes.push_back(_checkbox);
+	}
+
+	void AddSlider(std::string _key, Slider* _slider)
+	{
+		labelKeys.push_back(_key);
+
+		_slider->SetOffset(position);
+		sliders.push_back(_slider);
 	}
 #pragma endregion
 #pragma region Removes
@@ -170,6 +190,32 @@ public:
 			}
 		}
 	}
+
+	void RemoveCheckbox(std::string _key)
+	{
+		for (size_t i = 0; i < checkboxKeys.size(); i++)
+		{
+			if (checkboxKeys.at(i) == _key)
+			{
+				checkboxKeys.erase(checkboxKeys.begin() + i);
+				checkboxes.erase(checkboxes.begin() + i);
+				break;
+			}
+		}
+	}
+
+	void RemoveSlider(std::string _key)
+	{
+		for (size_t i = 0; i < sliderKeys.size(); i++)
+		{
+			if (sliderKeys.at(i) == _key)
+			{
+				sliderKeys.erase(sliderKeys.begin() + i);
+				sliders.erase(sliders.begin() + i);
+				break;
+			}
+		}
+	}
 #pragma endregion
 #pragma region Gets
 	GuiContainer* GetGuiContainer(std::string _key)
@@ -227,6 +273,30 @@ public:
 			if (labelKeys.at(i) == _key)
 			{
 				return labels.at(i);
+			}
+		}
+		return nullptr;
+	}
+
+	Checkbox* GetCheckbox(std::string _key)
+	{
+		for (size_t i = 0; i < checkboxKeys.size(); i++)
+		{
+			if (checkboxKeys.at(i) == _key)
+			{
+				return checkboxes.at(i);
+			}
+		}
+		return nullptr;
+	}
+
+	Slider* GetSlider(std::string _key)
+	{
+		for (size_t i = 0; i < sliderKeys.size(); i++)
+		{
+			if (sliderKeys.at(i) == _key)
+			{
+				return sliders.at(i);
 			}
 		}
 		return nullptr;
