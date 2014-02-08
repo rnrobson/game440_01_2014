@@ -19,11 +19,11 @@ public:
 			ClientAPI::AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
 	}
 
-	static void AddButtonToContainer(string _cName, string _btnName, SDL_Rect _rect, string _texName = "")
+	static void AddButtonToContainer(GuiContainer *_cName, string _btnName, SDL_Rect _rect, string _texName = "")
 	{
 		(_texName == "") ?
-			ClientAPI::GetGuiContainer(_cName)->AddButton(_btnName, new Button(_rect)) :
-			ClientAPI::GetGuiContainer(_cName)->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
+			_cName->AddButton(_btnName, new Button(_rect)) :
+			_cName->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
 	}
 
 	static void AddColor(string _clrName, int _r, int _g, int _b, int _a)
@@ -41,9 +41,14 @@ public:
 		ClientAPI::AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
 	}
 
-	static void AddLabelToContainerButton(string _cName, string _btnName, string _lblName, string _fontName, string _clrName, bool _center = false)
+	static void AddLabelToContainer(GuiContainer *_cName, string _lblName, string _text, SDL_Rect _rect, string _fontName, string _clrName)
 	{
-		ClientAPI::GetGuiContainer(_cName)->GetButton(_btnName)->
+		_cName->AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
+	}
+
+	static void AddLabelToContainerButton(GuiContainer *_cName, string _btnName, string _lblName, string _fontName, string _clrName, bool _center = false)
+	{
+		_cName->GetButton(_btnName)->
 			AddLabel(_lblName, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName), _center);
 	}
 
