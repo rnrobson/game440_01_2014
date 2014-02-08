@@ -27,25 +27,32 @@ namespace ManaCraft {
 			// Connection type protocols are: 150 - 199
 			// There are currently: 3/49
 			
-			/// <summary>Sends info to all clients in the case that someone disconnects</summary>
+			/// <summary>Sends info to all clients in the case that someone disconnects
+			/// Data format: [1] Player Name Length [N] Player Name </summary>
 			CLIENT_LOST = 150,
-			/// <summary>Sends into to all clients in the case someone reconnects</summary>
+			/// <summary>Sends info to all clients in the case someone reconnects
+			/// Data format: [1] Player Name Length [N] Player Name</summary> //doubleCheck Possibly team 
 			CLIENT_REJOIN,
-			/// <summary>Returns information for successful/unsuccessful login</summary>
+			/// <summary>Returns information for successful/unsuccessful login
+			/// Data format: [1] Player Name Length [N] Player Name [1] Successful/UnSuccessful</sumarry>///doubleCheck 
 			RETURN_LOGIN_STATUS,
 
 
 			// Chat oriented protocols are: 225 - 249
 			// There are currently: 4/24
 
-			/// <summary>Requests that all the clients that receive the message display it in the “All” chat room</summary>
-			BROADCAST_MESSAGE = 350,
-			/// <summary>Sends the whisper to the client it was directed to</summary>
+			/// <summary>Requests that all the clients that receive the message display it in the “All” chat room
+			///Data format: [1] Player Name Length [N] Player Name [1] Length Of Message [N] Message</sumarry>
+			BROADCAST_MESSAGE_TO_ALL = 350,
+			/// <summary>Sends the whisper to the client it was directed to
+			/// Data format: [1] Player Name Length [N] Player Name [1] Reciever Name Length [N] Reciever Name [1]  </summary>
 			DISPLAY_WHISPER = 351,
-			/// <summary>Sends the message to all members of the party</summary>
+			/// <summary>Sends the message to all members of the party
+			/// Data format: TODO </summary>
 			BROADCAST_PARTY_MESSAGE = 352,
-			/// <summary>Relays information about the person to be kicked to the host</summary>
-			SC_RETURN_KICK_STATUS = 353,
+			/// <summary>Relays information about the person to be kicked to the host
+			/// Data format: TODO </summary>
+			RETURN_KICK_STATUS = 353,
 
 
 
@@ -58,22 +65,30 @@ namespace ManaCraft {
 			// Game Lobby oriented protocols for Server are: 350 - 399
 			// There are currently: TODO/49
 
-			///<summary>Allows the server to send X game objects for the client to view</summary>
+			///<summary>Allows the server to send X game objects for the client to view
+			/// Data format: TODO </summary>
 			POPULATE_GAMES = 350,
 			///<summary>Allows the server to send the data of all the clients viewing/joined the selected game 
-			///This is used to send over ready statues, and if the players are benched or on a specific team</summary>
+			///This is used to send over ready statues, and if the players are benched or on a specific team
+			/// Data format: TODO </summary>
 			POPULATE_CLIENTS,
-			///<summary>Returns this in the case that the bench or both teams are full</summary>
+			///<summary>Returns this in the case that the bench or both teams are full
+			/// Data format: TODO </summary>
 			UNABLE_TO_JOIN,
-			///<summary>Gives the player that requested to host a game the information and control over the game created for them</summary>
+			///<summary>Gives the player that requested to host a game the information and control over the game created for them
+			/// Data format: TODO </summary>
 			GAME_CREATED,
-			///<summary>In the case that the server is unable to create the game – this can return the reasoning or be left blank</summary>
+			///<summary>In the case that the server is unable to create the game – this can return the reasoning or be left blank
+			/// Data format: TODO </summary>
 			UNABLE_TO_CREATE_GAME,
-			///<summary>Sends information to all the clients in the now disbanded game</summary>
+			///<summary>Sends information to all the clients in the now disbanded game
+			/// Data format: TODO </summary>
 			GAME_DISBANDED,
-			///<summary>In the case that the player is unable to join the team – either due to internal issues, or team capacity</summary>
+			///<summary>In the case that the player is unable to join the team – either due to internal issues, or team capacity
+			/// Data format: TODO </summary>
 			UNABLE_TO_JOIN_TEAM,
-			///<summary>When the gameplay options are updated by the host, this will be sent to all the clients within that game and notify them of the changes</summary>
+			///<summary>When the gameplay options are updated by the host, this will be sent to all the clients within that game and notify them of the changes
+			/// Data format: TODO </summary>
 			UPDATE_GAMEPLAY_OPTIONS,
 
 
@@ -82,11 +97,14 @@ namespace ManaCraft {
 
 			/// <summary>
 			/// Data format: TODO </summary>
-			///<summary>Sends a request to all players of the game to pause the active game</summary>
+			///<summary>Sends a request to all players of the game to pause the active game
+
 			PAUSE_GAME = 500,
-			///<summary>Requests that all the clients of the game end the game and proceed to the load screen</summary>
+			///<summary>Requests that all the clients of the game end the game and proceed to the load screen
+			/// Data format: TODO </summary>
 			END_GAME,
-			///<summary>Requests that the game commence again</summary>
+			///<summary>Requests that the game commence again
+			/// Data format: TODO </summary>
 			RESUME_GAME,
 			///<summary>Requests that the game ends and a notification is sent notifying the players they can resume at a later time/date</summary>
 			SHUTDOWN_GAME
