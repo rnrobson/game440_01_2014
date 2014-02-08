@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\API Utilities">
+      <UniqueIdentifier>{010e7fdc-2f78-4337-8ae4-7a705e663562}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Menus">
+      <UniqueIdentifier>{e9d0604b-5ea0-4b79-a4fa-52fb63395c88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,17 +26,20 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameLobby.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="API_Util.h">
+      <Filter>Header Files\API Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Credits.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Options.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLobby.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
