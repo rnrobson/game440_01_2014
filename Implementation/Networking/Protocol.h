@@ -43,16 +43,16 @@ namespace ManaCraft {
 
 			/// <summary>Requests that all the clients that receive the message display it in the “All” chat room
 			///Data format: [1] Player Name Length [N] Player Name [1] Length Of Message [N] Message</sumarry>
-			BROADCAST_MESSAGE_TO_ALL = 350,
+			BROADCAST_MESSAGE_TO_ALL = 225,
 			/// <summary>Sends the whisper to the client it was directed to
 			/// Data format: [1] Player Name Length [N] Player Name [1] Reciever Name Length [N] Reciever Name [1]  </summary>
-			DISPLAY_WHISPER = 351,
+			DISPLAY_WHISPER,
 			/// <summary>Sends the message to all members of the party
 			/// Data format: TODO </summary>
-			BROADCAST_PARTY_MESSAGE = 352,
+			BROADCAST_PARTY_MESSAGE,
 			/// <summary>Relays information about the person to be kicked to the host
 			/// Data format: TODO </summary>
-			RETURN_KICK_STATUS = 353,
+			RETURN_KICK_STATUS,
 
 
 
@@ -116,7 +116,6 @@ namespace ManaCraft {
 
 		};
 
-
 		/// <summary>The list of all the protocols that will be relayed from Client to Server by the network.</summary>
 		NETWORKING_API enum CS_Protocol {
 			// Connection Type Protocols are: 100 - 149
@@ -154,10 +153,10 @@ namespace ManaCraft {
 
 			/// <summary>Requests that the player joins the team they have selected
 			/// Data format: TODO </summary>
-			JOIN_TEAM,
+			JOIN_TEAM = 300,
 			/// <summary>Requests that the player leave from the game they are currently in. 
 			/// Data format: TODO </summary>
-			LEAVE_GAME = 300,
+			LEAVE_GAME,
 			/// <summary>Requests that the player is sent back to the bench if they are currently on a team
 			/// Data format: TODO </summary>
 			BENCH_PLAYER,
@@ -217,7 +216,7 @@ namespace ManaCraft {
 			
 			/// <summary>Host Only - Requests to the server that a designated player is kicked from the match.
 			/// Data format: TODO </summary>
-			KICK_PLAYER,
+			KICK_PLAYER = 600,
 			/// <summary>A request sent to the server to pause the game. - When two are received in X amount of time the game will pause
 			/// Data format: TODO </summary>
 			PAUSE_GAME,
