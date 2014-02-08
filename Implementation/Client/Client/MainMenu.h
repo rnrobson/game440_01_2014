@@ -9,7 +9,7 @@ public:
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
 		const int MARGIN_Y = 60;
-		const int BUTTON_SPC_Y = 5, BUTTON_SPC_X = 5;
+		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
