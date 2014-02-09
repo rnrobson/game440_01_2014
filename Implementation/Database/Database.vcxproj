@@ -53,6 +53,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DATABASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\MilkyKipples\TOWERDEFENCEGAME440\Implementation\Networking;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -79,9 +80,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DLL_Example.cpp" />
+    <ClCompile Include="GridLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DLL_Example.h" />
+    <ClInclude Include="GridLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Networking\Networking.vcxproj">
+      <Project>{aab7b544-7d46-440e-b0a3-d3814f8fd7e8}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

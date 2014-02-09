@@ -18,9 +18,15 @@
     <ClCompile Include="DLL_Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GridLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DLL_Example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridLayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
