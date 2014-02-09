@@ -17,11 +17,16 @@ int main(int argc, char* args[])
 	ClientAPI::SetCustomUpdate(Update);
 	ClientAPI::SetCustomDraw(Draw);
 
+	//-- Example of New GUI since Last ClientAPI change
+	//ClientAPI::AddGuiContainer("cnt", new GuiContainer());
+	//ClientAPI::GetGuiContainer("cnt")->AddCheckbox("chk", new Checkbox({ 50, 50, 50, 50 }, { 255, 0, 0, 255 }, { 255, 255, 255, 255 }));
+	//ClientAPI::GetGuiContainer("cnt")->GetCheckbox("chk")->Checked = true;
+
 	//--Call individual load methods
 	MainMenu::Load();
 	//Options::Load();
 	//Credits::Load();
-	//GameLobby::Load();
+	GameLobby::Load();
 
 	//-- Start the APIs main loop
 	ClientAPI::BeginMainLoop();

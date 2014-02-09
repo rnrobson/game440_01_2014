@@ -17,6 +17,8 @@ TextField::TextField(SDL_Rect _rect, TTF_Font* _font)
 TextField::~TextField()
 {
 	delete backgroundTexture;
+
+	GuiElement::~GuiElement();
 }
 
 void TextField::Update(double _time)

@@ -16,15 +16,6 @@ vector<GuiContainer*> ClientAPI::guiContainers;
 vector<std::string> ClientAPI::guiElementKeys;
 vector<GuiElement*> ClientAPI::guiElements;
 
-vector<std::string> ClientAPI::buttonKeys;
-vector<Button*> ClientAPI::buttons;
-
-vector<std::string> ClientAPI::textFieldKeys;
-vector<TextField*> ClientAPI::textFields;
-
-vector<std::string> ClientAPI::labelKeys;
-vector<Label*> ClientAPI::labels;
-
 void (*ClientAPI::CustomUpdateFunc)(double);
 void (*ClientAPI::CustomDrawFunc)();
 
@@ -61,21 +52,6 @@ void ClientAPI::Update(double time)
 	{
 		guiElements.at(i)->Update(time);
 	}
-
-	for (size_t i = 0; i < buttons.size(); i++)
-	{
-		buttons.at(i)->Update(time);
-	}
-
-	for (size_t i = 0; i < textFields.size(); i++)
-	{
-		textFields.at(i)->Update(time);
-	}
-
-	for (size_t i = 0; i < labels.size(); i++)
-	{
-		labels.at(i)->Update(time);
-	}
 	#pragma endregion
 
 	//-- Run Custom Update if it exists
@@ -90,21 +66,6 @@ void ClientAPI::Draw()
 	for (size_t i = 0; i < guiElements.size(); i++)
 	{
 		guiElements.at(i)->Draw();
-	}
-
-	for (size_t i = 0; i < buttons.size(); i++)
-	{
-		buttons.at(i)->Draw();
-	}
-
-	for (size_t i = 0; i < textFields.size(); i++)
-	{
-		textFields.at(i)->Draw();
-	}
-
-	for (size_t i = 0; i < labels.size(); i++)
-	{
-		labels.at(i)->Draw();
 	}
 
 	for (size_t i = 0; i < guiContainers.size(); i++)
@@ -161,6 +122,10 @@ void ClientAPI::CheckEvents()
 		HandleMouseClickEvent();
 	}
 
+	if (APIHelper::DidKeyGetPressed(SDL_SCANCODE_RETURN)) {
+
+	}
+
 	APIEvents::PreviousKeyboardState = APIEvents::CurrentKeyboardState;
 	APIEvents::PreviousMouseState = APIEvents::CurrentMouseState;
 }
@@ -173,30 +138,11 @@ void ClientAPI::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 			guic->HandleMouseMotionEvent(e);
 		}
 	}
-	for each (Button* b in buttons)
-	{
-		if (b->Active) {
-			b->OnMouseHover(e);
-		}
-	}
-}
-void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
-{
 
-}
-void ClientAPI::HandleMouseClickEvent()
-{
-	for each (GuiContainer* guic in guiContainers)
+	for each (GuiElement* element in guiElements)
 	{
-		if (guic->Active) {
-			guic->HandleMouseClickEvent();
-		}
-	}
-	for each (Button* b in buttons)
-	{
-		if (b->Active) {
-			if (b->Intersects(APIEvents::MousePosition))
-				b->OnMouseClick();
+		if (element->Active) {
+			element->OnMouseMotion(e);
 		}
 	}
 }
@@ -208,11 +154,12 @@ void ClientAPI::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 			guic->HandleMouseDownEvent(e);
 		}
 	}
-	for each (Button* b in buttons)
+
+	for each (GuiElement* element in guiElements)
 	{
-		if (b->Active) {
-			if (b->Intersects(APIEvents::MousePosition))
-				b->OnMouseDown(e);
+		if (element->Active) {
+			if (element->Intersects(APIEvents::MousePosition))
+				element->OnMouseDown(e);
 		}
 	}
 }
@@ -224,19 +171,77 @@ void ClientAPI::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 			guic->HandleMouseUpEvent(e);
 		}
 	}
-	for each (Button* b in buttons)
+
+	for each (GuiElement* element in guiElements)
 	{
-		if (b->Active) {
-			if (b->Intersects(APIEvents::MousePosition))
-				b->OnMouseUp(e);
+		if (element->Active) {
+			element->OnMouseUp(e);
+		}
+	}
+}
+void ClientAPI::HandleMouseClickEvent()
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleMouseClickEvent();
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			if (element->Intersects(APIEvents::MousePosition))
+				element->OnMouseClick();
+		}
+	}
+}
+
+void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
+{
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleTextInputEvent(e);
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnTextInput(e);
 		}
 	}
 }
 void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 {
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleKeyboardDownEvent(e);
+		}
+	}
 
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnKeyboardDown(e);
+		}
+	}
 }
 void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleKeyboardUpEvent(e);
+		}
+	}
 
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnKeyboardUp(e);
+		}
+	}
 }

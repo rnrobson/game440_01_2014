@@ -6,6 +6,7 @@
 //#include "Includes.h"
 //#include <SDL.h>
 #include "Window.h"
+#include "APIHelper.h"
 
 class GuiElement
 {
@@ -16,8 +17,9 @@ protected:
 	SDL_Rect padding;
 	SDL_RendererFlip flip;
 
-	void(*onMouseHoverFunc)(SDL_MouseMotionEvent e);
 	void(*onMouseClickFunc)();
+	void(*onMouseMotionFunc)(SDL_MouseMotionEvent e);
+	void(*onMouseHoverFunc)(SDL_MouseMotionEvent e);
 	void(*onMouseDownFunc)(SDL_MouseButtonEvent e);
 	void(*onMouseUpFunc)(SDL_MouseButtonEvent e);
 
@@ -120,8 +122,9 @@ public:
 	virtual void SetOffset(SDL_Rect _rect){ offset = _rect; }
 	virtual void SetPadding(SDL_Rect _rect) { padding = _rect; }
 
-	void SubscribeOnMouseHover(void(*func)(SDL_MouseMotionEvent e)) { onMouseHoverFunc = func; }
 	void SubscribeOnMouseClick(void(*func)()) { onMouseClickFunc = func; }
+	void SubscribeOnMouseMove(void(*func)(SDL_MouseMotionEvent e)) { onMouseMotionFunc = func; }
+	void SubscribeOnMouseHover(void(*func)(SDL_MouseMotionEvent e)) { onMouseHoverFunc = func; }
 	void SubscribeOnMouseDown(void(*func)(SDL_MouseButtonEvent e)) { onMouseDownFunc = func; }
 	void SubscribeOnMouseUp(void(*func)(SDL_MouseButtonEvent e)) { onMouseUpFunc = func; }
 
@@ -129,8 +132,9 @@ public:
 	void SubscribeOnKeyboardUp(void(*func)(SDL_KeyboardEvent e)) { onKeyboardUpFunc = func; }
 	void SubscribeOnTextInput(void(*func)(SDL_TextInputEvent e)) { onTextInputFunc = func; }
 
-	virtual void OnMouseHover(SDL_MouseMotionEvent e) { if (Enabled && Active) { if (onMouseHoverFunc != NULL) { (*onMouseHoverFunc)(e); } } }
 	virtual void OnMouseClick() { if (Enabled && Active) { if (onMouseClickFunc != NULL) { (*onMouseClickFunc)(); } } }
+	virtual void OnMouseMotion(SDL_MouseMotionEvent e) { if (Enabled && Active) { if (onMouseMotionFunc != NULL) { (*onMouseMotionFunc)(e); } } }
+	virtual void OnMouseHover(SDL_MouseMotionEvent e) { if (Enabled && Active) { if (onMouseHoverFunc != NULL) { (*onMouseHoverFunc)(e); } } }
 	virtual void OnMouseDown(SDL_MouseButtonEvent e) { if (Enabled && Active) { if (onMouseDownFunc != NULL) { (*onMouseDownFunc)(e); } } }
 	virtual void OnMouseUp(SDL_MouseButtonEvent e) { if (Enabled && Active) { if (onMouseUpFunc != NULL) { (*onMouseUpFunc)(e); } } }
 	
