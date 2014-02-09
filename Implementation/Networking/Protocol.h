@@ -16,104 +16,152 @@ namespace ManaCraft {
 		// This is the format for the comments for each protocol
 
 		/// <summary>
-		/// Data format: TODO </summary>
+		/// Data: TODO </summary>
 
-		//Please use the descripts here and in the master list. Since some here are outta date, and some
-		//in the list are fucking weird and make no sense. 
+		// Please use the descripts here and in the master list. Since some here are outta date, and some
+		// in the list are weird and make no sense. 
 
 
-		/// <summary> The list of Server to client protocols that will be sent over the network.</summary>
+		/// <summary>The list of Server to client protocols that will be sent over the network.</summary>
 		NETWORKING_API enum SC_Protocol {
 			// Connection type protocols are: 150 - 199
-			// There are currently: 3/49
+			// There are currently: 3/50
 			
 			/// <summary>Sends info to all clients in the case that someone disconnects
-			/// Data format: [1] Player Name Length [N] Player Name </summary>
+			/// <para>Data: [1] Username Length [N] Username </para>
+			/// </summary>
 			CLIENT_LOST = 150,
 			/// <summary>Sends info to all clients in the case someone reconnects
-			/// Data format: [1] Player Name Length [N] Player Name</summary> //doubleCheck Possibly team 
+			/// <para>Data: [1] Username Length [N] Username </para>
+			/// </summary> // Double check team 
 			CLIENT_REJOIN,
 			/// <summary>Returns information for successful/unsuccessful login
-			/// Data format: [1] Player Name Length [N] Player Name [1] Successful/UnSuccessful</sumarry>///doubleCheck 
+			/// <para>Data: [1] Username Length [N] Username [1] Successful/UnSuccessful</para>
+			/// </summary> // Double check 
 			RETURN_LOGIN_STATUS,
 
 
 			// Chat oriented protocols are: 225 - 249
-			// There are currently: 4/24
+			// There are currently: 4/25
 
 			/// <summary>Requests that all the clients that receive the message display it in the “All” chat room
-			///Data format: [1] Player Name Length [N] Player Name [1] Length Of Message [N] Message</sumarry>
+			/// <para>Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
+			/// </summary>
 			BROADCAST_MESSAGE_TO_ALL = 225,
 			/// <summary>Sends the whisper to the client it was directed to
-			/// Data format: [1] Player Name Length [N] Player Name [1] Reciever Name Length [N] Reciever Name [1]  </summary>
+			/// <para>Data: [1] Username Length [N] Username [1] Reciever Name Length [N] Reciever Name [1]</para>
+			/// </summary>
 			DISPLAY_WHISPER,
 			/// <summary>Sends the message to all members of the party
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO</para>
+			/// </summary>
 			BROADCAST_PARTY_MESSAGE,
 			/// <summary>Relays information about the person to be kicked to the host
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO</para>
+			/// </summary>
 			RETURN_KICK_STATUS,
 
 
 
 			// Game Viewer oriented protocols are: 275 - 299
-			// There are currently: /24
+			// There are currently: /25
 			// TODO add the game viewer server to client protocols
 
 
 
 			// Game Lobby oriented protocols for Server are: 350 - 399
-			// There are currently: TODO/49
+			// There are currently: 8/50
 
-			///<summary>Allows the server to send X game objects for the client to view
-			/// Data format: TODO </summary>
+			/// <summary>Allows the server to send X game objects for the client to view
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			POPULATE_GAMES = 350,
-			///<summary>Allows the server to send the data of all the clients viewing/joined the selected game 
-			///This is used to send over ready statues, and if the players are benched or on a specific team
-			/// Data format: TODO </summary>
+			/// <summary>Allows the server to send the data of all the clients viewing/joined the selected game 
+			/// <para>This is used to send over ready statues, and if the players are benched or on a specific team</para>
+			/// <para>Data: TODO</para>
+			/// </summary>
 			POPULATE_CLIENTS,
-			///<summary>Returns this in the case that the bench or both teams are full
-			/// Data format: TODO </summary>
+			/// <summary>Returns this in the case that the bench or both teams are full
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			UNABLE_TO_JOIN,
-			///<summary>Gives the player that requested to host a game the information and control over the game created for them
-			/// Data format: TODO </summary>
+			/// <summary>Gives the player that requested to host a game the information and control over the game created for them
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			GAME_CREATED,
-			///<summary>In the case that the server is unable to create the game – this can return the reasoning or be left blank
-			/// Data format: TODO </summary>
+			/// <summary>In the case that the server is unable to create the game – this can return the reasoning or be left blank
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			UNABLE_TO_CREATE_GAME,
-			///<summary>Sends information to all the clients in the now disbanded game
-			/// Data format: TODO </summary>
+			/// <summary>Sends information to all the clients in the now disbanded game
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			GAME_DISBANDED,
-			///<summary>In the case that the player is unable to join the team – either due to internal issues, or team capacity
-			/// Data format: TODO </summary>
+			/// <summary>In the case that the player is unable to join the team – either due to internal issues, or team capacity
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			UNABLE_TO_JOIN_TEAM,
-			///<summary>When the gameplay options are updated by the host, this will be sent to all the clients within that game and notify them of the changes
-			/// Data format: TODO </summary>
+			/// <summary>When the gameplay options are updated by the host, this will be sent to all the clients within that game and notify them of the changes
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			UPDATE_GAMEPLAY_OPTIONS,
 
 
 			// Gameplay oriented protocols are: 500 - 599
 			// There are currently: TODO/99
 
-			/// <summary>
-			/// Data format: TODO </summary>
-			///<summary>Sends a request to all players of the game to pause the active game
-
+			/// <summary>Sends a request to all players of the game to pause the active game
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			PAUSE_GAME = 500,
-			///<summary>Requests that all the clients of the game end the game and proceed to the load screen
-			/// Data format: TODO </summary>
+			/// <summary>Requests that all the clients of the game end the game and proceed to the load screen
+			/// <para>Data: TODO</para> 
+			/// </summary>
 			END_GAME,
-			///<summary>Requests that the game commence again
-			/// Data format: TODO </summary>
+			/// <summary>Requests that the game commence again
+			/// <para>Data: TODO</para>
+			/// </summary>
 			RESUME_GAME,
-			///<summary>Requests that the game ends and a notification is sent notifying the players they can resume at a later time/date</summary>
-			SHUTDOWN_GAME
-
-
-
-			// The internal server commands that shouldn't be here are: 1000 - 1100
-			// There are currently: 0/100
-
+			/// <summary>Requests that the game ends and a notification is sent notifying the players they can resume at a later time/date
+			/// <para>Data: TODO</para>
+			/// </summary>
+			SHUTDOWN_GAME,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			SUMMON_MINION_BC,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			SUMMON_MINION,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			PLACE_TOWER_BC,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			PLACE_TOWER,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			UPDATE_ECONOMY,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			UPDATE_BASE_HP,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			ASSIGN_RESOURCE_NODE,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			RESEARCH_MINION,
+			/// <summary> TODO
+			/// <para>Data: TODO</para>
+			/// </summary>
+			RESEARCH_TOWER
 		};
 
 		/// <summary>The list of all the protocols that will be relayed from Client to Server by the network.</summary>
@@ -122,13 +170,13 @@ namespace ManaCraft {
 			// There are currently: 3/49
 
 			/// <summary>Will close the game for the player, and the connection with the server.
-			/// Data format: [1] Player Name Length [N] Player Name </summary>
+			/// <para>Data: [1] Username Length, [N] Username </summary>
 			CLOSE_GAME = 100,
-			///<summary>Sends a request to the server for the player to connect.
-			/// Data format: [1] Player Name Length [N] Player Name </summary>
+			/// <summary>Sends a request to the server for the player to connect.
+			/// <para>Data: [1] Username Length, [N] Username </summary>
 			LOGIN_PLAYER,
-			///<summary>Requests that the server disconnects the player.
-			/// Data format: [1] Player Name Length [N] Player Name </summary>
+			/// <summary>Requests that the server disconnects the player.
+			/// <para>Data: [1] Username Length, [N] Username </summary>
 			LOGOUT_PLAYER,
 
 
@@ -137,13 +185,13 @@ namespace ManaCraft {
 			// There are currently: 3/24
 
 			/// <summary>Sends a request for a list of refreshed games in the Game Viewer scene.
-			/// Data format: [1] Player Name Length, [N] Player Name, [4] LobbyID </summary>
+			/// <para>Data: [1] Username Length, [1] Game Count, [N] Username, [N] Game Data </summary>
 			REFRESH_GAMES = 250,
 			/// <summary>Requests that the player joins the selected game.
-			/// Data format: [1] Player Name Length, [N] Player Name, [4] GameID </summary>
+			/// <para>Data: [4] GameID, [1] Username Length, [N] Username </summary>
 			JOIN_GAME,
 			/// <summary>Requests that the server create a game with the player as the host.
-			/// Data format: [1] Player Name Length, [N] Player Name</summary>
+			/// <para>Data: [1] Username Length, [N] Username</summary>
 			CREATE_GAME,
 
 
@@ -152,22 +200,22 @@ namespace ManaCraft {
 			// There are currently: /49
 
 			/// <summary>Requests that the player joins the team they have selected
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] LobbyID, [4] TeamID, [1] Username Length, [N] Username </summary>
 			JOIN_TEAM = 300,
 			/// <summary>Requests that the player leave from the game they are currently in. 
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] LobbyID, [1] Username Length, [N] Username </summary>
 			LEAVE_GAME,
 			/// <summary>Requests that the player is sent back to the bench if they are currently on a team
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] LobbyID, [1] Username Length, [N] Username </summary>
 			BENCH_PLAYER,
 			/// <summary>Updates the player's ready status and sends it to the server.
-			/// Data format: TODO </summary>
+			/// <para>Data: [1] Ready Status, [1] Username Length, [N] Username </summary>
 			READY_STATUS,
-			/// <summary>Host Only - Requests that the game the player is a host of is disbanded
-			/// Data format: TODO </summary>
+			/// <summary>Host Only - Requests that the host's game be disbanded.
+			/// <para>Data: [4] GameID </summary>
 			DISBAND_GAME,
 			/// <summary>Host Only - Will send to the server the new gameplay options for the players
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] GameID, [???] OptionsData </summary>
 			SET_GAMEPLAY_OPTIONS,
 
 
@@ -176,19 +224,19 @@ namespace ManaCraft {
 			// There are currently: 3/24
 
 			/// <summary>Will send a message to the server meant for all the players within that game
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
 			SEND_MESSAGE_IG = 200,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
 			SEND_MESSAGE_GL,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// Data format: TODO </summary>
+			/// <para>Data: [1] Username Length (S), [1] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message </summary>
 			SEND_WHISPER,
 			/// <summary>Will send a message to the server meant for players in the same party - while in game.
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] GameID, [4] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
 			SEND_PARTY_MSG_IG,
 			/// <summary>Will send a message to the server meant for players in the same party - while in the game lobby.
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
 			SEND_PARTY_MSG_GL,
 			
 
@@ -197,16 +245,16 @@ namespace ManaCraft {
 			//There are currently: 4/99
 			
 			/// <summary> Sends a requests to the server to place a tower in the designated spot.
-			/// Data format: TODO </summary>
+			/// <para>Data: [4] GameID, [4] TowerID, [4] Gridspace, [1] Username Length, [N] Username </summary>
 			PLACE_TOWER = 400,
 			/// <summary> Sends a request to the server to place a minion at the starting portal.
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			SUMMON_MINION,
 			/// <summary> Sends a request to research a minion for the team.
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			RESEARCH_MINION,
 			/// <summary> Sends a request to research a tower for the team.
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			RESEARCH_TOWER,
 
 
@@ -215,19 +263,19 @@ namespace ManaCraft {
 			// There are currently: 5/24
 			
 			/// <summary>Host Only - Requests to the server that a designated player is kicked from the match.
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			KICK_PLAYER = 600,
 			/// <summary>A request sent to the server to pause the game. - When two are received in X amount of time the game will pause
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			PAUSE_GAME,
 			/// <summary>Host Only - will request that the server save and quit the current game, will be able to resume at a later time. 
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			END_GAME,
 			/// <summary> Host Only - Requests that the server resume the game from a paused status. 
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			RESUME_GAME,
 			/// <summary> Notifies the server that a player has left the game.
-			/// Data format: TODO </summary>
+			/// <para>Data: TODO </summary>
 			QUIT_GAME,
 		};
 	}
