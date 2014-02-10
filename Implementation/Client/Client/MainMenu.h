@@ -37,14 +37,8 @@ public:
 		ClientAPI::AddTexture("Background", backgroundTex);
 		ClientAPI::AddTexture("GameLogo", logoTex);
 		ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
-		ClientAPI::AddTexture("SmallBtnHover", smallBtnHoverTex);
-		ClientAPI::AddTexture("SmallBtnDown", smallBtnDownTex);
 		ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
-		ClientAPI::AddTexture("MedBtnHover", medBtnHoverTex);
-		ClientAPI::AddTexture("MedBtnDown", medBtnDownTex);
 		ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
-		ClientAPI::AddTexture("LongBtnHover", longBtnHoverTex);
-		ClientAPI::AddTexture("LongBtnDown", longBtnDownTex);
 
 		//-- Convienient rects
 		SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
@@ -160,5 +154,7 @@ public:
 	static void Click_creditsButton()
 	{
 		cout << "Show credits.\n";
+		ClientAPI::GetGuiContainer("Credits")->Active = true;
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	}
 };

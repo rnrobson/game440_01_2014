@@ -8,6 +8,13 @@ public:
 	{
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
+		const int LABEL_SPACE_Y = 25;
+		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
+
+		string clientStrings[8] = { "Andrew Godfroy", "Cassandra Siewert", "Christian Adao", "David Vo", "Geordie Powers", "Neil Schlachter", "Tyler Remazki" };
+		string networkStrings[7] = { "Joshua O'Donnell", "Philip Diehl", "Dean Watts", "Suleyman Tahirli", "Brian Lefrancois", "Sarah Childs", "Mitch Andrews" };
+		string serverStrings[7] = { "Wayne Gauthier", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Rohun Banerji" };
+		string databaseStrings[5] = { "Robert Evola", "Matt Mayo", "Vinny Crupi", "Kyle Nokes", "Jordan Hurst" };
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
@@ -22,19 +29,75 @@ public:
 
 		//-- Load Textures
 		SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/backgroundPlain.png");
+		SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
+		SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
+		SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
+
 		ClientAPI::AddTexture("BackgroundPlain", backgroundTex);
+		ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
+		ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
+		ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
 
 		//-- Convienient rects
+		SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
+		SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
+		SDL_Rect longBtnRect = APIHelper::RectHelper(0, 0, 180, 35);
 		SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
+
+		//-- Other rects
+		SDL_Rect backBtnRect = APIHelper::RectHelper(SCREEN_WIDTH - medBtnRect.w - BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
+		SDL_Rect clientRect = APIHelper::RectHelper(SCREEN_WIDTH / 6, SCREEN_HEIGHT / 4, 0, 0);
+		SDL_Rect networkRect = APIHelper::RectHelper(SCREEN_WIDTH - (SCREEN_WIDTH / 6) * 2, SCREEN_HEIGHT / 4, 0, 0);
+		SDL_Rect serverRect = APIHelper::RectHelper(SCREEN_WIDTH / 6, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 6, 0, 0);
+		SDL_Rect databaseRect = APIHelper::RectHelper(SCREEN_WIDTH - (SCREEN_WIDTH / 6) * 2, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 6, 0, 0);
 
 		//-- Add in credits assets
 		ClientAPI::AddGuiContainer("Credits", new GuiContainer());
-
 		ClientAPI::GetGuiContainer("Credits")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("BackgroundPlain"), APIHelper::RectHelper(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)));
+		ClientAPI::GetGuiContainer("Credits")->AddGuiContainer("ClientCredits", new GuiContainer());
+		ClientAPI::GetGuiContainer("Credits")->AddGuiContainer("NetworkCredits", new GuiContainer());
+		ClientAPI::GetGuiContainer("Credits")->AddGuiContainer("ServerCredits", new GuiContainer());
+		ClientAPI::GetGuiContainer("Credits")->AddGuiContainer("DatabaseCredits", new GuiContainer());
 
-		/*for (int i = 0; i < 4; i++)
+		ClientAPI::GetGuiContainer("Credits")->AddButton("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
+		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+		//ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->SubscribeOnMouseClick(Credits::Click_backButton);
+
+		for (int i = 0; i < 8; i++)
 		{
-			ClientAPI::GetGuiContainer("Credits")->AddLabel()
-		}*/
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddLabel("c" + i, new Label(clientStrings[i], 
+				APIHelper::RectHelper(clientRect.x, clientRect.y + (i * LABEL_SPACE_Y), clientRect.w, LABEL_SPACE_Y), 
+				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		}
+
+		for (int i = 0; i < 7; i++)
+		{
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("NetworkCredits")->AddLabel("n" + i, new Label(networkStrings[i], 
+				APIHelper::RectHelper(networkRect.x, networkRect.y + (i * LABEL_SPACE_Y), networkRect.w, LABEL_SPACE_Y), 
+				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		}
+
+		for (int i = 0; i < 7; i++)
+		{
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ServerCredits")->AddLabel("s" + i, new Label(serverStrings[i], 
+				APIHelper::RectHelper(serverRect.x, serverRect.y + (i * LABEL_SPACE_Y), serverRect.w, LABEL_SPACE_Y), 
+				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		}
+
+		for (int i = 0; i < 5; i++)
+		{
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("DatabaseCredits")->AddLabel("d" + i, new Label(databaseStrings[i], 
+				APIHelper::RectHelper(databaseRect.x, databaseRect.y + (i * LABEL_SPACE_Y), databaseRect.w, LABEL_SPACE_Y), 
+				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		}
+		ClientAPI::GetGuiContainer("Credits")->Active = false;
+	}
+
+	static void Click_backButton()
+	{
+		cout << "Back to main menu.\n";
+		ClientAPI::GetGuiContainer("Credits")->Active = false;
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	}
 };
