@@ -10,8 +10,8 @@ int testmain(int argc, char* args[])
 	//-- Initialize the API
 	ClientAPI::Init();
 
-	ClientAPI::SetCustomUpdate(Update);
-	ClientAPI::SetCustomDraw(Draw);
+	ClientAPI::SubscribeCustomUpdate(Update);
+	ClientAPI::SubscribeCustomDraw(Draw);
 
 	//-- Add in some Sample Assets
 	ClientAPI::AddColour("Colour1", APIHelper::ColourHelper(155,205,225,205));//SDL_Color colour = { 155, 205, 225, 205 };

@@ -18,6 +18,8 @@ vector<GuiElement*> ClientAPI::guiElements;
 
 void (*ClientAPI::CustomUpdateFunc)(double);
 void (*ClientAPI::CustomDrawFunc)();
+void(*ClientAPI::EnterKeyPressedFunc)();
+void(*ClientAPI::EscapeKeyPressedFunc)();
 
 bool ClientAPI::quit;
 #pragma endregion
@@ -215,6 +217,18 @@ void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
 }
 void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 {
+	if (e.keysym.sym == SDLK_RETURN ||
+		e.keysym.sym == SDLK_RETURN2 ||
+		e.keysym.sym == SDLK_KP_ENTER) 
+	{
+		HandleEnterKeyPressed();
+	}
+
+	if (e.keysym.sym == SDLK_ESCAPE)
+	{
+		HandleEscapeKeyPressed();
+	}
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -242,6 +256,50 @@ void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 	{
 		if (element->Active) {
 			element->OnKeyboardUp(e);
+		}
+	}
+}
+void ClientAPI::HandleEnterKeyPressed()
+{
+	APIEvents::EnterPressed = !APIEvents::EnterPressed;
+
+	if (EnterKeyPressedFunc != NULL) {
+		(*EnterKeyPressedFunc)();
+	}
+
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleEnterKeyPressed();
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnEnterKeyPressed();
+		}
+	}
+}
+void ClientAPI::HandleEscapeKeyPressed()
+{
+	APIEvents::EscapePressed = !APIEvents::EscapePressed;
+
+	if (EscapeKeyPressedFunc != NULL) {
+		(*EscapeKeyPressedFunc)();
+	}
+
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleEscapeKeyPressed();
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnEscapeKeyPressed();
 		}
 	}
 }

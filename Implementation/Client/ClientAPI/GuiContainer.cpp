@@ -505,3 +505,119 @@ void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 		}
 	}
 }
+void GuiContainer::HandleEnterKeyPressed()
+{
+	if (Active) {
+		if (onEnterKeyPressed != NULL) {
+			(*onEnterKeyPressed)(); 
+		} 
+	}
+
+
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleEnterKeyPressed();
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnEnterKeyPressed();
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			button->OnEnterKeyPressed();
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnEnterKeyPressed();
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active && textField->Enabled) {
+			textField->OnEnterKeyPressed();
+		}
+	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnEnterKeyPressed();
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnEnterKeyPressed();
+		}
+	}
+}
+void GuiContainer::HandleEscapeKeyPressed()
+{
+	if (Active) {
+		if (onEscapeKeyPressed != NULL) {
+			(*onEscapeKeyPressed)(); 
+		}
+	} 
+
+
+	for each (GuiContainer* guic in guiContainers)
+	{
+		if (guic->Active) {
+			guic->HandleEscapeKeyPressed();
+		}
+	}
+
+	for each (GuiElement* element in guiElements)
+	{
+		if (element->Active) {
+			element->OnEscapeKeyPressed();
+		}
+	}
+
+	for each (Button* button in buttons)
+	{
+		if (button->Active) {
+			button->OnEscapeKeyPressed();
+		}
+	}
+
+	for each (Label* label in labels)
+	{
+		if (label->Active) {
+			label->OnEscapeKeyPressed();
+		}
+	}
+
+	for each (TextField* textField in textFields)
+	{
+		if (textField->Active && textField->Enabled) {
+			textField->OnEscapeKeyPressed();
+		}
+	}
+
+	for each (Checkbox* checkbox in checkboxes)
+	{
+		if (checkbox->Active) {
+			checkbox->OnEscapeKeyPressed();
+		}
+	}
+
+	for each (Slider* slider in sliders)
+	{
+		if (slider->Active) {
+			slider->OnEscapeKeyPressed();
+		}
+	}
+}

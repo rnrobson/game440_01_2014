@@ -17,6 +17,9 @@ public:
 
 	static SDL_Rect MousePosition;
 
+	static bool EnterPressed;
+	static bool EscapePressed;
+
 	static bool DidKeyGetPressed(SDL_Scancode key) { return ((CurrentKeyboardState[key] != SDL_PRESSED) && (PreviousKeyboardState[key] == SDL_PRESSED)); }
 	static bool DidMouseClick() { return ((CurrentMouseState != SDL_PRESSED) && (PreviousMouseState == SDL_PRESSED)); }
 };

@@ -46,11 +46,3 @@ void Checkbox::OnMouseClick()
 
 	GuiElement::OnMouseClick();
 }
-void Checkbox::OnMouseDown(SDL_MouseButtonEvent e)
-{
-	GuiElement::OnMouseDown(e);
-}
-void Checkbox::OnMouseUp(SDL_MouseButtonEvent e)
-{
-	GuiElement::OnMouseUp(e);
-}

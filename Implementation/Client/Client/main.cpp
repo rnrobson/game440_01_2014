@@ -14,8 +14,8 @@ int main(int argc, char* args[])
 	////-- Initialize the API
 	ClientAPI::Init();
 
-	ClientAPI::SetCustomUpdate(Update);
-	ClientAPI::SetCustomDraw(Draw);
+	ClientAPI::SubscribeCustomUpdate(Update);
+	ClientAPI::SubscribeCustomDraw(Draw);
 
 	//-- Example of New GUI since Last ClientAPI change
 	//ClientAPI::AddGuiContainer("cnt", new GuiContainer());

@@ -24,8 +24,6 @@ public:
 	virtual void Draw();
 
 	virtual void OnMouseClick();
-	virtual void OnMouseDown(SDL_MouseButtonEvent e);
-	virtual void OnMouseUp(SDL_MouseButtonEvent e);
 
 };
 

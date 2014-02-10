@@ -40,6 +40,8 @@ private:
 
 	static void (*CustomUpdateFunc)(double);
 	static void (*CustomDrawFunc)();
+	static void(*EnterKeyPressedFunc)();
+	static void(*EscapeKeyPressedFunc)();
 
 	static void SetupHelper(){
 		fontKeys = vector<std::string>{};
@@ -56,10 +58,14 @@ private:
 
 		CustomUpdateFunc = nullptr;
 		CustomDrawFunc = nullptr;
+		EnterKeyPressedFunc = nullptr;
+		EscapeKeyPressedFunc = nullptr;
 
 		APIEvents::PreviousKeyboardState = SDL_GetKeyboardState(NULL);
 		APIEvents::PreviousMouseState = SDL_GetMouseState(NULL, NULL);
 		APIEvents::MousePosition = { -2, -2, 1, 1 };
+		APIEvents::EnterPressed = false;
+		APIEvents::EscapePressed = false;
 	}
 	static void CleanMemory()
 	{
@@ -91,6 +97,8 @@ private:
 
 	static void HandleKeyboardDownEvent(SDL_KeyboardEvent e);
 	static void HandleKeyboardUpEvent(SDL_KeyboardEvent e);
+	static void HandleEnterKeyPressed();
+	static void HandleEscapeKeyPressed();
 	static void HandleTextInputEvent(SDL_TextInputEvent e);
 	#pragma endregion
 
@@ -110,8 +118,10 @@ public:
 		Window::Quit(); 
 	}
 	
-	static void SetCustomUpdate(void(*updateFunc)(double)) { CustomUpdateFunc = updateFunc; }
-	static void SetCustomDraw(void(*drawFunc)()) { CustomDrawFunc = drawFunc; }
+	static void SubscribeCustomUpdate(void(*updateFunc)(double)) { CustomUpdateFunc = updateFunc; }
+	static void SubscribeCustomDraw(void(*drawFunc)()) { CustomDrawFunc = drawFunc; }
+	static void SubscribeEnterKeyFunc(void(*enterKeyFunc)()) { EnterKeyPressedFunc = enterKeyFunc; }
+	static void SubscribeEscapeKeyFunc(void(*escapeKeyFunc)()) { EscapeKeyPressedFunc = escapeKeyFunc; }
 
 	#pragma region Adds
 	static void AddFont(std::string _key, TTF_Font* _font)

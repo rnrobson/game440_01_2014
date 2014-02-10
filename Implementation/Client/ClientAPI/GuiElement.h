@@ -23,6 +23,8 @@ protected:
 	void(*onMouseDownFunc)(SDL_MouseButtonEvent e);
 	void(*onMouseUpFunc)(SDL_MouseButtonEvent e);
 
+	void(*onEscapeKeyPressed)();
+	void(*onEnterKeyPressed)();
 	void(*onKeyboardDownFunc)(SDL_KeyboardEvent e);
 	void(*onKeyboardUpFunc)(SDL_KeyboardEvent e);
 	void(*onTextInputFunc)(SDL_TextInputEvent e);
@@ -128,6 +130,8 @@ public:
 	void SubscribeOnMouseDown(void(*func)(SDL_MouseButtonEvent e)) { onMouseDownFunc = func; }
 	void SubscribeOnMouseUp(void(*func)(SDL_MouseButtonEvent e)) { onMouseUpFunc = func; }
 
+	void SubscribeOnEscapeKeyPressed(void(*func)()) { onEscapeKeyPressed = func; }
+	void SubscribeOnEnterKeyPressed(void(*func)()) { onEnterKeyPressed = func; }
 	void SubscribeOnKeyboardDown(void(*func)(SDL_KeyboardEvent e)) { onKeyboardDownFunc = func; }
 	void SubscribeOnKeyboardUp(void(*func)(SDL_KeyboardEvent e)) { onKeyboardUpFunc = func; }
 	void SubscribeOnTextInput(void(*func)(SDL_TextInputEvent e)) { onTextInputFunc = func; }
@@ -138,6 +142,8 @@ public:
 	virtual void OnMouseDown(SDL_MouseButtonEvent e) { if (Enabled && Active) { if (onMouseDownFunc != NULL) { (*onMouseDownFunc)(e); } } }
 	virtual void OnMouseUp(SDL_MouseButtonEvent e) { if (Enabled && Active) { if (onMouseUpFunc != NULL) { (*onMouseUpFunc)(e); } } }
 	
+	virtual void OnEscapeKeyPressed() { if (Enabled && Active) { if (onEscapeKeyPressed != NULL) { (*onEscapeKeyPressed)(); } } }
+	virtual void OnEnterKeyPressed() { if (Enabled && Active) { if (onEnterKeyPressed != NULL) { (*onEnterKeyPressed)(); } } }
 	virtual void OnKeyboardDown(SDL_KeyboardEvent e) { if (Enabled && Active) { if (onKeyboardDownFunc != NULL) { (*onKeyboardDownFunc)(e); } } }
 	virtual void OnKeyboardUp(SDL_KeyboardEvent e) { if (Enabled && Active) { if (onKeyboardUpFunc != NULL) { (*onKeyboardUpFunc)(e); } } }
 	virtual void OnTextInput(SDL_TextInputEvent e) { if (Enabled && Active) { if (onTextInputFunc != NULL) { (*onTextInputFunc)(e); } } }

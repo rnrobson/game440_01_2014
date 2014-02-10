@@ -38,6 +38,9 @@ private:
 
 	SDL_Rect position;
 
+	void(*onEscapeKeyPressed)();
+	void(*onEnterKeyPressed)();
+
 	void CleanMemory()
 	{
 		guiContainerKeys.clear();
@@ -310,13 +313,19 @@ public:
 	SDL_Rect GetPosition() { return position; }
 	void SetPosition(SDL_Rect _position);
 
-	void HandleMouseMotionEvent(SDL_MouseMotionEvent e);
-	void HandleTextInputEvent(SDL_TextInputEvent e);
+	void SubscribeOnEscapeKeyPressed(void(*func)()) { onEscapeKeyPressed = func; }
+	void SubscribeOnEnterKeyPressed(void(*func)()) { onEnterKeyPressed = func; }
+
 	void HandleMouseClickEvent();
+	void HandleMouseMotionEvent(SDL_MouseMotionEvent e);
 	void HandleMouseDownEvent(SDL_MouseButtonEvent e);
 	void HandleMouseUpEvent(SDL_MouseButtonEvent e);
+
+	void HandleEnterKeyPressed();
+	void HandleEscapeKeyPressed();
 	void HandleKeyboardDownEvent(SDL_KeyboardEvent e);
 	void HandleKeyboardUpEvent(SDL_KeyboardEvent e);
+	void HandleTextInputEvent(SDL_TextInputEvent e);
 };
 
 #endif
