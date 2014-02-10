@@ -8,7 +8,7 @@ public:
 	{
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
-		const int MARGIN_Y = 60;
+		const int MARGIN_Y = 40;
 		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
@@ -68,7 +68,7 @@ public:
 		ClientAPI::GetGuiContainer("MainMenu")->AddGuiContainer("BtnHolder", new GuiContainer());
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->SetPosition(APIHelper::RectHelper(centerRect.x - longBtnRect.w / 2, centerRect.y, longBtnRect.w, 600));
 
-		int xBtn, yBtn, btnIndex = 0;
+		int xBtn, btnIndex = 0;
 
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("LoginBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->GetX();
@@ -133,6 +133,8 @@ public:
 	static void Click_createButton()
 	{
 		cout << "Create a new game.\n";
+		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	}
 
 	static void Click_viewButton()
