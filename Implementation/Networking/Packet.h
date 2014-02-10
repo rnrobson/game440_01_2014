@@ -15,10 +15,16 @@ namespace ManaCraft {
 		private:
 			byte* mSecurityHeader;
 			byte mProtocolID;
-			byte mObjTypeID;
-			byte mObjNumID;
 			byte* mData;
+			byte* mPayload;
 			int mDataLength;
+
+			// Rebuild Payload
+			void NewPayload();
+
+			// Override copy constructors
+			void operator=(const Packet&);
+			Packet(const Packet&);
 
 		public:
 			/// <summary>[Packet]
@@ -30,39 +36,18 @@ namespace ManaCraft {
 			/// <para>Send data over the current network connection.</para>
 			/// <para>[byte* securityHeader] Should point to 4 pre-allocated bytes.</para>
 			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
-			/// <para>[byte objTypeID] The id of the object's type being sent.</para>
-			/// <para>[byte objectNumID] ID of the object.</para>
 			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
-			/// <para>[int dataLength] The length of data.</para>
 			/// </summary>
-			Packet(byte* securityHeader, byte protocolID, byte objTypeID, byte objNumID, byte* data, int dataLength);
+			Packet(byte* securityHeader, byte protocolID, byte* data);
 
 			// Destructor (Not used currently)
 			~Packet();
-
-			/// <summary>[SetSecurityHeader]
-			/// <para>[SETTER] Set the packet security header.</para>
-			/// <para>[byte* newHeader] Should point to 4 pre-allocated bytes.</para>
-			/// </summary>
-			void SetSecurityHeader(byte* newHeader);
 
 			/// <summary>[SetProtocolID]
 			/// <para>[SETTER] Set the packet porotocol ID.</para>
 			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// </summary>
 			void SetProtocolID(byte newProtocolID);
-
-			/// <summary>[SetObjTypeID]
-			/// <para>[SETTER] Set the packet object type ID.</para>
-			/// <para>[byte objTypeID] The id of the object's type being sent.</para>
-			/// </summary>
-			void SetObjTypeID(byte newObjTypeID);
-
-			/// <summary>[SetObjNumID]
-			/// <para>[SETTER] Set the packet object number ID.</para>
-			/// <para>[byte objectNumID] ID of the object.</para>
-			/// </summary>
-			void SetObjNumID(byte newObjNumID);
 
 			/// <summary>[SetData]
 			/// <para>[SETTER] Set the packet data.</para>
@@ -82,21 +67,9 @@ namespace ManaCraft {
 			/// </summary>
 			byte GetProtocolID() const;
 
-			/// <summary>[GetObjTypeID]
-			/// <para>[GETTER] Get the packet object type ID.</para>
-			/// <returns>Returns the packet object type ID.</returns>
-			/// </summary>
-			byte GetObjTypeID() const;
-
-			/// <summary>[GetObjNumID]
-			/// <para>[GETTER] Get the packet object number ID.</para>
-			/// <returns>Returns the packet object number ID.</returns>
-			/// </summary>
-			byte GetObjNumID() const;
-
 			/// <summary>[GetData]
-			/// <para>[GETTER] Get the packet data.</para>
-			/// <returns>Returns the packet data.</returns>
+			/// <para>[GETTER] Get the packet's data.</para>
+			/// <returns>Returns the packet's data.</returns>
 			/// </summary>
 			byte* GetData() const;
 
@@ -105,6 +78,18 @@ namespace ManaCraft {
 			/// <returns>Returns the length of the data.</returns>
 			/// </summary>
 			int GetDataLength() const;
+
+			/// <summary>[Payload]
+			/// <para>[GETTER] Get the packet in bytes.</para>
+			/// <returns>Returns the packet as an array of bytes.</returns>
+			/// </summary>
+			byte* GetPayload() const;
+
+			/// <summary>[PayloadSize]
+			/// <para>[GETTER] Get the size of the payload.</para>
+			/// <returns>Returns the size of the payload.</returns>
+			/// </summary>
+			int PayloadSize() const;
 		};
 	}
 }
