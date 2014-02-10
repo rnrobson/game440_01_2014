@@ -11,9 +11,9 @@ public:
 		const int LABEL_SPACE_Y = 25;
 		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
 
-		string clientStrings[8] = { "Andrew Godfroy", "Cassandra Siewert", "Christian Adao", "David Vo", "Geordie Powers", "Neil Schlachter", "Tyler Remazki" };
+		string clientStrings[9] = { "Andrew Godfroy", "Cassandra Siewert", "Christian Adao", "David Vo", "Geordie Powers", "Neil Schlachter", "Tyler Remazki", "Deanna Sowa" };
 		string networkStrings[7] = { "Joshua O'Donnell", "Philip Diehl", "Dean Watts", "Suleyman Tahirli", "Brian Lefrancois", "Sarah Childs", "Mitch Andrews" };
-		string serverStrings[7] = { "Wayne Gauthier", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Rohun Banerji" };
+		string serverStrings[7] = { "Rohun Banerji", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Wayne Gauthier" };
 		string databaseStrings[5] = { "Robert Evola", "Matt Mayo", "Vinny Crupi", "Kyle Nokes", "Jordan Hurst" };
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
@@ -29,13 +29,13 @@ public:
 
 		//-- Load Textures
 		SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/backgroundPlain.png");
-		SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraftLogoSmall.png");
+		SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraftLogoCredits.png");
 		SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
 		SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
 		SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
 
 		ClientAPI::AddTexture("BackgroundPlain", backgroundTex);
-		ClientAPI::AddTexture("GameLogo", logoTex);
+		ClientAPI::AddTexture("GameLogoSmall", logoTex);
 		ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
 		ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
 		ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
@@ -47,11 +47,11 @@ public:
 		SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
 
 		//-- Other rects
-		SDL_Rect backBtnRect = APIHelper::RectHelper(SCREEN_WIDTH - medBtnRect.w - BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
-		SDL_Rect clientRect = APIHelper::RectHelper(SCREEN_WIDTH / 6, SCREEN_HEIGHT / 4, 0, 0);
-		SDL_Rect networkRect = APIHelper::RectHelper(SCREEN_WIDTH - (SCREEN_WIDTH / 6) * 2, SCREEN_HEIGHT / 4, 0, 0);
-		SDL_Rect serverRect = APIHelper::RectHelper(SCREEN_WIDTH / 6, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 6, 0, 0);
-		SDL_Rect databaseRect = APIHelper::RectHelper(SCREEN_WIDTH - (SCREEN_WIDTH / 6) * 2, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 6, 0, 0);
+		SDL_Rect backBtnRect = APIHelper::RectHelper(BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
+		SDL_Rect clientRect = APIHelper::RectHelper(SCREEN_WIDTH / 5, SCREEN_HEIGHT / 3, 0, 0);
+		SDL_Rect networkRect = APIHelper::RectHelper(SCREEN_WIDTH - (SCREEN_WIDTH / 5) * 2, SCREEN_HEIGHT / 3, 0, 0);
+		SDL_Rect serverRect = APIHelper::RectHelper(SCREEN_WIDTH / 5, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 5, 0, 0);
+		SDL_Rect databaseRect = APIHelper::RectHelper(SCREEN_WIDTH - (SCREEN_WIDTH / 5) * 2, SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 5, 0, 0);
 
 		//-- Add in credits assets
 		ClientAPI::AddGuiContainer("Credits", new GuiContainer());
@@ -64,13 +64,14 @@ public:
 		ClientAPI::GetGuiContainer("Credits")->AddButton("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
 		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
-		//ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->SubscribeOnMouseClick(Credits::Click_backButton);
+		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->SubscribeOnMouseClick(Credits::Click_backButton);
+		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->SubscribeOnEscapeKeyPressed(Credits::Click_backButton);
 
-		ClientAPI::GetGuiContainer("Credits")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogoSmall"), APIHelper::RectHelper(SCREEN_WIDTH / 2 - 200, LABEL_SPACE_Y * 2, 400, LABEL_SPACE_Y)));
+		ClientAPI::GetGuiContainer("Credits")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogoSmall"), APIHelper::RectHelper(SCREEN_WIDTH / 2 - 250, 0, 500, 250)));
 
 		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddLabel("ClientHeader", new Label("Client Team", APIHelper::RectHelper(clientRect.x, clientRect.y - LABEL_SPACE_Y * 2, clientRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < 9; i++)
 		{
 			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddLabel("c" + i, new Label(clientStrings[i],
 				APIHelper::RectHelper(clientRect.x, clientRect.y + (i * LABEL_SPACE_Y), clientRect.w, LABEL_SPACE_Y),
