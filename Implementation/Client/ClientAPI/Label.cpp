@@ -21,8 +21,10 @@ Label::~Label()
 }
 
 void Label::RenderText() { RenderText(text); }
-void Label::RenderText(const std::string &_text)
+void Label::RenderText(std::string &_text)
 {
+	if (_text.length() == 0) _text = " ";
+
 	SDL_DestroyTexture(texture);
 
 	SDL_Surface *textSurface = TTF_RenderText_Blended_Wrapped(font, _text.c_str(), fontColor, rect.w);

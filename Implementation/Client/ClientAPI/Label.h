@@ -12,7 +12,7 @@ public:
 	~Label();
 
 	void RenderText();
-	void RenderText(const std::string &_text);
+	void RenderText(std::string &_text);
 
 	virtual void Update(double _time);
 	virtual void Draw();

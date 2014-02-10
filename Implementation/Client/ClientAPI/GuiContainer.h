@@ -67,6 +67,7 @@ private:
 
 public:
 	bool Active;
+	bool Enabled;
 
 	GuiContainer();
 	~GuiContainer() { CleanMemory(); }

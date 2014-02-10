@@ -17,6 +17,7 @@ GuiContainer::GuiContainer()
 	checkboxes = vector<Checkbox*>{};
 
 	Active = true;
+	Enabled = true;
 	SetPosition({ 0, 0, 0, 0 });
 }
 
@@ -137,6 +138,9 @@ void GuiContainer::Draw()
 
 void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -188,6 +192,9 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 }
 void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -245,6 +252,9 @@ void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 }
 void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -296,6 +306,9 @@ void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 }
 void GuiContainer::HandleMouseClickEvent()
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -354,6 +367,9 @@ void GuiContainer::HandleMouseClickEvent()
 
 void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -405,6 +421,9 @@ void GuiContainer::HandleTextInputEvent(SDL_TextInputEvent e)
 }
 void GuiContainer::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -456,6 +475,9 @@ void GuiContainer::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 }
 void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
+	if (!Active) return;
+	if (!Enabled) return;
+
 	for each (GuiContainer* guic in guiContainers)
 	{
 		if (guic->Active) {
@@ -507,12 +529,12 @@ void GuiContainer::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 }
 void GuiContainer::HandleEnterKeyPressed()
 {
-	if (Active) {
-		if (onEnterKeyPressed != NULL) {
-			(*onEnterKeyPressed)(); 
-		} 
-	}
+	if (!Active) return;
+	if (!Enabled) return;
 
+	if (onEnterKeyPressed != NULL) {
+			(*onEnterKeyPressed)(); 
+	} 
 
 	for each (GuiContainer* guic in guiContainers)
 	{
@@ -565,11 +587,12 @@ void GuiContainer::HandleEnterKeyPressed()
 }
 void GuiContainer::HandleEscapeKeyPressed()
 {
-	if (Active) {
-		if (onEscapeKeyPressed != NULL) {
-			(*onEscapeKeyPressed)(); 
-		}
-	} 
+	if (!Active) return;
+	if (!Enabled) return;
+
+	if (onEscapeKeyPressed != NULL) {
+		(*onEscapeKeyPressed)(); 
+	}
 
 
 	for each (GuiContainer* guic in guiContainers)
