@@ -127,8 +127,8 @@ public:
 	static void Click_createButton()
 	{
 		cout << "Create a new game.\n";
-		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
 	}
 
 	static void Click_viewButton()
@@ -154,7 +154,7 @@ public:
 	static void Click_creditsButton()
 	{
 		cout << "Show credits.\n";
-		ClientAPI::GetGuiContainer("Credits")->Active = true;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("Credits")->Active = true;
 	}
 };
