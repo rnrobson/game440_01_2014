@@ -15,7 +15,7 @@ void Window::Init(std::string title, int width, int height){
 		throw std::runtime_error("SDL Init Failed");
 	if (TTF_Init() == -1)
 		throw std::runtime_error("TTF Init Failed");
-	if ((IMG_Init(IMG_INIT_PNG) && IMG_INIT_PNG) == IMG_INIT_PNG)
+	if (IMG_Init(IMG_INIT_PNG) == -1)
 		throw std::runtime_error("Failed to Initialize PNG Extension");
 
 	//Setup our window size

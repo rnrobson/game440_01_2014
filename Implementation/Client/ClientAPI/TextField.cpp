@@ -16,7 +16,7 @@ TextField::TextField(SDL_Rect _rect, TTF_Font* _font)
 
 TextField::~TextField()
 {
-	delete backgroundTexture;
+	SDL_DestroyTexture(backgroundTexture);
 
 	GuiElement::~GuiElement();
 }

@@ -25,27 +25,27 @@ void GuiContainer::SetPosition(SDL_Rect _position)
 {
 	position = _position;
 
-	for (int i = 0; i < guiContainers.size(); i++)
+	for (size_t i = 0; i < guiContainers.size(); i++)
 	{
 		guiContainers.at(i)->SetPosition(_position);
 	}
 
-	for (int i = 0; i < guiElements.size(); i++)
+	for (size_t i = 0; i < guiElements.size(); i++)
 	{
 		guiElements.at(i)->SetOffset(_position);
 	}
 
-	for (int i = 0; i < buttons.size(); i++)
+	for (size_t i = 0; i < buttons.size(); i++)
 	{
 		buttons.at(i)->SetOffset(_position);
 	}
 
-	for (int i = 0; i < textFields.size(); i++)
+	for (size_t i = 0; i < textFields.size(); i++)
 	{
 		textFields.at(i)->SetOffset(_position);
 	}
 
-	for (int i = 0; i < labels.size(); i++)
+	for (size_t i = 0; i < labels.size(); i++)
 	{
 		labels.at(i)->SetOffset(_position);
 	}
@@ -60,22 +60,22 @@ void GuiContainer::SetPosition(SDL_Rect _position)
 void GuiContainer::Update(double time)
 {
 	if (Active){
-		for (int i = 0; i < guiElements.size(); i++)
+		for (size_t i = 0; i < guiElements.size(); i++)
 		{
 			guiElements.at(i)->Update(time);
 		}
 
-		for (int i = 0; i < buttons.size(); i++)
+		for (size_t i = 0; i < buttons.size(); i++)
 		{
 			buttons.at(i)->Update(time);
 		}
 
-		for (int i = 0; i < textFields.size(); i++)
+		for (size_t i = 0; i < textFields.size(); i++)
 		{
 			textFields.at(i)->Update(time);
 		}
 
-		for (int i = 0; i < labels.size(); i++)
+		for (size_t i = 0; i < labels.size(); i++)
 		{
 			labels.at(i)->Update(time);
 		}
@@ -90,7 +90,7 @@ void GuiContainer::Update(double time)
 			sliders.at(i)->Update(time);
 		}
 
-		for (int i = 0; i < guiContainers.size(); i++)
+		for (size_t i = 0; i < guiContainers.size(); i++)
 		{
 			guiContainers.at(i)->Update(time);
 		}
@@ -99,22 +99,22 @@ void GuiContainer::Update(double time)
 void GuiContainer::Draw()
 {
 	if (Active) {
-		for (int i = 0; i < guiElements.size(); i++)
+		for (size_t i = 0; i < guiElements.size(); i++)
 		{
 			guiElements.at(i)->Draw();
 		}
 
-		for (int i = 0; i < buttons.size(); i++)
+		for (size_t i = 0; i < buttons.size(); i++)
 		{
 			buttons.at(i)->Draw();
 		}
 
-		for (int i = 0; i < textFields.size(); i++)
+		for (size_t i = 0; i < textFields.size(); i++)
 		{
 			textFields.at(i)->Draw();
 		}
 
-		for (int i = 0; i < labels.size(); i++)
+		for (size_t i = 0; i < labels.size(); i++)
 		{
 			labels.at(i)->Draw();
 		}
@@ -129,7 +129,7 @@ void GuiContainer::Draw()
 			sliders.at(i)->Draw();
 		}
 
-		for (int i = 0; i < guiContainers.size(); i++)
+		for (size_t i = 0; i < guiContainers.size(); i++)
 		{
 			guiContainers.at(i)->Draw();
 		}
