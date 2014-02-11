@@ -39,7 +39,7 @@
 				}
 			}
 			if(e.keyCode == 70){
-				var exporter:XMLExport = new XMLExport(artBackgroundLayer);
+				var exporter:XMLExport = new XMLExport(artBackgroundLayer, collisionLayer);
 			}
 			trace(currentLayer);
 		}

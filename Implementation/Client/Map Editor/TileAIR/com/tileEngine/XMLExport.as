@@ -10,14 +10,17 @@
 		private var ArtForeground:XML = new XML(<ArtForeground />);
 		
 		private var backgroundTileArray:Array = new Array();
+		private var collisionTileArray:Array = new Array();
 		private var foregroundTileArray:Array = new Array();
 		
 		private var layerReference:Layer;
 		
 		private var temporaryNode:XML;
-		public function XMLExport(artBackground:Layer) {
+		public function XMLExport(artBackground:Layer, collisionLayer:Layer) {
+			//Get a reference of one of the layers. Since they're both of the same dimensions, it doesn't matter which is used.
 			layerReference = artBackground;
 			backgroundTileArray = artBackground.tileArray;
+			collisionTileArray = collisionLayer.tileArray;
 			generateXML();
 			trace("Export");
 		}
@@ -43,7 +46,7 @@
 				temporaryNode.@column = backgroundTileArray[i].xPosition/32;				
 				temporaryNode.appendChild(<xPos> {backgroundTileArray[i].xPosition} </xPos>);
 				temporaryNode.appendChild(<yPos> {backgroundTileArray[i].yPosition} </yPos>);
-				temporaryNode.appendChild(<clickable> {backgroundTileArray[i].clickable} </clickable>);
+				temporaryNode.appendChild(<clickable> {collisionTileArray[i].clickable} </clickable>);
 				ArtBackground.appendChild(temporaryNode);
 			}
 			Map.appendChild(ArtBackground);

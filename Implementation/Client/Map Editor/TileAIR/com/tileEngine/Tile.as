@@ -61,6 +61,7 @@
 			drawTile();
 		}
 		private function onRightClick(e:MouseEvent){
+			trace(clickable);
 			clearTile();
 		}
 		
