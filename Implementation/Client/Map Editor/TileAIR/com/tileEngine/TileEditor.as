@@ -13,7 +13,7 @@
 		public function TileEditor(layerWidth:uint, layerHeight:uint, tileWidth:uint, tileHeight:uint) {
 			artBackgroundLayer = new Layer(layerWidth, layerHeight, LayerEnum.ARTBACKGROUND);
 			collisionLayer = new Layer(layerWidth, layerHeight, LayerEnum.COLLISION);
-			collisionLayer.alpha = 0.5;
+			collisionLayer.alpha = 0.3;
 			
 			spriteSheet = new TilePicker(tileWidth, tileHeight);
 			spriteSheet.x = 32*7*3; //Arbitrary value for the placement of the tilepicker
@@ -37,6 +37,9 @@
 						setChildIndex(artBackgroundLayer,1);
 					break;
 				}
+			}
+			if(e.keyCode == 70){
+				var exporter:XMLExport = new XMLExport(artBackgroundLayer);
 			}
 			trace(currentLayer);
 		}

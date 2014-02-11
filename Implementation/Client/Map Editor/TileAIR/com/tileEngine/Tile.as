@@ -7,6 +7,7 @@
 	import flash.events.Event;
 	import flash.display.BitmapData;
 	import com.tileEngine.LayerEnum;
+	import flash.geom.Rectangle;
 	
 	public class Tile extends MovieClip {
 		public static var width:int = 32; //Default width
@@ -15,14 +16,14 @@
 		private const DEFAULT_ID:uint = 999;
 		
 		private var tilebmpData:BitmapData
-		private var clickable:Boolean = true; //Whether or not this tile is clickable
+		public var clickable:Boolean = true; //Whether or not this tile is clickable
 		private var influence:uint; //0 = Neutral, 1 = Chaos, 2 = Divine
-		private var ID:uint = DEFAULT_ID; //999 by default to avoid problems with spritesheets
+		public var ID:uint = DEFAULT_ID; //999 by default to avoid problems with spritesheets
 		
 		private var parentReference:Layer;
 		
-		private var xPosition:uint;
-		private var yPosition:uint;
+		public var xPosition:uint;
+		public var yPosition:uint;
 		private var transparent:Boolean;
 		
 		public function Tile(xPos:uint, yPos:uint, bmpData:BitmapData){
@@ -79,7 +80,8 @@
 			else if(TileEditor.currentLayer == LayerEnum.COLLISION){
 				if(clickable){
 					clickable = false;
-					fillTileWithSelection(new BitmapData(32,32,false,0x900000)); //Dark shade to indicate that it's now collidable
+					fillTileWithSelection(tilebmpData);
+					fillTileWithSelection(new BitmapData(32,32,false,0x990000)); //Different color to indicate that it's now collidable
 				}
 			}
 		}
@@ -91,8 +93,9 @@
 			}
 			else if(TileEditor.currentLayer == LayerEnum.COLLISION){
 				if(!clickable){
-				fillTileWithSelection(tilebmpData);
-				clickable = true;
+					this.graphics.clear();
+					fillTileWithSelection(tilebmpData);
+					clickable = true;
 				}
 			}
 			

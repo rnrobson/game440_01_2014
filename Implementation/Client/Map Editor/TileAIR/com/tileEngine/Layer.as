@@ -20,19 +20,20 @@
 		public static var currentSelectionID:uint;
 		public static var layerBitmapData:BitmapData; //This will be drawn to directly by other classes. This of this as our base canvas.
 		
+		public var tileArray:Array; //Array of tiles dependent on the parameters passed through in main
 		private var layerBitmap:Bitmap; //Bitmap that houses the above BitmapData and draws it to the screen
 		private var layerType:String;
-		private var tileArray:Array; //Array of tiles dependent on the parameters passed through in main
 		private var tile:Bitmap = new Bitmap(new defaultTile); //Bitmap that changes depending on the layer type. For visual representation.
-		private var defaultBMP:BitmapData;		
-		private var WIDTH;
-		private var HEIGHT;
+		private var defaultBMP:BitmapData;	
 		
-		public function Layer(layerWidth:uint, layerHeight:uint, _layerType:String) {
-			WIDTH = layerWidth;
-			HEIGHT = layerHeight;
+		public var layerWidth;
+		public var layerHeight;
+		
+		public function Layer(_layerWidth:uint, _layerHeight:uint, _layerType:String) {
+			layerWidth = _layerWidth;
+			layerHeight = _layerHeight;
 			layerType = _layerType;
-			tileArray = new Array(WIDTH*HEIGHT);
+			tileArray = new Array(layerWidth*layerHeight);
 			
 			//Switch the tile bitmap based on the layer being drawn
 			switch(layerType){
@@ -40,7 +41,7 @@
 					defaultBMP = tile.bitmapData;
 				break;
 				case LayerEnum.COLLISION:
-					defaultBMP = new BitmapData(32,32,true,0x25000090);
+					defaultBMP = new BitmapData(32,32,false,0x250000);
 				break;
 			}
 			
@@ -67,7 +68,7 @@
 			var yPos:uint = 0;
 			
 			for(var i:int = 0; i < tileArray.length; i++){
-				if(i % WIDTH == 0 && i > 0){
+				if(i % layerWidth == 0 && i > 0){
 					yPos++;
 					xPos = 0;
 				}
