@@ -9,21 +9,18 @@
 	public class TilePicker extends MovieClip {
 		
 	    public static var spriteSheet:Bitmap = new Bitmap(new forest);
+		
 		private var spriteSheetSplit:Array = new Array();
-		private var spriteSheetIDs:Array = new Array();
-		
-		private var tileSelection:BitmapData;
 		private var tempSprite:TileReference;
-		
 		private var xPos:uint;
 		private var yPos:uint;
 		
 		public function TilePicker(tileWidth:uint, tileHeight:uint) {
+			this.buttonMode = true;
+			addChild(spriteSheet);
 			//Get the height and width and divide by the tile size
 			var widthInTiles:uint = spriteSheet.width/tileWidth;
 			var heightInTiles:uint = spriteSheet.height/tileHeight;
-			this.buttonMode = true;
-			addChild(spriteSheet);
 			
 			//Create fake tiles on top of the spritesheet to allow us to click and grab the selected position
 			for(var i:uint = 0; i < widthInTiles*heightInTiles;i++){

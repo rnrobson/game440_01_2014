@@ -12,61 +12,91 @@
 		public static var width:int = 32; //Default width
 		public static var height:int = 32; //Default height
 		
-		public static var tilebmpData:BitmapData = new BitmapData(32,32,false,0x999999);
+		private const DEFAULT_ID:uint = 999;
 		
-		private var tile:Bitmap = new Bitmap(new defaultTile);
-		private var defaultBMP:BitmapData = tile.bitmapData;
-		private var clickable:Boolean; //Whether or not this tile is clickable
+		private var tilebmpData:BitmapData
+		private var clickable:Boolean = true; //Whether or not this tile is clickable
 		private var influence:uint; //0 = Neutral, 1 = Chaos, 2 = Divine
-		private var ID:uint;
+		private var ID:uint = DEFAULT_ID; //999 by default to avoid problems with spritesheets
+		
+		private var parentReference:Layer;
 		
 		private var xPosition:uint;
 		private var yPosition:uint;
+		private var transparent:Boolean;
 		
-		public function Tile(xPos:uint, yPos:uint){
+		public function Tile(xPos:uint, yPos:uint, bmpData:BitmapData){
 			xPosition = xPos;
 			yPosition = yPos;
+			tilebmpData = bmpData;	
+			EventListeners();
+		}
+		
+		//Sets up all of the event listeners for the tile
+		private function EventListeners(){
 			this.addEventListener(Event.ADDED, initializeTile);
 			this.addEventListener(MouseEvent.MOUSE_OVER, onMouseDown);
-			this.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
-			this.addEventListener(MouseEvent.MOUSE_DOWN, onMouseClick);
-			
+			this.addEventListener(MouseEvent.MOUSE_DOWN, onLeftClick);
+			this.addEventListener(MouseEvent.RIGHT_CLICK, onRightClick);		
 		}
 		
+		//Initialize the tile with these values..
 		private function initializeTile(e:Event){
-			clickable = false;
 			this.buttonMode = true;
 			this.graphics.lineStyle(1, 0x000000,1.0);
-			fillTileWithSelection(defaultBMP);
+			fillTileWithSelection(tilebmpData);
 		}
 		
+		//Mouse Listener Events..
 		private function onMouseDown(e:MouseEvent){
-			if(Layer.mouseDown){
+			if(Layer.leftDown){
+				drawTile();
+			}
+			else if(Layer.rightDown){
+				clearTile();
+			}
+		}
+		private function onLeftClick(e:MouseEvent){
+			drawTile();
+		}
+		private function onRightClick(e:MouseEvent){
+			clearTile();
+		}
+		
+		
+		//Drawing/Clearing 				
+		private function drawTile(){
+			if(TileEditor.currentLayer == LayerEnum.ARTBACKGROUND){
 				if(Layer.currentSelectionBMP != null){
+					ID = Layer.currentSelectionID;
 					fillTileWithSelection(tilebmpData); //Clear the current tile and set it to the default tile data
 					fillTileWithSelection(Layer.currentSelectionBMP); //Sets the current tile to the users selection on the spritesheet
-					ID = Layer.currentSelectionID;
 				}
 				else{
 					trace("Please Select A Bitmap");
 				}
-			}		
+			}
+			else if(TileEditor.currentLayer == LayerEnum.COLLISION){
+				if(clickable){
+					clickable = false;
+					fillTileWithSelection(new BitmapData(32,32,false,0x900000)); //Dark shade to indicate that it's now collidable
+				}
+			}
 		}
-		
-		private function onMouseUp(e:MouseEvent){
+		private function clearTile(){
+			if(TileEditor.currentLayer == LayerEnum.ARTBACKGROUND){
+			ID = DEFAULT_ID;
+				fillTileWithSelection(Layer.layerBitmapData);
+				fillTileWithSelection(tilebmpData);
+			}
+			else if(TileEditor.currentLayer == LayerEnum.COLLISION){
+				if(!clickable){
+				fillTileWithSelection(tilebmpData);
+				clickable = true;
+				}
+			}
 			
-		}
-		
-		private function onMouseClick(e:MouseEvent){
-			if(Layer.currentSelectionBMP != null){
-					fillTileWithSelection(tilebmpData); //Clear the current tile and set it to the default tile data
-					fillTileWithSelection(Layer.currentSelectionBMP); //Sets the current tile to the users selection on the spritesheet
-					ID = Layer.currentSelectionID;
-					trace(ID);
-				}
-				else{
-					trace("Please Select A Bitmap");
-				}	
+			
 		}
 		
 		private function fillTileWithSelection(bmpData:BitmapData){
