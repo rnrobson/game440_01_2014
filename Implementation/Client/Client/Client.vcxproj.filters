@@ -24,6 +24,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ScreenFader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="API_Util.h">
@@ -40,6 +43,9 @@
     </ClInclude>
     <ClInclude Include="MainMenu.h">
       <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenFader.h">
+      <Filter>Header Files\API Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

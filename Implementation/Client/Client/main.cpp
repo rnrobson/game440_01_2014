@@ -1,9 +1,11 @@
 #include <ClientAPI.h>
 
+#include "ScreenFader.h"
 #include "GameLobby.h"
 #include "MainMenu.h"
 #include "Credits.h"
 #include "Options.h"
+
 
 //-- Function Prototypes
 void Update(double time);
@@ -21,8 +23,9 @@ int main(int argc, char* args[])
 	//ClientAPI::AddGuiContainer("cnt", new GuiContainer());
 	//ClientAPI::GetGuiContainer("cnt")->AddCheckbox("chk", new Checkbox({ 50, 50, 50, 50 }, { 255, 0, 0, 255 }, { 255, 255, 255, 255 }));
 	//ClientAPI::GetGuiContainer("cnt")->GetCheckbox("chk")->Checked = true;
-
+		
 	//--Call individual load methods
+	ScreenFader::Load();
 	MainMenu::Load();
 	//Options::Load();
 	Credits::Load();
@@ -38,10 +41,12 @@ int main(int argc, char* args[])
 
 void Update(double time)
 {
+	ScreenFader::Update(time);
 	//cout << "Entering Custom Update" << endl;
 }
 
 void Draw()
 {
+	ScreenFader::Draw();
 	//cout << "Entering Custom Draw" << endl;
 }
