@@ -13,7 +13,7 @@ DLL_Example::~DLL_Example()
 DATABASE_API int mSampleInt = 0;
 
 // This is an example of an exported function.
-DATABASE_API int SampleFunc(void)
+DATABASE_API int SampleFunc()
 {
 	return 42;
 }
