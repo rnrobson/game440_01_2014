@@ -29,6 +29,15 @@ public:
 
 	static bool DidKeyGetPressed(SDL_Scancode key) { return APIEvents::DidKeyGetPressed(key); }
 	static bool DidMouseClick() { return APIEvents::DidMouseClick(); }
+
+	static bool ToggleTextInput()
+	{
+		if (APIEvents::SDLTextInputEnabled) { SDL_StopTextInput(); }
+		else { SDL_StartTextInput(); }
+
+		APIEvents::SDLTextInputEnabled = !APIEvents::SDLTextInputEnabled;
+		return APIEvents::SDLTextInputEnabled;
+	}
 };
 
 #endif

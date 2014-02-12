@@ -66,6 +66,9 @@ private:
 		APIEvents::MousePosition = { -2, -2, 1, 1 };
 		APIEvents::EnterPressed = false;
 		APIEvents::EscapePressed = false;
+		APIEvents::SDLTextInputEnabled = false;
+
+		APIHelper::ToggleTextInput();
 	}
 	static void CleanMemory()
 	{
@@ -109,12 +112,13 @@ public:
 	static void Init(std::string title = "Window", int width = 1024, int height = 768) 
 	{ 
 		Window::Init(title, width, height); 
-		SetupHelper(); 
+		SetupHelper();
 	}
 	static void Exit() { Quit(); }
 	static void Quit() 
 	{ 
 		CleanMemory();
+		APIHelper::ToggleTextInput();
 		Window::Quit(); 
 	}
 	

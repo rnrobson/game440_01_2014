@@ -1,17 +1,10 @@
 #include "TextField.h"
 
 
-TextField::TextField(SDL_Rect _rect, TTF_Font* _font)
-:Label("", _rect, _font, { 0, 0, 0, 255 })
+TextField::TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour)
+:Label("", _rect, _font, _textColour)
 {
-	//-- Hover Texture
-	SDL_Surface *backgroundSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, _rect.w, _rect.h, 8, 0, 0, 0, 1);
-	SDL_FillRect(backgroundSurface, NULL, SDL_MapRGB(backgroundSurface->format, 0, 0, 0));
-
-	SDL_Texture *hoverTexture = SDL_CreateTextureFromSurface(Window::Renderer(), backgroundSurface);
-	SDL_SetTextureAlphaMod(hoverTexture, 155);
-	backgroundTexture = hoverTexture;
-	SDL_FreeSurface(backgroundSurface);
+	backgroundTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 255, 255, 255, 155 });
 }
 
 TextField::~TextField()
@@ -33,7 +26,7 @@ void TextField::Update(double _time)
 void TextField::Draw()
 {
 	if (Active) {
-		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rect, 0., NULL, flip);
+		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rect, 0, NULL, flip);
 		Label::Draw();
 	}
 }
@@ -66,4 +59,54 @@ string TextField::GetText()
 int TextField::GetStringSize()
 {
 	return text.length();
+}
+
+void TextField::OnEnterKeyPressed()
+{
+	if (Active && Enabled)
+	{
+		Label::OnEnterKeyPressed();
+	}
+}
+void TextField::OnKeyboardDown(SDL_KeyboardEvent e)
+{
+	if (Active && Enabled)
+	{
+		cout << "KeyPressed" << endl;
+
+		//Handle backspace
+		if (e.keysym.sym == SDLK_BACKSPACE)
+		{
+			//lop off character
+			RemoveLastCharacterFromString();
+
+			cout << "Backspace Pressed" << endl;
+		}
+
+		Label::OnKeyboardDown(e);
+	}
+}
+void TextField::OnKeyboardUp(SDL_KeyboardEvent e)
+{
+	if (Active && Enabled)
+	{
+		Label::OnKeyboardUp(e);
+	}
+}
+void TextField::OnTextInput(SDL_TextInputEvent e)
+{
+	if (Active && Enabled)
+	{
+		cout << "Text Input" << endl;
+
+		//Not pasting
+		if (!((e.text[0] == 'v' || e.text[0] == 'V') && SDL_GetModState() & KMOD_CTRL))
+		{
+			//Append character
+			AddToString(*e.text); // inputText += e.text.text;
+								  // renderText = true;
+		}
+
+		Label::OnTextInput(e);
+	}
 }
