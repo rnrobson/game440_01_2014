@@ -112,5 +112,6 @@ public:
 		cout << "Back to main menu.\n";
 		ClientAPI::GetGuiContainer("Credits")->Active = false;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+		ScreenFader::FadeOut();
 	}
 };

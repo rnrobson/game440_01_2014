@@ -157,5 +157,6 @@ public:
 		cout << "Show credits.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 		ClientAPI::GetGuiContainer("Credits")->Active = true;
+		ScreenFader::FadeOut();
 	}
 };
