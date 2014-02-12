@@ -39,107 +39,101 @@ namespace ManaCraft {
 			RETURN_LOGIN_STATUS,
 
 
-			// Chat oriented protocols are: 225 - 249
-			// There are currently: 4/25
 
-			/// <summary>Requests that all the clients that receive the message display it in the “All” chat room
-			/// <para>Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
+			// Chat oriented protocols are: 225 - 249
+			// There are currently: 5/25
+
+			/// <summary> Will send a message to all players in the specified game.
+			/// <para> Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
 			/// </summary>
-			BROADCAST_MESSAGE_TO_ALL = 225,
+			BROADCAST_MESSAGE_IG = 225,
+			/// <summary> Will send a message to all players within the same game lobby
+			/// <para> Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
+			/// </summary>
+			BROADCAST_MESSAGE_GL,
 			/// <summary>Sends the whisper to the client it was directed to
-			/// <para>Data: [1] Username Length [N] Username [1] Reciever Name Length [N] Reciever Name [1]</para>
+			/// <para>Data: [1] Username Length [N] Username [1] Reciever Name Length [N] Reciever Name</para>
 			/// </summary>
 			DISPLAY_WHISPER,
-			/// <summary>Sends the message to all members of the party
-			/// <para>Data: TODO</para>
+			/// <summary>Sends the message to all members of the party while in game.
+			/// <para>Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
 			/// </summary>
-			BROADCAST_PARTY_MESSAGE,
-			/// <summary>Relays information about the person to be kicked to the host
-			/// <para>Data: TODO</para>
+			BROADCAST_PARTY_MESSAGE_IG,
+			/// <summary> Broadcasts the message to all players in the party while in the game lobby.
+			/// <para> Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
 			/// </summary>
-			RETURN_KICK_STATUS,
+			BROADCAST_PARTY_MESSAGE_GL,
 
 
 
 			// Game Viewer oriented protocols are: 275 - 299
-			// There are currently: /25
-			// TODO add the game viewer server to client protocols
+			// There are currently: 3/25
+
+			/// <summary> Sends the current available games from the server to the client to be viewed
+			/// <para>Data: </para>
+			/// </summary>
+			POPULATE_GAMES = 275,
+			/// <summary> Sends over a notification letting the player know if they were able to join the selected game or not
+			/// <para>Data: [1] Boolean, [4] GameID</para>
+			/// </summary>
+			RETURN_JOIN_GAME_STATUS,
+			/// <summary> Sends over a notification letting the player know if their game was created or not.
+			/// <para>Data: [1] Boolean, [4] GameID</para>
+			/// </summary>
+			RETURN_CREATED_GAME,
 
 
 
 			// Game Lobby oriented protocols for Server are: 350 - 399
-			// There are currently: 8/50
+			// There are currently: 6/50
 
-			/// <summary>Allows the server to send X game objects for the client to view
-			/// <para>Data: TODO</para> 
-			/// </summary>
-			POPULATE_GAMES = 350,
 			/// <summary>Allows the server to send the data of all the clients viewing/joined the selected game 
 			/// <para>This is used to send over ready statues, and if the players are benched or on a specific team</para>
 			/// <para>Data: TODO</para>
 			/// </summary>
-			POPULATE_CLIENTS,
-			/// <summary>Returns this in the case that the bench or both teams are full
-			/// <para>Data: TODO</para> 
+			REFRESH_LOBBY = 350,
+			/// <summary>Returns the response to the host if the game was disbanded or not.
+			/// <para>Data: [1] Boolean</para>
 			/// </summary>
-			UNABLE_TO_JOIN,
-			/// <summary>Gives the player that requested to host a game the information and control over the game created for them
-			/// <para>Data: TODO</para> 
+			RETURN_DISBAND_GAME,
+			/// <summary> Will notify all other players in the game lobby that the game has been disbanded, and should return to the game viewer.
+			/// <para>Data: TODO</para>
 			/// </summary>
-			GAME_CREATED,
-			/// <summary>In the case that the server is unable to create the game – this can return the reasoning or be left blank
-			/// <para>Data: TODO</para> 
+			BROADCAST_DISBAND_GAME,
+			/// <summary> Returns a response to the player if they were able to join the team or not.
+			/// <para>Data: [1] Boolean</para> 
 			/// </summary>
-			UNABLE_TO_CREATE_GAME,
-			/// <summary>Sends information to all the clients in the now disbanded game
-			/// <para>Data: TODO</para> 
+			RETURN_JOIN_TEAM,
+			/// <summary>Returns a response to the player that requested to be benched, and if it was successful/unsucessful.
+			/// <para>Data: [1] Boolean</para>
 			/// </summary>
-			GAME_DISBANDED,
-			/// <summary>In the case that the player is unable to join the team – either due to internal issues, or team capacity
-			/// <para>Data: TODO</para> 
-			/// </summary>
-			UNABLE_TO_JOIN_TEAM,
+			RETURN_BENCH_PLAYER,
 			/// <summary>When the gameplay options are updated by the host, this will be sent to all the clients within that game and notify them of the changes
 			/// <para>Data: TODO</para> 
 			/// </summary>
 			UPDATE_GAMEPLAY_OPTIONS,
 
 
-			// Gameplay oriented protocols are: 500 - 599
-			// There are currently: 13/100
 
-			/// <summary>Sends a request to all players of the game to pause the active game
-			/// <para>Data: TODO</para> 
+			// Gameplay oriented protocols are: 500 - 599
+			// There are currently: 9/100
+
+			/// <summary> Notifies the player if the server was able to summon the minion or not
+			/// <para>Data: [1] Boolean</para>
 			/// </summary>
-			PAUSE_GAME = 500,
-			/// <summary>Requests that all the clients of the game end the game and proceed to the load screen
-			/// <para>Data: TODO</para> 
-			/// </summary>
-			END_GAME,
-			/// <summary>Requests that the game commence again
+			SUMMON_MINION = 500,
+			/// <summary> Broadcasts the information of the minions being summoned to all the players in the game.
 			/// <para>Data: TODO</para>
 			/// </summary>
-			RESUME_GAME,
-			/// <summary>Requests that the game ends and a notification is sent notifying the players they can resume at a later time/date
+			BROADCAST_SUMMON_MINION,
+			/// <summary> Notifies the player if the server was unable or able to place the tower.
+			/// <para>Data: [1] Boolean</para>
+			/// </summary>
+			TOWER_PLACED,
+			/// <summary> Broadcasts the information of the tower to all the players in the game if the placement was successful.
 			/// <para>Data: TODO</para>
 			/// </summary>
-			SHUTDOWN_GAME,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
-			/// </summary>
-			SUMMON_MINION_BC,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
-			/// </summary>
-			SUMMON_MINION,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
-			/// </summary>
-			PLACE_TOWER_BC,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
-			/// </summary>
-			PLACE_TOWER,
+			BROADCAST_TOWER_PLACED,
 			/// <summary> TODO
 			/// <para>Data: TODO</para>
 			/// </summary>
@@ -152,14 +146,40 @@ namespace ManaCraft {
 			/// <para>Data: TODO</para>
 			/// </summary>
 			ASSIGN_RESOURCE_NODE,
-			/// <summary> TODO
+			/// <summary>Returns the results if the minion was successfully researched or not.
+			/// <para>Data: [1] Boolean</para>
+			/// </summary>
+			RETURN_RESEARCH_MINION,
+			/// <summary>Returns the results if the tower was successfully researched or not.
+			/// <para>Data: [1] Boolean</para>
+			/// </summary>
+			RETURN_RESEARCH_TOWER,
+
+
+
+			// Gameplay Command oriented protocols are: 625 - 649
+			// There are currently: 5/24
+
+			/// <summary>Relays information about the person to be kicked to the host
 			/// <para>Data: TODO</para>
 			/// </summary>
-			RESEARCH_MINION,
-			/// <summary> TODO
+			RETURN_KICK_STATUS = 625,
+			/// <summary>Relays information back to the player requesting to pause the game.
+			/// <para>Data: [1] Boolean</para>
+			/// </summary>
+			RETURN_PAUSE_GAME,
+			/// <summary>Relays information back to the player requesting to end the game.
 			/// <para>Data: TODO</para>
 			/// </summary>
-			RESEARCH_TOWER
+			RETURN_END_GAME,
+			/// <summary>Relays information back to the player requestion to resume the game
+			/// <para>Data: TODO</para>
+			/// </summary>
+			RETURN_RESUME_GAME,
+			/// <summary>Relays the response to the player that requested to quit the game.
+			/// <para>Data: [1] Boolean</para>
+			/// </summary>
+			RETURN_QUIT_GAME
 		};
 
 		/// <summary>The list of Client to Server protocols that will be sent over the network.</summary>
