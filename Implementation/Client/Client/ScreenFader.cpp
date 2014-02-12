@@ -38,7 +38,7 @@ void ScreenFader::Update(double _time)
 		}
 	}
 	
-	printf("%i  %i\n", alpha, isFadingIn);
+	if (alpha != 0) printf("%i  %i\n", alpha, isFadingIn);
 	SDL_SetTextureAlphaMod(fader, alpha);
 }
 

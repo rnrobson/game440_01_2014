@@ -9,14 +9,19 @@ class TextField :
 {
 private:
 	SDL_Texture* backgroundTexture;
+	SDL_Rect textRect;
 public:
 	TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour);
 	~TextField();
 
+	virtual void Clear();
 	void AddToString(char _added);
 	void RemoveLastCharacterFromString();
 	int GetStringSize();
 	string GetText();
+
+	virtual void RenderText();
+	virtual void RenderText(std::string &_text);
 
 	virtual void Update(double _time);
 	virtual void Draw();

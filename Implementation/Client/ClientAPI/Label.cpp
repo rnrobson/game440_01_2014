@@ -66,3 +66,9 @@ void Label::Draw()
 		GuiElement::Draw();
 	}
 }
+
+void Label::Clear()
+{
+	text = "";
+	RenderText();
+}

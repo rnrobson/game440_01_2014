@@ -5,6 +5,9 @@ TextField::TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour)
 :Label("", _rect, _font, _textColour)
 {
 	backgroundTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 255, 255, 255, 155 });
+
+	textRect = _rect;
+	RenderText();
 }
 
 TextField::~TextField()
@@ -26,9 +29,20 @@ void TextField::Update(double _time)
 void TextField::Draw()
 {
 	if (Active) {
-		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rect, 0, NULL, flip);
+		SDL_Rect rectangle = rect;
+		rectangle.x += offset.x + padding.x;
+		rectangle.y += offset.y + padding.y;
+		rectangle.w = textRect.w;
+		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rectangle, 0., NULL, flip);
+
 		Label::Draw();
 	}
+}
+
+void TextField::Clear()
+{
+	Label::Clear();
+	RenderText();
 }
 void TextField::AddToString(char _added)
 {
@@ -59,6 +73,35 @@ string TextField::GetText()
 int TextField::GetStringSize()
 {
 	return text.length();
+}
+
+void TextField::RenderText() { RenderText(text); }
+void TextField::RenderText(std::string &_text)
+{
+	SDL_DestroyTexture(texture);
+	SDL_Surface *textSurface = TTF_RenderText_Solid(font, _text.c_str(), fontColor);
+
+	if (textSurface != NULL)
+	{
+		texture = SDL_CreateTextureFromSurface(Window::Renderer(), textSurface);
+
+		if (texture == NULL)
+		{
+			printf("Unable to create texture from textSurface. SDL Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			text = _text;
+			rect.h = textSurface->h;
+			rect.w = textSurface->w;
+		}
+
+		SDL_FreeSurface(textSurface);
+	}
+	else
+	{
+		printf("Unable to render text surface. SDL_ttf Error: %s\n", TTF_GetError());
+	}
 }
 
 void TextField::OnEnterKeyPressed()
