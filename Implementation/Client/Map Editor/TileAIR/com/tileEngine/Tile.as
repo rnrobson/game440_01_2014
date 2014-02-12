@@ -13,18 +13,14 @@
 		public static var width:int = 32; //Default width
 		public static var height:int = 32; //Default height
 		
-		private const DEFAULT_ID:uint = 999;
-		
-		private var tilebmpData:BitmapData
-		public var clickable:Boolean = true; //Whether or not this tile is clickable
-		private var influence:uint; //0 = Neutral, 1 = Chaos, 2 = Divine
-		public var ID:uint = DEFAULT_ID; //999 by default to avoid problems with spritesheets
-		
-		private var parentReference:Layer;
-		
 		public var xPosition:uint;
 		public var yPosition:uint;
-		private var transparent:Boolean;
+		public var ID:uint = DEFAULT_ID; //999 by default to avoid problems with spritesheets
+		public var clickable:Boolean = true; //Whether or not this tile is clickable
+		
+		private const DEFAULT_ID:uint = 999;
+		private var tilebmpData:BitmapData;
+		//private var influence:uint; //0 = Neutral, 1 = Chaos, 2 = Divine
 		
 		public function Tile(xPos:uint, yPos:uint, bmpData:BitmapData){
 			xPosition = xPos;

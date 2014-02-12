@@ -7,10 +7,12 @@
 	import flash.geom.Point;
 	
 	public class TileReference extends Sprite{
+		
 		private var myRect:Rectangle;
 		private var xPosition:uint;
 		private var yPosition:uint;
 		private var ID:uint;
+		
 		public function TileReference(rect:Rectangle, xPos:uint, yPos:uint, _ID:uint){
 			ID = _ID;
 			myRect = rect;

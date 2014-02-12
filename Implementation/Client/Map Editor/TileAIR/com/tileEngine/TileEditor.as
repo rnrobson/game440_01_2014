@@ -6,6 +6,7 @@
 	
 	public class TileEditor extends MovieClip {
 		public static var currentLayer:String = LayerEnum.ARTBACKGROUND; 
+		
 		private var artBackgroundLayer:Layer;
 		private var collisionLayer:Layer;
 		private var spriteSheet:TilePicker;

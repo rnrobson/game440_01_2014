@@ -8,14 +8,12 @@
 		private var Map:XML = new XML(<Map tileSize="" layerWidth="" layerHeight="" levelName="" />);
 		private var ArtBackground:XML = new XML(<ArtBackground spriteSheet="" rows="" columns="" />);
 		private var ArtForeground:XML = new XML(<ArtForeground />);
-		
 		private var backgroundTileArray:Array = new Array();
 		private var collisionTileArray:Array = new Array();
 		private var foregroundTileArray:Array = new Array();
-		
 		private var layerReference:Layer;
-		
 		private var temporaryNode:XML;
+		
 		public function XMLExport(artBackground:Layer, collisionLayer:Layer) {
 			//Get a reference of one of the layers. Since they're both of the same dimensions, it doesn't matter which is used.
 			layerReference = artBackground;

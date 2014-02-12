@@ -21,13 +21,14 @@
 		public static var layerBitmapData:BitmapData; //This will be drawn to directly by other classes. This of this as our base canvas.
 		
 		public var tileArray:Array; //Array of tiles dependent on the parameters passed through in main
+		public var layerWidth;
+		public var layerHeight;
+		
 		private var layerBitmap:Bitmap; //Bitmap that houses the above BitmapData and draws it to the screen
 		private var layerType:String;
 		private var tile:Bitmap = new Bitmap(new defaultTile); //Bitmap that changes depending on the layer type. For visual representation.
 		private var defaultBMP:BitmapData;	
 		
-		public var layerWidth;
-		public var layerHeight;
 		
 		public function Layer(_layerWidth:uint, _layerHeight:uint, _layerType:String) {
 			layerWidth = _layerWidth;
