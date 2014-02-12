@@ -84,6 +84,7 @@
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DLL_Example.cpp" />
     <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="Serialize.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Connection.h" />

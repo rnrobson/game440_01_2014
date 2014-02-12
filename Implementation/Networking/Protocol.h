@@ -8,21 +8,19 @@
 #define NETWORKING_API __declspec(dllimport)
 #endif
 
-/// TODO calculate the protocols/total protocols for each section
-
 namespace ManaCraft {
 	namespace Networking {
-		// BRIAN
-		// This is the format for the comments for each protocol
+		// Protocol documentation format is as follows:
 
-		/// <summary>
-		/// Data: TODO </summary>
+		/// <summary> TODO
+		/// <para>Data: TODO</para>
+		/// </summary>
 
-		// Please use the descripts here and in the master list. Since some here are outta date, and some
-		// in the list are weird and make no sense. 
+		// Due to issues with collaborative documents, this list here will be treated as the master list.
+		// Note: This list is by no means complete as the requirements may change during the life time of the project, therefore
+		// if a new protocol is required, then it can be easily added by contacting a member of the Networking team.
 
-
-		/// <summary>The list of Server to client protocols that will be sent over the network.</summary>
+		/// <summary>The list of Server to Client protocols that will be sent over the network.</summary>
 		NETWORKING_API enum SC_Protocol {
 			// Connection type protocols are: 150 - 199
 			// There are currently: 3/50
@@ -108,7 +106,7 @@ namespace ManaCraft {
 
 
 			// Gameplay oriented protocols are: 500 - 599
-			// There are currently: TODO/99
+			// There are currently: 13/100
 
 			/// <summary>Sends a request to all players of the game to pause the active game
 			/// <para>Data: TODO</para> 
@@ -164,10 +162,10 @@ namespace ManaCraft {
 			RESEARCH_TOWER
 		};
 
-		/// <summary>The list of all the protocols that will be relayed from Client to Server by the network.</summary>
+		/// <summary>The list of Client to Server protocols that will be sent over the network.</summary>
 		NETWORKING_API enum CS_Protocol {
 			// Connection Type Protocols are: 100 - 149
-			// There are currently: 3/49
+			// There are currently: 3/50
 
 			/// <summary>Will close the game for the player, and the connection with the server.
 			/// <para>Data: [1] Username Length, [N] Username </summary>
@@ -182,7 +180,7 @@ namespace ManaCraft {
 
 
 			// Game Viewer oriented protocols are: 250 - 274
-			// There are currently: 3/24
+			// There are currently: 3/25
 
 			/// <summary>Sends a request for a list of refreshed games in the Game Viewer scene.
 			/// <para>Data: [1] Username Length, [1] Game Count, [N] Username, [N] Game Data </summary>
@@ -197,7 +195,7 @@ namespace ManaCraft {
 
 
 			// Game Lobby oriented protocols are: 300 - 349
-			// There are currently: /49
+			// There are currently: 6/50
 
 			/// <summary>Requests that the player joins the team they have selected
 			/// <para>Data: [4] LobbyID, [4] TeamID, [1] Username Length, [N] Username </summary>
@@ -221,7 +219,7 @@ namespace ManaCraft {
 
 
 			// Chat oriented protocols are: 200 - 224
-			// There are currently: 3/24
+			// There are currently: 5/25
 
 			/// <summary>Will send a message to the server meant for all the players within that game
 			/// <para>Data: [4] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
@@ -242,7 +240,7 @@ namespace ManaCraft {
 
 
 			// Gameplay oriented protocols are: 400 - 499
-			//There are currently: 4/99
+			//There are currently: 4/100
 			
 			/// <summary> Sends a requests to the server to place a tower in the designated spot.
 			/// <para>Data: [4] GameID, [4] TowerID, [4] Gridspace, [1] Username Length, [N] Username </summary>
@@ -260,7 +258,7 @@ namespace ManaCraft {
 
 
 			// In-Game Command oriented protocols are: 600 - 624
-			// There are currently: 5/24
+			// There are currently: 5/25
 			
 			/// <summary>Host Only - Requests to the server that a designated player is kicked from the match.
 			/// <para>Data: TODO </summary>

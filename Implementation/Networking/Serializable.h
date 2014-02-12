@@ -8,11 +8,33 @@
 #endif
 
 #include <exception>
+#include <SDL.h>
 
 typedef char byte;
 
 namespace ManaCraft {
 	namespace Networking {
+		/// <summary>
+		/// <para>Data represents what parts of the data structure should be serialized.</para>
+		/// <para>It allows for more efficient transmission as you don't need to pass the entire data structure through the network.</para>
+		/// </summary>
+		NETWORKING_API enum Data : Uint8 {
+			EVERYTHING,
+			POSITION,
+			HEALTH,
+		};
+
+		/// <summary>
+		/// <para>This exception is used when a certain type of Data (shown above in Serializable.h) has not</para>
+		/// <para>been implemented for a given class that inherits from Serializable/Deserializable.</para>
+		/// </summary>
+		extern NETWORKING_API class UnsupportedOperationException : public std::exception {
+			virtual const char* what() const throw()
+			{
+				return "ERROR: This operation is currently unsupported.\n";
+			}
+		};
+
 		/// <summary>
 		/// <para>Serializable is an abstract class that contains methods used for converting various amounts of class data into an array of bytes.</para>
 		/// <para>The base class methods should never be called as they will throw an UnsupportedOperationException since these methods 
@@ -52,23 +74,6 @@ namespace ManaCraft {
 			/// <return>Returns true on success.</return>
 			/// </summary>
 			virtual bool Deserialize(byte* data) { throw UnsupportedOperationException(); }
-		};
-
-		/// <summary>
-		/// <para>Data represents what parts of the data structure should be serialized.</para>
-		/// <para>It allows for more efficient transmission as you don't need to pass the entire data structure through the network.</para>
-		/// </summary>
-		NETWORKING_API enum Data {
-			EVERYTHING,
-			POSITION,
-			HEALTH,
-		};
-
-		extern NETWORKING_API class UnsupportedOperationException : public std::exception {
-			virtual const char* what() const throw()
-			{
-				return "ERROR: This operation is unsupported or has not been implemented.\n";
-			}
 		};
 	}
 }
