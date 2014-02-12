@@ -18,9 +18,117 @@
     <ClCompile Include="DLL_Example.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtSquare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetSquare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Element.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridSquare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceSquare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Minion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\MinionPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Projectile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Resistances.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Tower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DLL_Example.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtSquare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetSquare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Element.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridSquare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceLayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceSquare.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Minion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\MinionPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Projectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Resistances.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Tower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

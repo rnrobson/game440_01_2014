@@ -78,9 +78,45 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtLayer.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtSquare.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetLayer.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetSquare.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Element.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Entity.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridLayer.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridNode.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridSquare.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceLayer.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceSquare.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Level.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Minion.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\MinionPath.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Player.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Projectile.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Resistances.cpp" />
+    <ClCompile Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Tower.cpp" />
     <ClCompile Include="DLL_Example.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtLayer.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\ArtSquare.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetLayer.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\AssetSquare.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Element.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Entity.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridLayer.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridNode.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\GridSquare.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceLayer.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\InfluenceSquare.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Level.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Minion.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\MinionPath.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Player.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Projectile.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Resistances.h" />
+    <ClInclude Include="..\..\Design\Database\SkeletonCode\SkeletonCode\Tower.h" />
     <ClInclude Include="DLL_Example.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
