@@ -128,10 +128,6 @@ public:
 		//else
 			//buttons are disabled
 	}
-	static void Quit()
-	{
-		ClientAPI::ExitMainLoop();
-	}
 
 	static void JoinITeam()
 	{
@@ -166,6 +162,7 @@ public:
 	}
 	static void ShowGameOptions()
 	{
+		ScreenFader::Update(0);
 		printf("show game options\n");
 		//pop up the game options
 	}
@@ -173,6 +170,7 @@ public:
 	{
 		ClientAPI::GetGuiContainer("GameLobby")->Active = false;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void EnableJoinBtns(bool _state)

@@ -129,6 +129,7 @@ public:
 		cout << "Create a new game.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_viewButton()
