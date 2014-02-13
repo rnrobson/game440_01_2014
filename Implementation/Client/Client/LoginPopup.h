@@ -56,7 +56,7 @@ public:
 	static void ButtonPress_Escape()
 	{
 		ClientAPI::GetGuiContainer("LoginPopup")->Active = false;
-		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+		ClientAPI::GetGuiContainer("MainMenu")->Enabled = true;
 	}
 
 	static void ButtonPress_Enter()
