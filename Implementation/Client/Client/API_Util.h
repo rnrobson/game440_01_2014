@@ -59,8 +59,8 @@ public:
 			ClientAPI::AddTexture(_texName, APIHelper::LoadPNGTexture(_filePath));
 	}
 
-	static void AddTextField(string _containerName, string _tfName, SDL_Rect _rect, string _fontName)
+	static void AddTextField(string _containerName, string _tfName, SDL_Rect _rect, string _fontName, string _fontColour)
 	{
-		ClientAPI::GetGuiContainer(_containerName)->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName)));
+		ClientAPI::GetGuiContainer(_containerName)->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
 	}
 };

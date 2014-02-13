@@ -1,17 +1,13 @@
 #include "TextField.h"
 
 
-TextField::TextField(SDL_Rect _rect, TTF_Font* _font)
-:Label("", _rect, _font, { 0, 0, 0, 255 })
+TextField::TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour)
+:Label("", _rect, _font, _textColour)
 {
-	//-- Hover Texture
-	SDL_Surface *backgroundSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, _rect.w, _rect.h, 8, 0, 0, 0, 1);
-	SDL_FillRect(backgroundSurface, NULL, SDL_MapRGB(backgroundSurface->format, 0, 0, 0));
+	backgroundTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 255, 255, 255, 155 });
 
-	SDL_Texture *hoverTexture = SDL_CreateTextureFromSurface(Window::Renderer(), backgroundSurface);
-	SDL_SetTextureAlphaMod(hoverTexture, 155);
-	backgroundTexture = hoverTexture;
-	SDL_FreeSurface(backgroundSurface);
+	textRect = _rect;
+	RenderText();
 }
 
 TextField::~TextField()
@@ -33,9 +29,20 @@ void TextField::Update(double _time)
 void TextField::Draw()
 {
 	if (Active) {
-		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rect, 0., NULL, flip);
+		SDL_Rect rectangle = rect;
+		rectangle.x += offset.x + padding.x;
+		rectangle.y += offset.y + padding.y;
+		rectangle.w = textRect.w;
+		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rectangle, 0., NULL, flip);
+
 		Label::Draw();
 	}
+}
+
+void TextField::Clear()
+{
+	Label::Clear();
+	RenderText();
 }
 void TextField::AddToString(char _added)
 {
@@ -66,4 +73,83 @@ string TextField::GetText()
 int TextField::GetStringSize()
 {
 	return text.length();
+}
+
+void TextField::RenderText() { RenderText(text); }
+void TextField::RenderText(std::string &_text)
+{
+	SDL_DestroyTexture(texture);
+	SDL_Surface *textSurface = TTF_RenderText_Solid(font, _text.c_str(), fontColor);
+
+	if (textSurface != NULL)
+	{
+		texture = SDL_CreateTextureFromSurface(Window::Renderer(), textSurface);
+
+		if (texture == NULL)
+		{
+			printf("Unable to create texture from textSurface. SDL Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			text = _text;
+			rect.h = textSurface->h;
+			rect.w = textSurface->w;
+		}
+
+		SDL_FreeSurface(textSurface);
+	}
+	else
+	{
+		printf("Unable to render text surface. SDL_ttf Error: %s\n", TTF_GetError());
+	}
+}
+
+void TextField::OnEnterKeyPressed()
+{
+	if (Active && Enabled)
+	{
+		Label::OnEnterKeyPressed();
+	}
+}
+void TextField::OnKeyboardDown(SDL_KeyboardEvent e)
+{
+	if (Active && Enabled)
+	{
+		cout << "KeyPressed" << endl;
+
+		//Handle backspace
+		if (e.keysym.sym == SDLK_BACKSPACE)
+		{
+			//lop off character
+			RemoveLastCharacterFromString();
+
+			cout << "Backspace Pressed" << endl;
+		}
+
+		Label::OnKeyboardDown(e);
+	}
+}
+void TextField::OnKeyboardUp(SDL_KeyboardEvent e)
+{
+	if (Active && Enabled)
+	{
+		Label::OnKeyboardUp(e);
+	}
+}
+void TextField::OnTextInput(SDL_TextInputEvent e)
+{
+	if (Active && Enabled)
+	{
+		cout << "Text Input" << endl;
+
+		//Not pasting
+		if (!((e.text[0] == 'v' || e.text[0] == 'V') && SDL_GetModState() & KMOD_CTRL))
+		{
+			//Append character
+			AddToString(*e.text); // inputText += e.text.text;
+								  // renderText = true;
+		}
+
+		Label::OnTextInput(e);
+	}
 }

@@ -18,5 +18,5 @@ private:
 	static SDL_Color color;
 	static bool isFadingIn, isFadingOut;
 	static int alpha;
-	~ScreenFader(){ delete fader; }
+	~ScreenFader(){ SDL_DestroyTexture(fader); }
 };

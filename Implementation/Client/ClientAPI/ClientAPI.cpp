@@ -35,7 +35,7 @@ void ClientAPI::BeginMainLoop()
 	//-- Begin Main Loop
 	while (!quit)
 	{
-		Update(30);
+		Update(33);
 		Draw();
 	}
 }

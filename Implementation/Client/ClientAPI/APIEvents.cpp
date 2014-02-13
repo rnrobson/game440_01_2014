@@ -10,5 +10,6 @@ Uint32 APIEvents::PreviousMouseState;
 
 bool APIEvents::EnterPressed;
 bool APIEvents::EscapePressed;
+bool APIEvents::SDLTextInputEnabled;
 
 SDL_Rect APIEvents::MousePosition;

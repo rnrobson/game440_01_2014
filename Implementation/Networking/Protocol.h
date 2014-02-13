@@ -70,7 +70,7 @@ namespace ManaCraft {
 			// There are currently: 3/25
 
 			/// <summary> Sends the current available games from the server to the client to be viewed
-			/// <para>Data: </para>
+			/// <para>Data: TODO </para>
 			/// </summary>
 			POPULATE_GAMES = 275,
 			/// <summary> Sends over a notification letting the player know if they were able to join the selected game or not
@@ -105,11 +105,11 @@ namespace ManaCraft {
 			/// </summary>
 			RETURN_JOIN_TEAM,
 			/// <summary>Returns a response to the player that requested to be benched, and if it was successful/unsucessful.
-			/// <para>Data: [1] Boolean</para>
+			/// <para>Data: [1] Boolean </para>
 			/// </summary>
 			RETURN_BENCH_PLAYER,
 			/// <summary>When the gameplay options are updated by the host, this will be sent to all the clients within that game and notify them of the changes
-			/// <para>Data: TODO</para> 
+			/// <para>Data: [1] Username Length [n] Username </para> 
 			/// </summary>
 			UPDATE_GAMEPLAY_OPTIONS,
 
@@ -123,7 +123,7 @@ namespace ManaCraft {
 			/// </summary>
 			SUMMON_MINION = 500,
 			/// <summary> Broadcasts the information of the minions being summoned to all the players in the game.
-			/// <para>Data: TODO</para>
+			/// <para>Data: [1] Minion Name [1] Position X [1] Position Y [1] TeamID</para>
 			/// </summary>
 			BROADCAST_SUMMON_MINION,
 			/// <summary> Notifies the player if the server was unable or able to place the tower.
@@ -131,22 +131,22 @@ namespace ManaCraft {
 			/// </summary>
 			TOWER_PLACED,
 			/// <summary> Broadcasts the information of the tower to all the players in the game if the placement was successful.
-			/// <para>Data: TODO</para>
+			/// <para>Data: [1] Tower Name [1] Position X [1] Position Y [1] TeamID</para>
 			/// </summary>
 			BROADCAST_TOWER_PLACED,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
+			/// <summary> Updates the player's economy
+			/// <para>Data: [1] Username Length [n] Username [1] Economy Value</para>
 			/// </summary>
 			UPDATE_ECONOMY,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
+			/// <summary> Broadcasts the information of a teams Base HP to all players in the game
+			/// <para>Data: [1] TeamID [1] HP Value </para>
 			/// </summary>
 			UPDATE_BASE_HP,
-			/// <summary> TODO
-			/// <para>Data: TODO</para>
+			/// <summary>Returns the results if the minion was successfully researched or not.
+			/// <para>Data: [1] Boolean</para>
 			/// </summary>
 			ASSIGN_RESOURCE_NODE,
-			/// <summary>Returns the results if the minion was successfully researched or not.
+			/// <summary>Returns the results if the tower was successfully researched or not.
 			/// <para>Data: [1] Boolean</para>
 			/// </summary>
 			RETURN_RESEARCH_MINION,
@@ -157,11 +157,11 @@ namespace ManaCraft {
 
 
 
-			// Gameplay Command oriented protocols are: 625 - 649
+			// GameplayLobby Command oriented protocols are: 625 - 649
 			// There are currently: 5/24
-
+			// Double check, some of these may require no data as the command itself is the data
 			/// <summary>Relays information about the person to be kicked to the host
-			/// <para>Data: TODO</para>
+			/// <para>Data: [1] Username Length [n] Username</para>
 			/// </summary>
 			RETURN_KICK_STATUS = 625,
 			/// <summary>Relays information back to the player requesting to pause the game.
@@ -169,11 +169,11 @@ namespace ManaCraft {
 			/// </summary>
 			RETURN_PAUSE_GAME,
 			/// <summary>Relays information back to the player requesting to end the game.
-			/// <para>Data: TODO</para>
+			/// <para>Data: [1] Boolean</para>
 			/// </summary>
 			RETURN_END_GAME,
 			/// <summary>Relays information back to the player requestion to resume the game
-			/// <para>Data: TODO</para>
+			/// <para>Data: [1] Boolean</para>
 			/// </summary>
 			RETURN_RESUME_GAME,
 			/// <summary>Relays the response to the player that requested to quit the game.
@@ -267,7 +267,7 @@ namespace ManaCraft {
 			PLACE_TOWER = 400,
 			/// <summary> Sends a request to the server to place a minion at the starting portal.
 			/// <para>Data: TODO </summary>
-			SUMMON_MINION,
+			MINION_SUMMONED,
 			/// <summary> Sends a request to research a minion for the team.
 			/// <para>Data: TODO </summary>
 			RESEARCH_MINION,
