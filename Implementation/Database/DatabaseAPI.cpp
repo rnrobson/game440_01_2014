@@ -2,34 +2,34 @@
 
 using namespace ManaCraft::Database;
 
-bool DatabaseAPI::connectToDatabase(std::string db_Name, std::string server, std::string login, std::string password)
+bool DatabaseAPI::connectToDatabase(const std::string& db_Name, const std::string& server, const std::string& login, const std::string& password);
 {}
 
 void  DatabaseAPI::disconnectFromDatabase()
 {}
 
 
-void  DatabaseAPI::getTowerInfo(TowerTypes tower)
+void  DatabaseAPI::getTowerInfo(const TowerTypes tower)
 {}
 
 void  DatabaseAPI::getAllTowerInfo()
 {}
 
 
-void  DatabaseAPI::getMinionInfo(MinionTypes minion)
+void  DatabaseAPI::getMinionInfo(const MinionTypes minion)
 {}
 
 void  DatabaseAPI::getAllMinionInfo()
 {}
 
 
-void  DatabaseAPI::getElementInfo(ElementTypes element)
+void  DatabaseAPI::getElementInfo(const ElementTypes element)
 {}
 
 void  DatabaseAPI::getAllElementInfo()
 {}
 
-void  DatabaseAPI::getResistanceInfo(ElementTypes element)
+void  DatabaseAPI::getResistanceInfo(const ElementTypes element)
 {}
 
 void  DatabaseAPI::getAllResistanceInfo()
@@ -39,8 +39,8 @@ void  DatabaseAPI::getAllResistanceInfo()
 void  DatabaseAPI::saveGame()
 {}
 
-void  DatabaseAPI::getSaveGame(unsigned int saveID)
+void  DatabaseAPI::getSaveGame(const unsigned int saveID)
 {}
 
-void  DatabaseAPI::getPlayerInfo(std::string name)
+void  DatabaseAPI::getPlayerInfo(const std::string& name)
 {}
