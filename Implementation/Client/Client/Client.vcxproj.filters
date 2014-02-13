@@ -56,5 +56,8 @@
     <ClInclude Include="GUI.h">
       <Filter>Header Files\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="LoginPopup.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

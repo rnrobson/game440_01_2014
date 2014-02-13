@@ -14,6 +14,8 @@ public:
 	TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour);
 	~TextField();
 
+	int CharacterLimit = -1;
+
 	virtual void Clear();
 	void AddToString(char _added);
 	void RemoveLastCharacterFromString();

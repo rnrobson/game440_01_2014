@@ -1,8 +1,12 @@
 #include <ClientAPI.h>
 
+//-- Helper Functions
 #include "ScreenFader.h"
+
+//-- Load Menus
 #include "GameLobby.h"
 #include "MainMenu.h"
+#include "LoginPopup.h"
 #include "Credits.h"
 #include "Options.h"
 #include "GUI.h"
@@ -28,6 +32,7 @@ int main(int argc, char* args[])
 	//--Call individual load methods
 	ScreenFader::Load();
 	MainMenu::Load();
+	LoginPopup::Load();
 	GUI::Load();
 	//Options::Load();
 	Credits::Load();

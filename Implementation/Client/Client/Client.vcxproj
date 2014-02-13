@@ -78,6 +78,7 @@
     <ClInclude Include="Credits.h" />
     <ClInclude Include="GameLobby.h" />
     <ClInclude Include="GUI.h" />
+    <ClInclude Include="LoginPopup.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="ScreenFader.h" />

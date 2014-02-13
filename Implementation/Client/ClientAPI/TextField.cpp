@@ -6,6 +6,8 @@ TextField::TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour)
 {
 	backgroundTexture = APIHelper::SolidColourTexture(_rect.w, _rect.h, { 255, 255, 255, 155 });
 
+	CharacterLimit = -1;
+
 	textRect = _rect;
 	RenderText();
 }
@@ -30,7 +32,7 @@ void TextField::Draw()
 {
 	if (Active) {
 		SDL_Rect rectangle = rect;
-		rectangle.x += offset.x + padding.x;
+		rectangle.x += offset.x + padding.x - 2;
 		rectangle.y += offset.y + padding.y;
 		rectangle.w = textRect.w;
 		SDL_RenderCopyEx(Window::Renderer(), backgroundTexture, NULL, &rectangle, 0., NULL, flip);
@@ -46,12 +48,14 @@ void TextField::Clear()
 }
 void TextField::AddToString(char _added)
 {
-	printf("Character Pressed: %c\n", _added);
+	if (CharacterLimit == -1 || GetStringSize() < CharacterLimit) {
+		printf("Character Pressed: %c\n", _added);
 
-	text.push_back(_added);
-	//text += _added;
+		text.push_back(_added);
+		//text += _added;
 
-	RenderText();
+		RenderText();
+	}
 }
 
 void TextField::RemoveLastCharacterFromString()
