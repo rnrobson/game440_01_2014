@@ -144,7 +144,9 @@ public:
 
 	static void Click_tutorialButton()
 	{
-		cout << "View tutorial sequence.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("GUI")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_quitButton()

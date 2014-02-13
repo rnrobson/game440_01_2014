@@ -53,5 +53,8 @@
     <ClInclude Include="ScreenFader.h">
       <Filter>Header Files\API Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
