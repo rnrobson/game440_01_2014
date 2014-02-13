@@ -121,7 +121,7 @@ namespace ManaCraft {
 			/// <summary> Notifies the player if the server was able to summon the minion or not
 			/// <para>Data: [1] Boolean</para>
 			/// </summary>
-			SUMMON_MINION = 500,
+			MINION_SUMMONED = 500,
 			/// <summary> Broadcasts the information of the minions being summoned to all the players in the game.
 			/// <para>Data: TODO</para>
 			/// </summary>

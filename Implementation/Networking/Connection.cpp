@@ -1,4 +1,6 @@
 #include "Connection.h"
+#include "Serialize.h"
+#include "Protocol.h"
 
 using namespace ManaCraft::Networking;
 
@@ -14,12 +16,15 @@ Connection::Connection(char* host, Uint16 port) {
 }
 
 Connection::Connection(TCPsocket sock) {
-	// This constructor is primarily used as the way of returning accepted sockets
-	// as a Connection object
-	mSocket = sock;
-	
-	// Get the address information of the socket
-	mRemoteIP = SDLNet_TCP_GetPeerAddress(mSocket);
+	if (sock) {
+		// This constructor is primarily used as the way of returning accepted sockets
+		// as a Connection object
+		mSocket = sock;
+
+		// Get the address information of the socket
+		mRemoteIP = SDLNet_TCP_GetPeerAddress(mSocket);
+		mStatus = ConnectionStatus::CONNECTED;
+	}
 }
 
 NETWORKING_API int Connection::Open() {
@@ -57,24 +62,75 @@ NETWORKING_API Connection* Connection::Listen() {
 	}
 
 	// If all else fails, return NULL
-	return NULL;
+	return nullptr;
 }
 
-NETWORKING_API int Connection::ReceiveData(byte* buf) {
-	// Recieve some data.
-	// Coming soon to a repo near you.
+NETWORKING_API int Connection::ReceiveData(byte** buf) {
+	if (mSocket) {
+		// Recieve some data.
+		// Deserialize and check security header.
+		byte* secHeader = nullptr;
+		int len = SDLNet_TCP_Recv(mSocket, secHeader, 4);
+
+		if (len < 0) {
+			printf("Error: %s", SDLNet_GetError());
+		}
+
+		if (secHeader == "JOSH") {
+			// Deserialize and check length.
+			byte* length = nullptr;
+			SDLNet_TCP_Recv(mSocket, length, 1);
+
+			int dataLen = (int)length;
+			// Can check against expected value now
+
+			// Initialize the buffer and fill it with the data in bytes
+			// Dereferencing is done so we exit the function with a non-NULL byte array.
+			*buf = new byte[dataLen];
+			SDLNet_TCP_Recv(mSocket, *buf, dataLen);
+
+			// Check the end header, but make sure to free the memory of the old pointer and keep it from going stray
+			SDLNet_TCP_Recv(mSocket, secHeader, 4);
+
+			if (secHeader == "JOSH") {
+				// Return the length of data filled into the buffer.
+				return dataLen;
+			}
+			else {
+				// Security header doesn't match, discard the data. It's dirty.
+				delete buf;
+			}
+		}
+	}
+
+	// If something goes wrong, return 0
+	// TODO: Exceptions? Yay/nay?
 	return 0;
 }
 
+/****** CURRENTLY UNUSED ******/
 NETWORKING_API int Connection::SendData(byte* payload) {
 	// Send data over mSocket.
 	// Coming soon to a repo near you.
 	return 0;
 }
 
-NETWORKING_API int Connection::SendData(Packet& payload) {
+NETWORKING_API int Connection::SendData(Packet payload) {
 	// Send data over mSocket
-	// Coming soon to a repo near you.
+	if (mSocket) {
+		byte* secHead = payload.GetSecurityHeader();
+		if (secHead[0] == 'J' && secHead[1] == 'O' && secHead[2] == 'S' && secHead[3] == 'H') {
+			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.GetDataLength());
+
+			if (len < 0) {
+				printf("Error: %s", SDLNet_GetError());
+			}
+			else {
+				return len;
+			}
+		}
+	}
+
 	return 0;
 }
 

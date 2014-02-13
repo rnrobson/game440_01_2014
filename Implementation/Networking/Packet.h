@@ -24,7 +24,6 @@ namespace ManaCraft {
 
 			// Override copy constructors
 			void operator=(const Packet&);
-			Packet(const Packet&);
 
 		public:
 			/// <summary>[Packet]

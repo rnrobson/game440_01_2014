@@ -3,19 +3,17 @@
 #include <string>
 #include <SDL_net.h>
 
+#include "Packet.h"
+
 #ifdef NETWORKING_EXPORTS
 #define NETWORKING_API __declspec(dllexport)
 #else
 #define NETWORKING_API __declspec(dllimport)
 #endif
 
-// Erase when have packet class
-class Packet;
-
-typedef unsigned char byte;
-
 namespace ManaCraft {
 	namespace Networking {
+
 		NETWORKING_API enum ConnectionStatus {
 			DISCONNECTED,
 			CONNECTED
@@ -27,6 +25,7 @@ namespace ManaCraft {
 			IPaddress mIPAddress, *mRemoteIP; // Remote IP is for using Connection(TCPsocket& sock)
 			TCPsocket mSocket;
 			ConnectionStatus mStatus;
+			SDL_Thread* listenerThread;
 
 		public:
 			/// <summary>[Connection]
@@ -63,9 +62,10 @@ namespace ManaCraft {
 			/// <para>[byte* buf] The local buffer to recieve the data into.</para>
 			/// <returns>Returns the length of the data received.</returns>
 			/// </summary>
-			int ReceiveData(byte* buf);
+			int ReceiveData(byte** buf);
 
 			/// <summary>[SendData]
+			/// <para>**** Currently Unused **** </para>
 			/// <para>Send data over the current network connection.</para>
 			/// <para>[byte* payload] The byte buffer to be sent.</para>
 			/// <return>Returns the length of the data sent.</return>
@@ -77,7 +77,7 @@ namespace ManaCraft {
 			/// <para>[Packet(ref) payload] A reference to the packet object holding the data to be sent.</para>
 			/// <returns>Returns the length of the data sent.</returns>
 			/// </summary>
-			int SendData(Packet& payload);
+			int SendData(Packet payload);
 
 			/* Do we really need to store the username in the Connection class? */
 			/// <summary>[GetUsername]
