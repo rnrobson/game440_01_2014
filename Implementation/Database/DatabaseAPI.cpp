@@ -1,34 +1,46 @@
 #include "DatabaseAPI.h"
 
+using namespace ManaCraft::Database;
+
+bool DatabaseAPI::connectToDatabase(std::string db_Name, std::string server, std::string login, std::string password)
+{}
+
+void  DatabaseAPI::disconnectFromDatabase()
+{}
 
 
+void  DatabaseAPI::getTowerInfo(TowerTypes tower)
+{}
 
-void Tower(){}
+void  DatabaseAPI::getAllTowerInfo()
+{}
 
-void Towers(){}
 
-void Player(){}
+void  DatabaseAPI::getMinionInfo(MinionTypes minion)
+{}
 
-void Elements(){}
+void  DatabaseAPI::getAllMinionInfo()
+{}
 
-void Element(){}
 
-void Resistance(){}
+void  DatabaseAPI::getElementInfo(ElementTypes element)
+{}
 
-void Resistances(){}
+void  DatabaseAPI::getAllElementInfo()
+{}
 
-void Minions(){}
+void  DatabaseAPI::getResistanceInfo(ElementTypes element)
+{}
 
-void Minion(){}
+void  DatabaseAPI::getAllResistanceInfo()
+{}
 
-void SaveGame(){}
 
-void GetSaveGame(){}
+void  DatabaseAPI::saveGame()
+{}
 
-void Projectile(){}
+void  DatabaseAPI::getSaveGame(unsigned int saveID)
+{}
 
-void InfuenceSquare(){}
-
-void GridSquare(){}
-
-void GridSquares(){}
+void  DatabaseAPI::getPlayerInfo(std::string name)
+{}

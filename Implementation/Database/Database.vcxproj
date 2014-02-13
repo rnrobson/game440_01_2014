@@ -81,10 +81,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DatabaseAPI.cpp" />
     <ClCompile Include="DLL_Example.cpp" />
     <ClCompile Include="GridLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseAPI.h" />
+    <ClInclude Include="DataDefinitions.h" />
     <ClInclude Include="DLL_Example.h" />
     <ClInclude Include="GridLayer.h" />
   </ItemGroup>
