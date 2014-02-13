@@ -267,7 +267,7 @@ namespace ManaCraft {
 			PLACE_TOWER = 400,
 			/// <summary> Sends a request to the server to place a minion at the starting portal.
 			/// <para>Data: TODO </summary>
-			MINION_SUMMONED,
+			SUMMON_MINION,
 			/// <summary> Sends a request to research a minion for the team.
 			/// <para>Data: TODO </summary>
 			RESEARCH_MINION,

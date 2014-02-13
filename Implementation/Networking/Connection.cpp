@@ -68,7 +68,7 @@ NETWORKING_API Connection* Connection::Listen() {
 NETWORKING_API int Connection::ReceiveData(byte** buf) {
 	if (mSocket) {
 		// Recieve some data.
-		// Deserialize and check security header.
+		// Grab and check security header.
 		byte* secHeader = nullptr;
 		int len = SDLNet_TCP_Recv(mSocket, secHeader, 4);
 
@@ -77,7 +77,7 @@ NETWORKING_API int Connection::ReceiveData(byte** buf) {
 		}
 
 		if (secHeader == "JOSH") {
-			// Deserialize and check length.
+			// Grab and check length.
 			byte* length = nullptr;
 			SDLNet_TCP_Recv(mSocket, length, 1);
 
@@ -89,7 +89,7 @@ NETWORKING_API int Connection::ReceiveData(byte** buf) {
 			*buf = new byte[dataLen];
 			SDLNet_TCP_Recv(mSocket, *buf, dataLen);
 
-			// Check the end header, but make sure to free the memory of the old pointer and keep it from going stray
+			// Check the end header
 			SDLNet_TCP_Recv(mSocket, secHeader, 4);
 
 			if (secHeader == "JOSH") {
