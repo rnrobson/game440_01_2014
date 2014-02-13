@@ -34,7 +34,7 @@ int main(int argc, char* args[])
 	MainMenu::Load();
 	LoginPopup::Load();
 	GUI::Load();
-	//Options::Load();
+	Options::Load();
 	Credits::Load();
 	GameLobby::Load();
 
