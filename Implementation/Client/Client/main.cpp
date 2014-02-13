@@ -5,6 +5,7 @@
 #include "MainMenu.h"
 #include "Credits.h"
 #include "Options.h"
+#include "GUI.h"
 
 
 //-- Function Prototypes
@@ -27,6 +28,7 @@ int main(int argc, char* args[])
 	//--Call individual load methods
 	ScreenFader::Load();
 	MainMenu::Load();
+	GUI::Load();
 	//Options::Load();
 	Credits::Load();
 	GameLobby::Load();
