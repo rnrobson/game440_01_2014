@@ -19,7 +19,7 @@ namespace ManaCraft {
 			/// <para>[string] Login password. </para>
 			/// <returns>[Returns] a bool. True if connection was established. </returns>
 			/// </summary>
-			bool connectToDatabase(std::string db_Name, std::string server, std::string login, std::string password);
+			bool connectToDatabase(const std::string& db_Name, const std::string& server, const std::string& login, const std::string& password);
 			
 			/// <summary> Disconnects from the database if a connection is already established. </summary>
 			void disconnectFromDatabase();
@@ -28,34 +28,34 @@ namespace ManaCraft {
 			//TODO: Proper returns for methods below
 
 			/// <summary> Get information of specific tower of TowerType. </summary>
-			void getTowerInfo(TowerTypes tower);
+			void getTowerInfo(const TowerTypes tower);
 			/// <summary> Get information on all the Towers. </summary>
 			void getAllTowerInfo();
 
 			/// <summary> Get information of specific minion of MinionType. </summary>
-			void getMinionInfo(MinionTypes minion);
+			void getMinionInfo(const MinionTypes minion);
 			// <summary> Get information on all Minions. </summary>
 			void getAllMinionInfo();
 
 			/// <summary> Get information of specific element of ElementType. </summary>
-			void getElementInfo(ElementTypes element);
+			void getElementInfo(const ElementTypes element);
 			// <summary> Get information on all Elements. </summary>
 			void getAllElementInfo();
 
 			/// <summary> Get information of specific Resistance of ElementType. </summary>
-			void getResistanceInfo(ElementTypes element);
+			void getResistanceInfo(const ElementTypes element);
 			// <summary> Get information on all Resistances. </summary>
 			void getAllResistanceInfo();
 			
 			/// <summary> Saves the current game being played. </summary>
 			void saveGame(); //TODO: lol figure how this is going to work
 			/// <summary> Pulls information for a Save Game
-			void getSaveGame(unsigned int saveID);
+			void getSaveGame(const unsigned int& saveID);
 
 			/// <summary> Get a players information from the database.
 			/// <para>[string] Username of the player.
 			/// </summary>
-			void getPlayerInfo(std::string name);
+			void getPlayerInfo(const std::string& name);
 
 		};
 	}
