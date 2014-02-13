@@ -9,10 +9,10 @@
 		private var tileEditorTest:TileEditor;
 		
 		public function main() {
-			var fi:FileImporter = new FileImporter();
+			//var fi:FileImporter = new FileImporter();
 			tileEditorTest = new TileEditor(20,20,32,32);
 			addChild(tileEditorTest);
-			addChild(fi);
+			//addChild(fi);
 		}
 	}
 	

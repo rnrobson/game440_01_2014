@@ -67,6 +67,7 @@
 			if(TileEditor.currentLayer == LayerEnum.ARTBACKGROUND){
 				if(Layer.currentSelectionBMP != null){
 					ID = Layer.currentSelectionID;
+					resetTile();
 					fillTileWithSelection(tilebmpData); //Clear the current tile and set it to the default tile data
 					fillTileWithSelection(Layer.currentSelectionBMP); //Sets the current tile to the users selection on the spritesheet
 				}
@@ -84,7 +85,7 @@
 		}
 		private function clearTile(){
 			if(TileEditor.currentLayer == LayerEnum.ARTBACKGROUND){
-			ID = DEFAULT_ID;
+				ID = DEFAULT_ID;
 				fillTileWithSelection(Layer.layerBitmapData);
 				fillTileWithSelection(tilebmpData);
 			}
@@ -105,6 +106,11 @@
 			this.graphics.endFill();
 		}
 		
+		private function resetTile(){
+			this.graphics.clear();
+			this.graphics.lineStyle(1, 0x000000,1.0);
+			fillTileWithSelection(tilebmpData);
+		}
 	
 
 	}
