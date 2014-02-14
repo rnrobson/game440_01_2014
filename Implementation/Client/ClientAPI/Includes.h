@@ -2,7 +2,7 @@
 #ifndef INCLUDES_H
 #define INCLUDES_H
 
-using namespace std;
+//using namespace std;
 
 #include <iostream>
 #include <string>
@@ -13,5 +13,4 @@ using namespace std;
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
-//#include "Window.h"
 #endif

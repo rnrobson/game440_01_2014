@@ -49,6 +49,15 @@
     <Filter Include="Source Files\Server">
       <UniqueIdentifier>{4bab256f-0682-4bc2-abc0-27cbbb1a174b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Client\Menus">
+      <UniqueIdentifier>{e1e4b578-06ab-48a7-8b52-1e4ac6578c04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Client\Utilities">
+      <UniqueIdentifier>{9fc4479f-8379-4091-83e5-357d9b1c742c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Client\Utilities">
+      <UniqueIdentifier>{b6d575e7-ea34-4f79-bc3e-98b5ae49418b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -144,14 +153,17 @@
     <ClCompile Include="Window.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="ScreenFader.cpp">
-      <Filter>Source Files\Client</Filter>
-    </ClCompile>
     <ClCompile Include="DatabaseAPI.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
     <ClCompile Include="Serialize.cpp">
       <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenFader.cpp">
+      <Filter>Source Files\Client\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Tooltip.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,35 +272,38 @@
     <ClInclude Include="ClientAPI.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="ScreenFader.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="API_Util.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Credits.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLobby.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginPopup.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="Options.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
     <ClInclude Include="DataDefinitions.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseAPI.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="Credits.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLobby.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginPopup.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Options.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="API_Util.h">
+      <Filter>Header Files\Client\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenFader.h">
+      <Filter>Header Files\Client\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Tooltip.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

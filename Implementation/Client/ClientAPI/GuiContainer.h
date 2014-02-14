@@ -15,26 +15,26 @@
 class GuiContainer
 {
 private:
-	vector<std::string> guiContainerKeys;
-	vector<GuiContainer*> guiContainers;
+	std::vector<std::string> guiContainerKeys;
+	std::vector<GuiContainer*> guiContainers;
 
-	vector<std::string> guiElementKeys;
-	vector<GuiElement*> guiElements;
+	std::vector<std::string> guiElementKeys;
+	std::vector<GuiElement*> guiElements;
 
-	vector<std::string> buttonKeys;
-	vector<Button*> buttons;
+	std::vector<std::string> buttonKeys;
+	std::vector<Button*> buttons;
 
-	vector<std::string> textFieldKeys;
-	vector<TextField*> textFields;
+	std::vector<std::string> textFieldKeys;
+	std::vector<TextField*> textFields;
 
-	vector<std::string> labelKeys;
-	vector<Label*> labels;
+	std::vector<std::string> labelKeys;
+	std::vector<Label*> labels;
 
-	vector<std::string> checkboxKeys;
-	vector<Checkbox*> checkboxes;
+	std::vector<std::string> checkboxKeys;
+	std::vector<Checkbox*> checkboxes;
 
-	vector<std::string> sliderKeys;
-	vector<Slider*> sliders;
+	std::vector<std::string> sliderKeys;
+	std::vector<Slider*> sliders;
 
 	SDL_Rect position;
 

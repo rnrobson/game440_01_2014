@@ -41,7 +41,7 @@ int testmain(int argc, char* args[])
 
 void Update(double time)
 {
-	cout << "Entering Custom Update" << endl;
+	std::cout << "Entering Custom Update" << std::endl;
 
 	SDL_Delay(1000);
 	ClientAPI::ExitMainLoop();
@@ -49,5 +49,5 @@ void Update(double time)
 
 void Draw()
 {
-	cout << "Entering Custom Draw" << endl;
+	std::cout << "Entering Custom Draw" << std::endl;
 }

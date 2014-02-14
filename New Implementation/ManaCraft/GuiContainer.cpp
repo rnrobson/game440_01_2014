@@ -16,6 +16,9 @@ GuiContainer::GuiContainer()
 	labels = std::vector<Label*>{};
 	checkboxes = std::vector<Checkbox*>{};
 
+	onEscapeKeyPressed = nullptr;
+	onEnterKeyPressed = nullptr;
+
 	Active = true;
 	Enabled = true;
 	SetPosition({ 0, 0, 0, 0 });
@@ -150,9 +153,9 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 
 	for each (GuiElement* element in guiElements)
 	{
-		/*if (element->Active) {
+		if (element->Active) {
 			element->OnMouseMotion(e);
-		}*/ // DEBUG
+		}
 	}
 
 	for each (Button* button in buttons)

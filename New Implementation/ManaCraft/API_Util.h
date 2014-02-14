@@ -26,6 +26,11 @@ public:
 			_cName->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
 	}
 
+	static void AddCheckBoxToContainer(GuiContainer *_cName, std::string _cbName, SDL_Rect _rect, SDL_Color _checkColor, SDL_Color _outlineColor)
+	{
+		_cName->AddCheckbox(_cbName, new Checkbox(_rect, _checkColor, _outlineColor));
+	}
+
 	static void AddColor(std::string _clrName, int _r, int _g, int _b, int _a)
 	{
 		ClientAPI::AddColour(_clrName, { _r, _g, _b, _a });
@@ -36,9 +41,9 @@ public:
 		ClientAPI::AddFont(_fontName, Window::LoadFont(_filePath, _fontSize));
 	}
 
-	static void AddLabel(std::string _containerName, std::string _lblName, std::string _text, SDL_Rect _rect, std::string _fontName, std::string _clrName)
+	static void AddGuiElementToContainer(GuiContainer *_cName, std::string _guiName, std::string _texName, SDL_Rect _rect)
 	{
-		ClientAPI::GetGuiContainer(_containerName)->AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
+		_cName->AddGuiElement(_guiName, new GuiElement(ClientAPI::GetTexture(_texName), _rect));
 	}
 
 	static void AddLabelToContainer(GuiContainer *_cName, std::string _lblName, std::string _text, SDL_Rect _rect, std::string _fontName, std::string _clrName)
@@ -52,6 +57,11 @@ public:
 			AddLabel(_lblName, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName), _center);
 	}
 
+	static void AddSolidTexture(std::string _texName, SDL_Color _color, int _width, int _height)
+	{
+		ClientAPI::AddTexture(_texName, APIHelper::SolidColourTexture(_width, _height, _color));
+	}
+
 	static void AddTexture(std::string _texName, std::string _filePath, TextureExtension _ext)
 	{
 		(_ext == BMP) ?
@@ -59,8 +69,8 @@ public:
 			ClientAPI::AddTexture(_texName, APIHelper::LoadPNGTexture(_filePath));
 	}
 
-	static void AddTextField(std::string _containerName, std::string _tfName, SDL_Rect _rect, std::string _fontName, std::string _fontColour)
+	static void AddTextField(GuiContainer *_cName, std::string _tfName, SDL_Rect _rect, std::string _fontName, std::string _fontColour)
 	{
-		ClientAPI::GetGuiContainer(_containerName)->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
+		_cName->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
 	}
 };

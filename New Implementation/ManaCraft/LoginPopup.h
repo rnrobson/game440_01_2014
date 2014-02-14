@@ -36,7 +36,7 @@ public:
 		ClientAPI::GetGuiContainer("LoginPopup")->SubscribeOnEnterKeyPressed(LoginPopup::ButtonPress_Enter);
 
 		//-- Set Menu Position
-		ClientAPI::GetGuiContainer("LoginPopup")->SetPosition(APIHelper::RectHelper(SCREEN_WIDTH / 2.9, SCREEN_HEIGHT / 2.5, 0, 0));
+		ClientAPI::GetGuiContainer("LoginPopup")->SetPosition(APIHelper::RectHelper((int)(SCREEN_WIDTH / 2.9), (int)(SCREEN_HEIGHT / 2.5), 0, 0));
 	
 		// Turn off
 		ClientAPI::GetGuiContainer("LoginPopup")->Active = false;

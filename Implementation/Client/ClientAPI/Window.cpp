@@ -99,7 +99,7 @@ SDL_Texture* Window::LoadImage(const std::string &file)
 	}
 	return texture;
 }
-SDL_Texture* Window::LoadTexture(const string &file)
+SDL_Texture* Window::LoadTexture(const std::string &file)
 {
 	SDL_Texture *texture = IMG_LoadTexture(Window::mRenderer.get(), file.c_str());
 	if (texture == nullptr)

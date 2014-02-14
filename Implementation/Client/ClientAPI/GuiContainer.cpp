@@ -2,19 +2,22 @@
 
 GuiContainer::GuiContainer()
 {
-	guiContainerKeys = vector<std::string>{};
-	guiElementKeys = vector<std::string>{};
-	buttonKeys = vector<std::string>{};
-	textFieldKeys = vector<std::string>{};
-	labelKeys = vector<std::string>{};
-	checkboxKeys = vector<std::string>{};
+	guiContainerKeys = std::vector<std::string>{};
+	guiElementKeys = std::vector<std::string>{};
+	buttonKeys = std::vector<std::string>{};
+	textFieldKeys = std::vector<std::string>{};
+	labelKeys = std::vector<std::string>{};
+	checkboxKeys = std::vector<std::string>{};
 
-	guiContainers = vector<GuiContainer*>{};
-	guiElements = vector<GuiElement*>{};
-	buttons = vector<Button*>{};
-	textFields = vector<TextField*>{};
-	labels = vector<Label*>{};
-	checkboxes = vector<Checkbox*>{};
+	guiContainers = std::vector<GuiContainer*>{};
+	guiElements = std::vector<GuiElement*>{};
+	buttons = std::vector<Button*>{};
+	textFields = std::vector<TextField*>{};
+	labels = std::vector<Label*>{};
+	checkboxes = std::vector<Checkbox*>{};
+
+	onEscapeKeyPressed = nullptr;
+	onEnterKeyPressed = nullptr;
 
 	Active = true;
 	Enabled = true;
