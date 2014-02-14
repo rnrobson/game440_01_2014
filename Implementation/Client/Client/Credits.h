@@ -11,10 +11,10 @@ public:
 		const int LABEL_SPACE_Y = 25;
 		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
 
-		string clientStrings[9] = { "Andrew Godfroy", "Cassandra Siewert", "Christian Adao", "David Vo", "Geordie Powers", "Neil Schlachter", "Tyler Remazki", "Deanna Sowa" };
-		string networkStrings[7] = { "Joshua O'Donnell", "Philip Diehl", "Dean Watts", "Suleyman Tahirli", "Brian Lefrancois", "Sarah Childs", "Mitch Andrews" };
-		string serverStrings[7] = { "Rohun Banerji", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Wayne Gauthier" };
-		string databaseStrings[5] = { "Robert Evola", "Matt Mayo", "Vinny Crupi", "Kyle Nokes", "Jordan Hurst" };
+		std::string clientStrings[9] = { "Andrew Godfroy", "Cassandra Siewert", "Christian Adao", "David Vo", "Geordie Powers", "Neil Schlachter", "Tyler Remazki", "Deanna Sowa" };
+		std::string networkStrings[7] = { "Joshua O'Donnell", "Philip Diehl", "Dean Watts", "Suleyman Tahirli", "Brian Lefrancois", "Sarah Childs", "Mitch Andrews" };
+		std::string serverStrings[7] = { "Rohun Banerji", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Wayne Gauthier" };
+		std::string databaseStrings[5] = { "Robert Evola", "Matt Mayo", "Vinny Crupi", "Kyle Nokes", "Jordan Hurst" };
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
@@ -109,7 +109,7 @@ public:
 
 	static void Click_backButton()
 	{
-		cout << "Back to main menu.\n";
+		std::cout << "Back to main menu.\n";
 		ClientAPI::GetGuiContainer("Credits")->Active = false;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 		ScreenFader::FadeOut();
