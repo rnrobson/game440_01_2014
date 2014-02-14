@@ -26,6 +26,11 @@ public:
 			_cName->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
 	}
 
+	static void AddCheckBoxToContainer(GuiContainer *_cName, string _cbName, SDL_Rect _rect, SDL_Color _checkColor, SDL_Color _outlineColor)
+	{
+		_cName->AddCheckbox(_cbName, new Checkbox(_rect, _checkColor, _outlineColor));
+	}
+
 	static void AddColor(string _clrName, int _r, int _g, int _b, int _a)
 	{
 		ClientAPI::AddColour(_clrName, { _r, _g, _b, _a });
@@ -36,9 +41,9 @@ public:
 		ClientAPI::AddFont(_fontName, Window::LoadFont(_filePath, _fontSize));
 	}
 
-	static void AddLabel(string _containerName, string _lblName, string _text, SDL_Rect _rect, string _fontName, string _clrName)
+	static void AddGuiElementToContainer(GuiContainer *_cName, string _guiName, string _texName, SDL_Rect _rect)
 	{
-		ClientAPI::GetGuiContainer(_containerName)->AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
+		_cName->AddGuiElement(_guiName, new GuiElement(ClientAPI::GetTexture(_texName), _rect));
 	}
 
 	static void AddLabelToContainer(GuiContainer *_cName, string _lblName, string _text, SDL_Rect _rect, string _fontName, string _clrName)
@@ -52,6 +57,11 @@ public:
 			AddLabel(_lblName, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName), _center);
 	}
 
+	static void AddSolidTexture(string _texName, SDL_Color _color, int _width, int _height)
+	{
+		ClientAPI::AddTexture(_texName, APIHelper::SolidColourTexture(_width, _height, _color));
+	}
+
 	static void AddTexture(string _texName, string _filePath, TextureExtension _ext)
 	{
 		(_ext == BMP) ?
@@ -59,8 +69,8 @@ public:
 			ClientAPI::AddTexture(_texName, APIHelper::LoadPNGTexture(_filePath));
 	}
 
-	static void AddTextField(string _containerName, string _tfName, SDL_Rect _rect, string _fontName, string _fontColour)
+	static void AddTextField(GuiContainer *_cName, string _tfName, SDL_Rect _rect, string _fontName, string _fontColour)
 	{
-		ClientAPI::GetGuiContainer(_containerName)->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
+		_cName->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
 	}
 };
