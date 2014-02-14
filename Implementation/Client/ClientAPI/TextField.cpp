@@ -69,7 +69,7 @@ void TextField::RemoveLastCharacterFromString()
 	RenderText();
 }
 
-string TextField::GetText()
+std::string TextField::GetText()
 {
 	return text;
 }
@@ -119,7 +119,7 @@ void TextField::OnKeyboardDown(SDL_KeyboardEvent e)
 {
 	if (Active && Enabled)
 	{
-		cout << "KeyPressed" << endl;
+		std::cout << "KeyPressed" << std::endl;
 
 		//Handle backspace
 		if (e.keysym.sym == SDLK_BACKSPACE)
@@ -127,7 +127,7 @@ void TextField::OnKeyboardDown(SDL_KeyboardEvent e)
 			//lop off character
 			RemoveLastCharacterFromString();
 
-			cout << "Backspace Pressed" << endl;
+			std::cout << "Backspace Pressed" << std::endl;
 		}
 
 		Label::OnKeyboardDown(e);
@@ -144,7 +144,7 @@ void TextField::OnTextInput(SDL_TextInputEvent e)
 {
 	if (Active && Enabled)
 	{
-		cout << "Text Input" << endl;
+		std::cout << "Text Input" << std::endl;
 
 		//Not pasting
 		if (!((e.text[0] == 'v' || e.text[0] == 'V') && SDL_GetModState() & KMOD_CTRL))

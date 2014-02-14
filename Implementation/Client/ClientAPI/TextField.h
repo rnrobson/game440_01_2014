@@ -20,7 +20,7 @@ public:
 	void AddToString(char _added);
 	void RemoveLastCharacterFromString();
 	int GetStringSize();
-	string GetText();
+	std::string GetText();
 
 	virtual void RenderText();
 	virtual void RenderText(std::string &_text);

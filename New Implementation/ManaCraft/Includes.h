@@ -1,3 +1,4 @@
+#pragma once
 #ifndef INCLUDES_H
 #define INCLUDES_H
 
@@ -12,5 +13,4 @@
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 
-//#include "Window.h"
 #endif

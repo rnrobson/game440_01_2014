@@ -14,31 +14,11 @@ void ScreenFader::Load()
 
 void ScreenFader::Update(double _time)
 {
-	if (isFadingIn)
-	{
-		if (alpha < 255)
-		{
-			alpha += (265 - alpha) / _time * 3;
-		}
-		else
-		{
-			isFadingIn = false;
-		}
-	}
-	
 	if (isFadingOut)
-	{
-		if (alpha > 0)
-		{
-			alpha += (0 - alpha) / _time * 3;
-		}
-		else
-		{
-			isFadingOut = false;
-		}
-	}
+		alpha > 0 ? alpha += (0 - alpha) / _time * 3 : isFadingOut = false;
+	else if (isFadingIn)
+		alpha < 255 ? alpha += (265 - alpha) / _time * 3 : isFadingIn = false;
 	
-	if (alpha != 0) printf("%i  %i\n", alpha, isFadingIn);
 	SDL_SetTextureAlphaMod(fader, alpha);
 }
 
@@ -59,6 +39,11 @@ void ScreenFader::Draw()
 	SDL_RenderCopy(Window::Renderer(), fader, NULL, NULL);
 }
 
-void ScreenFader::SetColor(SDL_Color _color) { color = _color; }
+void ScreenFader::SetColor(SDL_Color _color) { 
+	SDL_DestroyTexture(fader);
+	fader = NULL;
+
+	fader = APIHelper::SolidColourTexture(Window::Box().w, Window::Box().h, { _color.r, _color.g, _color.b, alpha });
+}
 bool ScreenFader::IsFadingIn(){ return isFadingIn; }
 bool ScreenFader::IsFadingOut(){ return isFadingOut; }
