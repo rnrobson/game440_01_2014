@@ -10,7 +10,7 @@ private:
 public:
 	unsigned int range;
 	float firingRate;
-	unsigned int damagePerSecond;
+	float damagePerSecond;
 	char attackType;
 	unsigned int sellAmount;
 	char zoneOfInfluence;

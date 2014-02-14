@@ -8,7 +8,7 @@ private:
 	Resistances* res; //not sure if this is correct
 
 public:
-	unsigned int health;
+	float health;
 	float xPos;
 	float yPos;
 	float manaPerSecond;
