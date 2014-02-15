@@ -142,6 +142,9 @@ public:
 	static void Click_optionsButton()
 	{
 		std::cout << "Open options menu.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("Options")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_tutorialButton()
