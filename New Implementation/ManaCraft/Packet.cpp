@@ -49,7 +49,7 @@ int Packet::GetDataLength() const {
 }
 
 int Packet::PayloadSize() const {
-	return strlen(mSecurityHeader) + sizeof(byte)+sizeof(mProtocolID)+mDataLength + strlen(mSecurityHeader);
+	return strlen(mSecurityHeader) + 2 + mDataLength + strlen(mSecurityHeader);
 }
 
 byte* Packet::GetPayload() const {
@@ -73,13 +73,9 @@ void Packet::NewPayload() {
 	// Advance pointer the size of the header array.
 	currPos += strlen(mSecurityHeader);
 	// Serialize the data length and copy it into the array.
-	SerializeInt8(currPos, mDataLength);
-	// Advance pointer 1 byte
-	currPos += sizeof(byte);
+	currPos = SerializeInt8(currPos, mDataLength);
 	// Copy the protocol ID
-	currPos[0] = mProtocolID;
-	// Advance pointer 1 byte
-	currPos += sizeof(mProtocolID);
+	currPos = SerializeInt8(currPos, mProtocolID);
 	// Copy the data
 	for (int i = 0; i < mDataLength; ++i) {
 		currPos[i] = mData[i];

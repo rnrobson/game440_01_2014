@@ -12,13 +12,6 @@ public:
 		BMP
 	};
 
-	static void AddButton(std::string _containerName, std::string _btnName, SDL_Rect _rect, std::string _texName = "")
-	{
-		(_texName == "") ?
-			ClientAPI::GetGuiContainer(_containerName)->AddButton(_btnName, new Button(_rect)) :
-			ClientAPI::GetGuiContainer(_containerName)->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
-	}
-
 	static void AddButtonToContainer(GuiContainer *_cName, std::string _btnName, SDL_Rect _rect, std::string _texName = "")
 	{
 		(_texName == "") ?
@@ -69,7 +62,7 @@ public:
 			ClientAPI::AddTexture(_texName, APIHelper::LoadPNGTexture(_filePath));
 	}
 
-	static void AddTextField(GuiContainer *_cName, std::string _tfName, SDL_Rect _rect, std::string _fontName, std::string _fontColour)
+	static void AddTextFieldToContainer(GuiContainer *_cName, std::string _tfName, SDL_Rect _rect, std::string _fontName, std::string _fontColour)
 	{
 		_cName->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
 	}
