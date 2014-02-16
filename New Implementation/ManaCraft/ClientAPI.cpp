@@ -10,6 +10,9 @@ std::vector<SDL_Texture*> ClientAPI::textures;
 std::vector<std::string> ClientAPI::colourKeys;
 std::vector<SDL_Color> ClientAPI::colours;
 
+std::vector<std::string> ClientAPI::rectKeys;
+std::vector<SDL_Rect> ClientAPI::rects;
+
 std::vector<std::string> ClientAPI::guiContainerKeys;
 std::vector<GuiContainer*> ClientAPI::guiContainers;
 

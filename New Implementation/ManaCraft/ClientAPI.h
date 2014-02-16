@@ -29,6 +29,9 @@ private:
 	static std::vector<std::string> colourKeys;
 	static std::vector<SDL_Color> colours;
 
+	static std::vector<std::string> rectKeys;
+	static std::vector<SDL_Rect> rects;
+
 	//-- API Objects
 	static std::vector<std::string> guiContainerKeys;
 	static std::vector<GuiContainer*> guiContainers;
@@ -47,12 +50,16 @@ private:
 		fontKeys = std::vector<std::string>{};
 		textureKeys = std::vector<std::string>{};
 		colourKeys = std::vector<std::string>{};
+		rectKeys = std::vector<std::string>{};
+
 		guiContainerKeys = std::vector<std::string>{};
 		guiElementKeys = std::vector<std::string>{};
 
 		fonts = std::vector<TTF_Font*>{};
 		textures = std::vector<SDL_Texture*>{};
 		colours = std::vector<SDL_Color>{};
+		rects = std::vector<SDL_Rect>{};
+
 		guiContainers = std::vector<GuiContainer*>{};
 		guiElements = std::vector<GuiElement*>{};
 
@@ -88,6 +95,9 @@ private:
 
 		colourKeys.clear();
 		colours.clear();
+
+		rectKeys.clear();
+		rects.clear();
 
 		guiElementKeys.clear();
 		guiElements.clear();
@@ -146,6 +156,12 @@ public:
 		colours.push_back(_colour);
 	}
 
+	static void AddRect(std::string _key, SDL_Rect _colour)
+	{
+		rectKeys.push_back(_key);
+		rects.push_back(_colour);
+	}
+
 	static void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)
 	{
 		guiContainerKeys.push_back(_key);
@@ -195,6 +211,19 @@ public:
 			{
 				colourKeys.erase(colourKeys.begin() + i);
 				colours.erase(colours.begin() + i);
+				break;
+			}
+		}
+	}
+
+	static void RemoveRect(std::string _key)
+	{
+		for (size_t i = 0; i < rectKeys.size(); i++)
+		{
+			if (rectKeys.at(i) == _key)
+			{
+				rectKeys.erase(rectKeys.begin() + i);
+				rects.erase(rects.begin() + i);
 				break;
 			}
 		}
@@ -261,6 +290,18 @@ public:
 			}
 		}
 		return { 0, 0, 0, 0 };
+	}
+
+	static SDL_Rect GetRect(std::string _key)
+	{
+		for (size_t i = 0; i < rectKeys.size(); i++)
+		{
+			if (rectKeys.at(i) == _key)
+			{
+				return rects.at(i);
+			}
+		}
+		return{ 0, 0, 0, 0 };
 	}
 
 	static GuiContainer* GetGuiContainer(std::string _key)
