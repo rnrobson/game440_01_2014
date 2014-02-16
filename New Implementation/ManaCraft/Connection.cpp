@@ -69,36 +69,54 @@ int Connection::ReceiveData(byte** buf) {
 	if (mSocket) {
 		// Recieve some data.
 		// Grab and check security header.
-		byte* secHeader = nullptr;
+		byte* secHeader = new char[4];
 		int len = SDLNet_TCP_Recv(mSocket, secHeader, 4);
+
+		byte header[4];
+		for (__int16 i = 0; i < 4; ++i) {
+			header[i] = secHeader[i];
+		}
 
 		if (len < 0) {
 			printf("Error: %s", SDLNet_GetError());
 		}
 
-		if (secHeader == "JOSH") {
+		if (header[0] == SEC_HEAD[0] && header[1] == SEC_HEAD[1] && header[2] == SEC_HEAD[2] && header[3] == SEC_HEAD[3]) {
 			// Grab and check length.
-			byte* length = nullptr;
+			byte* length = new char[1];
 			SDLNet_TCP_Recv(mSocket, length, 1);
 
-			int dataLen = (int)length;
+			__int16 dataLen = *length;
 			// Can check against expected value now
 
 			// Initialize the buffer and fill it with the data in bytes
 			// Dereferencing is done so we exit the function with a non-NULL byte array.
 			*buf = new byte[dataLen];
-			SDLNet_TCP_Recv(mSocket, *buf, dataLen);
+			SDLNet_TCP_Recv(mSocket, *buf, dataLen + 1);
+
+			delete secHeader;
+			secHeader = new char[4];
 
 			// Check the end header
 			SDLNet_TCP_Recv(mSocket, secHeader, 4);
 
-			if (secHeader == "JOSH") {
+			for (__int16 i = 0; i < 4; ++i) {
+				header[i] = secHeader[i];
+			}
+
+			// quick and stupid bypass of bug to check next step.
+			// CHANGE THIS
+			if (header[0] == SEC_HEAD[0] && header[1] == SEC_HEAD[1] && header[2] == SEC_HEAD[2] && header[3] == SEC_HEAD[3]) {
+				// Clean up
+				delete length;
+				delete secHeader;
+
 				// Return the length of data filled into the buffer.
 				return dataLen;
 			}
 			else {
 				// Security header doesn't match, discard the data. It's dirty.
-				delete buf;
+				delete *buf;
 			}
 		}
 	}
@@ -119,8 +137,8 @@ int Connection::SendData(Packet payload) {
 	// Send data over mSocket
 	if (mSocket) {
 		byte* secHead = payload.GetSecurityHeader();
-		if (secHead[0] == 'J' && secHead[1] == 'O' && secHead[2] == 'S' && secHead[3] == 'H') {
-			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.GetDataLength());
+		if (secHead == ManaCraft::Networking::SEC_HEAD) {
+			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.PayloadSize());
 
 			if (len < 0) {
 				printf("Error: %s", SDLNet_GetError());
