@@ -14,6 +14,9 @@ namespace ManaCraft {
 		// if a new protocol is required, then it can be easily added by contacting a member of the Networking team.
 
 		/// <summary>The list of Server to Client protocols that will be sent over the network.</summary>
+
+		const char* const SEC_HEAD = "MCFT";
+
 		enum SC_Protocol {
 			// Connection type protocols are: 150 - 199
 			// There are currently: 3/50
