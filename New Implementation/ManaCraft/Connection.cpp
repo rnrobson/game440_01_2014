@@ -1,6 +1,4 @@
 #include "Connection.h"
-#include "Serialize.h"
-#include "Protocol.h"
 
 using namespace ManaCraft::Networking;
 

@@ -5,6 +5,8 @@
 #include <SDL_net.h>
 
 #include "Packet.h"
+#include "Serialize.h"
+#include "Protocol.h"
 
 namespace ManaCraft {
 	namespace Networking {
