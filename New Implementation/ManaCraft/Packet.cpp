@@ -10,7 +10,7 @@ mData(nullptr), mDataLength(0),
 mPayload(nullptr) {
 }
 
-Packet::Packet(byte* securityHeader, byte protocolID, byte* data) :
+Packet::Packet(byte* securityHeader, short protocolID, byte* data) :
 mSecurityHeader(securityHeader), mProtocolID(protocolID), mData(data),
 mDataLength(strlen(data)), mPayload(nullptr) {
 	NewPayload();

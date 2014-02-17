@@ -72,40 +72,46 @@ int Connection::ReceiveData(byte** buf) {
 		byte* secHeader = new char[4];
 		int len = SDLNet_TCP_Recv(mSocket, secHeader, 4);
 
+		// This should be checked and fixed if possible.
+		// Copy from received array into local array to remove unwanted characters
+		// at end of secHeader.
 		byte header[4];
 		for (__int16 i = 0; i < 4; ++i) {
 			header[i] = secHeader[i];
 		}
 
+		// If length < 0, error happened.
 		if (len < 0) {
 			printf("Error: %s", SDLNet_GetError());
 		}
 
+		// Ensure security
 		if (header[0] == SEC_HEAD[0] && header[1] == SEC_HEAD[1] && header[2] == SEC_HEAD[2] && header[3] == SEC_HEAD[3]) {
 			// Grab and check length.
-			byte* length = new char[1];
-			SDLNet_TCP_Recv(mSocket, length, 1);
+			byte* length = new char[2];
+			SDLNet_TCP_Recv(mSocket, length, 2);
 
-			__int16 dataLen = *length;
+			__int16 dataLen = DeserializeInt16(length);
 			// Can check against expected value now
 
 			// Initialize the buffer and fill it with the data in bytes
 			// Dereferencing is done so we exit the function with a non-NULL byte array.
 			*buf = new byte[dataLen];
-			SDLNet_TCP_Recv(mSocket, *buf, dataLen + 1);
+			SDLNet_TCP_Recv(mSocket, *buf, dataLen + 2);
 
+			// Clean up previous security header pointer and re-use for the ending header
 			delete secHeader;
 			secHeader = new char[4];
 
 			// Check the end header
 			SDLNet_TCP_Recv(mSocket, secHeader, 4);
 
+			// Copy again to truncate unwanted characters from secHeader
 			for (__int16 i = 0; i < 4; ++i) {
 				header[i] = secHeader[i];
 			}
 
-			// quick and stupid bypass of bug to check next step.
-			// CHANGE THIS
+			// If the ending header is valid, clean up and return the length of buf.
 			if (header[0] == SEC_HEAD[0] && header[1] == SEC_HEAD[1] && header[2] == SEC_HEAD[2] && header[3] == SEC_HEAD[3]) {
 				// Clean up
 				delete length;
@@ -116,6 +122,7 @@ int Connection::ReceiveData(byte** buf) {
 			}
 			else {
 				// Security header doesn't match, discard the data. It's dirty.
+				delete secHeader;
 				delete *buf;
 			}
 		}
@@ -134,16 +141,22 @@ int Connection::SendData(byte* payload) {
 }
 
 int Connection::SendData(Packet payload) {
-	// Send data over mSocket
+	// Make sure we're connected.
 	if (mSocket) {
+		// Check the security header being sent. Don't send if it's not valid.
 		byte* secHead = payload.GetSecurityHeader();
 		if (secHead == ManaCraft::Networking::SEC_HEAD) {
+			// Send the data, store the length sent.
 			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.PayloadSize());
 
+			// Might want to check against an expected length here?
+
+			// If the length is < 0, there's a problem.
 			if (len < 0) {
 				printf("Error: %s", SDLNet_GetError());
 			}
 			else {
+				// Return length of data successfully sent.
 				return len;
 			}
 		}

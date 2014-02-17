@@ -8,10 +8,10 @@ namespace ManaCraft {
 		class Packet {
 		private:
 			byte* mSecurityHeader;
-			byte mProtocolID;
+			short mProtocolID;
 			byte* mData;
 			byte* mPayload;
-			int mDataLength;
+			short mDataLength;
 
 			// Rebuild Payload
 			void NewPayload();
@@ -31,7 +31,7 @@ namespace ManaCraft {
 			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
 			/// </summary>
-			Packet(byte* securityHeader, byte protocolID, byte* data);
+			Packet(byte* securityHeader, short protocolID, byte* data);
 
 			// Destructor (Not used currently)
 			~Packet();
