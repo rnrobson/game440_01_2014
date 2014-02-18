@@ -157,7 +157,7 @@ int Connection::SendData(Packet payload) {
 	// Make sure we're connected.
 	if (mSocket) {
 		// Check the security header being sent. Don't send if it's not valid.
-		byte* secHead = payload.GetSecurityHeader();
+		const byte* secHead = payload.GetSecurityHeader();
 		if (secHead == ManaCraft::Networking::SEC_HEAD) {
 			// Send the data, store the length sent.
 			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.PayloadSize());

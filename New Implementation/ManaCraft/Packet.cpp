@@ -10,7 +10,7 @@ mData(nullptr), mDataLength(0),
 mPayload(nullptr) {
 }
 
-Packet::Packet(byte* securityHeader, short protocolID, byte* data) :
+Packet::Packet(const byte* securityHeader, short protocolID, byte* data) :
 mSecurityHeader(securityHeader), mProtocolID(protocolID), mData(data),
 mDataLength(strlen(data)), mPayload(nullptr) {
 	NewPayload();
@@ -21,7 +21,7 @@ Packet::~Packet() {
 	mPayload = nullptr;
 }
 
-void Packet::SetProtocolID(byte newProtocolID) {
+void Packet::SetProtocolID(short newProtocolID) {
 	mProtocolID = newProtocolID;
 	NewPayload();
 }
@@ -32,11 +32,11 @@ void Packet::SetData(byte* newData) {
 	NewPayload();
 }
 
-byte* Packet::GetSecurityHeader() const {
+const byte* Packet::GetSecurityHeader() const {
 	return mSecurityHeader;
 }
 
-byte Packet::GetProtocolID() const {
+short Packet::GetProtocolID() const {
 	return mProtocolID;
 }
 
@@ -44,7 +44,7 @@ byte* Packet::GetData() const {
 	return mData;
 }
 
-int Packet::GetDataLength() const {
+short Packet::GetDataLength() const {
 	return mDataLength;
 }
 
@@ -57,32 +57,22 @@ byte* Packet::GetPayload() const {
 }
 
 void Packet::NewPayload() {
-	// Delete old payload
-	if (mPayload != nullptr)
-	{
+	if (mPayload != nullptr) {
 		delete[] mPayload;
+		mPayload = nullptr;
 	}
-	// Allocate an array of bytes from the payload size
 	mPayload = new byte[PayloadSize()];
-	// Set new pointer to the payload.
 	byte* currPos = mPayload;
-	// Copy the security header
 	for (unsigned int i = 0; i < strlen(mSecurityHeader); ++i) {
 		currPos[i] = mSecurityHeader[i];
 	}
-	// Advance pointer the size of the header array.
 	currPos += strlen(mSecurityHeader);
-	// Serialize the data length and copy it into the array.
 	currPos = SerializeInt16(currPos, mDataLength);
-	// Copy the protocol ID
 	currPos = SerializeInt16(currPos, mProtocolID);
-	// Copy the data
 	for (int i = 0; i < mDataLength; ++i) {
 		currPos[i] = mData[i];
 	}
-	// Advance pointer the length of the data.
 	currPos += mDataLength;
-	// Copy the security header
 	for (unsigned int i = 0; i < strlen(mSecurityHeader); ++i) {
 		currPos[i] = mSecurityHeader[i];
 	}
