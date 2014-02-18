@@ -108,7 +108,7 @@ int Connection::ReceiveData(byte** buf) {
 			SDLNet_TCP_Recv(mSocket, *buf, dataLen + 2);
 
 			// Clean up previous security header pointer and re-use for the ending header
-			delete secHeader;
+			delete[] secHeader;
 			secHeader = new char[4];
 
 			// Check the end header
@@ -122,16 +122,16 @@ int Connection::ReceiveData(byte** buf) {
 			// If the ending header is valid, clean up and return the length of buf.
 			if (header[0] == SEC_HEAD[0] && header[1] == SEC_HEAD[1] && header[2] == SEC_HEAD[2] && header[3] == SEC_HEAD[3]) {
 				// Clean up
-				delete length;
-				delete secHeader;
+				delete[] length;
+				delete[] secHeader;
 
 				// Return the length of data filled into the buffer.
 				return dataLen;
 			}
 			else {
 				// Security header doesn't match, discard the data. It's dirty.
-				delete secHeader;
-				delete *buf;
+				delete[] secHeader;
+				delete[] *buf;
 				*buf = nullptr;
 
 				return dataLen;
@@ -153,11 +153,11 @@ int Connection::SendData(byte* payload) {
 	return 0;
 }
 
-int Connection::SendData(Packet payload) {
+int Connection::SendData(Packet& payload) {
 	// Make sure we're connected.
 	if (mSocket) {
 		// Check the security header being sent. Don't send if it's not valid.
-		byte* secHead = payload.GetSecurityHeader();
+		const byte* secHead = payload.GetSecurityHeader();
 		if (secHead == ManaCraft::Networking::SEC_HEAD) {
 			// Send the data, store the length sent.
 			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.PayloadSize());

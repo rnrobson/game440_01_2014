@@ -79,7 +79,7 @@ namespace ManaCraft {
 			/// <para>Throws a ConnectionNotOpenException if the connection is not open.</para>
 			/// <returns>Returns the length of the data sent.</returns>
 			/// </summary>
-			int SendData(Packet payload);
+			int SendData(Packet& payload);
 
 			/* Do we really need to store the username in the Connection class? */
 			/// <summary>[GetUsername]

@@ -7,16 +7,17 @@ namespace ManaCraft {
 	namespace Networking {
 		class Packet {
 		private:
-			byte* mSecurityHeader;
 			short mProtocolID;
+			short mDataLength;
+			const byte* mSecurityHeader;
 			byte* mData;
 			byte* mPayload;
-			short mDataLength;
 
 			// Rebuild Payload
 			void NewPayload();
 
 			// Override copy constructors
+			Packet(const Packet&);
 			void operator=(const Packet&);
 
 		public:
@@ -31,7 +32,7 @@ namespace ManaCraft {
 			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
 			/// </summary>
-			Packet(byte* securityHeader, short protocolID, byte* data);
+			Packet(const byte* securityHeader, short protocolID, byte* data);
 
 			// Destructor (Not used currently)
 			~Packet();
@@ -40,7 +41,7 @@ namespace ManaCraft {
 			/// <para>[SETTER] Set the packet porotocol ID.</para>
 			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// </summary>
-			void SetProtocolID(byte newProtocolID);
+			void SetProtocolID(short newProtocolID);
 
 			/// <summary>[SetData]
 			/// <para>[SETTER] Set the packet data.</para>
@@ -52,13 +53,13 @@ namespace ManaCraft {
 			/// <para>[GETTER] Get the packet security header.</para>
 			/// <returns>Returns the packet security header.</returns>
 			/// </summary>
-			byte* GetSecurityHeader() const;
+			const byte* GetSecurityHeader() const;
 
 			/// <summary>[GetProtocolID]
 			/// <para>[GETTER] Get the packet porotocol ID.</para>
 			/// <returns>Returns the packet protocol ID.</returns>
 			/// </summary>
-			byte GetProtocolID() const;
+			short GetProtocolID() const;
 
 			/// <summary>[GetData]
 			/// <para>[GETTER] Get the packet's data.</para>
@@ -70,7 +71,7 @@ namespace ManaCraft {
 			/// <para>[GETTER] Get the length of the data.</para>
 			/// <returns>Returns the length of the data.</returns>
 			/// </summary>
-			int GetDataLength() const;
+			short GetDataLength() const;
 
 			/// <summary>[Payload]
 			/// <para>[GETTER] Get the packet in bytes.</para>
