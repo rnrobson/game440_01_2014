@@ -7,6 +7,7 @@
 #include "Packet.h"
 #include "Serialize.h"
 #include "Protocol.h"
+#include "ConnectionException.h"
 
 namespace ManaCraft {
 	namespace Networking {
@@ -38,12 +39,14 @@ namespace ManaCraft {
 
 			/// <summary>[Open]
 			/// <para>Attempt to open a socket using host and port provided to Connection.</para>
+			/// <para>Throws a ConnectionOpenException if the connection is already open</para>
 			/// <returns>Returns 1 on successful socket, 0 otherwise.</returns>
 			/// </summary>
 			int Open();
 
 			/// <summary>[Listen]
 			/// <para>A wrapper over SDL_TCP_Accept which provides a Connection when found.</para>
+			/// <para>Throws a ConnectionNotServerTypeException if the connection is not set to act as a server</para>
 			/// <returns>Returns a Connection pointer loaded with the accepted socket.</returns>
 			/// </summary>
 			Connection* Listen();
@@ -57,6 +60,7 @@ namespace ManaCraft {
 			/// <summary>[ReceiveData]
 			/// <para>Receive any data in the network buffer.</para>
 			/// <para>[byte* buf] The local buffer to recieve the data into.</para>
+			/// <para>Throws a ConnectionNotOpenException if the connection is not open.</para>
 			/// <returns>Returns the length of the data received.</returns>
 			/// </summary>
 			int ReceiveData(byte** buf);
@@ -72,6 +76,7 @@ namespace ManaCraft {
 			/// <summary>[SendData]
 			/// <para>Send data over the current network connection.</para>
 			/// <para>[Packet(ref) payload] A reference to the packet object holding the data to be sent.</para>
+			/// <para>Throws a ConnectionNotOpenException if the connection is not open.</para>
 			/// <returns>Returns the length of the data sent.</returns>
 			/// </summary>
 			int SendData(Packet payload);

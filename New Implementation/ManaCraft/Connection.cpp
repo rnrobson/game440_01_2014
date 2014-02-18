@@ -26,13 +26,19 @@ Connection::Connection(TCPsocket sock) {
 }
 
 int Connection::Open() {
-	// Try to open a socket with IP data stored in mIPAddress
-	mSocket = SDLNet_TCP_Open(&mIPAddress);
-
-	// On success, change status to CONNECTED and return true
 	if (mSocket) {
-		mStatus = CONNECTED;
-		return 1;
+		throw ConnectionOpenException();
+	}
+	else {
+
+		// Try to open a socket with IP data stored in mIPAddress
+		mSocket = SDLNet_TCP_Open(&mIPAddress);
+
+		// On success, change status to CONNECTED and return true
+		if (mSocket) {
+			mStatus = CONNECTED;
+			return 1;
+		}
 	}
 
 	// If all else fails, return false
@@ -58,6 +64,9 @@ Connection* Connection::Listen() {
 			return new Connection(sock);
 		}
 	}
+	else {
+		throw ConnectionNotServerTypeException();
+	}
 
 	// If all else fails, return NULL
 	return nullptr;
@@ -81,6 +90,7 @@ int Connection::ReceiveData(byte** buf) {
 		// If length < 0, error happened.
 		if (len < 0) {
 			printf("Error: %s", SDLNet_GetError());
+			return len;
 		}
 
 		// Ensure security
@@ -122,12 +132,17 @@ int Connection::ReceiveData(byte** buf) {
 				// Security header doesn't match, discard the data. It's dirty.
 				delete secHeader;
 				delete *buf;
+				*buf = nullptr;
+
+				return dataLen;
 			}
 		}
 	}
+	else {
+		throw ConnectionNotOpenException();
+	}
 
 	// If something goes wrong, return 0
-	// TODO: Exceptions? Yay/nay?
 	return 0;
 }
 
@@ -158,6 +173,9 @@ int Connection::SendData(Packet payload) {
 				return len;
 			}
 		}
+	}
+	else {
+		throw ConnectionNotOpenException();
 	}
 
 	return 0;

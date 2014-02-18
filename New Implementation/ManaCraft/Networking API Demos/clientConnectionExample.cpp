@@ -26,7 +26,31 @@ int main(void) {
 
 	if (c == 'o') {
 		// Open (connect) to the host and port provided above.
-		clientConn.Open();
+		// Throw it (no pun intended) in a try... catch to prevent
+		// invalid sockets by trying to open a connection that is
+		// already opened.
+		try {
+			clientConn.Open();
+		}
+		catch (ConnectionOpenException coe) {
+			std::cout << coe.what() << std::endl;
+		}
+	}
+
+	// This array will likely contain serialized data types like ints and floats.
+	char* data = "This message is data. Could also be a byte*.";
+
+	// Fill a packet with the security header (accessed at the namespace below) as well
+	// as whatever protocol command needed. The third parameter is the data in raw bytes.
+	Packet packet(ManaCraft::Networking::SEC_HEAD, ManaCraft::Networking::SOME_PROTOCOL, data);
+
+	// Send it off!
+	// Throw it in a try... catch to be notified if an error (connection is not open) occurs.
+	try {
+		clientConn.SendData(packet);
+	}
+	catch (ConnectionNotOpenException cnoe) {
+		std::cout << cnoe.what() << std::endl;
 	}
 
 	std::cin.get();
