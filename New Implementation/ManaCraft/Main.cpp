@@ -21,6 +21,7 @@
 #include "Options.h"
 #include "GUI.h"
 
+
 //-- Function Prototypes
 void TransferControlToClient();
 void CustomUpdate(double time);
@@ -30,7 +31,7 @@ void OnEnterPressed();
 #endif
 
 #if SERVER_BUILD
-#include "ClientLiaison.h"
+#include "Server.h"
 
 void TransferControlToServer();
 #endif
@@ -132,7 +133,6 @@ void OnEnterPressed()
 void TransferControlToServer() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDLNet_Init();
-
-	ClientLiaison::Run();
+	Server *gameServer = new Server();
 }
 #endif

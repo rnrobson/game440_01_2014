@@ -109,12 +109,16 @@
     <ClCompile Include="Resistances.cpp" />
     <ClCompile Include="ScreenFader.cpp" />
     <ClCompile Include="Serialize.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="Tooltip.cpp" />
     <ClCompile Include="Tower.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APIEvents.h" />
@@ -129,6 +133,7 @@
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="ConnectionException.h" />
     <ClInclude Include="Credits.h" />
@@ -161,13 +166,18 @@
     <ClInclude Include="ScreenFader.h" />
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="Serialize.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="ServerIncludes.h" />
+    <ClInclude Include="ServerProtocol.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="TableInfo.h" />
+    <ClInclude Include="TestCommand.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Tower.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="Worker.h" />
     <ClInclude Include="WorkItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

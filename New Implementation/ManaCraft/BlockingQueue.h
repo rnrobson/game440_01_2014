@@ -4,6 +4,7 @@
 #include <SDL_mutex.h>
 #include <SDL_thread.h>
 #include <queue>
+#include "ServerCommand.h"
 
 template<class T>
 class BlockingQueue
@@ -47,6 +48,31 @@ public:
 		return result;
 	}
 
+	T front() const
+	{
+		T result;
+		SDL_mutexP(threadLock);
+		while (que.empty())
+		{
+			SDL_CondWait(condVar, threadLock);
+		}
+		result = que.front();
+		SDL_mutexV(threadLock);
+		return result;
+	}
+
+	T back() const
+	{
+		T result;
+		SDL_mutexP(threadLock);
+		while (que.empty())
+		{
+			SDL_CondWait(condVar, threadLock);
+		}
+		result = que.back();
+		SDL_mutexV(threadLock);
+		return result;
+	}
 	bool empty()
 	{
 		bool result = true;
