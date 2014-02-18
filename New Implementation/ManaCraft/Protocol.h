@@ -17,14 +17,14 @@ namespace ManaCraft {
 
 		const char* const SEC_HEAD = "MCFT";
 
-		enum SC_Protocol {
+		enum SC_Protocol : __int16 {
 			// Connection type protocols are: 150 - 199
 			// There are currently: 3/50
 			
 			/// <summary>Sends info to all clients in the case that someone disconnects
 			/// <para>Data: [1] Username Length [N] Username </para>
 			/// </summary>
-			CLIENT_LOST = 150,
+			CLIENT_LOST = 1150,
 			/// <summary>Sends info to all clients in the case someone reconnects
 			/// <para>Data: [1] Username Length [N] Username </para>
 			/// </summary> // Double check team 
@@ -42,7 +42,7 @@ namespace ManaCraft {
 			/// <summary> Will send a message to all players in the specified game.
 			/// <para> Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
 			/// </summary>
-			BROADCAST_MESSAGE_IG = 225,
+			BROADCAST_MESSAGE_IG = 1225,
 			/// <summary> Will send a message to all players within the same game lobby
 			/// <para> Data: [1] Username Length [N] Username [1] Length Of Message [N] Message</para>
 			/// </summary>
@@ -68,7 +68,7 @@ namespace ManaCraft {
 			/// <summary> Sends the current available games from the server to the client to be viewed
 			/// <para>Data: TODO </para>
 			/// </summary>
-			POPULATE_GAMES = 275,
+			POPULATE_GAMES = 1275,
 			/// <summary> Sends over a notification letting the player know if they were able to join the selected game or not
 			/// <para>Data: [1] Boolean, [4] GameID</para>
 			/// </summary>
@@ -87,7 +87,7 @@ namespace ManaCraft {
 			/// <para>This is used to send over ready statues, and if the players are benched or on a specific team</para>
 			/// <para>Data: TODO</para>
 			/// </summary>
-			REFRESH_LOBBY = 350,
+			REFRESH_LOBBY = 1350,
 			/// <summary>Returns the response to the host if the game was disbanded or not.
 			/// <para>Data: [1] Boolean</para>
 			/// </summary>
@@ -117,7 +117,7 @@ namespace ManaCraft {
 			/// <summary> Notifies the player if the server was able to summon the minion or not
 			/// <para>Data: [1] Boolean</para>
 			/// </summary>
-			MINION_SUMMONED = 500,
+			MINION_SUMMONED = 1500,
 			/// <summary> Broadcasts the information of the minions being summoned to all the players in the game.
 			/// <para>Data: [1] Minion Name [1] Position X [1] Position Y [1] TeamID</para>
 			/// </summary>
@@ -159,7 +159,7 @@ namespace ManaCraft {
 			/// <summary>Relays information about the person to be kicked to the host
 			/// <para>Data: [1] Username Length [n] Username</para>
 			/// </summary>
-			RETURN_KICK_STATUS = 625,
+			RETURN_KICK_STATUS = 1625,
 			/// <summary>Relays information back to the player requesting to pause the game.
 			/// <para>Data: [1] Boolean</para>
 			/// </summary>
@@ -179,13 +179,13 @@ namespace ManaCraft {
 		};
 
 		/// <summary>The list of Client to Server protocols that will be sent over the network.</summary>
-		enum CS_Protocol {
+		enum CS_Protocol : __int16 {
 			// Connection Type Protocols are: 100 - 149
 			// There are currently: 3/50
 
 			/// <summary>Will close the game for the player, and the connection with the server.
 			/// <para>Data: [1] Username Length, [N] Username </summary>
-			CLOSE_GAME = 100,
+			CLOSE_GAME = 2100,
 			/// <summary>Sends a request to the server for the player to connect.
 			/// <para>Data: [1] Username Length, [N] Username </summary>
 			LOGIN_PLAYER,
@@ -200,7 +200,7 @@ namespace ManaCraft {
 
 			/// <summary>Sends a request for a list of refreshed games in the Game Viewer scene.
 			/// <para>Data: [1] Username Length, [1] Game Count, [N] Username, [N] Game Data </summary>
-			REFRESH_GAMES = 250,
+			REFRESH_GAMES = 2250,
 			/// <summary>Requests that the player joins the selected game.
 			/// <para>Data: [4] GameID, [1] Username Length, [N] Username </summary>
 			JOIN_GAME,
@@ -215,7 +215,7 @@ namespace ManaCraft {
 
 			/// <summary>Requests that the player joins the team they have selected
 			/// <para>Data: [4] LobbyID, [4] TeamID, [1] Username Length, [N] Username </summary>
-			JOIN_TEAM = 300,
+			JOIN_TEAM = 2300,
 			/// <summary>Requests that the player leave from the game they are currently in. 
 			/// <para>Data: [4] LobbyID, [1] Username Length, [N] Username </summary>
 			LEAVE_GAME,
@@ -239,7 +239,7 @@ namespace ManaCraft {
 
 			/// <summary>Will send a message to the server meant for all the players within that game
 			/// <para>Data: [4] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
-			SEND_MESSAGE_IG = 200,
+			SEND_MESSAGE_IG = 2200,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
 			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
 			SEND_MESSAGE_GL,
@@ -260,7 +260,7 @@ namespace ManaCraft {
 			
 			/// <summary> Sends a requests to the server to place a tower in the designated spot.
 			/// <para>Data: [4] GameID, [4] TowerID, [4] Gridspace, [1] Username Length, [N] Username </summary>
-			PLACE_TOWER = 400,
+			PLACE_TOWER = 2400,
 			/// <summary> Sends a request to the server to place a minion at the starting portal.
 			/// <para>Data: TODO </summary>
 			SUMMON_MINION,
@@ -278,7 +278,7 @@ namespace ManaCraft {
 			
 			/// <summary>Host Only - Requests to the server that a designated player is kicked from the match.
 			/// <para>Data: TODO </summary>
-			KICK_PLAYER = 600,
+			KICK_PLAYER = 2600,
 			/// <summary>A request sent to the server to pause the game. - When two are received in X amount of time the game will pause
 			/// <para>Data: TODO </summary>
 			PAUSE_GAME,
