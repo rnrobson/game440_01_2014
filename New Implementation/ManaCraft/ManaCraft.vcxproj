@@ -87,6 +87,7 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="ClientAPI.cpp" />
+    <ClCompile Include="ClientLiaison.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DatabaseAPI.cpp" />
     <ClCompile Include="Element.cpp" />
@@ -123,9 +124,11 @@
     <ClInclude Include="ArtSquare.h" />
     <ClInclude Include="AssetLayer.h" />
     <ClInclude Include="AssetSquare.h" />
+    <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="ClientAPI.h" />
+    <ClInclude Include="ClientLiaison.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="ConnectionException.h" />
     <ClInclude Include="Credits.h" />

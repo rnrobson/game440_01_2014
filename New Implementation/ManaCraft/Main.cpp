@@ -1,5 +1,5 @@
-#define CLIENT_BUILD 1
-#define SERVER_BUILD 0
+#define CLIENT_BUILD 0
+#define SERVER_BUILD 1
 
 #include <SDL.h>
 #include <SDL_net.h>
@@ -30,6 +30,8 @@ void OnEnterPressed();
 #endif
 
 #if SERVER_BUILD
+#include "ClientLiaison.h"
+
 void TransferControlToServer();
 #endif
 
@@ -128,6 +130,9 @@ void OnEnterPressed()
 
 #if SERVER_BUILD
 void TransferControlToServer() {
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDLNet_Init();
 
+	ClientLiaison::Run();
 }
 #endif
