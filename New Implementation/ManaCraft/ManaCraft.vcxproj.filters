@@ -317,5 +317,8 @@
     <ClInclude Include="BlockingQueue.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
+    <ClInclude Include="TableInfo.h">
+      <Filter>Header Files\Database</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

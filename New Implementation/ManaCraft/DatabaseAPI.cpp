@@ -42,12 +42,12 @@ std::vector<Element>  DatabaseAPI::getAllElementInfo() {
 			if (UseQueryResult result = query.use()) {
 				Row row;
 				std::vector<Element> elements = std::vector<Element>();	// do something with this vector
-
+				
 				while (row = result.fetch_row()) {
 					Element* e = new Element();
-					e->type = *(row[1].c_str());	// I think *(c_str()) is right?
-					e->weakness = *(row[2].c_str());
-					e->strength = *(row[3].c_str());
+					e->type = *(row[TableInfo::Elements::TYPE].c_str());	// I think *(c_str()) is right?
+					e->weakness = *(row[TableInfo::Elements::WEAKNESS].c_str());
+					e->strength = *(row[TableInfo::Elements::STRENGTH].c_str());
 
 					elements.push_back(*e);
 				}

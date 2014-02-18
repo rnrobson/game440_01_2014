@@ -5,6 +5,7 @@
 #include <vector>	// possibly not needed later
 #include <mysql++.h>
 #include "DataDefinitions.h"
+#include "TableInfo.h"
 
 #include "Element.h" // change to DataInclude.h or something
 
