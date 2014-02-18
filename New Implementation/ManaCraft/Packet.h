@@ -17,6 +17,7 @@ namespace ManaCraft {
 			void NewPayload();
 
 			// Override copy constructors
+			Packet(const Packet&);
 			void operator=(const Packet&);
 
 		public:
