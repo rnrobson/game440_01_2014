@@ -49,7 +49,7 @@ short Packet::GetDataLength() const {
 }
 
 int Packet::PayloadSize() const {
-	return strlen(mSecurityHeader) + 4 + mDataLength + strlen(mSecurityHeader);
+	return strlen(mSecurityHeader) + sizeof(short) * 2 + mDataLength + strlen(mSecurityHeader);
 }
 
 byte* Packet::GetPayload() const {
@@ -59,7 +59,6 @@ byte* Packet::GetPayload() const {
 void Packet::NewPayload() {
 	if (mPayload != nullptr) {
 		delete[] mPayload;
-		mPayload = nullptr;
 	}
 	mPayload = new byte[PayloadSize()];
 	byte* currPos = mPayload;
