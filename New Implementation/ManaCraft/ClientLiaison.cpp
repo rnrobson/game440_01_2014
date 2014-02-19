@@ -89,6 +89,7 @@ void ClientLiaison::SendToWorker() {
 
 	while(sending) {
 		byte* buf = nullptr;
+		int len;
 
 		buf = dataToWorker.pop();
 
@@ -98,6 +99,20 @@ void ClientLiaison::SendToWorker() {
 		std::cout << "Message: " << buf << std::endl;
 	}
 }
+
+			char* msg = buf;
+			buf += sizeof(char)* len;
+
+			std::cout << "Protocol ID: " << protocolID << " ";
+
+			std::cout << "MESSAGE: [";
+			for(__int16 i = 0; i < len; ++i) {
+				std::cout << msg[i];
+			}
+			std::cout << "]";
+		}
+	}*/
+} //Test code to test receiving a message.
 
 void ClientLiaison::CloseLiaison() {
 	std::cout << "Closing master connection: " << master.Close() << std::endl;
