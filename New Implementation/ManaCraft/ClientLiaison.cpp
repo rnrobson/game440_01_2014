@@ -6,7 +6,7 @@ Networking::Connection master(NULL, 25508);
 
 std::vector<Networking::Connection*> ClientLiaison::connections = std::vector<Networking::Connection*>();
 BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
-BlockingQueue<int> ClientLiaison::dataToWorker = BlockingQueue<int>();
+BlockingQueue<byte*> ClientLiaison::dataToWorker = BlockingQueue<byte*>();
 
 SDL_Thread *incoming, *outgoing;
 
@@ -62,7 +62,20 @@ int ClientLiaison::ClientListen(void*) {
 		if(connection != NULL) {
 			connections.push_back(connection);
 			std::cout << "connected" << std::endl;
-			listening = false;
+
+			for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
+				byte* buf = nullptr;
+				int len;
+
+				len = (*iter)->ReceiveData(&buf);
+
+				std::cout << "Data length: " << len << std::endl;
+
+				if(len > 0) {
+					std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
+					dataToWorker.push(buf);
+				}
+			}
 		}
 	}
 
@@ -72,29 +85,19 @@ int ClientLiaison::ClientListen(void*) {
 }
 
 void ClientLiaison::SendToWorker() {
-	/*for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
+	bool sending = true;
+
+	while(sending) {
 		byte* buf = nullptr;
-		int len;
 
-		len = (*iter)->ReceiveData(&buf);
+		buf = dataToWorker.pop();
 
-		if(len > 0) {
-			__int16 protocolID = Networking::DeserializeInt16(buf);
-			buf += sizeof(byte)* 2;
-
-			char* msg = buf;
-			buf += sizeof(char)* len;
-
-			std::cout << "Protocol ID: " << protocolID << " ";
-
-			std::cout << "MESSAGE: [";
-			for(__int16 i = 0; i < len; ++i) {
-				std::cout << msg[i];
-			}
-			std::cout << "]";
-		}
-	}*/
-} //Test code to test receiving a message.
+		__int16 protocolID = Networking::DeserializeInt16(buf);
+		std::cout << "Protocol: " << protocolID << std::endl;
+		buf += sizeof(byte)* 2;
+		std::cout << "Message: " << buf << std::endl;
+	}
+}
 
 void ClientLiaison::CloseLiaison() {
 	std::cout << "Closing master connection: " << master.Close() << std::endl;

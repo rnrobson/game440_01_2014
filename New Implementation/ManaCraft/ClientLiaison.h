@@ -18,7 +18,7 @@ private:
 
 	//static Networking::Connection master;
 	static std::vector<Networking::Connection*> connections;
-	static BlockingQueue<int> dataToWorker;
+	static BlockingQueue<byte*> dataToWorker;
 	static BlockingQueue<int> dataToClient;
 
 	/// <summary>[InitLiaison]
