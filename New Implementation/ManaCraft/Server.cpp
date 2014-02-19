@@ -9,10 +9,11 @@
 Server::Server()
 {
 
-	ServerCommand *sc = new ServerCommand((void *)1, SC_UPDATE_ECONOMY);
-	workQueue.push(*sc);
+
+	workQueue.push(ServerCommand((void *)1, CS_CLOSE_GAME));
 	ServerCommand *runningCommand = &workQueue.pop();
-	runningCommand->Execute();
+	void *data = runningCommand->getData();
+	runningCommand->Execute(data);
 
 	Init();
 

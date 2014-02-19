@@ -71,11 +71,69 @@ private:
 	void *data;
 	ServerProtocol command;
 
+	void CS_CloseGame(void* data);
+	void CS_LoginPlayer(void* data);
+	void CS_LogoutPlayer(void* data);
+	void CS_RefreshGames(void* data);
+	void CS_JoinGame(void* data);
+	void CS_CreateGame(void* data);
+	void CS_LeaveGame(void* data);
+	void CS_DisbandGame(void* data);
+	void CS_JoinTeam(void* data);
+	void CS_ReadyStatus(void* data);
+	void CS_BenchPlayer(void* data);
+	void CS_SetGamePlayOptions(void* data);
+	void CS_SendMsgParty(void* data);
+	void CS_SendMsgTeam(void* data);
+	void CS_SendMsgLobby(void* data);
+	void CS_SendWhisper(void* data);
+	void CS_KickPlayer(void* data);
+	void CS_PauseGame(void* data);
+	void CS_EndGame(void* data);
+	void CS_ResumeGame(void* data);
+	void CS_QuitGame(void* data);
+	void CS_PlaceTower(void* data);
+	void CS_SummonMinion(void* data);
+	void CS_ResearchMinion(void* data);
+	void CS_ResearchTower(void* data);
+	
+	void SC_LoginPlayer(void* data);
+	void SC_RefreshGames(void* data);
+	void SC_JoinGame(void* data);
+	void SC_CreateGame(void* data);
+	void SC_DisbandGame(void* data);
+	void SC_JoinTeam(void* data);
+	void SC_BenchPlayer(void* data);
+	void SC_UpdateLobby(void* _data);
+	void SC_SendMessage(void* data);
+	void SC_PauseGame(void* data);
+	void SC_EndGame(void* data);
+	void SC_ResumeGame(void* data);
+	void SC_QuitGame(void* data);
+	void SC_PlaceTower(void* data);
+	void SC_SummonMinion(void* data);
+	void SC_UpdateEconomy(void* data);
+	void SC_UpdateBaseHP(void* data);
+	void SC_AssignResourceNode(void* data);
+	void SC_ResearchMinion(void* data);
+	void SC_ResearchTower(void* data);
+
+	void IS_PlaceTowerBC(void* data);
+	void IS_AdjustZoi(void* data);
+	void IS_SummonMinionBC(void* data);
+	void IS_UpdateMinionList(void* data);
+	void IS_UpdateTowerList(void* data);
+	void IS_UpdateProjLists(void* data);
+	void IS_UpdateEconomy(void* data);
+
+
+
 public:
 	ServerCommand();
 	ServerCommand(void* _data, ServerProtocol _command) : data(_data), command(_command) { printf("\nServerCommand Initialized as type: %i", _command); };
 	~ServerCommand();
+	void* getData();
 
-	void Execute();
+	void Execute(void* _data);
 };
 #endif
