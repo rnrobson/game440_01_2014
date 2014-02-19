@@ -1,5 +1,5 @@
-#define CLIENT_BUILD 0
-#define SERVER_BUILD 1
+#define CLIENT_BUILD 1
+#define SERVER_BUILD 0
 
 #include <SDL.h>
 #include <SDL_net.h>
@@ -16,6 +16,7 @@
 //-- Load Menus
 #include "GameLobby.h"
 #include "MainMenu.h"
+#include "IngamePause.h"
 #include "LoginPopup.h"
 #include "Credits.h"
 #include "Options.h"
@@ -74,12 +75,13 @@ void TransferControlToClient() {
 	// Set Custom Events
 	ClientAPI::SubscribeCustomUpdate(CustomUpdate);
 	ClientAPI::SubscribeCustomDraw(CustomDraw);
-	ClientAPI::SubscribeEnterKeyFunc(OnEscapePressed);
-	ClientAPI::SubscribeEscapeKeyFunc(OnEnterPressed);
+	ClientAPI::SubscribeEnterKeyFunc(OnEnterPressed);
+	ClientAPI::SubscribeEscapeKeyFunc(OnEscapePressed);
 
 	//--Call individual load methods
 	ScreenFader::Load();
 	MainMenu::Load();
+	IngamePause::Load();
 	LoginPopup::Load();
 	GUI::Load();
 	//Options::Load();
@@ -121,7 +123,7 @@ void CustomDraw()
 
 void OnEscapePressed()
 {
-
+	
 }
 void OnEnterPressed()
 {

@@ -356,5 +356,8 @@
     <ClInclude Include="ServerProtocol.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
+    <ClInclude Include="IngamePause.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
