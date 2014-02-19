@@ -98,20 +98,6 @@ void ClientLiaison::SendToWorker() {
 		buf += sizeof(byte)* 2;
 		std::cout << "Message: " << buf << std::endl;
 	}
-}
-
-			char* msg = buf;
-			buf += sizeof(char)* len;
-
-			std::cout << "Protocol ID: " << protocolID << " ";
-
-			std::cout << "MESSAGE: [";
-			for(__int16 i = 0; i < len; ++i) {
-				std::cout << msg[i];
-			}
-			std::cout << "]";
-		}
-	}*/
 } //Test code to test receiving a message.
 
 void ClientLiaison::CloseLiaison() {
