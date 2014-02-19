@@ -4,7 +4,7 @@
 class IngamePause
 {
 public:
-	//static bool isPaused;
+	static bool isPaused;
 	static void Load()
 	{
 		const int SCREEN_WIDTH = Window::Box().w;
@@ -55,21 +55,19 @@ public:
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->AddGuiElement("Backing", new GuiElement(ClientAPI::GetTexture("ContainerBacking"), pauseMenuRect));
 
 		ClientAPI::GetGuiContainer("IngamePause")->Active = false;
-		//isPaused = false;
+		isPaused = false;
 	}
 	static void Pause()
 	{
-		/*if (isPaused)
+		if (!isPaused)
 		{
 			ClientAPI::GetGuiContainer("IngamePause")->Active = true;
 			isPaused = true;
-			ScreenFader::FadeOut();
 		}
 		else
 		{
 			ClientAPI::GetGuiContainer("IngamePause")->Active = false;
 			isPaused = false;
-			ScreenFader::FadeOut();
-		}*/
+		}
 	}
 };

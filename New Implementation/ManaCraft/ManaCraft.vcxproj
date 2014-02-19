@@ -98,6 +98,7 @@
     <ClCompile Include="GuiContainer.cpp" />
     <ClCompile Include="InfluenceLayer.cpp" />
     <ClCompile Include="InfluenceSquare.cpp" />
+    <ClCompile Include="IngamePause.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />

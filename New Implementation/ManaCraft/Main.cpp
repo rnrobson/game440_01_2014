@@ -123,7 +123,7 @@ void CustomDraw()
 
 void OnEscapePressed()
 {
-	
+	IngamePause::Pause();
 }
 void OnEnterPressed()
 {
