@@ -22,6 +22,7 @@
     <ClInclude Include="Label.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="TextField.h" />
+    <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +35,7 @@
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="Tooltip.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -65,8 +67,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\..\SDL Files\SDL_ttf\include;..\..\SDL Files\SDL_image\include;..\..\SDL Files\SDL\include;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\SDL Files\SDL_image\lib\x86;..\..\SDL Files\SDL_ttf\lib\x86;..\..\SDL Files\SDL\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\SDL Files\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\SDL Files\lib\x86;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

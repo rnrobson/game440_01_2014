@@ -12,7 +12,7 @@
 #define GUI_API __declspec(dllimport)
 #endif
 
-// This class will be exported to networking.dll
+// This class will be exported to GUI.dll
 class GUI_API DLL_Example
 {
 public:

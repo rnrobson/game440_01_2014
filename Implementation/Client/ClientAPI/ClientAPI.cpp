@@ -1,20 +1,20 @@
 #include "ClientAPI.h"
 
 #pragma region Private Variable Initalizations
-vector<std::string> ClientAPI::fontKeys;
-vector<TTF_Font*> ClientAPI::fonts;
+std::vector<std::string> ClientAPI::fontKeys;
+std::vector<TTF_Font*> ClientAPI::fonts;
 
-vector<std::string> ClientAPI::textureKeys;
-vector<SDL_Texture*> ClientAPI::textures;
+std::vector<std::string> ClientAPI::textureKeys;
+std::vector<SDL_Texture*> ClientAPI::textures;
 
-vector<std::string> ClientAPI::colourKeys;
-vector<SDL_Color> ClientAPI::colours;
+std::vector<std::string> ClientAPI::colourKeys;
+std::vector<SDL_Color> ClientAPI::colours;
 
-vector<std::string> ClientAPI::guiContainerKeys;
-vector<GuiContainer*> ClientAPI::guiContainers;
+std::vector<std::string> ClientAPI::guiContainerKeys;
+std::vector<GuiContainer*> ClientAPI::guiContainers;
 
-vector<std::string> ClientAPI::guiElementKeys;
-vector<GuiElement*> ClientAPI::guiElements;
+std::vector<std::string> ClientAPI::guiElementKeys;
+std::vector<GuiElement*> ClientAPI::guiElements;
 
 void (*ClientAPI::CustomUpdateFunc)(double);
 void (*ClientAPI::CustomDrawFunc)();
@@ -35,7 +35,7 @@ void ClientAPI::BeginMainLoop()
 	//-- Begin Main Loop
 	while (!quit)
 	{
-		Update(30);
+		Update(33);
 		Draw();
 	}
 }

@@ -41,6 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\SDL Files\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\SDL Files\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -57,6 +59,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,10 +81,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DLL_Example.cpp" />
+    <ClInclude Include="APIEvents.h" />
+    <ClInclude Include="APIHelper.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Checkbox.h" />
+    <ClInclude Include="ClientAPI.h" />
+    <ClInclude Include="DLL_Example.h" />
+    <ClInclude Include="GuiContainer.h" />
+    <ClInclude Include="GuiElement.h" />
+    <ClInclude Include="Includes.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="TextField.h" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DLL_Example.h" />
+    <ClCompile Include="APIEvents.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Checkbox.cpp" />
+    <ClCompile Include="ClientAPI.cpp" />
+    <ClCompile Include="DLL_Example.cpp" />
+    <ClCompile Include="GuiContainer.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="testMain.cpp" />
+    <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

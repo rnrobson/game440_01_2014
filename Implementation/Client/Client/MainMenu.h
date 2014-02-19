@@ -121,29 +121,37 @@ public:
 
 	static void Click_loginButton()
 	{
-		cout << "Login to network.\n";
+		std::cout << "Login to network.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
+		ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
 	}
 
 	static void Click_createButton()
 	{
-		cout << "Create a new game.\n";
-		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
+		std::cout << "Create a new game.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_viewButton()
 	{
-		cout << "View saved games.\n";
+		std::cout << "View saved games.\n";
 	}
 
 	static void Click_optionsButton()
 	{
-		cout << "Open options menu.\n";
+		std::cout << "Open options menu.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("Options")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_tutorialButton()
 	{
-		cout << "View tutorial sequence.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("GUI")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_quitButton()
@@ -153,8 +161,9 @@ public:
 
 	static void Click_creditsButton()
 	{
-		cout << "Show credits.\n";
-		ClientAPI::GetGuiContainer("Credits")->Active = true;
+		std::cout << "Show credits.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("Credits")->Active = true;
+		ScreenFader::FadeOut();
 	}
 };

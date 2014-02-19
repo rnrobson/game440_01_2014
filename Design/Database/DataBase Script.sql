@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 07, 2014 at 01:17 AM
+-- Generation Time: Feb 14, 2014 at 03:37 AM
 -- Server version: 5.5.33
 -- PHP Version: 5.4.4-14+deb7u7
 
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `Minion` (
   `UpgradeCost` int(6) DEFAULT NULL,
   `ResearchCost` int(6) DEFAULT NULL,
   `Resistances` varchar(15) NOT NULL,
+  `Health` float NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Resistances` (`Resistances`),
   UNIQUE KEY `Element` (`Element`)
@@ -74,14 +75,15 @@ CREATE TABLE IF NOT EXISTS `Player` (
   `Name` varchar(10) NOT NULL,
   `Health` int(3) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `Player`
 --
 
 INSERT INTO `Player` (`ID`, `Name`, `Health`) VALUES
-(1, 'Greg', 100);
+(1, 'Greg', 100),
+(2, 'Jim', 200);
 
 -- --------------------------------------------------------
 
@@ -103,11 +105,11 @@ CREATE TABLE IF NOT EXISTS `Projectile` (
 CREATE TABLE IF NOT EXISTS `Resistances` (
   `ID` int(4) NOT NULL DEFAULT '0',
   `Type` varchar(15) DEFAULT NULL,
-  `WindResistance` varchar(15) DEFAULT NULL,
-  `FireResistance` varchar(15) DEFAULT NULL,
-  `WaterResistance` varchar(15) DEFAULT NULL,
-  `EarthResistance` varchar(15) DEFAULT NULL,
-  `NormalResistance` varchar(15) DEFAULT NULL,
+  `WindResistance` int(11) DEFAULT NULL,
+  `FireResistance` int(11) DEFAULT NULL,
+  `WaterResistance` int(11) DEFAULT NULL,
+  `EarthResistance` int(11) DEFAULT NULL,
+  `NormalResistance` int(11) DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Type` (`Type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -119,13 +121,14 @@ CREATE TABLE IF NOT EXISTS `Resistances` (
 --
 
 CREATE TABLE IF NOT EXISTS `Tower` (
+  `Special` varchar(15) NOT NULL,
   `ID` int(4) NOT NULL DEFAULT '0',
   `Name` varchar(15) DEFAULT NULL,
   `Cost` int(4) DEFAULT NULL,
   `Damage` int(4) DEFAULT NULL,
   `AttackRange` int(4) DEFAULT NULL,
   `FiringRate` int(4) DEFAULT NULL,
-  `DPS` int(6) DEFAULT NULL,
+  `DPS` float DEFAULT NULL,
   `AttackType` varchar(15) DEFAULT NULL,
   `Element` varchar(15) DEFAULT NULL,
   `SellAmount` int(6) DEFAULT NULL,
@@ -144,8 +147,8 @@ CREATE TABLE IF NOT EXISTS `Tower` (
 -- Constraints for table `Minion`
 --
 ALTER TABLE `Minion`
-  ADD CONSTRAINT `Minion_ibfk_2` FOREIGN KEY (`Element`) REFERENCES `Elements` (`Type`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `Minion_ibfk_1` FOREIGN KEY (`Resistances`) REFERENCES `Resistances` (`Type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `Minion_ibfk_1` FOREIGN KEY (`Resistances`) REFERENCES `Resistances` (`Type`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `Minion_ibfk_2` FOREIGN KEY (`Element`) REFERENCES `Elements` (`Type`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `Resistances`

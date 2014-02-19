@@ -12,7 +12,7 @@
 #define DATABASE_API __declspec(dllimport)
 #endif
 
-// This class will be exported to networking.dll
+// This class will be exported to database.dll
 class DATABASE_API DLL_Example
 {
 public:
@@ -24,4 +24,4 @@ public:
 extern DATABASE_API int mSampleInt;
 
 // Exporting a function seperate from class
-DATABASE_API int SampleFunc(void);
+DATABASE_API int SampleFunc();

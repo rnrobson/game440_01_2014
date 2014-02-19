@@ -20,21 +20,21 @@ class ClientAPI
 private:
 	#pragma region Resources
 	//-- Fonts, Textures & Colours
-	static vector<std::string> fontKeys;
-	static vector<TTF_Font*> fonts;
+	static std::vector<std::string> fontKeys;
+	static std::vector<TTF_Font*> fonts;
 	
-	static vector<std::string> textureKeys;
-	static vector<SDL_Texture*> textures;
+	static std::vector<std::string> textureKeys;
+	static std::vector<SDL_Texture*> textures;
 
-	static vector<std::string> colourKeys;
-	static vector<SDL_Color> colours;
+	static std::vector<std::string> colourKeys;
+	static std::vector<SDL_Color> colours;
 
 	//-- API Objects
-	static vector<std::string> guiContainerKeys;
-	static vector<GuiContainer*> guiContainers;
+	static std::vector<std::string> guiContainerKeys;
+	static std::vector<GuiContainer*> guiContainers;
 
-	static vector<std::string> guiElementKeys;
-	static vector<GuiElement*> guiElements;
+	static std::vector<std::string> guiElementKeys;
+	static std::vector<GuiElement*> guiElements;
 
 	static bool quit;
 
@@ -44,17 +44,17 @@ private:
 	static void(*EscapeKeyPressedFunc)();
 
 	static void SetupHelper(){
-		fontKeys = vector<std::string>{};
-		textureKeys = vector<std::string>{};
-		colourKeys = vector<std::string>{};
-		guiContainerKeys = vector<std::string>{};
-		guiElementKeys = vector<std::string>{};
+		fontKeys = std::vector<std::string>{};
+		textureKeys = std::vector<std::string>{};
+		colourKeys = std::vector<std::string>{};
+		guiContainerKeys = std::vector<std::string>{};
+		guiElementKeys = std::vector<std::string>{};
 
-		fonts = vector<TTF_Font*>{};
-		textures = vector<SDL_Texture*>{};
-		colours = vector<SDL_Color>{};
-		guiContainers = vector<GuiContainer*>{};
-		guiElements = vector<GuiElement*>{};
+		fonts = std::vector<TTF_Font*>{};
+		textures = std::vector<SDL_Texture*>{};
+		colours = std::vector<SDL_Color>{};
+		guiContainers = std::vector<GuiContainer*>{};
+		guiElements = std::vector<GuiElement*>{};
 
 		CustomUpdateFunc = nullptr;
 		CustomDrawFunc = nullptr;
@@ -66,6 +66,9 @@ private:
 		APIEvents::MousePosition = { -2, -2, 1, 1 };
 		APIEvents::EnterPressed = false;
 		APIEvents::EscapePressed = false;
+		APIEvents::SDLTextInputEnabled = false;
+
+		APIHelper::ToggleTextInput();
 	}
 	static void CleanMemory()
 	{
@@ -109,12 +112,13 @@ public:
 	static void Init(std::string title = "Window", int width = 1024, int height = 768) 
 	{ 
 		Window::Init(title, width, height); 
-		SetupHelper(); 
+		SetupHelper();
 	}
 	static void Exit() { Quit(); }
 	static void Quit() 
 	{ 
 		CleanMemory();
+		APIHelper::ToggleTextInput();
 		Window::Quit(); 
 	}
 	
