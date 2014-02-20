@@ -98,6 +98,7 @@
     <ClCompile Include="GuiContainer.cpp" />
     <ClCompile Include="InfluenceLayer.cpp" />
     <ClCompile Include="InfluenceSquare.cpp" />
+    <ClCompile Include="IngamePause.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -113,6 +114,7 @@
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="testMain.cpp" />
+    <ClCompile Include="TestSerialize.cpp" />
     <ClCompile Include="TextField.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="Tooltip.cpp" />
@@ -133,6 +135,7 @@
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="IngamePause.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="ConnectionException.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="Slider.h" />
     <ClInclude Include="TableInfo.h" />
     <ClInclude Include="TestCommand.h" />
+    <ClInclude Include="TestSerialize.h" />
     <ClInclude Include="TextField.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Tooltip.h" />

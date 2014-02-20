@@ -34,14 +34,13 @@ void  DatabaseAPI::getAllMinionInfo() { }
 void  DatabaseAPI::getElementInfo(const ElementTypes element) { }
 
 std::vector<Element>  DatabaseAPI::getAllElementInfo() {
-	// create helper method for this probably, it'll be repeated a lot
-
 	if (conn.connected()) {
 		try {
 			Query query = conn.query("SELECT * FROM Elements");
+
 			if (UseQueryResult result = query.use()) {
 				Row row;
-				std::vector<Element> elements = std::vector<Element>();	// do something with this vector
+				std::vector<Element> elements = std::vector<Element>();
 				
 				while (row = result.fetch_row()) {
 					Element* e = new Element();

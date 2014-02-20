@@ -2,19 +2,17 @@
 #define DATABASE_API_H
 
 #include <string>
-#include <vector>	// possibly not needed later
+#include <vector>
 #include <mysql++.h>
 #include "DataDefinitions.h"
 #include "TableInfo.h"
 
-#include "Element.h" // change to DataInclude.h or something
+//-- Data Structures
+#include "Element.h"
 
 //		NOTES FROM VINNY
 ////////////////////////////////////////////////////////////
-//	- If we're not passing a reference to the local DB, we could maybe make this mostly static? And remove constructors.
-//	- Also if so, functions need return types
-//	- Also also, could rename functions for default data to "fetch..." to avoid confusion between default values and saved values. Unless those can use the same functions.
-//	- Consider passing just the ID for Tower/Minion parameters
+//	- Could rename functions for default data to "fetch..." to avoid confusion between default values and saved values.
 //	- Possibly add DBNotConnectedException for functions? or sumin'
 //	- Consider removing connectToDatabase parameters and using private constants
 
@@ -28,7 +26,6 @@ namespace ManaCraft {
 			Connection conn;
 
 		public:
-
 			DatabaseAPI();
 			~DatabaseAPI();
 
@@ -43,9 +40,6 @@ namespace ManaCraft {
 
 			/// <summary> Disconnects from the database if a connection is already established. </summary>
 			void disconnectFromDatabase();
-
-
-			//TODO: Proper returns for methods below
 
 			/// <summary> Get information of specific tower of TowerType. </summary>
 			void getTowerInfo(const TowerTypes tower);

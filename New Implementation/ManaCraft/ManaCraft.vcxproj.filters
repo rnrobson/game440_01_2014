@@ -58,6 +58,9 @@
     <Filter Include="Source Files\Client\Utilities">
       <UniqueIdentifier>{b6d575e7-ea34-4f79-bc3e-98b5ae49418b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Client\Menus">
+      <UniqueIdentifier>{a398954d-f284-4394-b4f6-9d7e652d7dd5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -179,6 +182,12 @@
     </ClCompile>
     <ClCompile Include="ServerCommand.cpp">
       <Filter>Source Files\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="IngamePause.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSerialize.cpp">
+      <Filter>Source Files\Networking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +364,12 @@
     </ClInclude>
     <ClInclude Include="ServerProtocol.h">
       <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="IngamePause.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSerialize.h">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

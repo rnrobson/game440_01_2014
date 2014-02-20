@@ -25,14 +25,8 @@ public:
 		SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/background.png");
 		SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraft.png");
 		SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
-		SDL_Texture *smallBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnHover.bmp");
-		SDL_Texture *smallBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnDown.bmp");
 		SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
-		SDL_Texture *medBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnHover.bmp");
-		SDL_Texture *medBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnDown.bmp");
 		SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
-		SDL_Texture *longBtnHoverTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnHover.bmp");
-		SDL_Texture *longBtnDownTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnDown.bmp");
 
 		ClientAPI::AddTexture("Background", backgroundTex);
 		ClientAPI::AddTexture("GameLogo", logoTex);

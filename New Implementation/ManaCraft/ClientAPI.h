@@ -304,6 +304,14 @@ public:
 		return{ 0, 0, 0, 0 };
 	}
 
+	static void SetAllGuiContainersInactive()
+	{
+		for (size_t i = 0; i < guiContainerKeys.size(); i++)
+		{
+			guiContainers.at(i)->Active = false;
+		}
+	}
+
 	static GuiContainer* GetGuiContainer(std::string _key)
 	{
 		for (size_t i = 0; i < guiContainerKeys.size(); i++)

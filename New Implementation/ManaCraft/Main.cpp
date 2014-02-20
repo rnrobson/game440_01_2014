@@ -1,5 +1,5 @@
-#define CLIENT_BUILD 0
-#define SERVER_BUILD 1
+#define CLIENT_BUILD 1
+#define SERVER_BUILD 0
 
 #include <SDL.h>
 #include <SDL_net.h>
@@ -16,6 +16,7 @@
 //-- Load Menus
 #include "GameLobby.h"
 #include "MainMenu.h"
+#include "IngamePause.h"
 #include "LoginPopup.h"
 #include "Credits.h"
 #include "Options.h"
@@ -36,6 +37,10 @@ void OnEnterPressed();
 void TransferControlToServer();
 #endif
 
+#if !CLIENT_BUILD && !SERVER_BUILD
+
+#endif
+
 int main(int argc, char* argcs[]) {
 #if CLIENT_BUILD
 	TransferControlToClient();
@@ -47,7 +52,8 @@ int main(int argc, char* argcs[]) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cout << "SDL_Init failed." << std::endl;
 	}
-	if (!(IMG_Init(IMG_INIT_PNG)) & IMG_INIT_PNG) {
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags)) & imgFlags) {
 		std::cout << "IMG_Init failed." << std::endl;
 	}
 	if (TTF_Init() != 0) {
@@ -74,12 +80,13 @@ void TransferControlToClient() {
 	// Set Custom Events
 	ClientAPI::SubscribeCustomUpdate(CustomUpdate);
 	ClientAPI::SubscribeCustomDraw(CustomDraw);
-	ClientAPI::SubscribeEnterKeyFunc(OnEscapePressed);
-	ClientAPI::SubscribeEscapeKeyFunc(OnEnterPressed);
+	ClientAPI::SubscribeEnterKeyFunc(OnEnterPressed);
+	ClientAPI::SubscribeEscapeKeyFunc(OnEscapePressed);
 
 	//--Call individual load methods
 	ScreenFader::Load();
 	MainMenu::Load();
+	IngamePause::Load();
 	LoginPopup::Load();
 	GUI::Load();
 	//Options::Load();
@@ -121,7 +128,7 @@ void CustomDraw()
 
 void OnEscapePressed()
 {
-
+	IngamePause::Pause("MainMenu");
 }
 void OnEnterPressed()
 {

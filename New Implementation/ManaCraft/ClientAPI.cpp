@@ -124,7 +124,7 @@ void ClientAPI::CheckEvents()
 	}
 
 	if (APIEvents::DidMouseClick()) {
-		HandleMouseClickEvent();
+			HandleMouseClickEvent();
 	}
 
 	if (APIHelper::DidKeyGetPressed(SDL_SCANCODE_RETURN)) {
