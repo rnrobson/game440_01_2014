@@ -1,5 +1,5 @@
-#ifndef SERIALIZATION_H
-#define SERIALIZATION_H
+#ifndef SERIALIZE_H
+#define SERIALIZE_H
 
 typedef char byte;
 

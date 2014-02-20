@@ -186,6 +186,9 @@
     <ClCompile Include="IngamePause.cpp">
       <Filter>Source Files\Client\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="TestSerialize.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -364,6 +367,9 @@
     </ClInclude>
     <ClInclude Include="IngamePause.h">
       <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSerialize.h">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

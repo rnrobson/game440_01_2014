@@ -37,6 +37,10 @@ void OnEnterPressed();
 void TransferControlToServer();
 #endif
 
+#if !CLIENT_BUILD && !SERVER_BUILD
+
+#endif
+
 int main(int argc, char* argcs[]) {
 #if CLIENT_BUILD
 	TransferControlToClient();
@@ -48,7 +52,8 @@ int main(int argc, char* argcs[]) {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		std::cout << "SDL_Init failed." << std::endl;
 	}
-	if (!(IMG_Init(IMG_INIT_PNG)) & IMG_INIT_PNG) {
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags)) & imgFlags) {
 		std::cout << "IMG_Init failed." << std::endl;
 	}
 	if (TTF_Init() != 0) {
