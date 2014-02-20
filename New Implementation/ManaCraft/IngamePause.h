@@ -171,6 +171,7 @@ public:
 	static void Click_quitMenu()
 	{
 		Pause();
+		ClientAPI::SetAllGuiContainersInactive(); //Disables all the current GUI Objects before setting the main menu to active
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 		//ScreenFader::FadeOut();
 	}
