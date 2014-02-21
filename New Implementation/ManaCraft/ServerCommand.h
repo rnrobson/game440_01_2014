@@ -19,11 +19,9 @@ enum ServerProtocol : int
 	CS_READY_STATUS,
 	CS_BENCH_PLAYER,
 	CS_SET_GAMEPLAY_OPTIONS,
-	CS_SEND_MSG_PARTY,
 	CS_SEND_MSG_TEAM,
-	CS_SEND_MSG_LOBBY,
+	CS_SEND_MSG_BROADCAST,
 	CS_SEND_WHISPER,
-	CS_SEND_PARTY_MSG,
 	CS_KICK_PLAYER,
 	CS_PAUSE_GAME,
 	CS_END_GAME,
@@ -83,9 +81,8 @@ private:
 	void CS_ReadyStatus(void* data);
 	void CS_BenchPlayer(void* data);
 	void CS_SetGamePlayOptions(void* data);
-	void CS_SendMsgParty(void* data);
 	void CS_SendMsgTeam(void* data);
-	void CS_SendMsgLobby(void* data);
+	void CS_SendMsgBroadcast(void* data);
 	void CS_SendWhisper(void* data);
 	void CS_KickPlayer(void* data);
 	void CS_PauseGame(void* data);

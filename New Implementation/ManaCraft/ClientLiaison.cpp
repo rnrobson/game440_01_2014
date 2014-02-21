@@ -48,7 +48,7 @@ int ClientLiaison::ClientListen(void*) {
 	
 	int i = master.Open();
 
-	std::cout << "Master connection attempted to open: " << i << std::endl;
+	std::cout << std::endl << "Master connection attempted to open: " << i << std::endl;
 
 	if(i == 1) {
 		std::cout << "Listening on port: 25508" << std::endl;
@@ -69,9 +69,9 @@ int ClientLiaison::ClientListen(void*) {
 
 				len = (*iter)->ReceiveData(&buf);
 
-				std::cout << "Data length: " << len << std::endl;
 
 				if(len > 0) {
+					std::cout << "Data received. Length of data: " << len << std::endl;
 					std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
 					dataToWorker.push(buf);
 				}

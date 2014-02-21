@@ -143,7 +143,6 @@ void Button::OnMouseClick()
 	if (!Active) return;
 	if (!Enabled) return;
 
-	
 	if (Intersects(APIEvents::MousePosition)) {}
 	GuiElement::OnMouseClick();
 	

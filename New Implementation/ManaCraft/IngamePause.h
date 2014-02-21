@@ -132,6 +132,7 @@ public:
 
 	static void Pause(std::string containerID)
 	{
+		releaseAllButtons(); //BANDAID
 		if (!isPaused)
 		{
 			ClientAPI::GetGuiContainer(containerID)->Active = false;
@@ -141,9 +142,9 @@ public:
 		}
 		else
 		{
-			ClientAPI::GetGuiContainer("IngamePause")->Active = false;
 			isPaused = false;
 			ClientAPI::GetGuiContainer(containerID)->Active = true;
+			ClientAPI::GetGuiContainer("IngamePause")->Active = false;
 			//ScreenFader::FadeOut();
 		}
 	}
@@ -179,5 +180,13 @@ public:
 	static void Click_quitDesktop()
 	{
 		ClientAPI::ExitMainLoop();
+	}
+
+	//BANDAID FIX FOR THE BUTTON DARKENING PROBLEM
+	static void releaseAllButtons(){
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->isPressedDown = false;
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->isPressedDown = false;
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->isPressedDown = false;
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->isPressedDown = false;
 	}
 };

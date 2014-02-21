@@ -10,7 +10,7 @@ Server::Server()
 {
 
 
-	workQueue.push(ServerCommand((void *)1, CS_CLOSE_GAME));
+	workQueue.push(ServerCommand((void *)1, CS_PLACE_TOWER));
 	ServerCommand *runningCommand = &workQueue.pop();
 	void *data = runningCommand->getData();
 	runningCommand->Execute(data);
