@@ -1,5 +1,6 @@
 #pragma once
 #include "ClientAPI.h"
+#include "ParticleSystem.h"
 
 class MainMenu
 {
@@ -33,7 +34,6 @@ public:
 		ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
 		ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
 		ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
-
 		//-- Convienient rects
 		SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
 		SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
@@ -118,6 +118,7 @@ public:
 		std::cout << "Login to network.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
 		ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
+
 	}
 
 	static void Click_createButton()
