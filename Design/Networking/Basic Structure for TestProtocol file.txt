@@ -1,0 +1,20 @@
+Basic Structure for TestProtocol.cpp/.h
+
+Public:
+	TestProtocol(unsigned int testCount)
+	~TestProtocol()
+	RunTests() : void
+
+Private:
+	int successCount
+	int failureCount
+	int testCount
+	int MAX_TEST_COUNT
+	int MIN_TEST_COUNT
+	SC_RANGE_START
+	CS_RANGE_START
+
+	RunServerToClientTest : void
+	RunClientToServerTest : void
+
+	TestCSProtocol(CS_Protocol protocol) : bool 

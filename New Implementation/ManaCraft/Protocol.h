@@ -18,7 +18,7 @@ namespace ManaCraft {
 		const char* const SEC_HEAD = "MCFT";
 
 		enum SC_Protocol : __int16 {
-			// Connection type protocols are: 150 - 199
+			// Connection type protocols are: 1150 - 1199
 			// There are currently: 3/50
 			
 			/// <summary>Sends info to all clients in the case that someone disconnects
@@ -36,7 +36,7 @@ namespace ManaCraft {
 
 
 
-			// Chat oriented protocols are: 225 - 249
+			// Chat oriented protocols are: 1225 - 1249
 			// There are currently: 5/25
 
 			/// <summary> Will send a message to all players in the specified game.
@@ -62,7 +62,7 @@ namespace ManaCraft {
 
 
 
-			// Game Viewer oriented protocols are: 275 - 299
+			// Game Viewer oriented protocols are: 1275 - 1299
 			// There are currently: 3/25
 
 			/// <summary> Sends the current available games from the server to the client to be viewed
@@ -80,7 +80,7 @@ namespace ManaCraft {
 
 
 
-			// Game Lobby oriented protocols for Server are: 350 - 399
+			// Game Lobby oriented protocols for Server are: 1350 - 1399
 			// There are currently: 6/50
 
 			/// <summary>Allows the server to send the data of all the clients viewing/joined the selected game 
@@ -111,7 +111,7 @@ namespace ManaCraft {
 
 
 
-			// Gameplay oriented protocols are: 500 - 599
+			// Gameplay oriented protocols are: 1500 - 1599
 			// There are currently: 9/100
 
 			/// <summary> Notifies the player if the server was able to summon the minion or not
@@ -153,9 +153,10 @@ namespace ManaCraft {
 
 
 
-			// GameplayLobby Command oriented protocols are: 625 - 649
-			// There are currently: 5/24
+			// Gameplay Command oriented protocols are: 1625 - 1649
+			// There are currently: 5/25
 			// Double check, some of these may require no data as the command itself is the data
+			
 			/// <summary>Relays information about the person to be kicked to the host
 			/// <para>Data: [1] Username Length [n] Username</para>
 			/// </summary>
@@ -178,9 +179,10 @@ namespace ManaCraft {
 			RETURN_QUIT_GAME
 		};
 
+
 		/// <summary>The list of Client to Server protocols that will be sent over the network.</summary>
 		enum CS_Protocol : __int16 {
-			// Connection Type Protocols are: 100 - 149
+			// Connection Type Protocols are: 2100 - 2149
 			// There are currently: 3/50
 
 			/// <summary>Will close the game for the player, and the connection with the server.
@@ -194,8 +196,28 @@ namespace ManaCraft {
 			LOGOUT_PLAYER,
 
 
+			// Chat oriented protocols are: 2200 - 2224
+			// There are currently: 5/25
 
-			// Game Viewer oriented protocols are: 250 - 274
+			/// <summary>Will send a message to the server meant for all the players within that game
+			/// <para>Data: [4] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
+			SEND_MESSAGE_IG = 2200,
+			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
+			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
+			SEND_MESSAGE_GL,
+			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
+			/// <para>Data: [1] Username Length (S), [1] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message </summary>
+			SEND_WHISPER,
+			/// <summary>Will send a message to the server meant for players in the same party - while in game.
+			/// <para>Data: [4] GameID, [4] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
+			SEND_PARTY_MSG_IG,
+			/// <summary>Will send a message to the server meant for players in the same party - while in the game lobby.
+			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
+			SEND_PARTY_MSG_GL,
+
+
+
+			// Game Viewer oriented protocols are: 2250 - 2274
 			// There are currently: 3/25
 
 			/// <summary>Sends a request for a list of refreshed games in the Game Viewer scene.
@@ -210,7 +232,7 @@ namespace ManaCraft {
 
 
 
-			// Game Lobby oriented protocols are: 300 - 349
+			// Game Lobby oriented protocols are: 2300 - 2349
 			// There are currently: 6/50
 
 			/// <summary>Requests that the player joins the team they have selected
@@ -231,31 +253,10 @@ namespace ManaCraft {
 			/// <summary>Host Only - Will send to the server the new gameplay options for the players
 			/// <para>Data: [4] GameID, [???] OptionsData </summary>
 			SET_GAMEPLAY_OPTIONS,
-
-
-
-			// Chat oriented protocols are: 200 - 224
-			// There are currently: 5/25
-
-			/// <summary>Will send a message to the server meant for all the players within that game
-			/// <para>Data: [4] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
-			SEND_MESSAGE_IG = 2200,
-			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
-			SEND_MESSAGE_GL,
-			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// <para>Data: [1] Username Length (S), [1] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message </summary>
-			SEND_WHISPER,
-			/// <summary>Will send a message to the server meant for players in the same party - while in game.
-			/// <para>Data: [4] GameID, [4] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
-			SEND_PARTY_MSG_IG,
-			/// <summary>Will send a message to the server meant for players in the same party - while in the game lobby.
-			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message </summary>
-			SEND_PARTY_MSG_GL,
 			
 
 
-			// Gameplay oriented protocols are: 400 - 499
+			// Gameplay oriented protocols are: 2400 - 2499
 			//There are currently: 4/100
 			
 			/// <summary> Sends a requests to the server to place a tower in the designated spot.
@@ -273,7 +274,7 @@ namespace ManaCraft {
 
 
 
-			// In-Game Command oriented protocols are: 600 - 624
+			// In-Game Command oriented protocols are: 2600 - 2624
 			// There are currently: 5/25
 			
 			/// <summary>Host Only - Requests to the server that a designated player is kicked from the match.

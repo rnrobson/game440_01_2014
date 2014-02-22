@@ -192,6 +192,9 @@
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source Files\Client\Utilities</Filter>
     </ClCompile>
+    <ClCompile Include="TestProtocol.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -376,6 +379,9 @@
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>Header Files\Client\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="TestProtocol.h">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
