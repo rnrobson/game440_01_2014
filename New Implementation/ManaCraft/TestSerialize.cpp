@@ -38,8 +38,8 @@ void SerializeTester::RunInt8Tests() {
 		char data[sizeof(__int8)];
 
 		tempInt8 = (i % 2 == 0) ? tempInt8 : -tempInt8;
-		SerializeInt8(data, tempInt8);
-		result = DeserializeInt8(data);
+		Serialize::Int8(data, tempInt8);
+		result = Deserialize::Int8(data);
 
 		if (tempInt8 == result) {
 			++mSuccessCount;
@@ -59,8 +59,8 @@ void SerializeTester::RunInt16Tests() {
 		char data[sizeof(__int16)];
 
 		tempInt16 = (i % 2 == 0) ? tempInt16 : -tempInt16;
-		SerializeInt16(data, tempInt16);
-		result = DeserializeInt16(data);
+		Serialize::Int16(data, tempInt16);
+		result = Deserialize::Int16(data);
 
 		if (tempInt16 == result) {
 			++mSuccessCount;
@@ -80,8 +80,8 @@ void SerializeTester::RunInt32Tests() {
 		char data[sizeof(__int32)];
 
 		tempInt32 = (i % 2 == 0) ? tempInt32 : -tempInt32;
-		SerializeInt32(data, tempInt32);
-		result = DeserializeInt32(data);
+		Serialize::Int32(data, tempInt32);
+		result = Deserialize::Int32(data);
 
 		if (tempInt32 == result) {
 			++mSuccessCount;
@@ -101,8 +101,8 @@ void SerializeTester::RunInt64Tests() {
 		char data[sizeof(__int64)];
 
 		tempInt64 = (i % 2 == 0) ? tempInt64 : -tempInt64;
-		SerializeInt64(data, tempInt64);
-		result = DeserializeInt64(data);
+		Serialize::Int64(data, tempInt64);
+		result = Deserialize::Int64(data);
 
 		if (tempInt64 == result) {
 			++mSuccessCount;
@@ -121,8 +121,8 @@ void SerializeTester::RunUInt8Tests() {
 		unsigned __int8 result = 0;
 		char data[sizeof(unsigned __int8)];
 
-		SerializeUInt8(data, tempUInt8);
-		result = DeserializeUInt8(data);
+		Serialize::UInt8(data, tempUInt8);
+		result = Deserialize::UInt8(data);
 
 		if (tempUInt8 == result) {
 			++mSuccessCount;
@@ -141,8 +141,8 @@ void SerializeTester::RunUInt16Tests() {
 		unsigned __int16 result = 0;
 		char data[sizeof(unsigned __int16)];
 
-		SerializeUInt16(data, tempUInt16);
-		result = DeserializeUInt16(data);
+		Serialize::UInt16(data, tempUInt16);
+		result = Deserialize::UInt16(data);
 
 		if (tempUInt16 == result) {
 			++mSuccessCount;
@@ -161,8 +161,8 @@ void SerializeTester::RunUInt32Tests() {
 		unsigned __int32 result = 0;
 		char data[sizeof(unsigned __int32)];
 
-		SerializeUInt32(data, tempUInt32);
-		result = DeserializeUInt32(data);
+		Serialize::UInt32(data, tempUInt32);
+		result = Deserialize::UInt32(data);
 
 		if (tempUInt32 == result) {
 			++mSuccessCount;
@@ -181,8 +181,8 @@ void SerializeTester::RunUInt64Tests() {
 		unsigned __int64 result = 0;
 		char data[sizeof(unsigned __int64)];
 
-		SerializeUInt64(data, tempUInt64);
-		result = DeserializeUInt64(data);
+		Serialize::UInt64(data, tempUInt64);
+		result = Deserialize::UInt64(data);
 
 		if (tempUInt64 == result) {
 			++mSuccessCount;
@@ -202,8 +202,8 @@ void SerializeTester::RunFloatTests() {
 		char data[sizeof(float)];
 
 		tempFloat = (i % 2 == 0) ? tempFloat : -tempFloat;
-		SerializeFloat(data, tempFloat);
-		result = DeserializeFloat(data);
+		Serialize::Float(data, tempFloat);
+		result = Deserialize::Float(data);
 
 		if (tempFloat == result) {
 			++mSuccessCount;
@@ -223,8 +223,8 @@ void SerializeTester::RunDoubleTests() {
 		char data[sizeof(double)];
 
 		tempDouble = (i % 2 == 0) ? tempDouble : -tempDouble;
-		SerializeDouble(data, tempDouble);
-		result = DeserializeDouble(data);
+		Serialize::Double(data, tempDouble);
+		result = Deserialize::Double(data);
 
 		if (tempDouble == result) {
 			++mSuccessCount;

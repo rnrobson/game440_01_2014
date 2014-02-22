@@ -99,7 +99,7 @@ int Connection::ReceiveData(byte** buf) {
 			byte* length = new char[2];
 			SDLNet_TCP_Recv(mSocket, length, 2);
 
-			__int16 dataLen = DeserializeInt16(length);
+			__int16 dataLen = Deserialize::Int16(length);
 			// Can check against expected value now
 
 			// Initialize the buffer and fill it with the data in bytes

@@ -66,8 +66,8 @@ void Packet::NewPayload() {
 		currPos[i] = mSecurityHeader[i];
 	}
 	currPos += strlen(mSecurityHeader);
-	currPos = SerializeInt16(currPos, mDataLength);
-	currPos = SerializeInt16(currPos, mProtocolID);
+	currPos = Serialize::Int16(currPos, mDataLength);
+	currPos = Serialize::Int16(currPos, mProtocolID);
 	for (int i = 0; i < mDataLength; ++i) {
 		currPos[i] = mData[i];
 	}

@@ -93,7 +93,7 @@ void ClientLiaison::SendToWorker() {
 
 		buf = dataToWorker.pop();
 
-		__int16 protocolID = Networking::DeserializeInt16(buf);
+		__int16 protocolID = Networking::Deserialize::Int16(buf);
 		std::cout << "Protocol: " << protocolID << std::endl;
 		buf += sizeof(byte)* 2;
 		std::cout << "Message: " << buf << std::endl;

@@ -12,10 +12,26 @@ namespace ManaCraft {
 		/// <para>Data represents what parts of the data structure should be serialized.</para>
 		/// <para>It allows for more efficient transmission as you don't need to pass the entire data structure through the network.</para>
 		/// </summary>
-		enum Data : Uint8 {
-			EVERYTHING,
-			POSITION,
-			HEALTH,
+		enum NetData : Uint16 {
+			FLAG_01 = 0x0001,
+			FLAG_02 = 0x0002,
+			FLAG_03 = 0x0004,
+			FLAG_04 = 0x0008,
+
+			FLAG_05 = 0x0010,
+			FLAG_06 = 0x0020,
+			FLAG_07 = 0x0040,
+			FLAG_08 = 0x0080,
+
+			FLAG_09 = 0x0100,
+			FLAG_10 = 0x0200,
+			FLAG_11 = 0x0400,
+			FLAG_12 = 0x0800,
+
+			FLAG_13 = 0x1000,
+			FLAG_14 = 0x2000,
+			FLAG_15 = 0x4000,
+			FLAG_16 = 0x8000
 		};
 
 		/// <summary>
@@ -30,7 +46,7 @@ namespace ManaCraft {
 		};
 
 		/// <summary>
-		/// <para>Serializable is an abstract class that contains methods used for converting various amounts of class data into an array of bytes.</para>
+		/// <para>Serializable is an abstract class that contains methods used for converting various amounts of class data to and from an array of bytes.</para>
 		/// <para>The base class methods should never be called as they will throw an UnsupportedOperationException since these methods 
 		/// are intended to be overridden.</para>
 		/// </summary>
@@ -44,24 +60,13 @@ namespace ManaCraft {
 			/// <para>[Data requiredData] Determines what part of the class should be serialized. </para>
 			/// <return>Returns true on success.</return>
 			/// </summary>
-			virtual bool Serialize(byte* data, Data requiredData) { throw UnsupportedOperationException(); }
+			virtual bool Serialize(byte* data, NetData dataFlags) { throw UnsupportedOperationException(); }
 
 			/// <summary>
 			/// <return>Returns the size of the array if the class were serialized.</return>
 			/// <para>[Data requiredData] Helps determine the length of the data for serialization. </para>
 			/// </summary>
-			virtual int SerializedSize(Data requiredData) const { throw UnsupportedOperationException(); }
-		};
-
-		/// <summary>
-		/// <para>Deserializable is an abstract class that contains methods used for converting an array of bytes into class data.</para>
-		/// <para>The base class methods should never be called as they will throw an UnsupportedOperationException since these methods 
-		/// are intended to be overridden by inherited classes</para>
-		/// </summary>
-		class Deserializable
-		{
-		public:
-			virtual ~Deserializable() { }
+			virtual int SerializedSize(NetData dataFlags) const { throw UnsupportedOperationException(); }
 
 			/// <summary>Converts all the array of bytes into class data.
 			///	<para>[char* data] Data should point to an array of preallocated bytes of size SerializedSize().</para>
