@@ -129,8 +129,11 @@ int Connection::ReceiveData(byte** buf) {
 				return dataLen;
 			}
 			else {
-				// Security header doesn't match, discard the data. It's dirty.
+				// Clean up
+				delete[] length;
 				delete[] secHeader;
+
+				// Security header doesn't match, discard the data. It's dirty.
 				delete[] *buf;
 				*buf = nullptr;
 
