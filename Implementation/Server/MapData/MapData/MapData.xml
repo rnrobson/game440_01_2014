@@ -1,0 +1,38 @@
+<Map tileSize="10" width="500" height="100" levelName="TestLevel">
+	
+	<!-- The Art Background Layer's rows and columns correspond to the number in the sprite sheet -->
+	<ArtBackground spriteSheet="ExampleSpriteSheet.jpeg" rows="" columns="">
+		<Tile spriteID="" row="" col="" name="">
+			<xPos></xPos>
+			<yPos></yPos>
+			<clickable></clickable> <!-- this may not be necessary, the name of the sprite could be a unique that defines it as being a spot that can be placed on -->
+		</Tile>
+	</ArtBackground>
+	
+	<!-- The Art Foreground Layer's rows and columns correspond to the number in the sprite sheet -->
+	<ArtForeground spriteSheet="ExampleSpriteSheet.jpeg" rows="" columns="">
+		<Tile spriteID="" row="" col="" name="">
+			<xPos></xPos>
+			<yPos></yPos>
+			<Type></Type>
+			<Team></Team>
+		</Tile>
+	</ArtForeground>
+	
+	<!-- Holds the information for AI Paths, Each path has an ID with each node in the path having an ID and grid location -->
+	<Paths>
+		 <!-- The node layer. Currently a work in progress, as I haven't found a solid means of making the nodes connected. -->
+		<Path id = "1" IDAssociation="1">
+			<Node number = "1">
+				<xPos>0</xPos>
+				<yPos>1</xPos>	
+			</Node><!-- IDAssocation points to the ID of a spawner in the Assets to link the two, pathID associates it with a particular path among many -->
+			<Node number = "2">
+				<xPos>6</xPos>
+				<yPos>1</xPos>
+			</Node><!-- nodeNumber displays what number of node it is in the path -->
+			<!-- Insert more nodes.. -->
+		</Path>
+	</Path>
+	
+</Map>

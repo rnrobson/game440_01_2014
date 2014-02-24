@@ -1,0 +1,1 @@
+If the Client can't find SDL2_main, SDL2_image or SDL2_ttf, extract "Backup_SDL" into the root directory of this folder.

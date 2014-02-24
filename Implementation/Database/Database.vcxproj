@@ -53,10 +53,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DATABASE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SQL Files\CmySQL\include;$(SolutionDir)\SQL Files\mySQL++\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SQL Files\CmySQL\lib;$(SolutionDir)\SQL Files\mySQL++\lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libmysql.lib;wsock32.lib;mysqlpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -78,10 +81,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DatabaseAPI.cpp" />
     <ClCompile Include="DLL_Example.cpp" />
+    <ClCompile Include="GridLayer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseAPI.h" />
+    <ClInclude Include="DataDefinitions.h" />
     <ClInclude Include="DLL_Example.h" />
+    <ClInclude Include="GridLayer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Networking\Networking.vcxproj">
+      <Project>{aab7b544-7d46-440e-b0a3-d3814f8fd7e8}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

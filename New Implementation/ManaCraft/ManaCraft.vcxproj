@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{DD902736-30C2-46A1-85CB-B36C5183E790}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ManaCraft</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\SDL Files\include;..\SQL Files\CmySQL\include;..\SQL Files\mySQL++\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\SDL Files\lib\x86;..\SQL Files\CmySQL\lib;..\SQL Files\mySQL++\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;SDL2_net.lib;libmysql.lib;wsock32.lib;mysqlpp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AnimateSprite.cpp" />
+    <ClCompile Include="APIEvents.cpp" />
+    <ClCompile Include="ArtLayer.cpp" />
+    <ClCompile Include="ArtSquare.cpp" />
+    <ClCompile Include="AssetLayer.cpp" />
+    <ClCompile Include="AssetSquare.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Checkbox.cpp" />
+    <ClCompile Include="ClientAPI.cpp" />
+    <ClCompile Include="ClientLiaison.cpp" />
+    <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="DatabaseAPI.cpp" />
+    <ClCompile Include="Element.cpp" />
+    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="GridLayer.cpp" />
+    <ClCompile Include="GridNode.cpp" />
+    <ClCompile Include="GridSquare.cpp" />
+    <ClCompile Include="GuiContainer.cpp" />
+    <ClCompile Include="InfluenceLayer.cpp" />
+    <ClCompile Include="InfluenceSquare.cpp" />
+    <ClCompile Include="IngamePause.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Minion.cpp" />
+    <ClCompile Include="MinionPath.cpp" />
+    <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="ParticleSystem.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Resistances.cpp" />
+    <ClCompile Include="ScreenFader.cpp" />
+    <ClCompile Include="Serialize.cpp" />
+    <ClCompile Include="Server.cpp" />
+    <ClCompile Include="ServerCommand.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="testMain.cpp" />
+    <ClCompile Include="TestProtocol.cpp" />
+    <ClCompile Include="TestSerialize.cpp" />
+    <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
+    <ClCompile Include="Tooltip.cpp" />
+    <ClCompile Include="Tower.cpp" />
+    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="Worker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AnimateSprite.h" />
+    <ClInclude Include="APIEvents.h" />
+    <ClInclude Include="APIHelper.h" />
+    <ClInclude Include="API_Util.h" />
+    <ClInclude Include="ArtLayer.h" />
+    <ClInclude Include="ArtSquare.h" />
+    <ClInclude Include="AssetLayer.h" />
+    <ClInclude Include="AssetSquare.h" />
+    <ClInclude Include="BlockingQueue.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Checkbox.h" />
+    <ClInclude Include="ClientAPI.h" />
+    <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="IngamePause.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="ServerCommand.h" />
+    <ClInclude Include="Connection.h" />
+    <ClInclude Include="ConnectionException.h" />
+    <ClInclude Include="Credits.h" />
+    <ClInclude Include="DatabaseAPI.h" />
+    <ClInclude Include="DataDefinitions.h" />
+    <ClInclude Include="Element.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="GameLobby.h" />
+    <ClInclude Include="GridLayer.h" />
+    <ClInclude Include="GridNode.h" />
+    <ClInclude Include="GridSquare.h" />
+    <ClInclude Include="GUI.h" />
+    <ClInclude Include="GuiContainer.h" />
+    <ClInclude Include="GuiElement.h" />
+    <ClInclude Include="Includes.h" />
+    <ClInclude Include="InfluenceLayer.h" />
+    <ClInclude Include="InfluenceSquare.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="LoginPopup.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Minion.h" />
+    <ClInclude Include="MinionPath.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="Packet.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="Protocol.h" />
+    <ClInclude Include="Resistances.h" />
+    <ClInclude Include="ScreenFader.h" />
+    <ClInclude Include="Serializable.h" />
+    <ClInclude Include="Serialize.h" />
+    <ClInclude Include="Server.h" />
+    <ClInclude Include="ServerIncludes.h" />
+    <ClInclude Include="ServerProtocol.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="TableInfo.h" />
+    <ClInclude Include="TestCommand.h" />
+    <ClInclude Include="TestProtocol.h" />
+    <ClInclude Include="TestSerialize.h" />
+    <ClInclude Include="TextField.h" />
+    <ClInclude Include="ThreadPool.h" />
+    <ClInclude Include="Tooltip.h" />
+    <ClInclude Include="Tower.h" />
+    <ClInclude Include="Window.h" />
+    <ClInclude Include="Worker.h" />
+    <ClInclude Include="WorkItem.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
