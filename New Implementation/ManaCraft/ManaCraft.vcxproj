@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimateSprite.cpp" />
     <ClCompile Include="APIEvents.cpp" />
     <ClCompile Include="ArtLayer.cpp" />
     <ClCompile Include="ArtSquare.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
@@ -125,6 +127,7 @@
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimateSprite.h" />
     <ClInclude Include="APIEvents.h" />
     <ClInclude Include="APIHelper.h" />
     <ClInclude Include="API_Util.h" />
@@ -176,6 +179,7 @@
     <ClInclude Include="ServerIncludes.h" />
     <ClInclude Include="ServerProtocol.h" />
     <ClInclude Include="Slider.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="TableInfo.h" />
     <ClInclude Include="TestCommand.h" />
     <ClInclude Include="TestProtocol.h" />

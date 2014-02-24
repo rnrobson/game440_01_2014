@@ -2,6 +2,7 @@
 #include "ClientAPI.h"
 #include "ParticleSystem.h"
 
+
 class MainMenu
 {
 public:
@@ -111,6 +112,7 @@ public:
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->SubscribeOnMouseClick(MainMenu::Click_tutorialButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SubscribeOnMouseClick(MainMenu::Click_quitButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetButton("CreditsBtn")->SubscribeOnMouseClick(MainMenu::Click_creditsButton);
+
 	}
 
 	static void Click_loginButton()
