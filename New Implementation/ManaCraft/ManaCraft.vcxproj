@@ -142,7 +142,6 @@
     <ClInclude Include="ClientLiaison.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Int_Float_Product_Command.h" />
-    <ClInclude Include="Int_Float_Product_Params.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
