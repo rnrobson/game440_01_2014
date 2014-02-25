@@ -19,10 +19,11 @@ public:
 };
 class Int_Float_Product_Command : public ServerCommand
 {
-public:
-	
+private: 
 	Int_Float_Product_Params* params;
 
+public:
+	
 	Int_Float_Product_Command(void* _data)
 	{
 		data = _data;
