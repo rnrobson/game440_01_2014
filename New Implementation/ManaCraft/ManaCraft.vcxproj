@@ -116,7 +116,6 @@
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Teams.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
@@ -142,6 +141,8 @@
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
     <ClInclude Include="IngamePause.h" />
+    <ClInclude Include="Int_Float_Product_Command.h" />
+    <ClInclude Include="Int_Float_Product_Params.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
@@ -182,7 +183,6 @@
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TableInfo.h" />
-    <ClInclude Include="Teams.h" />
     <ClInclude Include="TestCommand.h" />
     <ClInclude Include="TestProtocol.h" />
     <ClInclude Include="TestSerialize.h" />
@@ -190,6 +190,7 @@
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Tower.h" />
+    <ClInclude Include="TripleAFloatCommand.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Worker.h" />
     <ClInclude Include="WorkItem.h" />

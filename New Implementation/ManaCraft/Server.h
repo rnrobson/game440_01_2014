@@ -17,7 +17,7 @@ using namespace ManaCraft;
 		class Server {
 		private:
 			bool running;
-			BlockingQueue<ServerCommand> workQueue;
+			BlockingQueue<ServerCommand*> workQueue;
 
 			void Init();
 

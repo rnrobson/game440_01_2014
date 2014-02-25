@@ -6,15 +6,22 @@
 #include <iostream> //BAND_AID
 //#include "ServerCommand.h"
 
-class TestCommand //: public ServerCommand
+class TestCommand : public ServerCommand
 {
 public:
-	TestCommand(void* _data) //: ServerCommand(_data)
+	struct Params
 	{
-		//data = _data;
+		int x;
+	};
+	Params params;
+	TestCommand(void* _data)
+	{
 
-		//printf("\nTestCommand: Initialized --data = %i",   data);
-		
+		data = _data;
+
+		params = *(Params*)data;
+
+		printf("\nTestCommand: Initialized --data = %i", params.x);
 	}
 
 	~TestCommand()
@@ -25,11 +32,9 @@ public:
 
 	void  Execute()
 	{
-		//std::cout << "\nTestCommand: Execute!";
-		//data += 1;
-		//data = (void*)2;
-		//printf("TestCommand: Initialized --data = ");
-		//printf("\nTestCommand: Executed --data = %i", data);
+
+		params.x++;
+		printf("\nTestCommand: Executed --data = %i", params.x);
 	};
 };
 
