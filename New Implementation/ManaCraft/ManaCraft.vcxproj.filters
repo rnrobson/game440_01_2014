@@ -201,6 +201,9 @@
     <ClCompile Include="AnimateSprite.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
+    <ClCompile Include="Teams.cpp">
+      <Filter>Source Files\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -399,6 +402,9 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="TripleAFloatCommand.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Teams.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>

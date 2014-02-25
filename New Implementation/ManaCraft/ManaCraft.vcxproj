@@ -116,6 +116,7 @@
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Teams.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TableInfo.h" />
+    <ClInclude Include="Teams.h" />
     <ClInclude Include="TestCommand.h" />
     <ClInclude Include="TestProtocol.h" />
     <ClInclude Include="TestSerialize.h" />
