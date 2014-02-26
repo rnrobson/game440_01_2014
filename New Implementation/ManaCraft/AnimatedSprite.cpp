@@ -1,6 +1,6 @@
 #include "AnimatedSprite.h"
 
-const int NUMFRAMES = 16;//minion spritesheets have 1 row and 16 columns
+const int NUMFRAMES = 16;//minion spritesheets have 4 rows and 4 columns
 
 SDL_Rect clips[NUMFRAMES];
 

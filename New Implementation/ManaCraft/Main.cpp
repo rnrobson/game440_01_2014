@@ -93,6 +93,12 @@ void TransferControlToClient() {
 	Credits::Load();
 	GameLobby::Load();
 
+	//--Temporary asset loading
+	SDL_Texture *_minionTexture = APIHelper::LoadPNGTexture("Resources/Sprites/MinionSS.png");
+	SDL_Texture *_towerTexture = APIHelper::LoadPNGTexture("Resources/Tiles/sandAndRoads.png");
+	ClientAPI::AddTexture("MinionTex", _minionTexture);
+	ClientAPI::AddTexture("TowerTex", _towerTexture);
+
 	//==============================================================================================================================\\
 		//==============================================================================================================================\\
 		//-- Example of New GUI since Last ClientAPI change

@@ -6,9 +6,11 @@ class GuiTower :
 	public AnimatedSprite
 {
 public:
-	SDL_Texture *_texture = APIHelper::LoadPNGTexture("Resources/Tiles/sandAndRoads.png");
-	/*GuiTower(Tower _tower)
-	{
+	SDL_Renderer *_renderer;
+	GridSquare gridSquare;
 
-	}*/
+	GuiTower(Tower _tower)
+		: AnimatedSprite(ClientAPI::GetTexture("TowerTex"), _renderer, gridSquare.xPos, gridSquare.yPos)
+	{
+	}
 };
