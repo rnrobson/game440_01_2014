@@ -1,6 +1,7 @@
 #include "AnimatedSprite.h"
 
 const int NUMFRAMES = 16;//minion spritesheets have 4 rows and 4 columns
+int columns = 4;
 
 SDL_Rect clips[NUMFRAMES];
 
@@ -15,11 +16,12 @@ AnimatedSprite::AnimatedSprite(SDL_Texture *tex, SDL_Renderer *renderer, int pos
 	y = posY;
 
 	//only animating minions
-	width = width / NUMFRAMES; //width of each frame
+	width /= NUMFRAMES; //width of each frame
 	for (int i = 0; i < NUMFRAMES; i++)
 	{
+		row = 1;
 		clips[i].x = i*width;
-		clips[i].y = 0;
+		clips[i].y = row*height;
 		clips[i].w = width;
 		clips[i].h = height;
 	}
@@ -33,23 +35,23 @@ AnimatedSprite::~AnimatedSprite()
 
 void AnimatedSprite::Left()
 {
-	currentFrame = 4; //first frame of left animation
-	direction = LEFT;
+	row = LEFT;
+	currentFrame = row * columns;
 }
 void AnimatedSprite::Right()
 {
-	currentFrame = 12;
-	direction = RIGHT;
+	row = RIGHT;
+	currentFrame = row * columns;
 }
 void AnimatedSprite::Up()
 {
-	currentFrame = 8;
-	direction = UP;
+	row = UP;
+	currentFrame = row * columns;
 }
 void AnimatedSprite::Down()
 {
-	currentFrame = 0;
-	direction = DOWN;
+	row = DOWN;
+	currentFrame = row * columns;
 }
 void AnimatedSprite::Update()
 {
@@ -57,25 +59,25 @@ void AnimatedSprite::Update()
 	if (timeElapsed - lastUpdated >= 83)//about 12 frames/second 1000ms/12frames=83.3
 	{
 		Sprite::RenderTexture(sheet, ren, x, y, &clips[currentFrame]);
-		if (direction = LEFT)
+		if (row = LEFT)
 		{
-			if (currentFrame == 7)//when left animation reaches last frame, set animation back to first frame
-				currentFrame = 4;
+			if (currentFrame == (row * columns) + columns - 1)//when left animation reaches last frame, set animation back to first frame
+				currentFrame = row * columns;
 		}
-		else if (direction = RIGHT)
+		else if (row = RIGHT)
 		{
-			if (currentFrame == 15)
-				currentFrame = 12;
+			if (currentFrame == (row * columns) + columns - 1)
+				currentFrame = row * columns;
 		}
-		else if (direction = UP)
+		else if (row = UP)
 		{
-			if (currentFrame == 11)
-				currentFrame = 8;
+			if (currentFrame == (row * columns) + columns - 1)
+				currentFrame = row * columns;
 		}
-		else if (direction = DOWN)
+		else if (row = DOWN)
 		{
-			if (currentFrame == 3)
-				currentFrame = 0;
+			if (currentFrame == (row * columns) + columns - 1)
+				currentFrame = row * columns;
 		}
 		
 		currentFrame++;

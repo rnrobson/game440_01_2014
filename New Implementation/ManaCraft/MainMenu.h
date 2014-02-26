@@ -1,7 +1,7 @@
 #pragma once
 #include "ClientAPI.h"
 #include "ParticleSystem.h"
-
+#include "AnimatedSprite.h"
 
 class MainMenu
 {
@@ -112,6 +112,18 @@ public:
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->SubscribeOnMouseClick(MainMenu::Click_tutorialButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SubscribeOnMouseClick(MainMenu::Click_quitButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetButton("CreditsBtn")->SubscribeOnMouseClick(MainMenu::Click_creditsButton);
+
+		/*SDL_Renderer *renderer = nullptr;
+		SDL_Window *window = SDL_CreateWindow("test", 100, 100, 100, 100, SDL_WINDOWEVENT_SHOWN);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		SDL_Texture *texture = IMG_LoadTexture(renderer, "Resources/Sprites/MinionSS.png");
+		AnimatedSprite *sp = new AnimatedSprite(texture, renderer, 100, 100);
+		int i = 0;
+		sp->Down();
+		while (i < 5000)
+		{
+			sp->Update();
+		}*/
 
 	}
 

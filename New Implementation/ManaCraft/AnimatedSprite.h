@@ -19,7 +19,7 @@ private:
 	int lastUpdated;
 	int timeElapsed;
 	int currentFrame;
-	int direction;
+	int row;
 
 	enum Direction { DOWN, LEFT, UP, RIGHT };
 
