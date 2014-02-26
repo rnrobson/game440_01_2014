@@ -28,7 +28,6 @@ AnimatedSprite::AnimatedSprite(SDL_Texture *tex, SDL_Renderer *renderer, int pos
 	lastUpdated = SDL_GetTicks();
 }
 
-
 AnimatedSprite::~AnimatedSprite()
 {
 }
