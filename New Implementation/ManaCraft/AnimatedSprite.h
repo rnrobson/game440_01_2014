@@ -19,11 +19,9 @@ private:
 	int lastUpdated;
 	int timeElapsed;
 	int currentFrame;
+	int direction;
 
-	bool left;
-	bool right;
-	bool up;
-	bool down;
+	enum Direction { DOWN, LEFT, UP, RIGHT };
 
 	SDL_Texture *sheet;
 	SDL_Renderer *ren;

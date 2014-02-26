@@ -4,7 +4,6 @@ const int NUMFRAMES = 16;//minion spritesheets have 4 rows and 4 columns
 
 SDL_Rect clips[NUMFRAMES];
 
-
 AnimatedSprite::AnimatedSprite(SDL_Texture *tex, SDL_Renderer *renderer, int posX, int posY) 
 	:Sprite(tex,renderer,posX,posY)
 {
@@ -35,34 +34,22 @@ AnimatedSprite::~AnimatedSprite()
 void AnimatedSprite::Left()
 {
 	currentFrame = 4; //first frame of left animation
-	left = true;
-	right = false;
-	up = false;
-	down = false;
+	direction = LEFT;
 }
 void AnimatedSprite::Right()
 {
 	currentFrame = 12;
-	left = false;
-	right = true;
-	up = false;
-	down = false;
+	direction = RIGHT;
 }
 void AnimatedSprite::Up()
 {
 	currentFrame = 8;
-	left = false;
-	right = false;
-	up = true;
-	down = false;
+	direction = UP;
 }
 void AnimatedSprite::Down()
 {
 	currentFrame = 0;
-	left = false;
-	right = false;
-	up = false;
-	down = true;
+	direction = DOWN;
 }
 void AnimatedSprite::Update()
 {
@@ -70,22 +57,22 @@ void AnimatedSprite::Update()
 	if (timeElapsed - lastUpdated >= 83)//about 12 frames/second 1000ms/12frames=83.3
 	{
 		Sprite::RenderTexture(sheet, ren, x, y, &clips[currentFrame]);
-		if (left)
+		if (direction = LEFT)
 		{
 			if (currentFrame == 7)//when left animation reaches last frame, set animation back to first frame
 				currentFrame = 4;
 		}
-		else if (right)
+		else if (direction = RIGHT)
 		{
 			if (currentFrame == 15)
 				currentFrame = 12;
 		}
-		else if (up)
+		else if (direction = UP)
 		{
 			if (currentFrame == 11)
 				currentFrame = 8;
 		}
-		else if (down)
+		else if (direction = DOWN)
 		{
 			if (currentFrame == 3)
 				currentFrame = 0;
