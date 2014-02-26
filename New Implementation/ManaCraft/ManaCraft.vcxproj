@@ -79,7 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimateSprite.cpp" />
+    <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="APIEvents.cpp" />
     <ClCompile Include="ArtLayer.cpp" />
     <ClCompile Include="ArtSquare.cpp" />
@@ -128,7 +128,7 @@
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimateSprite.h" />
+    <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="APIEvents.h" />
     <ClInclude Include="APIHelper.h" />
     <ClInclude Include="API_Util.h" />
@@ -141,6 +141,8 @@
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="GuiMinion.h" />
+    <ClInclude Include="GuiTower.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Int_Float_Product_Command.h" />
     <ClInclude Include="ParticleSystem.h" />

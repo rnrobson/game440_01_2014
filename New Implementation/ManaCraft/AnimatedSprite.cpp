@@ -1,11 +1,11 @@
-#include "AnimateSprite.h"
+#include "AnimatedSprite.h"
 
 const int NUMFRAMES = 16;//minion spritesheets have 1 row and 16 columns
 
 SDL_Rect clips[NUMFRAMES];
 
 
-AnimateSprite::AnimateSprite(SDL_Texture *tex, SDL_Renderer *renderer, int posX, int posY) 
+AnimatedSprite::AnimatedSprite(SDL_Texture *tex, SDL_Renderer *renderer, int posX, int posY) 
 	:Sprite(tex,renderer,posX,posY)
 {
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
@@ -29,11 +29,11 @@ AnimateSprite::AnimateSprite(SDL_Texture *tex, SDL_Renderer *renderer, int posX,
 }
 
 
-AnimateSprite::~AnimateSprite()
+AnimatedSprite::~AnimatedSprite()
 {
 }
 
-void AnimateSprite::Left()
+void AnimatedSprite::Left()
 {
 	currentFrame = 4; //first frame of left animation
 	left = true;
@@ -41,7 +41,7 @@ void AnimateSprite::Left()
 	up = false;
 	down = false;
 }
-void AnimateSprite::Right()
+void AnimatedSprite::Right()
 {
 	currentFrame = 12;
 	left = false;
@@ -49,7 +49,7 @@ void AnimateSprite::Right()
 	up = false;
 	down = false;
 }
-void AnimateSprite::Up()
+void AnimatedSprite::Up()
 {
 	currentFrame = 8;
 	left = false;
@@ -57,7 +57,7 @@ void AnimateSprite::Up()
 	up = true;
 	down = false;
 }
-void AnimateSprite::Down()
+void AnimatedSprite::Down()
 {
 	currentFrame = 0;
 	left = false;
@@ -65,7 +65,7 @@ void AnimateSprite::Down()
 	up = false;
 	down = true;
 }
-void AnimateSprite::Update()
+void AnimatedSprite::Update()
 {
 	timeElapsed = SDL_GetTicks();
 	if (timeElapsed - lastUpdated >= 83)//about 12 frames/second 1000ms/12frames=83.3

@@ -198,11 +198,11 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
-    <ClCompile Include="AnimateSprite.cpp">
-      <Filter>Source Files\Client</Filter>
-    </ClCompile>
     <ClCompile Include="Teams.cpp">
       <Filter>Source Files\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files\Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,9 +395,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
-    <ClInclude Include="AnimateSprite.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
     <ClInclude Include="Int_Float_Product_Command.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
@@ -406,6 +403,15 @@
     </ClInclude>
     <ClInclude Include="Teams.h">
       <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMinion.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTower.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

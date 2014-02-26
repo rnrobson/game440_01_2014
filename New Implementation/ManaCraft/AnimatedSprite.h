@@ -1,12 +1,12 @@
 #pragma once
 #include "Sprite.h"
-class AnimateSprite :
+class AnimatedSprite :
 	public Sprite
 {
 public:
 	
-	AnimateSprite(SDL_Texture *t, SDL_Renderer *r, int posX, int posY);
-	~AnimateSprite();
+	AnimatedSprite(SDL_Texture *t, SDL_Renderer *r, int posX, int posY);
+	~AnimatedSprite();
 	void Left();
 	void Right();
 	void Up();
