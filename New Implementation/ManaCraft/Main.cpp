@@ -89,7 +89,7 @@ void TransferControlToClient() {
 	IngamePause::Load();
 	LoginPopup::Load();
 	GUI::Load();
-	//Options::Load();
+	Options::Load();
 	Credits::Load();
 	GameLobby::Load();
 
