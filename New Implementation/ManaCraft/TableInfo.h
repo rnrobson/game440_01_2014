@@ -13,31 +13,54 @@ namespace ManaCraft {
 
 			const static struct Elements {
 			public:
-				const static unsigned int ID				= 0;
-				const static unsigned int TYPE				= 1;
-				const static unsigned int WEAKNESS			= 2;
-				const static unsigned int STRENGTH			= 3;
+				const static unsigned char ID				= 0;
+				const static unsigned char TYPE				= 1;
+				const static unsigned char WIND_RESISTANCE	= 2;
+				const static unsigned char FIRE_RESISTANCE	= 3;
+				const static unsigned char WATER_RESISTANCE	= 4;
+				const static unsigned char EARTH_RESISTANCE = 5;
+				const static unsigned char NORM_RESISTANCE	= 6;
 			};
 
-			const static struct Minion {
+			const static struct Elements {
 			public:
-				const static unsigned int ID				= 0;
-				const static unsigned int NAME				= 1;
-				const static unsigned int X_POS				= 2;
-				const static unsigned int Y_POS				= 3;
-				const static unsigned int COST				= 4;
-				const static unsigned int DAMAGE			= 5;
-				const static unsigned int ATTACK_RANGE		= 6;
-				const static unsigned int FIRING_RATE		= 7;
-				const static unsigned int DPS				= 8;
-				const static unsigned int ATTACK_TYPE		= 9;
-				const static unsigned int ELEMENT			= 10;
-				const static unsigned int SELL_AMOUNT		= 11;
-				const static unsigned int SUMMON_COST		= 12;
-				const static unsigned int UPGRADE_COST		= 13;
-				const static unsigned int RESEARCH_COST		= 14;
-				const static unsigned int RESISTANCES		= 15;
-				const static unsigned int HEALTH			= 16;
+				const static unsigned char ID				= 0;
+				const static unsigned char TYPE				= 1;
+				const static unsigned char WEAKNESS			= 2;
+				const static unsigned char STRENGTH			= 3;
+			};
+
+			const static struct Minions {
+			public:
+				const static unsigned char ID				= 0;
+				const static unsigned char ELEMENT			= 1;
+				const static unsigned char NAME				= 2;
+				const static unsigned char LEVEL			= 3;
+				const static unsigned char HEALTH			= 4;
+				const static unsigned char DAMAGE			= 5;
+				const static unsigned char ARMOUR			= 6;
+				const static unsigned char SPEED			= 7;
+				const static unsigned char MPS				= 8;
+				const static unsigned char COST				= 9;
+				const static unsigned char SUMMON_COST		= 10;
+				const static unsigned char UPGRADE_COST		= 11;
+				const static unsigned char RESEARCH_COST	= 12;
+			};
+
+			const static struct Towers {
+			public:
+				const static unsigned char ID				= 0;
+				const static unsigned char ELEMENT			= 1;
+				const static unsigned char NAME				= 2;
+				const static unsigned char DAMAGE			= 3;
+				const static unsigned char RANGE			= 4;
+				const static unsigned char FIRING_RATE		= 5;
+				const static unsigned char ATTACK_TYPE		= 6;
+				const static unsigned char COST				= 7;
+				const static unsigned char SUMMON_COST		= 8;
+				const static unsigned char UPGRADE_COST		= 9;
+				const static unsigned char RESEARCH_COST	= 10;
+				const static unsigned char SELL_PRICE		= 11;
 			};
 
 		};
