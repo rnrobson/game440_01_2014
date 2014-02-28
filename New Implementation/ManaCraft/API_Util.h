@@ -44,10 +44,10 @@ public:
 		_cName->AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
 	}
 
-	static void AddLabelToContainerButton(GuiContainer *_cName, std::string _btnName, std::string _lblName, std::string _fontName, std::string _clrName, bool _center = false)
+	static void AddLabelToContainerButton(GuiContainer *_cName, std::string _btnName, std::string _lblText, std::string _fontName, std::string _clrName, bool _center = false)
 	{
 		_cName->GetButton(_btnName)->
-			AddLabel(_lblName, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName), _center);
+			AddLabel(_lblText, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName), _center);
 	}
 
 	static void AddSolidTexture(std::string _texName, SDL_Color _color, int _width, int _height)
