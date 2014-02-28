@@ -14,21 +14,19 @@
 #include "ServerCommandIncludes.h"
 
 //using namespace ManaCraft;
-namespace ManaCraft {
-	namespace ServerSpace {
-		class Server {
-		private:
-			bool running;
-			BlockingQueue<ServerCommand*> workQueue;
 
-			void Init();
+class Server {
+private:
+	bool running;
+	BlockingQueue<ServerCommand*> workQueue;
+
+	void Init();
 
 
-		public:
+public:
 
-			Server();
-			~Server();
-		};
-	}
-}
+	Server();
+	~Server();
+};
+
 #endif

@@ -3,26 +3,23 @@
 #include <vector>
 
 using namespace std;
-namespace ManaCraft {
-	namespace ServerSpace {
-		class Teams
-		{
-		public:
-			int PlayerCount;
-			int MaxPlayers;
-			vector<int> Bench;
-			vector<int> Team1;
-			vector<int> Team2;
 
-			Teams(int teamSize);
-			Teams();
-			~Teams(void);
+class Teams
+{
+public:
+	int PlayerCount;
+	int MaxPlayers;
+	vector<int> Bench;
+	vector<int> Team1;
+	vector<int> Team2;
 
-			void EnterNewPlayer(int player);
-			void PlayerChangeTeam(int player, vector<int> *toTeam);
-			void KickPlayer(int player);
-		private:
-			bool FindAndRemove(int player);
-		};
-	}
-}
+	Teams(int teamSize);
+	Teams();
+	~Teams(void);
+
+	void EnterNewPlayer(int player);
+	void PlayerChangeTeam(int player, vector<int> *toTeam);
+	void KickPlayer(int player);
+private:
+	bool FindAndRemove(int player);
+};

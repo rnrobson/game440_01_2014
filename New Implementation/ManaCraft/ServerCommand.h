@@ -3,21 +3,19 @@
 
 
 //#include "ServerIncludes.h"
-namespace ManaCraft {
-	namespace ServerSpace {
-		class ServerCommand
-		{
-		protected:
-			void *data;
 
-		public:
-			ServerCommand();
-			~ServerCommand();
+class ServerCommand
+{
+protected:
+	void *data;
 
-			virtual void Execute(void);
-		};
-	}
-}
+public:
+	ServerCommand();
+	~ServerCommand();
+
+	virtual void Execute(void);
+};
+
 #endif
 
 
