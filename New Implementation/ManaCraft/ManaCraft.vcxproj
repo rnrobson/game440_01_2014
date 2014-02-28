@@ -141,6 +141,7 @@
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="GameModel.h" />
     <ClInclude Include="GuiMinion.h" />
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="IngamePause.h" />
@@ -180,8 +181,8 @@
     <ClInclude Include="Serializable.h" />
     <ClInclude Include="Serialize.h" />
     <ClInclude Include="Server.h" />
+    <ClInclude Include="ServerCommandIncludes.h" />
     <ClInclude Include="ServerIncludes.h" />
-    <ClInclude Include="ServerProtocol.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TableInfo.h" />

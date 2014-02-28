@@ -3,46 +3,48 @@
 
 #include "BlockingQueue.h"
 #include "WorkItem.h"
+namespace ManaCraft {
+	namespace ServerSpace {
+		class ThreadPool;
 
-class ThreadPool;
+		class WorkerData
+		{
+		public:
+			ThreadPool	*pool;
+			int			threadIndex;
 
-class WorkerData
-{
-public:
-	ThreadPool	*pool;
-	int			threadIndex;
+			WorkerData(ThreadPool *p, int idx)
+				:pool(p), threadIndex(idx)
+			{}
 
-	WorkerData(ThreadPool *p, int idx)
-		:pool(p), threadIndex(idx)
-	{}
+		};
 
-};
+		class ThreadPool
+		{
+		private:
+			BlockingQueue<WorkItem>		workQue;
+			SDL_Thread					**threadList;
+			int							numThreads;
+			int							activeThreads;
+			SDL_mutex					*threadLock;
+			WorkerData					**workerDataList;
 
-class ThreadPool
-{
-private:
-	BlockingQueue<WorkItem>		workQue;
-	SDL_Thread					**threadList;
-	int							numThreads;
-	int							activeThreads;
-	SDL_mutex					*threadLock;
-	WorkerData					**workerDataList;
+			void incActiveThreads();
+			void decActiveThreads(int index);
+		public:
+			ThreadPool(int nthreads);
 
-	void incActiveThreads();
-	void decActiveThreads(int index);
-public:
-	ThreadPool(int nthreads);
+			~ThreadPool();
 
-	~ThreadPool();
+			void addWork(WorkItem &w);
 
-	void addWork(WorkItem &w);
+			void shutdown();
 
-	void shutdown();
+			int activeThreadCount();
 
-	int activeThreadCount();
+			friend int pool_worker_function(void *data);
 
-	friend int pool_worker_function(void *data);
-
-};
-
+		};
+	}
+}
 #endif

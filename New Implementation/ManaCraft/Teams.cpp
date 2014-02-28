@@ -1,5 +1,5 @@
 #include "Teams.h"
-
+#include "ServerIncludes.h"
 Teams::Teams(int teamSize)
 {
 	PlayerCount = 0;

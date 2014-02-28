@@ -1,9 +1,8 @@
 #include "ClientLiaison.h"
 #include "Serialize.h"
-
+#include"ServerIncludes.h"
 bool ClientLiaison::running = false;
 Networking::Connection master(NULL, 25508);
-
 std::vector<Networking::Connection*> ClientLiaison::connections = std::vector<Networking::Connection*>();
 BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
 BlockingQueue<byte*> ClientLiaison::dataToWorker = BlockingQueue<byte*>();

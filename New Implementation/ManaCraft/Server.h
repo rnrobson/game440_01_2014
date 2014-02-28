@@ -10,10 +10,12 @@
 #include "BlockingQueue.h"
 #include "Connection.h"
 #include "WorkItem.h"
-#include "ServerCommand.h"
+//#include "ServerCommand.h"
+#include "ServerCommandIncludes.h"
 
-using namespace ManaCraft;
-
+//using namespace ManaCraft;
+namespace ManaCraft {
+	namespace ServerSpace {
 		class Server {
 		private:
 			bool running;
@@ -27,4 +29,6 @@ using namespace ManaCraft;
 			Server();
 			~Server();
 		};
+	}
+}
 #endif
