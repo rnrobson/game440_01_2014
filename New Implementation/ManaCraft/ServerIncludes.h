@@ -6,6 +6,6 @@
 #include "Connection.h"
 
 
-using namespace ManaCraft::ServerSpace;
+using namespace ManaCraft;
 
 #endif
