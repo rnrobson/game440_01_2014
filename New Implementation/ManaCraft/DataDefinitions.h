@@ -7,10 +7,7 @@ namespace ManaCraft {
 		/// <summary> Enumeration of the different types of towers in the game. </summary>
 		enum TowerTypes
 		{
-			ARROW,
-			CANNON,
-			BALLISTA,
-			FLAME,
+			FLAME = 1,
 			FIREBALL,
 			IGNITER,
 			WATER_BLAST,
@@ -19,18 +16,18 @@ namespace ManaCraft {
 			ROCK_SHARD,
 			EARTHQUAKE,
 			BOULDER,
-			GUST_T,
+			GUST,
 			LIGHTNING,
-			WIND_SLASH
+			WIND_SLASH,
+			ARROW,
+			CANNON,
+			BALLISTA
 		};
 
 		/// <summary> Enumeration of the different types of Minions in the game. </summary>
 		enum MinionTypes
 		{
-			GARDEN_SPIDER,
-			TARANTULA,
-			GOLIATH_SPIDER,
-			BLAZELINGS,
+			BLAZELINGS = 1,
 			BLAZE_ELEMENTAL,
 			FIRE_LORDS,
 			SEA_SPRAY,
@@ -41,17 +38,20 @@ namespace ManaCraft {
 			GRANITE_LORD,
 			GUST_M,
 			EIND_ELEMENTAL,
-			STORM_LORD
+			STORM_LORD,
+			GARDEN_SPIDER,
+			TARANTULA,
+			GOLIATH_SPIDER
 		};
 
 		/// <summary> Enumeration of the different types of Elements in the game. </summary>
 		enum ElementTypes
 		{
-			NORMAL,
-			FIRE,
+			FIRE = 1,
 			WATER,
 			WIND,
-			EARTH
+			EARTH,
+			NORMAL
 		};
 	}
 }
