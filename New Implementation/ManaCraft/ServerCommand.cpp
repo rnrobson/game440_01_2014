@@ -2,17 +2,17 @@
 #include "ServerCommand.h"
 ServerCommand::ServerCommand()
 {
-	std::cout << "\nserver Command Initialized";
+	//std::cout << "\nserver Command Initialized";
 }
 
 ServerCommand::~ServerCommand()
 {
-	std::cout << "\nServer Command Destroyed";
+	//std::cout << "\nServer Command Destroyed";
 }
 
 void ServerCommand::Execute()
 {
-	std::cout << "\nServerCommand: Execute!";
+	//std::cout << "\nServerCommand: Execute!";
 }
 
 //#include "ServerIncludes.h"
@@ -419,7 +419,7 @@ void ServerCommand::Execute()
 //	//args: string playerName, uint towerID, uint gridspace
 //	//check if tower has been researched for the player
 //	//check if player has enough mana to build it
-//	//check if gridID is a buildable tile
+//	//check if grid is a buildable tile
 //	//check if anything else is on that gridspace already
 //	//check if gridspace is in player's team's zone of influence
 //	//if the above is yes

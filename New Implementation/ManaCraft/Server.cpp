@@ -1,7 +1,7 @@
 #include "Server.h"
 #include "ClientLiaison.h"
 #include "ServerIncludes.h"
-
+#include "ServerCommandTester.h"
 
 /// <summary>[Server]
 /// <para>The Server's Constructor</para>
@@ -12,9 +12,9 @@ Server::Server()
 	
 	/*int commandData = 1;
 	ServerCommand *tempCommand = new TestCommand(&commandData);*/
-
-	Int_Float_Product_Params* params = new Int_Float_Product_Params(3.0f, 6);
-	ServerCommand *tempCommand1 = new Int_Float_Product_Command(params);
+/*
+	IntFloatProductParams* params = new IntFloatProductParams(3.0f, 6);
+	ServerCommand *tempCommand1 = new IntFloatProductCommand(params);
 	workQueue.push(tempCommand1);
 
 	float commandData = 2.0f;
@@ -27,11 +27,18 @@ Server::Server()
 	workQueue.pop();
 
 	workQueue.front()->Execute();
-	workQueue.pop();
+	workQueue.pop();*/
 
 	
 	//Init();
-	
+
+	ServerCommandTester* tester = new ServerCommandTester(250);
+	std::cout << "\nrunning TestTripleAFloatCommand...";
+	tester->TestTripleAFloatCommand();
+	std::cout << "\nrunning TestIntFloatProductCommand...";
+	tester->TestIntFloatProductCommand();
+	std::cout << "\nRunning all tests...";
+	tester->RunAllTests();
 	getchar();
 
 

@@ -5,28 +5,36 @@
 #include "ServerIncludes.h"
 #include "ServerCommandIncludes.h"
 
+struct TripleAFloatParams
+{
+	float x;
+	float result;
+	TripleAFloatParams(float _x)
+	{
+		x = _x;
+		result = 0;
+	}
+	~TripleAFloatParams(){}
+};
 
 class TripleAFloatCommand : public ServerCommand
 {
 public:
-	struct Params
-	{
-		float x;
-	};
-	Params params;
+	
+	TripleAFloatParams* params;
 
 	TripleAFloatCommand(void* _data)
 	{
 		data = _data;
-		params = *(Params*)data;
-		printf("\nTripleAFloatCommand: Initialized --data = %f", params.x);
+		params = (TripleAFloatParams*)data;
+		//printf("\nTripleAFloatCommand: Initialized --data = %f", params.x);
 	}
 	~TripleAFloatCommand(){}
 
 	void Execute()
 	{
-		params.x *= 3.0f;
-		printf("\nTripleAFloatCommand: Executed --data = %f", params.x);
+		params->result = params->x*3.0f;
+		//printf("\nTripleAFloatCommand: Executed --result = %f", params.result);
 	}
 
 };

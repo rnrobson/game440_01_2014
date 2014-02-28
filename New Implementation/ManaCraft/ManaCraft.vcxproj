@@ -114,6 +114,7 @@
     <ClCompile Include="Serialize.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerCommand.cpp" />
+    <ClCompile Include="ServerCommandTester.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Teams.cpp" />
@@ -145,7 +146,7 @@
     <ClInclude Include="GuiMinion.h" />
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="IngamePause.h" />
-    <ClInclude Include="Int_Float_Product_Command.h" />
+    <ClInclude Include="IntFloatProductCommand.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Serialize.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="ServerCommandIncludes.h" />
+    <ClInclude Include="ServerCommandTester.h" />
     <ClInclude Include="ServerIncludes.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sprite.h" />

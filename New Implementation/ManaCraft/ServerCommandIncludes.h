@@ -5,7 +5,7 @@
 #include "ServerCommand.h"
 #include "TestCommand.h"
 #include "TripleAFloatCommand.h"
-#include "Int_Float_Product_Command.h"
+#include "IntFloatProductCommand.h"
 
 
 #endif

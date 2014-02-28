@@ -204,6 +204,9 @@
     <ClCompile Include="AnimatedSprite.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
+    <ClCompile Include="ServerCommandTester.cpp">
+      <Filter>Source Files\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -392,9 +395,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
-    <ClInclude Include="Int_Float_Product_Command.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
     <ClInclude Include="TripleAFloatCommand.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
@@ -414,6 +414,12 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="ServerCommandIncludes.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCommandTester.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="IntFloatProductCommand.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>
