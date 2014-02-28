@@ -11,7 +11,7 @@ namespace ManaCraft {
 	namespace Database {
 		namespace TableInfo {
 
-			const static struct Elements {
+			const static struct Resistances {
 			public:
 				const static unsigned char ID				= 0;
 				const static unsigned char TYPE				= 1;
