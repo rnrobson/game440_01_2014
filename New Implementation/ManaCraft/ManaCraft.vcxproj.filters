@@ -207,6 +207,9 @@
     <ClCompile Include="ServerCommandTester.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="TestDatabase.cpp">
+      <Filter>Source Files\Database</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="IntFloatProductCommand.h">
       <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="TestDatabase.h">
+      <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

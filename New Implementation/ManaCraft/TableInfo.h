@@ -11,7 +11,7 @@ namespace ManaCraft {
 	namespace Database {
 		namespace TableInfo {
 
-			const static struct Resistances {
+			const struct Resistances {
 			public:
 				const static unsigned char ID				= 0;
 				const static unsigned char TYPE				= 1;
@@ -22,7 +22,7 @@ namespace ManaCraft {
 				const static unsigned char NORM_RESISTANCE	= 6;
 			};
 
-			const static struct Elements {
+			const struct Elements {
 			public:
 				const static unsigned char ID				= 0;
 				const static unsigned char TYPE				= 1;
@@ -30,7 +30,7 @@ namespace ManaCraft {
 				const static unsigned char STRENGTH			= 3;
 			};
 
-			const static struct Minions {
+			const struct Minions {
 			public:
 				const static unsigned char ID				= 0;
 				const static unsigned char ELEMENT			= 1;
@@ -47,7 +47,7 @@ namespace ManaCraft {
 				const static unsigned char RESEARCH_COST	= 12;
 			};
 
-			const static struct Towers {
+			const struct Towers {
 			public:
 				const static unsigned char ID				= 0;
 				const static unsigned char ELEMENT			= 1;
