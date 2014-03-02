@@ -62,7 +62,7 @@ public:
 		rect = _rect;
 		SetupHelper();
 	}
-	~GuiElement() { Free(); }
+	virtual ~GuiElement() { Free(); }
 	virtual void Free()
 	{
 		if (texture != NULL)

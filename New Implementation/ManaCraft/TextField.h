@@ -12,7 +12,7 @@ private:
 	SDL_Rect textRect;
 public:
 	TextField(SDL_Rect _rect, TTF_Font* _font, SDL_Color _textColour);
-	~TextField();
+	virtual ~TextField();
 
 	int CharacterLimit = -1;
 

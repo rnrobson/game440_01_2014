@@ -1,4 +1,4 @@
-#define CLIENT_BUILD 0
+#define CLIENT_BUILD 1
 #define SERVER_BUILD 0
 
 #include <SDL.h>

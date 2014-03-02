@@ -9,8 +9,8 @@ private:
 public: 
 
 	Slider(SDL_Rect _rect, SDL_Texture* _sliderBar, SDL_Texture* _slider);
-	~Slider();
-
+	virtual ~Slider();
+	
 	virtual void Update(double _time);
 	virtual void Draw();
 

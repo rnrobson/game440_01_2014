@@ -16,7 +16,7 @@ private:
 
 public:
 	Checkbox(SDL_Rect _rect, SDL_Color _checkColour, SDL_Color _outlineColour);
-	~Checkbox();
+	virtual ~Checkbox();
 
 	bool Checked = false;
 
