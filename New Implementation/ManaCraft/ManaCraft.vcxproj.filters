@@ -428,5 +428,8 @@
     <ClInclude Include="TestDatabase.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
+    <ClInclude Include="GuiProjectile.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
