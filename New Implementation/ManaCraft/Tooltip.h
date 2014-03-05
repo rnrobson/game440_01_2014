@@ -8,7 +8,7 @@ private:
 
 public:
 	Tooltip(SDL_Texture *_tex, const std::string &_text, SDL_Rect _rect, TTF_Font *_font, SDL_Color _color);
-	~Tooltip();
+	virtual ~Tooltip();
 
 	virtual void Update(double _time);
 	virtual void Draw();

@@ -9,7 +9,7 @@ class Label :
 {
 public:
 	Label(const std::string &_text, SDL_Rect _rect, TTF_Font* _font, SDL_Color _color);
-	~Label();
+	virtual ~Label();
 
 	virtual void RenderText();
 	virtual void RenderText(std::string &_text);

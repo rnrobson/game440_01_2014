@@ -147,6 +147,7 @@
     <ClInclude Include="ClientLiaison.h" />
     <ClInclude Include="GameModel.h" />
     <ClInclude Include="GuiMinion.h" />
+    <ClInclude Include="GuiProjectile.h" />
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="IntFloatProductCommand.h" />
