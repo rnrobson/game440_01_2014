@@ -210,6 +210,12 @@
     <ClCompile Include="TestDatabase.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+    <ClCompile Include="ServerPlayer.cpp">
+      <Filter>Source Files\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerLobby.cpp">
+      <Filter>Source Files\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -427,6 +433,12 @@
     </ClInclude>
     <ClInclude Include="TestDatabase.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerPlayer.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerLobby.h">
+      <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

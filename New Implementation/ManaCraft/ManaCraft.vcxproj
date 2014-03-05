@@ -115,6 +115,8 @@
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerCommand.cpp" />
     <ClCompile Include="ServerCommandTester.cpp" />
+    <ClCompile Include="ServerLobby.cpp" />
+    <ClCompile Include="ServerPlayer.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Teams.cpp" />
@@ -186,6 +188,8 @@
     <ClInclude Include="ServerCommandIncludes.h" />
     <ClInclude Include="ServerCommandTester.h" />
     <ClInclude Include="ServerIncludes.h" />
+    <ClInclude Include="ServerLobby.h" />
+    <ClInclude Include="ServerPlayer.h" />
     <ClInclude Include="Slider.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TableInfo.h" />
