@@ -8,7 +8,7 @@
 #include "TableInfo.h"
 
 //-- Data Structures
-#include "Element.h"
+//#include "Element.h"
 
 using namespace mysqlpp;
 
@@ -64,10 +64,10 @@ namespace ManaCraft {
 			// <summary> Get information on all Minions. </summary>
 			void getAllMinionInfo();
 
-			/// <summary> Get information of specific element of ElementType. </summary>
-			void getElementInfo(const ElementTypes element);
-			/// <summary> Get information on all Elements. </summary>
-			static std::vector<Element> getAllElementInfo();
+			///// <summary> Get information of specific element of ElementType. </summary>
+			//void getElementInfo(const ElementTypes element);
+			///// <summary> Get information on all Elements. </summary>
+			//static std::vector<Element> getAllElementInfo();
 
 			/// <summary> Get information of specific Resistance of ElementType. </summary>
 			void getResistanceInfo(const ElementTypes element);

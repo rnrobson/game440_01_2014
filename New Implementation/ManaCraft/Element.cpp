@@ -4,7 +4,7 @@ Element::Element() { }
 
 Element::~Element() { }
 
-Element* Element::loadFromDB(mysqlpp::Row row) {
+Element* Element::buildFromRow(mysqlpp::Row row) {
 	using namespace ManaCraft::Database;
 
 	try {
@@ -20,4 +20,26 @@ Element* Element::loadFromDB(mysqlpp::Row row) {
 	}
 
 	return nullptr;
+}
+
+std::vector<Element> Element::fetchAllFromDB() {
+	using namespace ManaCraft::Database;
+
+	try {
+		Query query = DatabaseAPI::queryDatabase("SELECT * FROM Elements");
+		std::vector<Element> elements = std::vector<Element>();
+		
+		if (UseQueryResult result = query.use()) {
+			Row row;
+		
+			while (row = result.fetch_row()) {
+				Element* e = buildFromRow(row);
+				elements.push_back(*e);
+			}
+		}
+		return elements;
+	}
+	catch (Exception e) {
+		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+	}
 }

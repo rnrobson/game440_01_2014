@@ -1,10 +1,14 @@
-#pragma once
+#ifndef ELEMENT_H
+#define ELEMENT_H
 
 #include <vector>
 #include "DatabaseAPI.h"
 #include "DataDefinitions.h"
 
 class Element {
+private:
+	static Element* buildFromRow(mysqlpp::Row row);
+
 public:
 	ManaCraft::Database::ElementTypes id;
 
@@ -15,5 +19,7 @@ public:
 	Element();
 	~Element();
 
-	static Element* loadFromDB(mysqlpp::Row row);
+	static std::vector<Element> fetchAllFromDB();
 };
+
+#endif
