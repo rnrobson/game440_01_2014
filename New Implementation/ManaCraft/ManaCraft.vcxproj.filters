@@ -419,9 +419,6 @@
     <ClInclude Include="AnimatedSprite.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
-    <ClInclude Include="GameModel.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
     <ClInclude Include="ServerCommandIncludes.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
@@ -438,6 +435,12 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="ServerLobby.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiProjectile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModel.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>
