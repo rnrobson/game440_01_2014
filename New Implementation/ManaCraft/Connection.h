@@ -59,19 +59,19 @@ namespace ManaCraft {
 
 			/// <summary>[ReceiveData]
 			/// <para>Receive any data in the network buffer.</para>
-			/// <para>[byte* buf] The local buffer to recieve the data into.</para>
+			/// <para>[Byte* buf] The local buffer to recieve the data into.</para>
 			/// <para>Throws a ConnectionNotOpenException if the connection is not open.</para>
 			/// <returns>Returns the length of the data received.</returns>
 			/// </summary>
-			int ReceiveData(byte** buf);
+			int ReceiveData(Byte** buf);
 
 			/// <summary>[SendData]
 			/// <para>**** Currently Unused **** </para>
 			/// <para>Send data over the current network connection.</para>
-			/// <para>[byte* payload] The byte buffer to be sent.</para>
+			/// <para>[Byte* payload] The Byte buffer to be sent.</para>
 			/// <return>Returns the length of the data sent.</return>
 			/// </summary>
-			int SendData(byte* payload);
+			int SendData(Byte* payload);
 
 			/// <summary>[SendData]
 			/// <para>Send data over the current network connection.</para>

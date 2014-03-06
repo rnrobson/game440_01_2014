@@ -35,7 +35,7 @@ void Teams::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam
 	//Remove player from team.
 	//Add to target team.
 
-	int teamCap;
+	unsigned int teamCap;
 	if (toTeam == &Bench)
 	{
 		teamCap = MaxPlayers;
@@ -67,7 +67,7 @@ void Teams::KickPlayer(ServerPlayer *player)
 
 bool Teams::FindAndRemove(ServerPlayer *player)
 {
-	for (int i = 0; i < Team1.size(); i++)
+	for (unsigned int i = 0; i < Team1.size(); i++)
 	{
 		if (Team1.at(i) == player)
 		{
@@ -76,7 +76,7 @@ bool Teams::FindAndRemove(ServerPlayer *player)
 		}
 	}
 
-	for (int i = 0; i < Team2.size(); i++)
+	for (unsigned int i = 0; i < Team2.size(); i++)
 	{
 		if (Team2.at(i) == player)
 		{
@@ -85,7 +85,7 @@ bool Teams::FindAndRemove(ServerPlayer *player)
 		}
 	}
 
-	for (int i = 0; i < Bench.size(); i++)
+	for (unsigned int i = 0; i < Bench.size(); i++)
 	{
 		if (Bench.at(i) == player)
 		{

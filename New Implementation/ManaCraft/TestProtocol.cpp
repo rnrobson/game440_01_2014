@@ -24,7 +24,7 @@ void TestProtocol::RunTests() {
 }
 
 void TestProtocol::RunServerToClientTest(){
-	for (int i = 0; i < testCount; i++){
+	for (unsigned int i = 0; i < testCount; i++){
 		//set the current protocol to the start of the range
 		int currProtocol = SC_RANGE_START;
 		bool endOfProtocols = false;
@@ -64,7 +64,7 @@ void TestProtocol::RunServerToClientTest(){
 
 }
 void TestProtocol::RunClientToServerTest() {
-	for (int i = 0; i < testCount; i++) {
+	for (unsigned int i = 0; i < testCount; i++) {
 		// Set the current protocol to the start of the range
 		int currProtocol = CS_RANGE_START;
 		bool endOfProtocols = false;
