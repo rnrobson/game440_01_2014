@@ -20,8 +20,8 @@ private:
 	bool running;
 	const size_t MAX_GAMES = 10;
 	BlockingQueue<ServerCommand*> workQueue;
-	vector<GameModel*> games;
-
+	//vector<GameModel*> games;
+	GameModel* game;
 	void Init();
 
 
