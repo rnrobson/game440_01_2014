@@ -1,6 +1,7 @@
 #include "TestProtocol.h"
 
 using namespace ManaCraft::Networking;
+using namespace ManaCraft::Testbed;
 using namespace std;
 
 TestProtocol::TestProtocol(unsigned int numTests) 
@@ -14,9 +15,8 @@ TestProtocol::TestProtocol(unsigned int numTests)
 
 }
 
-
-TestProtocol::~TestProtocol() { }
-
+TestProtocol::~TestProtocol() { 
+}
 
 void TestProtocol::RunTests() {
 	RunClientToServerTest();

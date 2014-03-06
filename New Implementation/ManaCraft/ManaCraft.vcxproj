@@ -121,7 +121,9 @@
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Teams.cpp" />
+    <ClCompile Include="Test.cpp" />
     <ClCompile Include="TestDatabase.cpp" />
+    <ClCompile Include="Tester.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
@@ -198,8 +200,10 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="TableInfo.h" />
     <ClInclude Include="Teams.h" />
+    <ClInclude Include="Test.h" />
     <ClInclude Include="TestCommand.h" />
     <ClInclude Include="TestDatabase.h" />
+    <ClInclude Include="Tester.h" />
     <ClInclude Include="TestProtocol.h" />
     <ClInclude Include="TestSerialize.h" />
     <ClInclude Include="TextField.h" />

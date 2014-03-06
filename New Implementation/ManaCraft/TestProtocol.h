@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace ManaCraft {
-	namespace Networking {
+	namespace Testbed {
 		// Will be testing the serialization and deserialization of the Game Lobby type protocols
 		class TestProtocol {
 		private:			

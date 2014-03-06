@@ -1,16 +1,13 @@
 #include "TestSerialize.h"
 
 using namespace ManaCraft::Networking;
+using namespace ManaCraft::Testbed;
 
 SerializeTester::SerializeTester(const unsigned int testCount) : 
-mTestCount(testCount), mSuccessCount(0), mFailureCount(0), MIN_TEST_COUNT(1000), MAX_TEST_COUNT(100000) {
-	mTestCount = (mTestCount > MAX_TEST_COUNT) ? MAX_TEST_COUNT :
-				 (mTestCount < MIN_TEST_COUNT) ? MIN_TEST_COUNT :
-				  mTestCount;
-	srand((unsigned int)time(nullptr));
+Test(testCount) {
 }
 
-void SerializeTester::RunTests() {
+void SerializeTester::Run() {
 	RunInt8Tests();
 	RunInt16Tests();
 	RunInt32Tests();
@@ -25,13 +22,8 @@ void SerializeTester::RunTests() {
 	RunDoubleTests();
 }
 
-void SerializeTester::ClearCounts() {
-	mSuccessCount = 0;
-	mFailureCount = 0;
-}
-
 void SerializeTester::RunInt8Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		__int8 tempInt8 = rand() % CHAR_MAX;
 		__int8 result = 0;
@@ -44,15 +36,12 @@ void SerializeTester::RunInt8Tests() {
 		if (tempInt8 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunInt8Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunInt8Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunInt16Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		__int16 tempInt16 = rand() % SHRT_MAX;
 		__int16 result = 0;
@@ -65,15 +54,12 @@ void SerializeTester::RunInt16Tests() {
 		if (tempInt16 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunInt16Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunInt16Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunInt32Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		__int32 tempInt32 = rand() % INT_MAX;
 		__int32 result = 0;
@@ -86,15 +72,12 @@ void SerializeTester::RunInt32Tests() {
 		if (tempInt32 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunInt32Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunInt32Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunInt64Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		__int64 tempInt64 = rand() % LLONG_MAX;
 		__int64 result = 0;
@@ -107,15 +90,12 @@ void SerializeTester::RunInt64Tests() {
 		if (tempInt64 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunInt64Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunInt64Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunUInt8Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		unsigned __int8 tempUInt8 = rand() % UCHAR_MAX;
 		unsigned __int8 result = 0;
@@ -127,15 +107,12 @@ void SerializeTester::RunUInt8Tests() {
 		if (tempUInt8 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunUInt8Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunUInt8Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunUInt16Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		unsigned __int16 tempUInt16 = rand() % USHRT_MAX;
 		unsigned __int16 result = 0;
@@ -147,15 +124,12 @@ void SerializeTester::RunUInt16Tests() {
 		if (tempUInt16 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunUInt16Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunUInt16Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunUInt32Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		unsigned __int32 tempUInt32 = rand() % UINT_MAX;
 		unsigned __int32 result = 0;
@@ -167,15 +141,12 @@ void SerializeTester::RunUInt32Tests() {
 		if (tempUInt32 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunUInt32Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunUInt32Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunUInt64Tests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		unsigned __int64 tempUInt64 = rand() % ULLONG_MAX;
 		unsigned __int64 result = 0;
@@ -187,15 +158,12 @@ void SerializeTester::RunUInt64Tests() {
 		if (tempUInt64 == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunUInt64Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunUInt64Tests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunFloatTests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		float tempFloat = rand() / 10000.0f + rand();
 		float result = 0;
@@ -208,15 +176,12 @@ void SerializeTester::RunFloatTests() {
 		if (tempFloat == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunFloatTests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunFloatTests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }
 
 void SerializeTester::RunDoubleTests() {
-	ClearCounts();
+	Test::ClearCounts();
 	for (unsigned int i = 0; i < mTestCount; ++i) {
 		double tempDouble = rand() / 10000.0 + rand();
 		double result = 0;
@@ -229,9 +194,6 @@ void SerializeTester::RunDoubleTests() {
 		if (tempDouble == result) {
 			++mSuccessCount;
 		}
-		else {
-			++mFailureCount;
-		}
 	}
-	std::cout << "RunDoubleTests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded.  " << mFailureCount << " failed." << std::endl;
+	std::cout << "SeriaizeTester::RunDoubleTests() complete.  " << mSuccessCount << " of " << mTestCount << " succeeded." << std::endl;
 }

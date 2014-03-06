@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Client\Menus">
       <UniqueIdentifier>{a398954d-f284-4394-b4f6-9d7e652d7dd5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Testbed">
+      <UniqueIdentifier>{03064d68-6ace-43ac-8ce6-17f6d4900641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Testbed">
+      <UniqueIdentifier>{2a23f5aa-6a82-4568-a13d-8a025c1e75b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -186,14 +192,8 @@
     <ClCompile Include="IngamePause.cpp">
       <Filter>Source Files\Client\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="TestSerialize.cpp">
-      <Filter>Source Files\Networking</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleSystem.cpp">
       <Filter>Source Files\Client\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="TestProtocol.cpp">
-      <Filter>Source Files\Networking</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Client</Filter>
@@ -218,6 +218,18 @@
     </ClCompile>
     <ClCompile Include="FrameLimiter.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSerialize.cpp">
+      <Filter>Source Files\Testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Source Files\Testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="Tester.cpp">
+      <Filter>Source Files\Testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="TestProtocol.cpp">
+      <Filter>Source Files\Testbed</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -392,14 +404,8 @@
     <ClInclude Include="IngamePause.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="TestSerialize.h">
-      <Filter>Header Files\Networking</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleSystem.h">
       <Filter>Header Files\Client\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="TestProtocol.h">
-      <Filter>Header Files\Networking</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Client</Filter>
@@ -451,6 +457,18 @@
     </ClInclude>
     <ClInclude Include="DatabaseAPI.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSerialize.h">
+      <Filter>Header Files\Testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
+      <Filter>Header Files\Testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="Tester.h">
+      <Filter>Header Files\Testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="TestProtocol.h">
+      <Filter>Header Files\Testbed</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
