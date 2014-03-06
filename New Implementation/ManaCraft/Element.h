@@ -4,22 +4,16 @@
 #include "DatabaseAPI.h"
 #include "DataDefinitions.h"
 
-namespace ManaCraft {
-	namespace DataStructures {
-		class Element {
-		public:
-			
-			Database::ElementTypes id;
+class Element {
+public:
+	ManaCraft::Database::ElementTypes id;
 
-			std::string type;
-			std::string weakness;
-			std::string strength;
+	std::string type;
+	std::string weakness;
+	std::string strength;
 
-			Element();
-			~Element();
+	Element();
+	~Element();
 
-			static Element* loadFromDB(ManaCraft::Database::Row);
-		};
-
-	}
-}
+	static Element* loadFromDB(mysqlpp::Row row);
+};

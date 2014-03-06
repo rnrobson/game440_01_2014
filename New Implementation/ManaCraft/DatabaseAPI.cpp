@@ -4,10 +4,10 @@ using namespace ManaCraft::Database;
 
 Connection* DatabaseAPI::conn = new Connection(false);
 
-std::string DatabaseAPI::_db_Name = "Manacraft";
-std::string DatabaseAPI::_server = "198.167.139.145";
-std::string DatabaseAPI::_login = "manacraft";
-std::string DatabaseAPI::_password = "manacraft2014";
+std::string DatabaseAPI::db_Name = "Manacraft";
+std::string DatabaseAPI::server = "198.167.139.145";
+std::string DatabaseAPI::login = "manacraft";
+std::string DatabaseAPI::password = "manacraft2014";
 
 DatabaseAPI::~DatabaseAPI() {	// I suppose this unneccessary if it's private and everythings static?
 	disconnectFromDatabase();
@@ -15,11 +15,11 @@ DatabaseAPI::~DatabaseAPI() {	// I suppose this unneccessary if it's private and
 	conn = NULL;
 }
 
-void DatabaseAPI::setConnectionParams(const std::string& db_Name, const std::string& server, const std::string& login, const std::string& password) {
-	_db_Name = db_Name;
-	_server = server;
-	_login = login;
-	_password = password;
+void DatabaseAPI::setConnectionParams(const std::string& _db_Name, const std::string& _server, const std::string& _login, const std::string& _password) {
+	db_Name = _db_Name;
+	server = _server;
+	login = _login;
+	password = _password;
 }
 
 bool DatabaseAPI::isConnected() {
@@ -30,12 +30,26 @@ bool DatabaseAPI::connectToDatabase() {
 	if (conn->connected()) {
 		return true;
 	}
-	return conn->connect(_db_Name.c_str(), _server.c_str(), _login.c_str(), _password.c_str());
+	return conn->connect(db_Name.c_str(), server.c_str(), login.c_str(), password.c_str());
 }
 
 void DatabaseAPI::disconnectFromDatabase() {
 	if (conn->connected()) {
 		conn->disconnect();
+	}
+}
+
+Query DatabaseAPI::getQuery() {
+	if (conn->connected()) {
+		try {
+			return conn->query();
+		}
+		catch (Exception e) {
+			throw e;
+		}
+	}
+	else {
+		// throw custom exception?
 	}
 }
 
@@ -65,7 +79,26 @@ void DatabaseAPI::getAllMinionInfo() { }
 
 void DatabaseAPI::getElementInfo(const ElementTypes element) { }
 
-void DatabaseAPI::getAllElementInfo() { }
+std::vector<Element> DatabaseAPI::getAllElementInfo() {
+	try {
+		Query query = DatabaseAPI::queryDatabase("SELECT * FROM Elements");
+		std::vector<Element> elements = std::vector<Element>();
+
+		if (UseQueryResult result = query.use()) {
+			Row row;
+
+			while (row = result.fetch_row()) {
+				Element* e = Element::loadFromDB(row);
+				elements.push_back(*e);
+			}
+		}
+		return elements;
+	}
+	catch (Exception e) {
+		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+	}
+	
+}
 
 void DatabaseAPI::getResistanceInfo(const ElementTypes element) { }
 

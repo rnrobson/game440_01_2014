@@ -10,15 +10,16 @@
 //-- Data Structures
 #include "Element.h"
 
+using namespace mysqlpp;
+
 namespace ManaCraft {
 	namespace Database {
 
-		using namespace mysqlpp;
 		class DatabaseAPI {
 
 		private:
 			static Connection* conn;
-			static std::string _db_Name, _server, _login, _password;
+			static std::string db_Name, server, login, password;
 
 			DatabaseAPI() { }
 			~DatabaseAPI();
@@ -30,7 +31,7 @@ namespace ManaCraft {
 			/// <para>[string] Login account name. </para>
 			/// <para>[string] Login password. </para>
 			/// </summary>
-			static void setConnectionParams(const std::string& db_Name, const std::string& server, const std::string& login, const std::string& password);
+			static void setConnectionParams(const std::string& _db_Name, const std::string& _server, const std::string& _login, const std::string& _password);
 
 			/// <summary> Checking this function is unneccessary for connecting and disconnecting, as internal functions already check for an established connection.
 			/// <returns>[Returns] a bool. True if database is connected. </returns>
@@ -44,6 +45,8 @@ namespace ManaCraft {
 
 			/// <summary> Disconnects from the database if a connection is already established. </summary>
 			static void disconnectFromDatabase();
+
+			static Query getQuery();
 
 			/// <summary> Querys database if connected.
 			/// <para>[string] SQL formatted query. </para>
@@ -63,8 +66,8 @@ namespace ManaCraft {
 
 			/// <summary> Get information of specific element of ElementType. </summary>
 			void getElementInfo(const ElementTypes element);
-			// <summary> Get information on all Elements. </summary>
-			void getAllElementInfo();
+			/// <summary> Get information on all Elements. </summary>
+			static std::vector<Element> getAllElementInfo();
 
 			/// <summary> Get information of specific Resistance of ElementType. </summary>
 			void getResistanceInfo(const ElementTypes element);

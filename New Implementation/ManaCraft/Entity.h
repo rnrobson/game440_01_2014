@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "Element.h"
 
 class Entity
