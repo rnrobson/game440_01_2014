@@ -329,9 +329,6 @@
     <ClInclude Include="DataDefinitions.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="DatabaseAPI.h">
-      <Filter>Header Files\Database</Filter>
-    </ClInclude>
     <ClInclude Include="Credits.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
@@ -451,6 +448,9 @@
     </ClInclude>
     <ClInclude Include="GuiProjectile.h">
       <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="DatabaseAPI.h">
+      <Filter>Header Files\Database</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
