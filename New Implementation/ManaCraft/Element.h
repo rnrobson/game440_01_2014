@@ -2,16 +2,24 @@
 
 #include <vector>
 #include "DatabaseAPI.h"
+#include "DataDefinitions.h"
 
-class Element {
-public:
-	char type;
-	char weakness;
-	char strength;
+namespace ManaCraft {
+	namespace DataStructures {
+		class Element {
+		public:
+			
+			Database::ElementTypes id;
 
-	Element();
-	~Element();
+			std::string type;
+			std::string weakness;
+			std::string strength;
 
-	std::vector<Element> fetchTypesFromDB();
-};
+			Element();
+			~Element();
 
+			static Element* loadFromDB(ManaCraft::Database::Row);
+		};
+
+	}
+}
