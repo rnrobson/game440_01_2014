@@ -210,6 +210,10 @@
     <ClCompile Include="TestDatabase.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="NetBroadcaster.cpp">
+      <Filter>Source Files\Networking</Filter>
+=======
     <ClCompile Include="ServerPlayer.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
@@ -218,6 +222,7 @@
     </ClCompile>
     <ClCompile Include="FrameLimiter.cpp">
       <Filter>Source Files\GUI</Filter>
+>>>>>>> 1447355c642a17d9deff2756a39d3b4019219d38
     </ClCompile>
     <ClCompile Include="TestSerialize.cpp">
       <Filter>Source Files\Testbed</Filter>
@@ -437,6 +442,10 @@
     <ClInclude Include="TestDatabase.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="NetBroadcaster.h">
+      <Filter>Header Files\Networking</Filter>
+=======
     <ClInclude Include="ServerPlayer.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
@@ -457,6 +466,7 @@
     </ClInclude>
     <ClInclude Include="DatabaseAPI.h">
       <Filter>Header Files\Database</Filter>
+>>>>>>> 1447355c642a17d9deff2756a39d3b4019219d38
     </ClInclude>
     <ClInclude Include="TestSerialize.h">
       <Filter>Header Files\Testbed</Filter>
