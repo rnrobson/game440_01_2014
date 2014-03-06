@@ -210,6 +210,9 @@
     <ClCompile Include="TestDatabase.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
+    <ClCompile Include="NetBroadcaster.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -427,6 +430,9 @@
     </ClInclude>
     <ClInclude Include="TestDatabase.h">
       <Filter>Header Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="NetBroadcaster.h">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
