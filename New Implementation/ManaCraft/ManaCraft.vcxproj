@@ -93,6 +93,7 @@
     <ClCompile Include="DatabaseAPI.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="FrameLimiter.cpp" />
     <ClCompile Include="GridLayer.cpp" />
     <ClCompile Include="GridNode.cpp" />
     <ClCompile Include="GridSquare.cpp" />
@@ -145,6 +146,8 @@
     <ClInclude Include="Checkbox.h" />
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="Dictionary.h" />
+    <ClInclude Include="FrameLimiter.h" />
     <ClInclude Include="GameModel.h" />
     <ClInclude Include="GuiMinion.h" />
     <ClInclude Include="GuiProjectile.h" />

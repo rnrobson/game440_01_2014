@@ -24,6 +24,8 @@ void (*ClientAPI::CustomDrawFunc)();
 void(*ClientAPI::EnterKeyPressedFunc)();
 void(*ClientAPI::EscapeKeyPressedFunc)();
 
+FrameLimiter* ClientAPI::frameLimiter;
+
 bool ClientAPI::quit;
 #pragma endregion
 
@@ -38,8 +40,10 @@ void ClientAPI::BeginMainLoop()
 	//-- Begin Main Loop
 	while (!quit)
 	{
-		Update(33);
-		Draw();
+		if (!frameLimiter->Limit()) {
+			Update(frameLimiter->GetFPS());
+			Draw();
+		}
 	}
 }
 
@@ -62,7 +66,6 @@ void ClientAPI::Update(double time)
 	//-- Run Custom Update if it exists
 	if (CustomUpdateFunc != NULL) { (*CustomUpdateFunc)(time); }
 }
-
 void ClientAPI::Draw()
 {
 	Window::Clear();
@@ -84,7 +87,6 @@ void ClientAPI::Draw()
 
 	Window::Present();
 }
-
 void ClientAPI::CheckEvents()
 {
 	APIEvents::CurrentKeyboardState = SDL_GetKeyboardState(NULL);

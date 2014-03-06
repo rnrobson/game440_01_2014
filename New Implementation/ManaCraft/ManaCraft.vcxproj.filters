@@ -216,6 +216,9 @@
     <ClCompile Include="ServerLobby.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="FrameLimiter.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -437,11 +440,17 @@
     <ClInclude Include="ServerLobby.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
-    <ClInclude Include="GuiProjectile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameModel.h">
       <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Dictionary.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameLimiter.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiProjectile.h">
+      <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
