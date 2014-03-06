@@ -10,6 +10,9 @@ public:
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
 
+		const int btnsX = 30;
+		const int btnsY = 50;
+
 		//add font
 		API_Util::AddFont("Systema_22", "Resources/Fonts/9SYSTEMA.ttf", 22);
 
@@ -19,11 +22,32 @@ public:
 		//add textures
 		API_Util::AddTexture("MedBtnNormal", "Resources/GUITextures/medBtnNormal.bmp", API_Util::BMP);
 		API_Util::AddSolidTexture("researchPopUpBG", { 100, 0, 0, 255 }, 700, 400);
-		API_Util::AddSolidTexture("purchaseTowerCover", { 0, 0, 0, 20 }, 400, 180);
-		API_Util::AddSolidTexture("purchaseMinionCover", { 0, 0, 0, 20 }, 400, 180);
+		API_Util::AddSolidTexture("purchaseTowerCover", { 100, 100, 100, 20 }, 400, 180);
+		API_Util::AddSolidTexture("purchaseMinionCover", { 100, 100, 100, 20 }, 400, 180);
 
 		//add main container
 		ClientAPI::AddGuiContainer("InGameGUI", new GuiContainer());
+
+		//add container for research, tower, and minion btns
+		ClientAPI::GetGuiContainer("InGameGUI")->AddGuiContainer("btnsCon", new GuiContainer());
+
+		//add button to open the research tab and make it open the research tab when clicked
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "researchBtn", { btnsX + 0, btnsY + 0, 40, 30 }, "MedBtnNormal");
+		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "researchBtn", "R", "Systema_22", "Black");
+		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("researchBtn")->GetLabel()->SetOffset({ 8, 0, 0, 0 });
+		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("researchBtn")->SubscribeOnMouseClick(OpenResearchPage);
+
+		//add button to open the purchase tower tab and make it open the tower tab when clicked
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyTowerBtn", { btnsX + 40, btnsY + 0, 40, 30 }, "MedBtnNormal");
+		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyTowerBtn", "T", "Systema_22", "Black");
+		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyTowerBtn")->GetLabel()->SetOffset({ 10, 0, 0, 0 });
+		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyTowerBtn")->SubscribeOnMouseClick(OpenTowerPurchaseTab);
+
+		//add button to open purchase minion tab and make it open the minions tab when clicked
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyMinionBtn", { btnsX + 80, btnsY + 0, 40, 30 }, "MedBtnNormal");
+		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyMinionBtn", "M", "Systema_22", "Black");
+		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->GetLabel()->SetOffset({ 5, 0, 0, 0 });
+		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->SubscribeOnMouseClick(OpenMinionPurchaseTab);
 
 		//add minion research container
 		ClientAPI::GetGuiContainer("InGameGUI")->AddGuiContainer("ResearchPageCon", new GuiContainer());
@@ -66,21 +90,6 @@ public:
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->
 			GetButton("closeMPurchaseTab")->GetLabel()->SetPadding({ 1, 0, 0, 0 });
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->Active = false;
-
-		//add container for research, tower, and minion btns
-		ClientAPI::GetGuiContainer("InGameGUI")->AddGuiContainer("btnsCon", new GuiContainer());
-
-		//add button to open the research tab and make it open the research tab when clicked
-		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "researchBtn", { 20, 20, 40, 30 }, "MedBtnNormal");
-		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("researchBtn")->SubscribeOnMouseClick(OpenResearchPage);
-
-		//add button to open the purchase tower tab and make it open the tower tab when clicked
-		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyTowerBtn", { 65, 20, 40, 30 }, "MedBtnNormal");
-		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyTowerBtn")->SubscribeOnMouseClick(OpenTowerPurchaseTab);
-
-		//add button to open purchase minion tab and make it open the minions tab when clicked
-		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyMinionBtn", { 110, 20, 40, 30 }, "MedBtnNormal");
-		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->SubscribeOnMouseClick(OpenMinionPurchaseTab);
 
 		//add events to buttons to close the tabs
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon")->GetButton("closeResearchPage")->SubscribeOnMouseClick(CloseResearchPage);
