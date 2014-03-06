@@ -7,12 +7,15 @@
 
 /// A NOTE ON COPYPASTING - To get the tabs to line up, CTRL + V, then CTRL + Z
 
+#include <string>
+
 namespace ManaCraft {
 	namespace Database {
 		namespace TableInfo {
 
 			const struct Resistances {
 			public:
+				static std::string TABLE_NAME() { return "Resistances"; }
 				const static unsigned char ID				= 0;
 				const static unsigned char TYPE				= 1;
 				const static unsigned char WIND_RESISTANCE	= 2;
@@ -24,6 +27,7 @@ namespace ManaCraft {
 
 			const struct Elements {
 			public:
+				static std::string TABLE_NAME() { return "Elements"; }
 				const static unsigned char ID				= 0;
 				const static unsigned char TYPE				= 1;
 				const static unsigned char WEAKNESS			= 2;
@@ -32,6 +36,7 @@ namespace ManaCraft {
 
 			const struct Minions {
 			public:
+				static std::string TABLE_NAME() { return "Minions"; }
 				const static unsigned char ID				= 0;
 				const static unsigned char ELEMENT			= 1;
 				const static unsigned char NAME				= 2;
@@ -49,6 +54,7 @@ namespace ManaCraft {
 
 			const struct Towers {
 			public:
+				static std::string TABLE_NAME() { return "Towers"; }
 				const static unsigned char ID				= 0;
 				const static unsigned char ELEMENT			= 1;
 				const static unsigned char NAME				= 2;

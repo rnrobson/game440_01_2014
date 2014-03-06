@@ -16,7 +16,7 @@ Teams::~Teams(void)
 {
 }
 
-void Teams::EnterNewPlayer(int player)
+void Teams::EnterNewPlayer(ServerPlayer *player)
 {
 	//If game is not full:
 	//++ player count.
@@ -28,7 +28,7 @@ void Teams::EnterNewPlayer(int player)
 	}
 }
 
-void Teams::PlayerChangeTeam(int player, vector<int> *toTeam)
+void Teams::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam)
 {
 	//If target team is not full:
 	//If player exists in a team:
@@ -54,7 +54,7 @@ void Teams::PlayerChangeTeam(int player, vector<int> *toTeam)
 	}
 }
 
-void Teams::KickPlayer(int player)
+void Teams::KickPlayer(ServerPlayer *player)
 {
 	//If player exists in a team:
 	//Remove player from team.
@@ -65,7 +65,7 @@ void Teams::KickPlayer(int player)
 	}
 }
 
-bool Teams::FindAndRemove(int player)
+bool Teams::FindAndRemove(ServerPlayer *player)
 {
 	for (int i = 0; i < Team1.size(); i++)
 	{

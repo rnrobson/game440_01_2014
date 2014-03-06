@@ -96,8 +96,10 @@ void TransferControlToClient() {
 	//--Temporary asset loading
 	SDL_Texture *_minionTexture = APIHelper::LoadPNGTexture("Resources/Sprites/MinionSS.png");
 	SDL_Texture *_towerTexture = APIHelper::LoadPNGTexture("Resources/Tiles/sandAndRoads.png");
+	SDL_Texture *_projectileTexture = APIHelper::LoadPNGTexture("Resources/Tiles/sandAndRoads.png");
 	ClientAPI::AddTexture("MinionTex", _minionTexture);
 	ClientAPI::AddTexture("TowerTex", _towerTexture);
+	ClientAPI::AddTexture("ProjectileTex", _projectileTexture);
 
 	//==============================================================================================================================\\
 		//==============================================================================================================================\\
@@ -138,7 +140,7 @@ void OnEscapePressed()
 }
 void OnEnterPressed()
 {
-
+	
 }
 #endif
 
@@ -147,5 +149,6 @@ void TransferControlToServer() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDLNet_Init();
 	Server *gameServer = new Server();
+	gameServer->Run();
 }
 #endif

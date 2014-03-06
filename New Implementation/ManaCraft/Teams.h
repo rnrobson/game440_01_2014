@@ -2,6 +2,8 @@
 
 #include <vector>
 
+#include "ServerPlayer.h"
+
 using namespace std;
 
 class Teams
@@ -9,17 +11,17 @@ class Teams
 public:
 	int PlayerCount;
 	int MaxPlayers;
-	vector<int> Bench;
-	vector<int> Team1;
-	vector<int> Team2;
+	vector<ServerPlayer*> Bench;
+	vector<ServerPlayer*> Team1;
+	vector<ServerPlayer*> Team2;
 
 	Teams(int teamSize);
 	Teams();
 	~Teams(void);
 
-	void EnterNewPlayer(int player);
-	void PlayerChangeTeam(int player, vector<int> *toTeam);
-	void KickPlayer(int player);
+	void EnterNewPlayer(ServerPlayer *player);
+	void PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam);
+	void KickPlayer(ServerPlayer *player);
 private:
-	bool FindAndRemove(int player);
+	bool FindAndRemove(ServerPlayer *player);
 };

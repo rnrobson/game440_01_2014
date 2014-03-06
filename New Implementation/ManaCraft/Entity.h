@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 
 #include "Element.h"
 
@@ -15,7 +14,7 @@ public:
 	unsigned int summonCost;
 	unsigned int upgradeCost;
 	unsigned int researchCost;
-	char ID;
+	
 
 	Entity(void);
 	~Entity(void);

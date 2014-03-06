@@ -12,6 +12,10 @@ struct Vector2{
 	Vector2();
 };
 
+/*typedef enum {
+	UP, DOWN, LEFT, RIGHT
+} DIRECTION; */
+
 //Particle class - For use only within Particle System
 class Particle : public GuiElement{
 public:
@@ -75,12 +79,11 @@ public:
 			}
 		}
 	}
-
 	float GetDirectionX() { return directionX; }
 	float GetDirectionY() { return directionY; }
 	void SetDirection(float x, float y){ directionX = x; directionY = y; }
-
 	bool isAlive() { return alive; }
+
 private:
 	int rectWidth, rectHeight;
 	float directionX, directionY, speed, alpha;
@@ -89,20 +92,21 @@ private:
 
 class ParticleSystem : public GuiElement{
 public:
-	ParticleSystem() : particleNum(0) {};
+	enum DIRECTION { UP, DOWN, LEFT, RIGHT };
+	ParticleSystem(){};
 	ParticleSystem(size_t numberOfParticles, SDL_Texture* texture, bool randomSpeeds);
 	ParticleSystem(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed);
 	~ParticleSystem();
 	void Burst();
+	void Emit(DIRECTION);
 private:
-	size_t particleNum;
-	float particleSpeed;
 	bool randomSpeeds;
+	float particleSpeed;
 	SDL_Texture* particleTexture;
 	std::vector<Particle*> particleList;
 	virtual void Update(double time);
 	virtual void Draw();
-	void Initialize();
+	void Initialize(size_t numberOfParticles);
 };
 
 

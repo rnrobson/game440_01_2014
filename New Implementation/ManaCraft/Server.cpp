@@ -9,30 +9,20 @@
 Server::Server()
 {
 	
+	Init();
 	
-	/*int commandData = 1;
-	ServerCommand *tempCommand = new TestCommand(&commandData);*/
-/*
-	IntFloatProductParams* params = new IntFloatProductParams(3.0f, 6);
-	ServerCommand *tempCommand1 = new IntFloatProductCommand(params);
-	workQueue.push(tempCommand1);
 
-	float commandData = 2.0f;
-	ServerCommand *tempCommand2 = new TripleAFloatCommand(&commandData);
-	workQueue.push(tempCommand2);
+}
 
-	std::cout << std::endl;
+void Server::Run()
+{
+	/*workQueue.push(ServerCommand((void *)1, CS_PLACE_TOWER));
+	ServerCommand *runningCommand = &workQueue.pop();
+	void *data = runningCommand->getData();
+	runningCommand->Execute(data);*/
 
-	workQueue.front()->Execute();
-	workQueue.pop();
 
-	workQueue.front()->Execute();
-	workQueue.pop();*/
-
-	
-	//Init();
-
-	ServerCommandTester* tester = new ServerCommandTester(250);
+	ServerCommandTester* tester = new ServerCommandTester(50);
 	std::cout << "\nrunning TestTripleAFloatCommand...";
 	tester->TestTripleAFloatCommand();
 	std::cout << "\nrunning TestIntFloatProductCommand...";
@@ -40,17 +30,8 @@ Server::Server()
 	std::cout << "\nRunning all tests...";
 	tester->RunAllTests();
 	getchar();
-
-
-	/*workQueue.push(ServerCommand((void *)1, CS_PLACE_TOWER));
-	ServerCommand *runningCommand = &workQueue.pop();
-	void *data = runningCommand->getData();
-	runningCommand->Execute(data);
-
-	Init();
-
-	getchar();*/
 }
+
 
 /// <summary>[~Server]
 /// <para>The Server's Destructor</para>
@@ -65,5 +46,15 @@ Server::~Server()
 /// </summary>
 void Server::Init()
 {
-	ClientLiaison::Run();
+	//setting limit of running games
+	games.reserve(MAX_GAMES);
+	
+	//creating a new hardcoded game
+	GameModel* game1 = new GameModel();
+	games.push_back(game1);
+
+	//commenting out because it prevents anything else from displaying on the console
+	//ClientLiaison::Run();
+
+
 }

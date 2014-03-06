@@ -5,7 +5,9 @@
 #include "Includes.h"
 #include "APIHelper.h"
 #include "APIEvents.h"
+#include "Dictionary.h"
 
+#include "FrameLimiter.h"
 #include "Window.h"
 #include "GuiContainer.h"
 #include "GuiElement.h"
@@ -41,6 +43,8 @@ private:
 
 	static bool quit;
 
+	static FrameLimiter* frameLimiter;
+
 	static void (*CustomUpdateFunc)(double);
 	static void (*CustomDrawFunc)();
 	static void(*EnterKeyPressedFunc)();
@@ -62,6 +66,8 @@ private:
 
 		guiContainers = std::vector<GuiContainer*>{};
 		guiElements = std::vector<GuiElement*>{};
+
+
 
 		CustomUpdateFunc = nullptr;
 		CustomDrawFunc = nullptr;
@@ -101,6 +107,8 @@ private:
 
 		guiElementKeys.clear();
 		guiElements.clear();
+
+		delete frameLimiter;
 	}
 
 	static void HandleMouseMotionEvent(SDL_MouseMotionEvent e);
@@ -119,9 +127,10 @@ private:
 	static void Update(double time);
 	static void Draw();
 public:
-	static void Init(std::string title = "Window", int width = 1024, int height = 768) 
+	static void Init(std::string title = "Window", int FPS = 30, int width = 1024, int height = 768) 
 	{ 
 		Window::Init(title, width, height); 
+		frameLimiter = new FrameLimiter(FPS);
 		SetupHelper();
 	}
 	static void Exit() { Quit(); }
@@ -337,6 +346,13 @@ public:
 	}
 	#pragma endregion
 	
+#pragma region Dictionarys
+	//static Dictionary<SDL_Color> colours;
+	//static Dictionary<SDL_Rect> rectangles;
+	//static Dictionary<GuiContainer*> guiContainers;
+	//static Dictionary<GuiElement*> guiElements;
+#pragma endregion
+
 	static void BeginMainLoop();
 	static void ExitMainLoop()
 	{
