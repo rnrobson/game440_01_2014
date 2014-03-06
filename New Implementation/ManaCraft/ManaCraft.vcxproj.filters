@@ -204,9 +204,6 @@
     <ClCompile Include="AnimatedSprite.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
-    <ClCompile Include="ServerCommandTester.cpp">
-      <Filter>Source Files\Server</Filter>
-    </ClCompile>
     <ClCompile Include="TestDatabase.cpp">
       <Filter>Source Files\Database</Filter>
     </ClCompile>
@@ -233,6 +230,9 @@
     </ClCompile>
     <ClCompile Include="TestProtocol.cpp">
       <Filter>Source Files\Testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="ServerTester.cpp">
+      <Filter>Source Files\Server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -413,9 +413,6 @@
     <ClInclude Include="Sprite.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
-    <ClInclude Include="TripleAFloatCommand.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
     <ClInclude Include="Teams.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
@@ -429,12 +426,6 @@
       <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="ServerCommandIncludes.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerCommandTester.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="IntFloatProductCommand.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="TestDatabase.h">
@@ -475,6 +466,18 @@
     </ClInclude>
     <ClInclude Include="TestProtocol.h">
       <Filter>Header Files\Testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerTester.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_CreateNewGame.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_IntFloatProduct.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_TripleAFloat.h">
+      <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

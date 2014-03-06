@@ -6,6 +6,6 @@
 #include "Connection.h"
 
 
-using namespace ManaCraft;
+//using namespace ManaCraft;
 
 #endif

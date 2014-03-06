@@ -1,35 +1,35 @@
-#ifndef TRIPLE_FLOAT_H
-#define TRIPLE_FLOAT_H
+#ifndef COMMAND_TRIPLE_FLOAT_H
+#define COMMAND_TRIPLE_FLOAT_H
 
 //#include <iostream>
 #include "ServerIncludes.h"
 #include "ServerCommandIncludes.h"
-
-struct TripleAFloatParams
+struct Params_TripleAFloat
 {
 	float x;
 	float result;
-	TripleAFloatParams(float _x)
+	Params_TripleAFloat(float _x)
 	{
 		x = _x;
 		result = 0;
 	}
-	~TripleAFloatParams(){}
+	~Params_TripleAFloat(){}
 };
 
-class TripleAFloatCommand : public ServerCommand
+class Command_TripleAFloat : public ServerCommand
 {
 public:
 	
-	TripleAFloatParams* params;
+	Params_TripleAFloat* params;
 
-	TripleAFloatCommand(void* _data)
+	Command_TripleAFloat(void* _data)
 	{
 		data = _data;
-		params = (TripleAFloatParams*)data;
+		params = (Params_TripleAFloat*)data;
+
 		//printf("\nTripleAFloatCommand: Initialized --data = %f", params.x);
 	}
-	~TripleAFloatCommand(){}
+	~Command_TripleAFloat(){}
 
 	void Execute()
 	{

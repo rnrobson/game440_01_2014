@@ -5,33 +5,33 @@
 #include "ServerIncludes.h"
 #include "ServerCommandIncludes.h"
 
-struct IntFloatProductParams
+struct Params_IntFloatProduct
 {
 public:
 	float x;
 	int y;
 	float result;
-	IntFloatProductParams(float _x, int _y)
+	Params_IntFloatProduct(float _x, int _y)
 	{
 		x = _x;
 		y = _y;
 		result = 0;
 	}
-	~IntFloatProductParams(){}
+	~Params_IntFloatProduct(){}
 };
-class IntFloatProductCommand : public ServerCommand
+class Command_IntFloatProduct : public ServerCommand
 {
 public:
-	IntFloatProductParams* params;
+	Params_IntFloatProduct* params;
 
-	IntFloatProductCommand(void* _data)
+	Command_IntFloatProduct(void* _data)
 	{
 		data = _data;
-		params = (IntFloatProductParams*)data;
+		params = (Params_IntFloatProduct*)data;
 		//printf("\nIntFloatProductCommand: Initialized --float = %f", params->x);
 		//printf("\nIntFloatProductCommand: Initialized --int = %i", params->y);
 	}
-	~IntFloatProductCommand(){}
+	~Command_IntFloatProduct(){}
 
 	void Execute()
 	{

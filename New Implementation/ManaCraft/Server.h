@@ -9,24 +9,28 @@
 
 #include "BlockingQueue.h"
 #include "Connection.h"
-#include "WorkItem.h"
-#include "GameModel.h"
 #include "ServerCommandIncludes.h"
-
-
+#include "GameModel.h"
+#include "ClientLiaison.h"
+#include "ServerIncludes.h"
+#include "ServerTester.h"
+#include "ServerCommand.h"
 class Server {
 private:
 	bool running;
-	const size_t MAX_GAMES = 10;
+	
+	unsigned int numRunningGames = 0;
 	BlockingQueue<ServerCommand*> workQueue;
-	std::vector<GameModel*> games;
+	
 	
 
 	void Init();
 
 
 public:
-
+	static const int MAX_GAMES;
+	static std::vector<GameModel*> games;
+	
 	Server();
 	~Server();
 

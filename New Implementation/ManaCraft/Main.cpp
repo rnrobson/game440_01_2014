@@ -150,5 +150,6 @@ void TransferControlToServer() {
 	SDLNet_Init();
 	Server *gameServer = new Server();
 	gameServer->Run();
+
 }
 #endif
