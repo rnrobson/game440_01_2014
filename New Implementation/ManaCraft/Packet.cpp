@@ -10,7 +10,7 @@ mData(nullptr), mDataLength(0),
 mPayload(nullptr) {
 }
 
-Packet::Packet(const byte* securityHeader, short protocolID, byte* data) :
+Packet::Packet(const Byte* securityHeader, short protocolID, Byte* data) :
 mSecurityHeader(securityHeader), mProtocolID(protocolID), mData(data),
 mDataLength(strlen(data)), mPayload(nullptr) {
 	NewPayload();
@@ -26,13 +26,13 @@ void Packet::SetProtocolID(short newProtocolID) {
 	NewPayload();
 }
 
-void Packet::SetData(byte* newData) {
+void Packet::SetData(Byte* newData) {
 	mData = newData;
 	mDataLength = strlen(mData);
 	NewPayload();
 }
 
-const byte* Packet::GetSecurityHeader() const {
+const Byte* Packet::GetSecurityHeader() const {
 	return mSecurityHeader;
 }
 
@@ -40,7 +40,7 @@ short Packet::GetProtocolID() const {
 	return mProtocolID;
 }
 
-byte* Packet::GetData() const {
+Byte* Packet::GetData() const {
 	return mData;
 }
 
@@ -52,7 +52,7 @@ int Packet::PayloadSize() const {
 	return strlen(mSecurityHeader) + sizeof(short) * 2 + mDataLength + strlen(mSecurityHeader);
 }
 
-byte* Packet::GetPayload() const {
+Byte* Packet::GetPayload() const {
 	return mPayload;
 }
 
@@ -60,8 +60,8 @@ void Packet::NewPayload() {
 	if (mPayload != nullptr) {
 		delete[] mPayload;
 	}
-	mPayload = new byte[PayloadSize()];
-	byte* currPos = mPayload;
+	mPayload = new Byte[PayloadSize()];
+	Byte* currPos = mPayload;
 	for (unsigned int i = 0; i < strlen(mSecurityHeader); ++i) {
 		currPos[i] = mSecurityHeader[i];
 	}

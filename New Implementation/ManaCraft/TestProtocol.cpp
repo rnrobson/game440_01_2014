@@ -1,6 +1,7 @@
 #include "TestProtocol.h"
 
 using namespace ManaCraft::Networking;
+using namespace ManaCraft::Testbed;
 using namespace std;
 
 TestProtocol::TestProtocol(unsigned int numTests) 
@@ -14,9 +15,8 @@ TestProtocol::TestProtocol(unsigned int numTests)
 
 }
 
-
-TestProtocol::~TestProtocol() { }
-
+TestProtocol::~TestProtocol() { 
+}
 
 void TestProtocol::RunTests() {
 	RunClientToServerTest();
@@ -24,7 +24,7 @@ void TestProtocol::RunTests() {
 }
 
 void TestProtocol::RunServerToClientTest(){
-	for (int i = 0; i < testCount; i++){
+	for (unsigned int i = 0; i < testCount; i++){
 		//set the current protocol to the start of the range
 		int currProtocol = SC_RANGE_START;
 		bool endOfProtocols = false;
@@ -64,7 +64,7 @@ void TestProtocol::RunServerToClientTest(){
 
 }
 void TestProtocol::RunClientToServerTest() {
-	for (int i = 0; i < testCount; i++) {
+	for (unsigned int i = 0; i < testCount; i++) {
 		// Set the current protocol to the start of the range
 		int currProtocol = CS_RANGE_START;
 		bool endOfProtocols = false;

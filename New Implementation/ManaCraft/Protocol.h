@@ -15,6 +15,9 @@ namespace ManaCraft {
 
 		/// <summary>The list of Server to Client protocols that will be sent over the network.</summary>
 
+		// This just allows for verbose protocol parameters.
+		typedef __int16 ProtocolCommand;
+
 		const char* const SEC_HEAD = "MCFT";
 
 		enum SC_Protocol : __int16 {

@@ -72,17 +72,17 @@ Connection* Connection::Listen() {
 	return nullptr;
 }
 
-int Connection::ReceiveData(byte** buf) {
+int Connection::ReceiveData(Byte** buf) {
 	if (mSocket) {
 		// Recieve some data.
 		// Grab and check security header.
-		byte* secHeader = new char[4];
+		Byte* secHeader = new char[4];
 		int len = SDLNet_TCP_Recv(mSocket, secHeader, 4);
 
 		// This should be checked and fixed if possible.
 		// Copy from received array into local array to remove unwanted characters
 		// at end of secHeader.
-		byte header[4];
+		Byte header[4];
 		for (__int16 i = 0; i < 4; ++i) {
 			header[i] = secHeader[i];
 		}
@@ -96,15 +96,15 @@ int Connection::ReceiveData(byte** buf) {
 		// Ensure security
 		if (header[0] == SEC_HEAD[0] && header[1] == SEC_HEAD[1] && header[2] == SEC_HEAD[2] && header[3] == SEC_HEAD[3]) {
 			// Grab and check length.
-			byte* length = new char[2];
+			Byte* length = new char[2];
 			SDLNet_TCP_Recv(mSocket, length, 2);
 
 			__int16 dataLen = Deserialize::Int16(length);
 			// Can check against expected value now
 
-			// Initialize the buffer and fill it with the data in bytes
-			// Dereferencing is done so we exit the function with a non-NULL byte array.
-			*buf = new byte[dataLen];
+			// Initialize the buffer and fill it with the data in Bytes
+			// Dereferencing is done so we exit the function with a non-NULL Byte array.
+			*buf = new Byte[dataLen];
 			SDLNet_TCP_Recv(mSocket, *buf, dataLen + 2);
 
 			// Clean up previous security header pointer and re-use for the ending header
@@ -150,7 +150,7 @@ int Connection::ReceiveData(byte** buf) {
 }
 
 /****** CURRENTLY UNUSED ******/
-int Connection::SendData(byte* payload) {
+int Connection::SendData(Byte* payload) {
 	// Send data over mSocket.
 	// Coming soon to a repo near you.
 	return 0;
@@ -160,7 +160,7 @@ int Connection::SendData(Packet& payload) {
 	// Make sure we're connected.
 	if (mSocket) {
 		// Check the security header being sent. Don't send if it's not valid.
-		const byte* secHead = payload.GetSecurityHeader();
+		const Byte* secHead = payload.GetSecurityHeader();
 		if (secHead == ManaCraft::Networking::SEC_HEAD) {
 			// Send the data, store the length sent.
 			int len = SDLNet_TCP_Send(mSocket, payload.GetPayload(), payload.PayloadSize());

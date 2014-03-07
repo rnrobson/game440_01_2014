@@ -1,17 +1,25 @@
-#pragma once
+#ifndef ELEMENT_H
+#define ELEMENT_H
 
 #include <vector>
 #include "DatabaseAPI.h"
+#include "DataDefinitions.h"
 
 class Element {
+private:
+	static Element* buildFromRow(mysqlpp::Row row);
+
 public:
-	char type;
-	char weakness;
-	char strength;
+	ManaCraft::Database::ElementTypes ID;
+
+	std::string type;
+	std::string weakness;
+	std::string strength;
 
 	Element();
 	~Element();
 
-	std::vector<Element> fetchTypesFromDB();
+	static std::vector<Element*> fetchAllFromDB();
 };
 
+#endif

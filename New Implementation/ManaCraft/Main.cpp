@@ -1,5 +1,6 @@
-#define CLIENT_BUILD 1
-#define SERVER_BUILD 0
+#define CLIENT_BUILD 0
+#define SERVER_BUILD 1
+
 
 #include <SDL.h>
 #include <SDL_net.h>
@@ -38,7 +39,7 @@ void TransferControlToServer();
 #endif
 
 #if !CLIENT_BUILD && !SERVER_BUILD
-
+#include "TestDatabase.h"
 #endif
 
 int main(int argc, char* argcs[]) {
@@ -67,6 +68,9 @@ int main(int argc, char* argcs[]) {
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+
+	ManaCraft::Database::TestDatabase::runTests();
+
 	std::cin.get();
 #endif
 	return 0;
@@ -140,7 +144,7 @@ void OnEscapePressed()
 }
 void OnEnterPressed()
 {
-
+	
 }
 #endif
 
@@ -149,5 +153,7 @@ void TransferControlToServer() {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	SDLNet_Init();
 	Server *gameServer = new Server();
+	gameServer->Run();
+
 }
 #endif

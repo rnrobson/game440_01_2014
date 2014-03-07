@@ -3,32 +3,47 @@
 
 #include <iostream>
 #include "DatabaseAPI.h"
+#include "Minion.h"
+#include "Tower.h"
+#include "Element.h"
+#include "Resistances.h"
 
 namespace ManaCraft {
 	namespace Database {
 		class TestDatabase {
 		private:
-			unsigned int testSuccesses, testFailures;
-			unsigned int totalSuccesses, totalFailures;
+			static unsigned int testSuccesses, testFailures;
+			static unsigned int totalSuccesses, totalFailures;
 
 			/// <summary>Resets success and failure counts for the last test.
 			/// <para>Also updates total successes and failures.</para>
 			/// <para>Call this function after every test.</para>
 			/// </summary>
-			void resetTestCounts();
+			static void resetTestCounts();
 
 			/// <summary>Runs tests to connect and disconnect from database.
 			/// <para>Functions include:</para>
 			/// <para>connectToDatabase</para>
 			/// <para>disconnectFromDatabase</para>
 			/// </summary>
-			void testConnection();
+			static void testConnection();
+
+			/// <summary>Runs tests to query database.
+			/// <para>Functions include:</para>
+			/// <para>queryDatabase</para>
+			/// </summary>
+			static void testQuery();
+
+			static void testLoadMinions();
+			static void testLoadTowers();
+			static void testLoadElements();
+			static void testLoadResistances();
 
 		public:
-			/// <summary>[runTests]
+			/// <summary>
 			/// <para>Runs tests on the DatabaseAPI with the default connection parameters.</para>
 			/// </summary>
-			void runTests();
+			static void runTests();
 
 		};
 

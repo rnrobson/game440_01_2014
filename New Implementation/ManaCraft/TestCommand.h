@@ -2,10 +2,9 @@
 #define TEST_COMMAND_H
 
 
-//#include "ServerIncludes.h"
-#include <iostream> //BAND_AID
-//#include "ServerCommand.h"
-#include "ServerCommandIncludes.h"
+#include <iostream>
+
+#include "ServerCommand.h"
 
 class TestCommand : public ServerCommand
 {
@@ -25,15 +24,10 @@ public:
 		printf("\nTestCommand: Initialized --data = %i", params.x);
 	}
 
-	~TestCommand()
-	{
-
-	}
-
+	~TestCommand(){}
 
 	void  Execute()
 	{
-
 		params.x++;
 		printf("\nTestCommand: Executed --data = %i", params.x);
 	}

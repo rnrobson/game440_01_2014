@@ -4,7 +4,7 @@
 #include <exception>
 #include <SDL.h>
 
-typedef char byte;
+typedef char Byte;
 
 namespace ManaCraft {
 	namespace Networking {
@@ -46,7 +46,7 @@ namespace ManaCraft {
 		};
 
 		/// <summary>
-		/// <para>Serializable is an abstract class that contains methods used for converting various amounts of class data to and from an array of bytes.</para>
+		/// <para>Serializable is an abstract class that contains methods used for converting various amounts of class data to and from an array of Bytes.</para>
 		/// <para>The base class methods should never be called as they will throw an UnsupportedOperationException since these methods 
 		/// are intended to be overridden.</para>
 		/// </summary>
@@ -55,12 +55,12 @@ namespace ManaCraft {
 		public:
 			virtual ~Serializable() { }
 
-			/// <summary>Converts all class data into an array of bytes for network transmission.
-			///	<para>[byte* data] Data should point to an array of preallocated bytes of size SerializedSize().</para>
+			/// <summary>Converts all class data into an array of Bytes for network transmission.
+			///	<para>[Byte* data] Data should point to an array of preallocated Bytes of size SerializedSize().</para>
 			/// <para>[Data requiredData] Determines what part of the class should be serialized. </para>
 			/// <return>Returns true on success.</return>
 			/// </summary>
-			virtual bool Serialize(byte* data, NetData dataFlags) { throw UnsupportedOperationException(); }
+			virtual bool Serialize(Byte* data, NetData dataFlags) { throw UnsupportedOperationException(); }
 
 			/// <summary>
 			/// <return>Returns the size of the array if the class were serialized.</return>
@@ -68,11 +68,11 @@ namespace ManaCraft {
 			/// </summary>
 			virtual int SerializedSize(NetData dataFlags) const { throw UnsupportedOperationException(); }
 
-			/// <summary>Converts all the array of bytes into class data.
-			///	<para>[char* data] Data should point to an array of preallocated bytes of size SerializedSize().</para>
+			/// <summary>Converts all the array of Bytes into class data.
+			///	<para>[char* data] Data should point to an array of preallocated Bytes of size SerializedSize().</para>
 			/// <return>Returns true on success.</return>
 			/// </summary>
-			virtual bool Deserialize(byte* data) { throw UnsupportedOperationException(); }
+			virtual bool Deserialize(Byte* data) { throw UnsupportedOperationException(); }
 		};
 	}
 }

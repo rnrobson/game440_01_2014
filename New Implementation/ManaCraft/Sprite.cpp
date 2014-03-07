@@ -1,11 +1,12 @@
 #include "Sprite.h"
 
 
-Sprite::Sprite(SDL_Texture *tex,SDL_Renderer *renderer,int posX,int posY)
+Sprite::Sprite(SDL_Texture *tex, int posX,int posY)
 {
-	//SDL_RenderClear(renderer);
-	//RenderTexture(tex, renderer, posX, posY, nullptr);//for now
-	//SDL_RenderPresent(renderer);
+	SDL_QueryTexture(tex, NULL, NULL, &rectWidth, &rectHeight);
+	GuiElement::texture = tex;
+	GuiElement::SetPosition(posX, posY);
+	GuiElement::SetWidthHeight(rectWidth, rectHeight);
 }
 
 Sprite::~Sprite()

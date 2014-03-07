@@ -16,7 +16,7 @@ Teams::~Teams(void)
 {
 }
 
-void Teams::EnterNewPlayer(int player)
+void Teams::EnterNewPlayer(ServerPlayer *player)
 {
 	//If game is not full:
 	//++ player count.
@@ -28,14 +28,14 @@ void Teams::EnterNewPlayer(int player)
 	}
 }
 
-void Teams::PlayerChangeTeam(int player, vector<int> *toTeam)
+void Teams::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam)
 {
 	//If target team is not full:
 	//If player exists in a team:
 	//Remove player from team.
 	//Add to target team.
 
-	int teamCap;
+	unsigned int teamCap;
 	if (toTeam == &Bench)
 	{
 		teamCap = MaxPlayers;
@@ -54,7 +54,7 @@ void Teams::PlayerChangeTeam(int player, vector<int> *toTeam)
 	}
 }
 
-void Teams::KickPlayer(int player)
+void Teams::KickPlayer(ServerPlayer *player)
 {
 	//If player exists in a team:
 	//Remove player from team.
@@ -65,9 +65,9 @@ void Teams::KickPlayer(int player)
 	}
 }
 
-bool Teams::FindAndRemove(int player)
+bool Teams::FindAndRemove(ServerPlayer *player)
 {
-	for (int i = 0; i < Team1.size(); i++)
+	for (unsigned int i = 0; i < Team1.size(); i++)
 	{
 		if (Team1.at(i) == player)
 		{
@@ -76,7 +76,7 @@ bool Teams::FindAndRemove(int player)
 		}
 	}
 
-	for (int i = 0; i < Team2.size(); i++)
+	for (unsigned int i = 0; i < Team2.size(); i++)
 	{
 		if (Team2.at(i) == player)
 		{
@@ -85,7 +85,7 @@ bool Teams::FindAndRemove(int player)
 		}
 	}
 
-	for (int i = 0; i < Bench.size(); i++)
+	for (unsigned int i = 0; i < Bench.size(); i++)
 	{
 		if (Bench.at(i) == player)
 		{

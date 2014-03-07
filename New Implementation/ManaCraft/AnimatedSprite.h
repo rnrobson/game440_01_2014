@@ -1,11 +1,12 @@
 #pragma once
 #include "Sprite.h"
+#include <vector>
 class AnimatedSprite :
 	public Sprite
 {
 public:
 	
-	AnimatedSprite(SDL_Texture *t, SDL_Renderer *r, int posX, int posY);
+	AnimatedSprite(SDL_Texture *t, int posX, int posY, int sheetSzX, int sheetSzY);
 	~AnimatedSprite();
 	void Left();
 	void Right();
@@ -19,12 +20,14 @@ private:
 	int lastUpdated;
 	int timeElapsed;
 	int currentFrame;
+	int sheetX;
+	int sheetY;
 	int row;
+	std::vector<SDL_Rect>clips;
 
 	enum Direction { DOWN, LEFT, UP, RIGHT };
 
 	SDL_Texture *sheet;
-	SDL_Renderer *ren;
 
 	int x;
 	int y;
