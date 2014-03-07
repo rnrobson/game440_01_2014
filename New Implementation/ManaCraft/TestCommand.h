@@ -3,11 +3,13 @@
 
 
 //#include "ServerIncludes.h"
-//#include <iostream> //BAND_AID
+#include <iostream> //BAND_AID
 //#include "ServerCommand.h"
 //#include "ServerCommandIncludes.h"
 
 #include "Server.h"
+#include "ServerCommand.h"
+
 class TestCommand : public ServerCommand
 {
 public:

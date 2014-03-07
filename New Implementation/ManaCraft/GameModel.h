@@ -16,7 +16,7 @@ public:
 	const int MAX_TOWERS = 100;
 	const int MAX_PROJECTILES = 600;
 	const int MAX_GRIDSQUARES = 128;
-	const int MAX_BASE_HP = 300;
+	const float MAX_BASE_HP = 300.0f;
 
 	unsigned int id;
 
@@ -59,13 +59,13 @@ public:
 		paused = false;
 		base1HP = MAX_BASE_HP;
 		base2HP = MAX_BASE_HP;
-		for (size_t i = 0; i < MAX_MINIONS; i++)
+		for (int i = 0; i < MAX_MINIONS; i++)
 		{
 			Minion* minion = new Minion();
-			minion->health = 100;
-			minion->xPos = 10;
-			minion->yPos = 20;
-			minion->manaPerSecond = 10;
+			minion->health = 100.0f;
+			minion->xPos = 10.0f;
+			minion->yPos = 20.0f;
+			minion->manaPerSecond = 10.0f;
 			minion->armour = 50;
 			minion->speed = 3;
 			minion->damage = 5.0f;
@@ -75,7 +75,7 @@ public:
 			minion->summonCost = 50;
 			minions.push_back(minion);
 		}
-		for (size_t i = 0; i < MAX_TOWERS; i++)
+		for (int i = 0; i < MAX_TOWERS; i++)
 		{
 			Tower* tower = new Tower();
 			tower->range = 20;
@@ -93,14 +93,14 @@ public:
 			towers.push_back(tower);
 
 		}
-		for (size_t i = 0; i < MAX_PROJECTILES; i++)
+		for (int i = 0; i < MAX_PROJECTILES; i++)
 		{
 			Projectile* projectile = new Projectile();
 			projectile->xPos = 0.0f;
 			projectile->yPos = 0.0f;
 			projectiles.push_back(projectile);
 		}
-		for (size_t i = 0; i < MAX_GRIDSQUARES; i++)
+		for (int i = 0; i < MAX_GRIDSQUARES; i++)
 		{
 			GridSquare* gridsquare = new GridSquare();
 			gridsquare->id = i;

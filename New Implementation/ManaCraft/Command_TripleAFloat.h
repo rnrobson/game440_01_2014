@@ -2,8 +2,10 @@
 #define COMMAND_TRIPLE_FLOAT_H
 
 //#include <iostream>
-#include "ServerIncludes.h"
-#include "ServerCommandIncludes.h"
+//#include "ServerIncludes.h"
+//#include "ServerCommandIncludes.h"
+#include "ServerCommand.h"
+
 struct Params_TripleAFloat
 {
 	float x;

@@ -2,8 +2,9 @@
 #define INT_FLOAT_PRODUCT_COMMAND_H
 
 //#include <iostream>
-#include "ServerIncludes.h"
-#include "ServerCommandIncludes.h"
+//#include "ServerIncludes.h"
+//#include "ServerCommandIncludes.h"
+#include "ServerCommand.h"
 
 struct Params_IntFloatProduct
 {

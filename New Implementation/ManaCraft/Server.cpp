@@ -28,8 +28,8 @@ void Server::Run()
 	std::cout << "\nRunning all tests...";
 	tester->RunAllTests();*/
 	unsigned int id = 2;
-	Command_CreateNewGame* command = new Command_CreateNewGame(&id);
-	command->Execute();
+	/*Command_CreateNewGame* command = new Command_CreateNewGame(&id);
+	command->Execute();*/
 	/*id++;
 	command = new Command_CreateNewGame(&id);
 	command->Execute();*/
@@ -52,16 +52,16 @@ Server::~Server()
 void Server::Init()
 {
 	//setting limit of running games
-	games.reserve(MAX_GAMES);
-	
-	//creating a new hardcoded game
-	GameModel* game1 = new GameModel();
-	games.push_back(game1);
+	//games.reserve(MAX_GAMES);
+	//
+	////creating a new hardcoded game
+	//GameModel* game1 = new GameModel();
+	//games.push_back(game1);
 
-	for each (GameModel* game in games)
-	{
-		std::cout << game->towers[0]->name;
-	}
+	//for each (GameModel* game in games)
+	//{
+	//	std::cout << game->towers[0]->name;
+	//}
 	////commenting out because it prevents anything else from displaying on the console
 	//ClientLiaison::Run();
 
