@@ -21,9 +21,9 @@ public:
 
 		//add textures
 		API_Util::AddTexture("MedBtnNormal", "Resources/GUITextures/medBtnNormal.bmp", API_Util::BMP);
-		API_Util::AddSolidTexture("researchPopUpBG", { 100, 0, 0, 255 }, 700, 400);
-		API_Util::AddSolidTexture("purchaseTowerCover", { 100, 100, 100, 20 }, 400, 180);
-		API_Util::AddSolidTexture("purchaseMinionCover", { 100, 100, 100, 20 }, 400, 180);
+		API_Util::AddSolidTexture("researchPopUpBG", { 100, 100, 100, 100 }, 700, 400);
+		API_Util::AddSolidTexture("purchaseTowerCover", { 100, 100, 100, 100 }, 400, 180);
+		API_Util::AddSolidTexture("purchaseMinionCover", { 100, 100, 100, 100 }, 400, 180);
 
 		//add main container
 		ClientAPI::AddGuiContainer("InGameGUI", new GuiContainer());
@@ -49,30 +49,52 @@ public:
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->GetLabel()->SetOffset({ 5, 0, 0, 0 });
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->SubscribeOnMouseClick(OpenMinionPurchaseTab);
 
-		//add minion research container
+
+		/*
+		Notes: 
+		-change the gui stuff so that they are positioned relative to the background of their container
+		-
+		*/
+
+
+		//add research container
+		SDL_Rect researchCoverRect = { (SCREEN_WIDTH / 2) - 350, (SCREEN_HEIGHT / 2) - 300, 700, 400 };
 		ClientAPI::GetGuiContainer("InGameGUI")->AddGuiContainer("ResearchPageCon", new GuiContainer());
 		API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"),
-			"researchCover", "researchPopUpBG", { (SCREEN_WIDTH / 2) - 350, (SCREEN_HEIGHT / 2) - 300, 700, 400 });
+			"researchCover", "researchPopUpBG", researchCoverRect);
 		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"),
 			"researchLbl", "Research", { (SCREEN_WIDTH / 2) - 345, (SCREEN_HEIGHT / 2) - 315, 100, 40 }, "Systema_22", "White");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"),
 			"closeResearchPage", { SCREEN_WIDTH - 195, 90, 25, 25 }, "MedBtnNormal");
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"),
+			"confirmChanges", { researchCoverRect.x + researchCoverRect.w - 90, researchCoverRect.y + researchCoverRect.h - 75, 80, 30 }, "MedBtnNormal");
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"),
+			"cancelChanges", { researchCoverRect.x + researchCoverRect.w - 90, researchCoverRect.y + researchCoverRect.h - 40, 80, 30 }, "MedBtnNormal");
+		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"), "confirmChanges", "Confirm", "Systema_11", "Black");
+		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"), "cancelChanges", "Cancel", "Systema_11", "Black");
 		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon"),
 			"closeResearchPage", "X", "Systema_22", "Black");
+		
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon")->
 			GetButton("closeResearchPage")->GetLabel()->SetPadding({ 1, 0, 0, 0 });
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("ResearchPageCon")->Active = false;
 
 		//add purchase tower container
+		SDL_Rect pTowerBGRect = { (SCREEN_WIDTH / 2) - 200, (SCREEN_HEIGHT / 2) - 90, 400, 180 };
 		ClientAPI::GetGuiContainer("InGameGUI")->AddGuiContainer("PurchaseTowerCon", new GuiContainer());
 		API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
-			"purchaseTowerBG", "purchaseTowerCover", {(SCREEN_WIDTH / 2) - 200, (SCREEN_HEIGHT / 2) - 90, 400, 180 });
+			"purchaseTowerBG", "purchaseTowerCover", pTowerBGRect);
 		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
 			"towerLbl", "Tower", { (SCREEN_WIDTH / 2) - 196, (SCREEN_HEIGHT / 2) - 105, 100, 40 }, "Systema_22", "White");
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
 			"closeTPurchaseTab", { (SCREEN_WIDTH / 2) + 169, (SCREEN_HEIGHT / 2) - 85, 25, 25 }, "MedBtnNormal");
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), "confirmChanges",
+		{ pTowerBGRect.x + pTowerBGRect.w - 90, pTowerBGRect.y + pTowerBGRect.h - 75, 80, 30 }, "MedBtnNormal");
 		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
 			"closeTPurchaseTab", "X", "Systema_22", "Black");
+
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), "cancelChanges",
+		{ pTowerBGRect.x + pTowerBGRect.w - 90, pTowerBGRect.y + pTowerBGRect.h - 40, 80, 30 }, "MedBtnNormal");
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->
 			GetButton("closeTPurchaseTab")->GetLabel()->SetPadding({ 1, 0, 0, 0 });
 		ClientAPI::GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->Active = false;
