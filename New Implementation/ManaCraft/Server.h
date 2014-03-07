@@ -7,14 +7,8 @@
 //#include <iostream>
 
 #include <vector>
-
 #include "BlockingQueue.h"
-//#include "Connection.h"
 #include "ClientLiaison.h"
-//#include "Command_IntFloatProduct.h"
-//#include "Command_TripleAFloat.h"
-//#include "TestCommand.h"
-//#include "Command_CreateNewGame.h"
 #include "GameModel.h"
 #include "GameManager.h"
 #include "ServerCommand.h"

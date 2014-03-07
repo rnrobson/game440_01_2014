@@ -1,11 +1,9 @@
 #include "GameManager.h"
 
 
-/// <summary>[Server]
-/// <para>The Server's Constructor</para>
-/// </summary>
 std::vector<GameModel*> GameManager::games;
-const int GameManager::MAX_GAMES = 10;
+const unsigned int GameManager::MAX_GAMES = 10;
+unsigned int GameManager::numRunningGames = 0;
 
 GameManager::GameManager()
 {

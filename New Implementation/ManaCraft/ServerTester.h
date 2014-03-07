@@ -18,6 +18,7 @@ public:
 
 	void Test_Command_IntFloatProduct();
 	void Test_Command_TripleAFloat();
+	void Test_Command_CreateNewGame();
 };
 
 #endif

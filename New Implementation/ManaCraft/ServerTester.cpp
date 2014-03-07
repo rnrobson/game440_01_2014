@@ -22,7 +22,6 @@ void ServerTester::Test_Command_TripleAFloat()
 	Reset();
 	Params_TripleAFloat* params;
 	Command_TripleAFloat* testCommand;
-	//for (float i = numberOfTests / (-10.0f); i <= numberOfTests / (10.0f); i += numberOfTests / (5.0f*numberOfTests))
 	for (int i = numberOfTests / (-2); i <= numberOfTests / 2; i++)
 	{
 		params = new Params_TripleAFloat(i / 10.0f);
@@ -45,7 +44,6 @@ void ServerTester::Test_Command_IntFloatProduct()
 	Reset();
 	for (int i = numberOfTests/(-2); i <= numberOfTests/2; i++)
 	{
-		//for (float j = numtests-100.0f; j < 100.0f; j++)
 		for (float j = numberOfTests / (-10.0f); j <= numberOfTests / (10.0f); j += numberOfTests / (5.0f*numberOfTests))
 		{
 			Params_IntFloatProduct* params = new Params_IntFloatProduct(j, i);
@@ -64,4 +62,47 @@ void ServerTester::Test_Command_IntFloatProduct()
 		}
 	}
 	printf("\n\nTest_Command_IntFloatProduct Complete: %i Passes, %i Failures", numTestsPassed, numTestsFailed);
+}
+void ServerTester::Test_Command_CreateNewGame()
+{
+	Reset();
+	
+	Command_CreateNewGame* command;
+	int numGames;
+
+	//no new games should be created for a -ve or 0 id 
+	for (int i = numberOfTests / (-2);i<1;i++)
+	{
+		numGames = GameManager::games.size();
+		command = new Command_CreateNewGame(&i);
+		command->Execute();
+		if (GameManager::games.size() == numGames)
+			numTestsPassed++;
+		else
+			numTestsFailed++;
+	}
+	//games should be created for values from 1 - max_games
+	for (int i = 1; i <= GameManager::MAX_GAMES; i++)
+	{
+		numGames = GameManager::games.size();
+		command = new Command_CreateNewGame(&i);
+		command->Execute();
+		if (GameManager::games.size()> numGames)
+			numTestsPassed++;
+		else
+			numTestsFailed++;
+	}
+	//no new games for if already at max_games
+	for (int i = GameManager::MAX_GAMES + 1; i <= numberOfTests / 2; i++)
+	{
+		numGames = GameManager::games.size();
+		command = new Command_CreateNewGame(&i);
+		command->Execute();
+		if (GameManager::games.size()== numGames)
+			numTestsPassed++;
+		else
+			numTestsFailed++;
+	}
+
+	printf("\n\nTest_Command_CreateNewGame Complete: %i Passes, %i Failures", numTestsPassed, numTestsFailed);
 }

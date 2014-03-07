@@ -9,20 +9,32 @@ class Command_CreateNewGame : public ServerCommand
 public:
 	Command_CreateNewGame(void* _data)
 	{
-		data = _data;
+		
+			data = _data;
 	}
 	~Command_CreateNewGame(){}
 
 	void Execute()
 	{
-		GameModel* game = new GameModel(*(unsigned int*)data);
-		if (GameManager::games.size() <  GameManager::MAX_GAMES)
+		if (*(int*)data<1)
 		{
-			GameManager::games.push_back(game);
+			cout << "invalid game id";
+			cout << endl; 
 		}
-		else
-		{
-			cout << "Max Games Reached - Unable to create new game";
+		else{
+
+			GameModel* game = new GameModel(*(unsigned int*)data);
+			if (GameManager::games.size() < GameManager::MAX_GAMES)
+			{
+				GameManager::games.push_back(game);
+				cout << "Created new game - Number of games: " << GameManager::games.size();
+				cout << endl;
+			}
+			else
+			{
+				cout << "Max Games Reached - Unable to create new game";
+				cout << endl;
+			}
 		}
 	}
 };

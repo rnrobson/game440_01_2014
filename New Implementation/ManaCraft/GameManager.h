@@ -7,19 +7,16 @@
 
 class GameManager {
 private:
-
-	unsigned int numRunningGames = 0;
 	
 	void Init();
 
-
 public:
-	static const int MAX_GAMES;
+	static const unsigned int MAX_GAMES;
+	static unsigned int numRunningGames;
 	static std::vector<GameModel*> games;
+	
 	GameManager();
-	GameManager(unsigned int id);
 	~GameManager();
-
 };
 
 #endif
