@@ -1,35 +1,29 @@
 #include "ParticleSystem.h"
 
-//ParticleSystem::DIRECTION;
-ParticleSystem::ParticleSystem(size_t _numberOfParticles, SDL_Texture* _texture, bool _randomSpeeds)
-{
-	particleTexture = _texture;
-	randomSpeeds = _randomSpeeds;
-	Initialize(_numberOfParticles);
-}
-ParticleSystem::ParticleSystem(size_t _numberOfParticles, SDL_Texture* _texture, float _particleSpeed)
-{
-	randomSpeeds = false;
-	particleTexture = _texture;
-	particleSpeed = _particleSpeed;
-	Initialize(_numberOfParticles);
-}
-ParticleSystem::~ParticleSystem(){}
+/* Default Particle System */
+ParticleSystem::ParticleSystem(){};
+ParticleSystem::~ParticleSystem(){};
 
+void ParticleSystem::SetPosition(float x, float y)
+{
+	for (size_t i = 0; i < particleList.size(); i++)
+	{
+		particleList.at(i)->SetOriginalPosition(x, y);
+		particleList.at(i)->SetPosition(x, y);
+	}
+}
+void ParticleSystem::SetSpeed(float _speed)
+{
+	particleSpeed = _speed;
+}
 void ParticleSystem::Initialize(size_t particleNum)
 {
 	for (size_t i = 0; i < particleNum; i++)
 	{
 		if (particleTexture != nullptr)
 		{
-			if (!randomSpeeds)
-			{
-				particleList.push_back(new Particle(particleTexture, particleSpeed));
-			}
-			else
-			{
-				particleList.push_back(new Particle(particleTexture));
-			}
+			Particle* myParticle = new Particle(particleTexture);
+			particleList.push_back(myParticle);
 		}
 	}
 }
@@ -47,8 +41,22 @@ void ParticleSystem::Draw()
 		}
 	}
 }
+void ParticleSystem::Update(double time){}
+void ParticleSystem::Setup(){}
 
-void ParticleSystem::Update(double time)
+/* Burst Particle System */
+Burst::Burst(){};
+Burst::Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating)
+{
+	SetTexture(texture);
+	SetRepeat(isRepeating);
+	SetSpeed(particleSpeed);
+	SetRandom(randomSpeeds);
+
+	ParticleSystem::Initialize(numberOfParticles);
+	Setup();
+}
+void Burst::Update(double time)
 {
 	bool particleListOccupied = false;
 	if (Active)
@@ -62,50 +70,112 @@ void ParticleSystem::Update(double time)
 					particleListOccupied = true;
 					particleList.at(i)->Update(time);
 				}
+				else if (isRepeating())
+				{
+					particleList.at(i)->ResetParticle(); //Reset the particle
+
+					if (isRandomSpeeds())
+						particleList.at(i)->SetSpeed((rand() % 20) + 5); //Set a new random speed
+				}
 
 			}
 		}
 	}
-	if (!particleListOccupied)
+	if (!isRepeating())
 	{
-		particleList.clear();
-		Active = false;
+		if (!particleListOccupied)
+		{
+			particleList.clear();
+			Active = false;
+		}
 	}
 }
-
-void ParticleSystem::Burst()
+void Burst::Setup()
 {
-	//Spread the particles out along a circle
+	//Set the direction of each particle
 	for (size_t i = 0; i < particleList.size(); i++)
 	{
 		float inDegrees = 360 / particleList.size();
-		float inRadians = inDegrees * (3.14f / 180);
-		particleList[i]->SetDirection(sin(inRadians*i), cos(inRadians*i));
+		float inRadians = inDegrees * (180 / 3.14f);
+
+		if (!isRandomSpeeds())
+			particleList.at(i)->SetSpeed(GetSpeed());
+		else
+			particleList.at(i)->SetSpeed(rand() % 20 + 5);
+
+		particleList.at(i)->SetDirection(sin(inRadians*i), cos(inRadians*i));
+	}
+
+}
+
+
+/* Emitter Particle System */
+Emitter::Emitter(){};
+Emitter::Emitter(size_t numberOfParticles, SDL_Texture* texture, bool isRepeating, int _xDirection, int _yDirection)
+{
+	timer = 0;
+	SetTexture(texture);
+	SetRepeat(isRepeating);
+	SetRandom(true);
+
+	xDirection = _xDirection;
+	yDirection = _yDirection;
+
+	ParticleSystem::Initialize(numberOfParticles);
+	Setup();
+}
+
+void Emitter::Update(double time)
+{
+	bool particleListOccupied = false;
+	if (Active)
+	{
+		if (particleList.size() != 0)
+		{
+			for (size_t i = 0; i < particleList.size(); i++)
+			{
+				if (particleList.at(i)->isAlive())
+				{
+						particleListOccupied = true;
+						particleList.at(i)->Update(time);
+				}
+				else if (isRepeating())
+				{
+					particleList.at(i)->ResetParticle(); //Reset the particle
+					particleList.at(i)->SetSpeed((rand() % 20) + 5); //Set a new random speed
+					particleList.at(i)->SetPosition(rand() % (GetPosition().x + 1) + 10,
+													rand() % (GetPosition().y + 1) + 10);
+
+				}
+
+			}
+		}
+	}
+	else if (!isRepeating())
+	{
+		if (!particleListOccupied)
+		{
+			particleList.clear();
+			Active = false;
+		}
 	}
 }
 
-/*void ParticleSystem::Emit(DIRECTION emitterDirection)
-{
-	//Determines which direction the emitter will emit.
-	Vector2 tempEmitterDirection;
-	/*switch (emitterDirection){
-	case UP:
-		tempEmitterDirection = Vector2(0, 1);
-		break;
-	case DOWN:
-		tempEmitterDirection = Vector2(0, -1);
-		break;
-	case LEFT:
-		tempEmitterDirection = Vector2(1, 0);
-		break;
-	case RIGHT:
-		tempEmitterDirection = Vector2(-1, 0);
-		break;
-	}
 
+void Emitter::Setup()
+{
 	for (size_t i = 0; i < particleList.size(); i++)
 	{
-		//particleList.at(i)->SetDirection(tempEmitterDirection.x, 
-			//						     tempEmitterDirection.y);
+		if (!isRandomSpeeds())
+			particleList.at(i)->SetSpeed(GetSpeed());
+		else
+			particleList.at(i)->SetSpeed(rand() % 5 + 5);
+
+		particleList.at(i)->SetPosition(rand() % (GetPosition().x+5) + 10,
+										rand() % (GetPosition().y+15) + 10);
+
+
+		particleList.at(i)->SetDirection(xDirection, yDirection);
 	}
-} */
+}
+
