@@ -81,7 +81,6 @@ public:
 			tower->range = 20;
 			tower->firingRate = 2.0f;
 			tower->damage = 3.0f;
-			tower->damagePerSecond = 6.0f;
 			tower->attackType = 'd';
 			tower->sellAmount = 50;
 			tower->summonCost = 100;
