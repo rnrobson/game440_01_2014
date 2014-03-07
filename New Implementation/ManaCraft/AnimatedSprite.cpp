@@ -1,29 +1,32 @@
 #include "AnimatedSprite.h"
 
-const int NUMFRAMES = 16;//minion spritesheets have 4 rows and 4 columns
-int columns = 4;
 
-SDL_Rect clips[NUMFRAMES];
-
-AnimatedSprite::AnimatedSprite(SDL_Texture *tex, SDL_Renderer *renderer, int posX, int posY) 
-	:Sprite(tex,renderer,posX,posY)
+AnimatedSprite::AnimatedSprite(SDL_Texture *tex, int posX, int posY, int sheetSzX, int sheetSzY)
+:Sprite(tex, posX, posY)
 {
 	SDL_QueryTexture(tex, NULL, NULL, &width, &height);
-	
+
 	sheet = tex;
-	ren = renderer;
 	x = posX;
 	y = posY;
-
+	sheetX = sheetSzX;
+	sheetY = sheetSzY;
+	
+	//clips.reserve(sheetX*sheetY);
+	clips.resize(sheetX * sheetY);
 	//only animating minions
-	width /= NUMFRAMES; //width of each frame
-	for (int i = 0; i < NUMFRAMES; i++)
+	width /= sheetX; //width of each frame
+	height /= sheetY;
+	for (int j = 0; j < sheetY; j++)
 	{
-		row = 1;
-		clips[i].x = i*width;
-		clips[i].y = row*height;
-		clips[i].w = width;
-		clips[i].h = height;
+		for (int i = 0; i < sheetX; i++)
+		{
+			//clips.push_back(SDL_Rect{ 0, 0, 0, 0 });
+			clips[i + j * sheetX].x = i*width;
+			clips[i + j * sheetX].y = j*height;
+			clips[i + j * sheetX].w = width;
+			clips[i + j * sheetX].h = height;
+		}
 	}
 	currentFrame = 0;
 	lastUpdated = SDL_GetTicks();
@@ -35,49 +38,50 @@ AnimatedSprite::~AnimatedSprite()
 
 void AnimatedSprite::Left()
 {
+	
 	row = LEFT;
-	currentFrame = row * columns;
+	currentFrame = row * sheetY;
 }
 void AnimatedSprite::Right()
 {
 	row = RIGHT;
-	currentFrame = row * columns;
+	currentFrame = row * sheetY;
 }
 void AnimatedSprite::Up()
 {
 	row = UP;
-	currentFrame = row * columns;
+	currentFrame = row * sheetY;
 }
 void AnimatedSprite::Down()
 {
 	row = DOWN;
-	currentFrame = row * columns;
+	currentFrame = row * sheetY;
 }
 void AnimatedSprite::Update()
 {
 	timeElapsed = SDL_GetTicks();
 	if (timeElapsed - lastUpdated >= 83)//about 12 frames/second 1000ms/12frames=83.3
 	{
-		Sprite::RenderTexture(sheet, ren, x, y, &clips[currentFrame]);
-		if (row = LEFT)
+		Sprite::RenderTexture(sheet, Window::Renderer(), x, y, &clips[currentFrame]);
+		if (row == LEFT)
 		{
-			if (currentFrame == (row * columns) + columns - 1)//when left animation reaches last frame, set animation back to first frame
-				currentFrame = row * columns;
+			if (currentFrame == (row * sheetY) + sheetY - 1)//when left animation reaches last frame, set animation back to first frame
+				currentFrame = row * sheetY;
 		}
-		else if (row = RIGHT)
+		else if (row == RIGHT)
 		{
-			if (currentFrame == (row * columns) + columns - 1)
-				currentFrame = row * columns;
+			if (currentFrame == (row * sheetY) + sheetY - 1)
+				currentFrame = row * sheetY;
 		}
-		else if (row = UP)
+		else if (row == UP)
 		{
-			if (currentFrame == (row * columns) + columns - 1)
-				currentFrame = row * columns;
+			if (currentFrame == (row * sheetY) + sheetY - 1)
+				currentFrame = row * sheetY;
 		}
-		else if (row = DOWN)
+		else if (row == DOWN)
 		{
-			if (currentFrame == (row * columns) + columns - 1)
-				currentFrame = row * columns;
+			if (currentFrame == (row * sheetY) + sheetY - 1)
+				currentFrame = row * sheetY;
 		}
 		
 		currentFrame++;
