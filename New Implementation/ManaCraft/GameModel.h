@@ -62,13 +62,13 @@ public:
 		for (int i = 0; i < MAX_MINIONS; i++)
 		{
 			Minion* minion = new Minion();
-			minion->health = 100.0f;
+			minion->health = 100;
 			minion->xPos = 10.0f;
 			minion->yPos = 20.0f;
 			minion->manaPerSecond = 10.0f;
 			minion->armour = 50;
 			minion->speed = 3;
-			minion->damage = 5.0f;
+			minion->damage = 5;
 			minion->researchCost = 50;
 			minion->level = 1;
 			minion->name = "Generic Minion";
@@ -80,7 +80,7 @@ public:
 			Tower* tower = new Tower();
 			tower->range = 20;
 			tower->firingRate = 2.0f;
-			tower->damage = 3.0f;
+			tower->damage = 3;
 			tower->attackType = 'd';
 			tower->sellAmount = 50;
 			tower->summonCost = 100;

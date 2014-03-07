@@ -16,28 +16,20 @@
 //#include "TestCommand.h"
 //#include "Command_CreateNewGame.h"
 #include "GameModel.h"
-
-//#include "ServerIncludes.h"
-//#include "ServerTester.h"
+#include "GameManager.h"
 #include "ServerCommand.h"
 #include "ServerCommandIncludes.h"
+#include "ServerTester.h"
 
 class Server {
 private:
 	bool running;
-	
 	unsigned int numRunningGames = 0;
 	BlockingQueue<ServerCommand*> workQueue;
-	
-	
-
+	GameManager* gameManager;
 	void Init();
 
-
 public:
-	static const int MAX_GAMES;
-	static std::vector<GameModel*> games;
-	
 	Server();
 	~Server();
 

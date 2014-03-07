@@ -234,6 +234,9 @@
     <ClCompile Include="ServerTester.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -477,6 +480,9 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="Command_TripleAFloat.h">
+      <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>

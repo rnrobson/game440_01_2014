@@ -1,18 +1,11 @@
 #include "Server.h"
 
-
 /// <summary>[Server]
 /// <para>The Server's Constructor</para>
 /// </summary>
-std::vector<GameModel*> Server::games;
-const int Server::MAX_GAMES = 10;
-
 Server::Server()
 {
-	
 	Init();
-	
-
 }
 /// <summary>[Run]
 /// <para>This method starts running the server</para>
@@ -27,12 +20,27 @@ void Server::Run()
 	tester->Test_Command_IntFloatProduct();
 	std::cout << "\nRunning all tests...";
 	tester->RunAllTests();*/
-	unsigned int id = 2;
-	/*Command_CreateNewGame* command = new Command_CreateNewGame(&id);
-	command->Execute();*/
-	/*id++;
+	unsigned int id = 1;
+	ServerCommand* command = new Command_CreateNewGame(&id);
+	workQueue.push(command);
+	cout << "New Game Command - game id: " << id;
+	cout << endl;
+	id++;
 	command = new Command_CreateNewGame(&id);
-	command->Execute();*/
+	workQueue.push(command);
+	cout << "New Game Command - game id: "<< id;
+	cout << endl;
+
+	workQueue.front()->Execute();
+	workQueue.pop();
+		
+	cout << "Created new game - Number of games: " << GameManager::games.size();
+	cout << endl;
+	workQueue.front()->Execute();
+	workQueue.pop();
+	cout << "Created new game - Number of games: " << GameManager::games.size();
+	cout << endl;
+	
 
 	getchar();
 }
@@ -51,19 +59,10 @@ Server::~Server()
 /// </summary>
 void Server::Init()
 {
-	//setting limit of running games
-	//games.reserve(MAX_GAMES);
-	//
-	////creating a new hardcoded game
-	//GameModel* game1 = new GameModel();
-	//games.push_back(game1);
+	
 
-	//for each (GameModel* game in games)
-	//{
-	//	std::cout << game->towers[0]->name;
-	//}
-	////commenting out because it prevents anything else from displaying on the console
+	gameManager = new GameManager();
+
+	//commenting out because it prevents anything else from displaying on the console
 	//ClientLiaison::Run();
-
-
 }
