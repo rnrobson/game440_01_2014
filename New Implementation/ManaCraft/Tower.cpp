@@ -9,3 +9,58 @@ Tower::Tower(void)
 Tower::~Tower(void)
 {
 }
+
+Tower* Tower::buildFromRow(mysqlpp::Row row) {
+	using namespace ManaCraft::Database;
+
+	try {
+		Tower* temp = new Tower();
+		int rowID = atoi(row[TableInfo::Towers::ID].c_str());
+		temp->ID = static_cast<TowerTypes>(rowID);
+
+		int elementId = atoi(row[TableInfo::Towers::ELEMENT].c_str());
+		temp->elementID = static_cast<ElementTypes>(elementId);
+
+		temp->name = std::string(row[TableInfo::Towers::NAME].c_str());
+		temp->attackType = std::string(row[TableInfo::Towers::ATTACK_TYPE].c_str());
+
+		temp->damage = atoi(row[TableInfo::Towers::DAMAGE].c_str());
+		temp->range = atoi(row[TableInfo::Towers::RANGE].c_str());
+		temp->firingRate = (float) atof(row[TableInfo::Towers::FIRING_RATE].c_str());
+		temp->cost = atoi(row[TableInfo::Towers::COST].c_str());
+		return temp;
+	}
+	catch (Exception e) {
+		// If anything this would be some sort of access violation
+	}
+
+	return nullptr;
+}
+
+std::vector<Tower*> Tower::fetchAllFromDB() {
+	using namespace ManaCraft::Database;
+
+	try {
+		std::cout << "Querying Tower Table\n";
+
+		Query query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "SELECT * FROM Towers";
+
+		std::vector<Tower*> towers = std::vector<Tower*>();
+
+		if (UseQueryResult result = query.use()) {
+			std::cout << "Obtained Result from Tower query\n";
+			Row row;
+
+			while (row = result.fetch_row()) {
+				Tower* e = buildFromRow(row);
+				towers.push_back(e);
+			}
+		}
+		return towers;
+	}
+	catch (Exception e) {
+		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+	}
+}

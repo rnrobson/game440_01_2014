@@ -1,4 +1,4 @@
-#define CLIENT_BUILD 1
+#define CLIENT_BUILD 0
 #define SERVER_BUILD 0
 
 #include <SDL.h>
@@ -38,7 +38,7 @@ void TransferControlToServer();
 #endif
 
 #if !CLIENT_BUILD && !SERVER_BUILD
-
+#include "TestDatabase.h"
 #endif
 
 int main(int argc, char* argcs[]) {
@@ -67,6 +67,9 @@ int main(int argc, char* argcs[]) {
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
+
+	ManaCraft::Database::TestDatabase::runTests();
+
 	std::cin.get();
 #endif
 	return 0;

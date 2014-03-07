@@ -3,6 +3,10 @@
 
 #include <iostream>
 #include "DatabaseAPI.h"
+#include "Minion.h"
+#include "Tower.h"
+#include "Element.h"
+#include "Resistances.h"
 
 namespace ManaCraft {
 	namespace Database {
@@ -29,6 +33,11 @@ namespace ManaCraft {
 			/// <para>queryDatabase</para>
 			/// </summary>
 			static void testQuery();
+
+			static void testLoadMinions();
+			static void testLoadTowers();
+			static void testLoadElements();
+			static void testLoadResistances();
 
 		public:
 			/// <summary>

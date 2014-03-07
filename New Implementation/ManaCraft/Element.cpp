@@ -9,10 +9,12 @@ Element* Element::buildFromRow(mysqlpp::Row row) {
 
 	try {
 		Element* temp = new Element();
-		temp->type = *(row[TableInfo::Elements::TYPE].c_str());
-		temp->weakness = *(row[TableInfo::Elements::WEAKNESS].c_str());
-		temp->strength = *(row[TableInfo::Elements::STRENGTH].c_str());
-		
+		int rowID = atoi(row[TableInfo::Elements::ID].c_str());
+		temp->ID = static_cast<ElementTypes>(rowID);
+
+		temp->type = std::string(row[TableInfo::Elements::TYPE].c_str());
+		temp->weakness = std::string(row[TableInfo::Elements::WEAKNESS].c_str());
+		temp->strength = std::string(row[TableInfo::Elements::STRENGTH].c_str());
 		return temp;
 	}
 	catch (Exception e) {
@@ -22,19 +24,25 @@ Element* Element::buildFromRow(mysqlpp::Row row) {
 	return nullptr;
 }
 
-std::vector<Element> Element::fetchAllFromDB() {
+std::vector<Element*> Element::fetchAllFromDB() {
 	using namespace ManaCraft::Database;
 
 	try {
-		Query query = DatabaseAPI::queryDatabase("SELECT * FROM Elements");
-		std::vector<Element> elements = std::vector<Element>();
+		std::cout << "Querying Element Table\n";
+
+		Query query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "SELECT * FROM Elements";
+
+		std::vector<Element*> elements = std::vector<Element*>();
 		
 		if (UseQueryResult result = query.use()) {
+			std::cout << "Obtained Result from Element query\n";
 			Row row;
 		
 			while (row = result.fetch_row()) {
 				Element* e = buildFromRow(row);
-				elements.push_back(*e);
+				elements.push_back(e);
 			}
 		}
 		return elements;

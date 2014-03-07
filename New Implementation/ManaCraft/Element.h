@@ -10,7 +10,7 @@ private:
 	static Element* buildFromRow(mysqlpp::Row row);
 
 public:
-	ManaCraft::Database::ElementTypes id;
+	ManaCraft::Database::ElementTypes ID;
 
 	std::string type;
 	std::string weakness;
@@ -19,7 +19,7 @@ public:
 	Element();
 	~Element();
 
-	static std::vector<Element> fetchAllFromDB();
+	static std::vector<Element*> fetchAllFromDB();
 };
 
 #endif
