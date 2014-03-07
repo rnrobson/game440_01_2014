@@ -5,7 +5,7 @@ bool ClientLiaison::running = false;
 Networking::Connection master(NULL, 25508);
 std::vector<Networking::Connection*> ClientLiaison::connections = std::vector<Networking::Connection*>();
 BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
-BlockingQueue<byte*> ClientLiaison::dataToWorker = BlockingQueue<byte*>();
+BlockingQueue<Byte*> ClientLiaison::dataToWorker = BlockingQueue<Byte*>();
 
 SDL_Thread *incoming, *outgoing;
 
@@ -63,7 +63,7 @@ int ClientLiaison::ClientListen(void*) {
 			std::cout << "connected" << std::endl;
 
 			for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
-				byte* buf = nullptr;
+				Byte* buf = nullptr;
 				int len;
 
 				len = (*iter)->ReceiveData(&buf);
@@ -87,14 +87,13 @@ void ClientLiaison::SendToWorker() {
 	bool sending = true;
 
 	while(sending) {
-		byte* buf = nullptr;
-		int len;
+		Byte* buf = nullptr;
 
 		buf = dataToWorker.pop();
 
 		__int16 protocolID = Networking::Deserialize::Int16(buf);
 		std::cout << "Protocol: " << protocolID << std::endl;
-		buf += sizeof(byte)* 2;
+		buf += sizeof(Byte)* 2;
 		std::cout << "Message: " << buf << std::endl;
 	}
 } //Test code to test receiving a message.

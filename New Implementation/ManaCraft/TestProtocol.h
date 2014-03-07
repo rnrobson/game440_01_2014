@@ -6,7 +6,7 @@
 #include <iostream>
 
 namespace ManaCraft {
-	namespace Networking {
+	namespace Testbed {
 		// Will be testing the serialization and deserialization of the Game Lobby type protocols
 		class TestProtocol {
 		private:			
@@ -31,14 +31,14 @@ namespace ManaCraft {
 			/// <para>Runs through a switch statement and checks if the given protocol is defined in the enum or not.</para>
 			/// <para> [Protocol] The protocol to test the switch upon.</para>
 			/// </summary>
-			bool TestCSProtocols(CS_Protocol protocol);
+			bool TestCSProtocols(ManaCraft::Networking::CS_Protocol protocol);
 			
 
 			/// <summary>TestSCProtocols
 			/// <para> Runs through a switch statement and checks if the given protocol is defined in the enum or not.</para>
 			/// <para> [Protocol] the protocol to the the switch upon.</para>
 			/// </summary>
-			bool TestSCProtocols(SC_Protocol protocol);
+			bool TestSCProtocols(ManaCraft::Networking::SC_Protocol protocol);
 		public:
 			/// <summary>Creates an object of TestProtocol to enable one to test the serialization and deserialization of the protocols
 			/// <para>[testCount] Is the amount of tests that will be run on each protocol</para>

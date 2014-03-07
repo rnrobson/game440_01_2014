@@ -1,11 +1,12 @@
 #include "Server.h"
-#include "ClientLiaison.h"
-#include "ServerIncludes.h"
-#include "ServerCommandTester.h"
+
 
 /// <summary>[Server]
 /// <para>The Server's Constructor</para>
 /// </summary>
+std::vector<GameModel*> Server::games;
+const int Server::MAX_GAMES = 10;
+
 Server::Server()
 {
 	
@@ -13,22 +14,26 @@ Server::Server()
 	
 
 }
-
+/// <summary>[Run]
+/// <para>This method starts running the server</para>
+/// </summary>
 void Server::Run()
 {
-	/*workQueue.push(ServerCommand((void *)1, CS_PLACE_TOWER));
-	ServerCommand *runningCommand = &workQueue.pop();
-	void *data = runningCommand->getData();
-	runningCommand->Execute(data);*/
-
-
-	ServerCommandTester* tester = new ServerCommandTester(50);
-	std::cout << "\nrunning TestTripleAFloatCommand...";
-	tester->TestTripleAFloatCommand();
-	std::cout << "\nrunning TestIntFloatProductCommand...";
-	tester->TestIntFloatProductCommand();
+/*
+	ServerTester* tester = new ServerTester(50);
+	std::cout << "\nrunning Test_Command_TripleAFloat...";
+	tester->Test_Command_TripleAFloat();
+	std::cout << "\nrunning Test_Command_IntFloatProduct...";
+	tester->Test_Command_IntFloatProduct();
 	std::cout << "\nRunning all tests...";
-	tester->RunAllTests();
+	tester->RunAllTests();*/
+	unsigned int id = 2;
+	/*Command_CreateNewGame* command = new Command_CreateNewGame(&id);
+	command->Execute();*/
+	/*id++;
+	command = new Command_CreateNewGame(&id);
+	command->Execute();*/
+
 	getchar();
 }
 
@@ -47,13 +52,17 @@ Server::~Server()
 void Server::Init()
 {
 	//setting limit of running games
-	games.reserve(MAX_GAMES);
-	
-	//creating a new hardcoded game
-	GameModel* game1 = new GameModel();
-	games.push_back(game1);
+	//games.reserve(MAX_GAMES);
+	//
+	////creating a new hardcoded game
+	//GameModel* game1 = new GameModel();
+	//games.push_back(game1);
 
-	//commenting out because it prevents anything else from displaying on the console
+	//for each (GameModel* game in games)
+	//{
+	//	std::cout << game->towers[0]->name;
+	//}
+	////commenting out because it prevents anything else from displaying on the console
 	//ClientLiaison::Run();
 
 

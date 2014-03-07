@@ -1,7 +1,7 @@
 #ifndef PACKET_H
 #define PACKET_H
 
-typedef char byte;
+typedef char Byte;
 
 namespace ManaCraft {
 	namespace Networking {
@@ -9,9 +9,9 @@ namespace ManaCraft {
 		private:
 			short mProtocolID;
 			short mDataLength;
-			const byte* mSecurityHeader;
-			byte* mData;
-			byte* mPayload;
+			const Byte* mSecurityHeader;
+			Byte* mData;
+			Byte* mPayload;
 
 			// Rebuild Payload
 			void NewPayload();
@@ -28,32 +28,32 @@ namespace ManaCraft {
 
 			/// <summary>[Packet]
 			/// <para>Send data over the current network connection.</para>
-			/// <para>[byte* securityHeader] Should point to 4 pre-allocated bytes.</para>
-			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
-			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
+			/// <para>[Byte* securityHeader] Should point to 4 pre-allocated Bytes.</para>
+			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
+			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
 			/// </summary>
-			Packet(const byte* securityHeader, short protocolID, byte* data);
+			Packet(const Byte* securityHeader, short protocolID, Byte* data);
 
 			// Destructor (Not used currently)
 			~Packet();
 
 			/// <summary>[SetProtocolID]
 			/// <para>[SETTER] Set the packet porotocol ID.</para>
-			/// <para>[byte protocolID] A protocol id that represents the type of data being sent.</para>
+			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// </summary>
 			void SetProtocolID(short newProtocolID);
 
 			/// <summary>[SetData]
 			/// <para>[SETTER] Set the packet data.</para>
-			/// <para>[byte* data] A pre-allocated array of bytes of data to be sent.</para>
+			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
 			/// </summary>
-			void SetData(byte* newData);
+			void SetData(Byte* newData);
 
 			/// <summary>[GetSecurityHeader]
 			/// <para>[GETTER] Get the packet security header.</para>
 			/// <returns>Returns the packet security header.</returns>
 			/// </summary>
-			const byte* GetSecurityHeader() const;
+			const Byte* GetSecurityHeader() const;
 
 			/// <summary>[GetProtocolID]
 			/// <para>[GETTER] Get the packet porotocol ID.</para>
@@ -65,7 +65,7 @@ namespace ManaCraft {
 			/// <para>[GETTER] Get the packet's data.</para>
 			/// <returns>Returns the packet's data.</returns>
 			/// </summary>
-			byte* GetData() const;
+			Byte* GetData() const;
 
 			/// <summary>[GetDataLength]
 			/// <para>[GETTER] Get the length of the data.</para>
@@ -74,10 +74,10 @@ namespace ManaCraft {
 			short GetDataLength() const;
 
 			/// <summary>[Payload]
-			/// <para>[GETTER] Get the packet in bytes.</para>
-			/// <returns>Returns the packet as an array of bytes.</returns>
+			/// <para>[GETTER] Get the packet in Bytes.</para>
+			/// <returns>Returns the packet as an array of Bytes.</returns>
 			/// </summary>
-			byte* GetPayload() const;
+			Byte* GetPayload() const;
 
 			/// <summary>[PayloadSize]
 			/// <para>[GETTER] Get the size of the payload.</para>

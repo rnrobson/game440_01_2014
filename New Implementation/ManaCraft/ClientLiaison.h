@@ -12,13 +12,13 @@
 
 using namespace ManaCraft;
 
-		static class ClientLiaison {
+		class ClientLiaison {
 		private:
 			static bool running;
 
 			//static Networking::Connection master;
 			static std::vector<Networking::Connection*> connections;
-			static BlockingQueue<byte*> dataToWorker;
+			static BlockingQueue<Byte*> dataToWorker;
 			static BlockingQueue<int> dataToClient;
 
 			/// <summary>[InitLiaison]

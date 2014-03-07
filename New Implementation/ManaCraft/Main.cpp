@@ -1,5 +1,9 @@
 #define CLIENT_BUILD 0
+<<<<<<< HEAD
 #define SERVER_BUILD 0
+=======
+#define SERVER_BUILD 1
+>>>>>>> 1785a26902c077e81106578eb782fbbd66367ff5
 
 #include <SDL.h>
 #include <SDL_net.h>
@@ -153,5 +157,6 @@ void TransferControlToServer() {
 	SDLNet_Init();
 	Server *gameServer = new Server();
 	gameServer->Run();
+
 }
 #endif
