@@ -485,5 +485,8 @@
     <ClInclude Include="GameManager.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

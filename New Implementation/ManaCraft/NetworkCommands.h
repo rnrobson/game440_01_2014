@@ -3,7 +3,7 @@
 #include "Connection.h"
 #include "Protocol.h"
 
-/// <summary> author : Brian Lefrancois
+/// <summary> author : Brian Lefrancois   //WORK IN PROGRESS
 /// <para>NetworkCommands are used to send messages over the network aswell as it will execute messages that are recieved from the network</para>
 /// <para>For Sending: Will require the protocol(Networking/Protocol.h) as well as the data if required. for example: a LogIn command would</para>
 /// <para>require the username the client typed in. While a LogOut command would require just the protocol since the server knows the client's</para>
@@ -19,7 +19,8 @@ public:
 	/// <para>When a message is recieved from the network it will place the protocol in a switch and parse the byte array to extract the data.</para>
 	/// <para>Will always call a method on the client such as a player joining the room, or a player has set his status to "Ready to Play" in the Lobby</para>
 	/// </summary>
-	void RecieveMessage(short protocol, byte* data);
+	
+	//void RecieveMessage(short protocol, byte* data);
 
 	/// <summary>
 	/// <para>Following Commands are for Client to send messages over the network to the server</para>

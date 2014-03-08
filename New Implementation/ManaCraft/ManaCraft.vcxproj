@@ -137,6 +137,7 @@
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="APIEvents.h" />
     <ClInclude Include="APIHelper.h" />
