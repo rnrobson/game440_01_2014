@@ -2,7 +2,7 @@
 #include "Serialize.h"
 #include"ServerIncludes.h"
 bool ClientLiaison::running = false;
-Networking::Connection master(NULL, 25508);
+Networking::Connection master(NULL, 21025);
 std::vector<Networking::Connection*> ClientLiaison::connections = std::vector<Networking::Connection*>();
 BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
 BlockingQueue<Byte*> ClientLiaison::dataToWorker = BlockingQueue<Byte*>();
@@ -45,36 +45,41 @@ int ClientLiaison::SendToClient(void*) {
 int ClientLiaison::ClientListen(void*) {
 	bool listening = true;
 	
-	int i = master.Open();
-
+	int i = master.Open();	
+		
 	std::cout << std::endl << "Master connection attempted to open: " << i << std::endl;
 
 	if(i == 1) {
-		std::cout << "Listening on port: 25508" << std::endl;
+		std::cout << "Listening on port: 21025" << std::endl;
 	} else {
 		std::cout << "Failed to open master connecton." << std::endl;
 	}
 
 	while(listening) {
-		Networking::Connection* connection = master.Listen();
+		try {
+			Networking::Connection* connection = master.Listen();
+			
+			if(connection != NULL) {
+				connections.push_back(connection);
+				std::cout << "connected" << std::endl;
 
-		if(connection != NULL) {
-			connections.push_back(connection);
-			std::cout << "connected" << std::endl;
+				for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
+					Byte* buf = nullptr;
+					int len;
 
-			for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
-				Byte* buf = nullptr;
-				int len;
+					len = (*iter)->ReceiveData(&buf);
 
-				len = (*iter)->ReceiveData(&buf);
-
-
-				if(len > 0) {
-					std::cout << "Data received. Length of data: " << len << std::endl;
-					std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
-					dataToWorker.push(buf);
+					if(len > 0) {
+						std::cout << "Data received. Length of data: " << len << std::endl;
+						std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
+						dataToWorker.push(buf);
+					}
 				}
 			}
+		}
+		catch(Networking::ConnectionNotServerTypeException e) {
+			std::cout << e.what() << std::endl;
+			std::cin.get();
 		}
 	}
 
@@ -91,12 +96,21 @@ void ClientLiaison::SendToWorker() {
 
 		buf = dataToWorker.pop();
 
-		__int16 protocolID = Networking::Deserialize::Int16(buf);
-		std::cout << "Protocol: " << protocolID << std::endl;
+		Networking::CS_Protocol protocolID = (Networking::CS_Protocol)Networking::Deserialize::Int16(buf);
+
 		buf += sizeof(Byte)* 2;
-		std::cout << "Message: " << buf << std::endl;
+
+#pragma region Big Switch
+		switch(protocolID) {
+		default:
+			break;
+		case Networking::LOGIN_PLAYER:
+			break;
+		}
+#pragma endregion
+
 	}
-} //Test code to test receiving a message.
+}
 
 void ClientLiaison::CloseLiaison() {
 	std::cout << "Closing master connection: " << master.Close() << std::endl;

@@ -9,6 +9,7 @@
 
 #include "BlockingQueue.h"
 #include "Connection.h"
+#include "ConnectionException.h"
 
 using namespace ManaCraft;
 
