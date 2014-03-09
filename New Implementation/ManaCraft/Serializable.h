@@ -60,13 +60,13 @@ namespace ManaCraft {
 			/// <para>[Data requiredData] Determines what part of the class should be serialized. </para>
 			/// <return>Returns true on success.</return>
 			/// </summary>
-			virtual bool Serialize(Byte* data, NetData dataFlags) { throw UnsupportedOperationException(); }
+			virtual bool Serialize(Byte* data, Uint16 dataFlags) { throw UnsupportedOperationException(); }
 
 			/// <summary>
 			/// <return>Returns the size of the array if the class were serialized.</return>
 			/// <para>[Data requiredData] Helps determine the length of the data for serialization. </para>
 			/// </summary>
-			virtual int SerializedSize(NetData dataFlags) const { throw UnsupportedOperationException(); }
+			virtual int SerializedSize(Uint16 dataFlags) const { throw UnsupportedOperationException(); }
 
 			/// <summary>Converts all the array of Bytes into class data.
 			///	<para>[char* data] Data should point to an array of preallocated Bytes of size SerializedSize().</para>
