@@ -1,5 +1,5 @@
-#define CLIENT_BUILD 0
-#define SERVER_BUILD 1
+#define CLIENT_BUILD 1
+#define SERVER_BUILD 0
 
 
 #include <SDL.h>
@@ -22,7 +22,6 @@
 #include "Credits.h"
 #include "Options.h"
 #include "GUI.h"
-
 
 //-- Function Prototypes
 void TransferControlToClient();
@@ -119,6 +118,7 @@ void TransferControlToClient() {
 	//==============================================================================================================================\\
 		//==============================================================================================================================\\
 		
+
 	//-- Start the APIs main loop
 	ClientAPI::BeginMainLoop();
 
@@ -154,6 +154,5 @@ void TransferControlToServer() {
 	SDLNet_Init();
 	Server *gameServer = new Server();
 	gameServer->Run();
-
 }
 #endif

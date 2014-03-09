@@ -117,6 +117,7 @@
     <ClCompile Include="Serialize.cpp" />
     <ClCompile Include="Server.cpp" />
     <ClCompile Include="ServerCommand.cpp" />
+    <ClCompile Include="ServerLiason.cpp" />
     <ClCompile Include="ServerTester.cpp" />
     <ClCompile Include="ServerLobby.cpp" />
     <ClCompile Include="ServerPlayer.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="Serialize.h" />
     <ClInclude Include="Server.h" />
     <ClInclude Include="ServerCommandIncludes.h" />
+    <ClInclude Include="ServerLiason.h" />
     <ClInclude Include="ServerTester.h" />
     <ClInclude Include="ServerIncludes.h" />
     <ClInclude Include="ServerLobby.h" />

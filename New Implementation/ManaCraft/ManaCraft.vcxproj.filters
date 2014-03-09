@@ -237,6 +237,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="ServerLiason.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -486,6 +489,9 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerLiason.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>
