@@ -59,5 +59,11 @@
     <ClInclude Include="LoginPopup.h">
       <Filter>Header Files\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="GameViewer.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoutPopUp.h">
+      <Filter>Header Files\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
