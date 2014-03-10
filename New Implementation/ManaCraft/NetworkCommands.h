@@ -19,7 +19,7 @@ public:
 	/// <para>When a message is recieved from the network it will place the protocol in a switch and parse the byte array to extract the data.</para>
 	/// <para>Will always call a method on the client such as a player joining the room, or a player has set his status to "Ready to Play" in the Lobby</para>
 	/// </summary>
-	
+
 	//void RecieveMessage(short protocol, byte* data);
 
 	/// <summary>
@@ -62,7 +62,7 @@ public:
 	void ResearchMinion();
 	void KillMinion(short UniqueID);//TODO:FIX dont know if server will need a unique ID to remove minion
 
-	
+
 
 
 private:
@@ -70,14 +70,14 @@ private:
 	/// <para>The following Commands are for when the Client recieves messages</para>
 	/// <para>All of these will be called from RecieveMessage method at the top</para>
 	/// <para>the Clients ServerLiaison.cpp will call RecieveMessage</para>
-	
+
 	/// <para>TODO:Ultimately, these commands should be in specific classes within the client rather than here</para>
 	/// <para>So if a messages comes in with protocol SPAWN_MINION, this class will </para>
 	/// <para>call a method like GamePlayManager::PlaceMinion(Username, MinionType, Position); 
 	/// </summary>
-	
-	
-	
+
+
+
 
 
 
