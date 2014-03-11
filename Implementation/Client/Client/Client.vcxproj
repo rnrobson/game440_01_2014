@@ -77,8 +77,10 @@
     <ClInclude Include="API_Util.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="GameLobby.h" />
+    <ClInclude Include="GameViewer.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="LoginPopup.h" />
+    <ClInclude Include="LogoutPopUp.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="ScreenFader.h" />

@@ -10,6 +10,8 @@
 #include "Credits.h"
 #include "Options.h"
 #include "GUI.h"
+#include "GameViewer.h"
+#include "LogoutPopUp.h"
 
 
 //-- Function Prototypes
@@ -37,6 +39,8 @@ int main(int argc, char* args[])
 	Options::Load();
 	Credits::Load();
 	GameLobby::Load();
+	GameViewer::Load();
+	LogoutPopUp::Load();
 
 
 	//==============================================================================================================================\\

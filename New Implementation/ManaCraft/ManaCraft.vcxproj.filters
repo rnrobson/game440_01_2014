@@ -488,10 +488,10 @@
     <ClInclude Include="GameManager.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.h">
+    <ClInclude Include="ServerLiason.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
-    <ClInclude Include="ServerLiason.h">
+    <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>

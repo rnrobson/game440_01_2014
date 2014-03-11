@@ -10,6 +10,7 @@ public:
 		const int SCREEN_HEIGHT = Window::Box().h;
 		const int MARGIN_Y = 40;
 		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
+		bool isLoggedIn = false;
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
@@ -126,6 +127,13 @@ public:
 		ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
 	}
 
+	static void Click_logoutButton()
+	{
+		std::cout << "Logout out of network.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
+		ClientAPI::GetGuiContainer("LogoutPopUp")->Active = true;
+	}
+
 	static void Click_createButton()
 	{
 		std::cout << "Create a new game.\n";
@@ -137,6 +145,9 @@ public:
 	static void Click_viewButton()
 	{
 		std::cout << "View saved games.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("GameViewer")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_optionsButton()
