@@ -3,7 +3,7 @@
 #include "Connection.h"
 #include "Protocol.h"
 
-/// <summary> author : Brian Lefrancois   //WORK IN PROGRESS
+/// <summary> author : Brian Lefrancois   //WORK IN PROGRESS - Hi Brian delete this after you see it please.
 /// <para>NetworkCommands are used to send messages over the network aswell as it will execute messages that are recieved from the network</para>
 /// <para>For Sending: Will require the protocol(Networking/Protocol.h) as well as the data if required. for example: a LogIn command would</para>
 /// <para>require the username the client typed in. While a LogOut command would require just the protocol since the server knows the client's</para>

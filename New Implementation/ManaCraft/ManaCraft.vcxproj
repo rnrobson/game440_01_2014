@@ -138,7 +138,6 @@
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.h" />
     <ClInclude Include="AnimatedSprite.h" />
     <ClInclude Include="APIEvents.h" />
     <ClInclude Include="APIHelper.h" />
@@ -164,6 +163,7 @@
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />
     <ClInclude Include="NetBroadcaster.h" />
+    <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
