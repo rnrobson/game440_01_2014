@@ -5,7 +5,7 @@ namespace ManaCraft {
 	namespace Database {
 
 		/// <summary> Enumeration of the different types of towers in the game. </summary>
-		enum TowerTypes
+		enum TowerTypes : int
 		{
 			FLAME = 1,
 			FIREBALL,
@@ -25,7 +25,7 @@ namespace ManaCraft {
 		};
 
 		/// <summary> Enumeration of the different types of Minions in the game. </summary>
-		enum MinionTypes
+		enum MinionTypes : int
 		{
 			BLAZELINGS = 1,
 			BLAZE_ELEMENTAL,
@@ -45,7 +45,7 @@ namespace ManaCraft {
 		};
 
 		/// <summary> Enumeration of the different types of Elements in the game. </summary>
-		enum ElementTypes
+		enum ElementTypes : int
 		{
 			FIRE = 1,
 			WATER,

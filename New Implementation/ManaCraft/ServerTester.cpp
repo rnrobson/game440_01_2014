@@ -68,7 +68,7 @@ void ServerTester::Test_Command_CreateNewGame()
 	Reset();
 	
 	Command_CreateNewGame* command;
-	int numGames;
+	unsigned int numGames;
 
 	//no new games should be created for a -ve or 0 id 
 	for (int i = numberOfTests / (-2);i<1;i++)
@@ -82,12 +82,12 @@ void ServerTester::Test_Command_CreateNewGame()
 			numTestsFailed++;
 	}
 	//games should be created for values from 1 - max_games
-	for (int i = 1; i <= GameManager::MAX_GAMES; i++)
+	for (unsigned int i = 1; i <= GameManager::MAX_GAMES; i++)
 	{
 		numGames = GameManager::games.size();
 		command = new Command_CreateNewGame(&i);
 		command->Execute();
-		if (GameManager::games.size()> numGames)
+		if (GameManager::games.size() > numGames)
 			numTestsPassed++;
 		else
 			numTestsFailed++;

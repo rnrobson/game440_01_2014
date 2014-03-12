@@ -21,9 +21,16 @@ public:
 	unsigned int armour;
 	unsigned int speed;
 
-	Minion(void);
-	~Minion(void);
+	Minion();
+	~Minion();
+
+	virtual bool Serialize(char* data, Uint16 dataFlags);
+	virtual int SerializedSize(Uint16 dataFlags) const;
+	virtual bool Deserialize(char* data);
 
 	static std::vector<Minion*> fetchAllFromDB();
+
+	bool operator==(const Minion& rhs);
+	bool operator!=(const Minion& rhs);
 };
 

@@ -1,13 +1,105 @@
 #include "Minion.h"
 
+using namespace ManaCraft::Networking;
+using namespace ManaCraft::Database;
 
-Minion::Minion(void)
-{
+Minion::Minion() : Entity(), xPos(0), yPos(0),
+manaPerSecond(0), health(0), armour(0), speed(0) {
 }
 
+Minion::~Minion() {
+}
 
-Minion::~Minion(void)
-{
+bool Minion::Serialize(char* data, Uint16 dataFlags) {
+	data = Serialize::UInt16(data, dataFlags);
+
+	if (dataFlags & NetData::FLAG_01) {
+		data = Serialize::Int32(data, ID);
+	}
+	if (dataFlags & NetData::FLAG_02) {
+		data = Serialize::Float(data, xPos);
+	}
+	if (dataFlags & NetData::FLAG_03) {
+		data = Serialize::Float(data, yPos);
+	}
+	if (dataFlags & NetData::FLAG_04) {
+		data = Serialize::Float(data, manaPerSecond);
+	}
+	if (dataFlags & NetData::FLAG_05) {
+		data = Serialize::UInt32(data, health);
+	}
+	if (dataFlags & NetData::FLAG_06) {
+		data = Serialize::UInt32(data, armour);
+	}
+	if (dataFlags & NetData::FLAG_07) {
+		data = Serialize::UInt32(data, speed);
+	}
+
+	return true;
+}
+
+int Minion::SerializedSize(Uint16 dataFlags) const {
+	int size = sizeof(Uint16); // data flags
+
+	if (dataFlags & NetData::FLAG_01) {
+		size += sizeof(int); // id
+	}
+	if (dataFlags & NetData::FLAG_02) {
+		size += sizeof(float); // x pos
+	}
+	if (dataFlags & NetData::FLAG_03) {
+		size += sizeof(float); // y pos
+	}
+	if (dataFlags & NetData::FLAG_04) {
+		size += sizeof(float); // mana per second
+	}
+	if (dataFlags & NetData::FLAG_05) {
+		size += sizeof(unsigned int); // health
+	}
+	if (dataFlags & NetData::FLAG_06) {
+		size += sizeof(unsigned int); // armour
+	}
+	if (dataFlags & NetData::FLAG_07) {
+		size += sizeof(unsigned int); // speed
+	}
+
+	return size;
+}
+
+bool Minion::Deserialize(char* data) {
+	Uint16 dataFlags = Deserialize::UInt16(data);
+	data += sizeof(Uint16);
+
+	if (dataFlags & NetData::FLAG_01) {
+		ID = (MinionTypes)Deserialize::Int32(data);
+		data += sizeof(int);
+	}
+	if (dataFlags & NetData::FLAG_02) {
+		xPos = Deserialize::Float(data);
+		data += sizeof(float);
+	}
+	if (dataFlags & NetData::FLAG_03) {
+		yPos = Deserialize::Float(data);
+		data += sizeof(float);
+	}
+	if (dataFlags & NetData::FLAG_04) {
+		manaPerSecond = Deserialize::Float(data);
+		data += sizeof(float);
+	}
+	if (dataFlags & NetData::FLAG_05) {
+		health = Deserialize::UInt32(data);
+		data += sizeof(unsigned int);
+	}
+	if (dataFlags & NetData::FLAG_06) {
+		armour = Deserialize::UInt32(data);
+		data += sizeof(unsigned int);
+	}
+	if (dataFlags & NetData::FLAG_07) {
+		speed = Deserialize::UInt32(data);
+		data += sizeof(unsigned int);
+	}
+
+	return true;
 }
 
 Minion* Minion::buildFromRow(mysqlpp::Row row) {
@@ -73,4 +165,19 @@ std::vector<Minion*> Minion::fetchAllFromDB() {
 		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
 		std::cout << e.what() << "\n";
 	}
+}
+
+bool Minion::operator==(const Minion& rhs) {
+	return ID == rhs.ID &&
+		xPos == rhs.xPos &&
+		yPos == rhs.yPos &&
+		manaPerSecond == rhs.manaPerSecond &&
+		health == rhs.health &&
+		armour == rhs.armour &&
+		speed == rhs.speed &&
+		Entity::operator==(rhs);
+}
+
+bool Minion::operator!=(const Minion& rhs) {
+	return !(*this == rhs);
 }

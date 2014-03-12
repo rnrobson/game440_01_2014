@@ -31,7 +31,8 @@ namespace ManaCraft {
 			FLAG_13 = 0x1000,
 			FLAG_14 = 0x2000,
 			FLAG_15 = 0x4000,
-			FLAG_16 = 0x8000
+			FLAG_16 = 0x8000,
+			ALL_FLAGS = 0xFFFF
 		};
 
 		/// <summary>
