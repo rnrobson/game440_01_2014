@@ -46,13 +46,13 @@ void ParticleSystem::Setup(){}
 
 /* Burst Particle System */
 Burst::Burst(){};
-Burst::Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating)
+Burst::Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds)
 {
 	SetTexture(texture);
 	SetRepeat(isRepeating);
 	SetSpeed(particleSpeed);
 	SetRandom(randomSpeeds);
-
+	frequency = frequencyInSeconds;
 	ParticleSystem::Initialize(numberOfParticles);
 	Setup();
 }
@@ -75,7 +75,7 @@ void Burst::Update(double time)
 					particleList.at(i)->ResetParticle(); //Reset the particle
 
 					if (isRandomSpeeds())
-						particleList.at(i)->SetSpeed((rand() % 20) + 5); //Set a new random speed
+						particleList.at(i)->SetSpeed((rand() % 20) + 5.0f); //Set a new random speed
 				}
 
 			}
@@ -95,14 +95,15 @@ void Burst::Setup()
 	//Set the direction of each particle
 	for (size_t i = 0; i < particleList.size(); i++)
 	{
-		float inDegrees = 360 / particleList.size();
+		float inDegrees = 360.0f / (int)particleList.size();
 		float inRadians = inDegrees * (180 / 3.14f);
 
 		if (!isRandomSpeeds())
 			particleList.at(i)->SetSpeed(GetSpeed());
 		else
-			particleList.at(i)->SetSpeed(rand() % 20 + 5);
+			particleList.at(i)->SetSpeed(rand() % 20 + 5.0f);
 
+		particleList.at(i)->SetAlphaTimer(GetFrequency());
 		particleList.at(i)->SetDirection(sin(inRadians*i), cos(inRadians*i));
 	}
 
@@ -111,7 +112,7 @@ void Burst::Setup()
 
 /* Emitter Particle System */
 Emitter::Emitter(){};
-Emitter::Emitter(size_t numberOfParticles, SDL_Texture* texture, bool isRepeating, int _xDirection, int _yDirection)
+Emitter::Emitter(size_t numberOfParticles, SDL_Texture* texture, bool isRepeating, float _xDirection, float _yDirection)
 {
 	timer = 0;
 	SetTexture(texture);
@@ -142,10 +143,9 @@ void Emitter::Update(double time)
 				else if (isRepeating())
 				{
 					particleList.at(i)->ResetParticle(); //Reset the particle
-					particleList.at(i)->SetSpeed((rand() % 20) + 5); //Set a new random speed
-					particleList.at(i)->SetPosition(rand() % (GetPosition().x + 1) + 10,
-													rand() % (GetPosition().y + 1) + 10);
-
+					particleList.at(i)->SetSpeed((rand() % 20) + 5.0f); //Set a new random speed
+					particleList.at(i)->SetPosition(rand() % (GetPosition().x + 1) + 10.0f,
+													rand() % (GetPosition().y + 1) + 10.0f);
 				}
 
 			}
@@ -169,10 +169,10 @@ void Emitter::Setup()
 		if (!isRandomSpeeds())
 			particleList.at(i)->SetSpeed(GetSpeed());
 		else
-			particleList.at(i)->SetSpeed(rand() % 5 + 5);
+			particleList.at(i)->SetSpeed(rand() % 5 + 5.0f);
 
-		particleList.at(i)->SetPosition(rand() % (GetPosition().x+5) + 10,
-										rand() % (GetPosition().y+15) + 10);
+		particleList.at(i)->SetPosition(rand() % (GetPosition().x+5) + 10.0f,
+										rand() % (GetPosition().y+15) + 10.0f);
 
 
 		particleList.at(i)->SetDirection(xDirection, yDirection);
