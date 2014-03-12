@@ -105,9 +105,11 @@ bool Minion::Deserialize(char* data) {
 Minion* Minion::buildFromRow(mysqlpp::Row row) {
 	using namespace ManaCraft::Database;
 
+	//Create temporary minion pointer
+	Minion* temp = new Minion();
+
 	try {
-		//Create temporary minion pointer
-		Minion* temp = new Minion();
+		
 
 		//Get Minion ID and cast it to MinionType
 		int rowID = atoi(row[TableInfo::Minions::ID].c_str());
@@ -131,10 +133,14 @@ Minion* Minion::buildFromRow(mysqlpp::Row row) {
 
 		return temp;
 	}
-	catch (Exception e) {
-		// If anything this would be some sort of access violation
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
 	}
 
+	delete temp;
 	return nullptr;
 }
 
@@ -162,9 +168,9 @@ std::vector<Minion*> Minion::fetchAllFromDB() {
 		return minions;
 	}
 	catch (Exception e) {
-		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
-		std::cout << e.what() << "\n";
+		throw e;
 	}
+	return std::vector<Minion*>();
 }
 
 bool Minion::operator==(const Minion& rhs) {

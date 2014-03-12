@@ -13,8 +13,10 @@ Resistances::~Resistances(void)
 Resistances* Resistances::buildFromRow(mysqlpp::Row row) {
 	using namespace ManaCraft::Database;
 
+	Resistances* temp = new Resistances();
+
 	try {
-		Resistances* temp = new Resistances();
+		
 		int rowID = atoi(row[TableInfo::Resistances::ID].c_str());
 		temp->elementID = static_cast<ElementTypes>(rowID);
 
@@ -25,10 +27,14 @@ Resistances* Resistances::buildFromRow(mysqlpp::Row row) {
 		temp->normalResistance = atoi(row[TableInfo::Resistances::NORM_RESISTANCE].c_str());
 		return temp;
 	}
-	catch (Exception e) {
-		// If anything this would be some sort of access violation
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
 	}
-
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	
+	delete temp;
 	return nullptr;
 }
 
@@ -56,6 +62,8 @@ std::vector<Resistances*> Resistances::fetchAllFromDB() {
 		return resistances;
 	}
 	catch (Exception e) {
-		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+		throw e;
 	}
+
+	return std::vector<Resistances*>();
 }

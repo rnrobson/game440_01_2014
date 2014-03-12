@@ -30,12 +30,25 @@ bool DatabaseAPI::connectToDatabase() {
 	if (conn->connected()) {
 		return true;
 	}
-	return conn->connect(db_Name.c_str(), server.c_str(), login.c_str(), password.c_str());
+	
+	try{
+		conn->connect(db_Name.c_str(), server.c_str(), login.c_str(), password.c_str());
+	}
+	catch (mysqlpp::ConnectionFailed e)
+	{
+		std::cout << e.what() << "\n";
+		return false;
+	}
+
+	return true;
 }
 
 void DatabaseAPI::disconnectFromDatabase() {
 	if (conn->connected()) {
 		conn->disconnect();
+	}
+	else {
+		std::cout << "A database connection is not currently established.";
 	}
 }
 
@@ -44,13 +57,12 @@ Query DatabaseAPI::getQuery() {
 		try {
 			return conn->query();
 		}
-		catch (Exception e) {
-			throw e;
+		catch (mysqlpp::BadQuery e) {
+			std::cout << e.what() << "\n";
 		}
 	}
-	else {
-		// throw custom exception?
-	}
+
+	return NULL;
 }
 
 Query DatabaseAPI::queryDatabase(const std::string& queryStr) {
@@ -58,13 +70,12 @@ Query DatabaseAPI::queryDatabase(const std::string& queryStr) {
 		try {
 			return conn->query(queryStr);
 		}
-		catch (Exception e) {
-			throw e;
+		catch (mysqlpp::BadQuery e) {
+			std::cout << e.what() << "\n";
 		}
 	}
-	else {
-		// throw custom exception?
-	}
+
+	return NULL;
 }
 
 void DatabaseAPI::getTowerInfo(const TowerTypes tower) { }

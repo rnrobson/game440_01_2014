@@ -7,8 +7,10 @@ Element::~Element() { }
 Element* Element::buildFromRow(mysqlpp::Row row) {
 	using namespace ManaCraft::Database;
 
+	Element* temp = new Element();
+
 	try {
-		Element* temp = new Element();
+		
 		int rowID = atoi(row[TableInfo::Elements::ID].c_str());
 		temp->ID = static_cast<ElementTypes>(rowID);
 
@@ -17,10 +19,14 @@ Element* Element::buildFromRow(mysqlpp::Row row) {
 		temp->strength = std::string(row[TableInfo::Elements::STRENGTH].c_str());
 		return temp;
 	}
-	catch (Exception e) {
-		// If anything this would be some sort of access violation
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
 	}
 
+	delete temp;
 	return nullptr;
 }
 
@@ -48,6 +54,8 @@ std::vector<Element*> Element::fetchAllFromDB() {
 		return elements;
 	}
 	catch (Exception e) {
-		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+		throw e;
 	}
+
+	return std::vector<Element*>();
 }
