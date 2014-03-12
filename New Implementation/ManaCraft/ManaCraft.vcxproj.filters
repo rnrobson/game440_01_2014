@@ -494,5 +494,8 @@
     <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
+    <ClInclude Include="ViewGames.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

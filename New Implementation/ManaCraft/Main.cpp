@@ -1,5 +1,5 @@
-#define CLIENT_BUILD 0
-#define SERVER_BUILD 1
+#define CLIENT_BUILD 1
+#define SERVER_BUILD 0
 
 
 #include <SDL.h>
@@ -16,6 +16,7 @@
 
 //-- Load Menus
 #include "GameLobby.h"
+#include "ViewGames.h"
 #include "MainMenu.h"
 #include "IngamePause.h"
 #include "LoginPopup.h"
@@ -95,6 +96,7 @@ void TransferControlToClient() {
 	Options::Load();
 	Credits::Load();
 	GameLobby::Load();
+	ViewGames::Load();
 
 	//--Temporary asset loading
 	SDL_Texture *_minionTexture = APIHelper::LoadPNGTexture("Resources/Sprites/MinionSS.png");
