@@ -13,8 +13,10 @@ Tower::~Tower(void)
 Tower* Tower::buildFromRow(mysqlpp::Row row) {
 	using namespace ManaCraft::Database;
 
+	Tower* temp = new Tower();
+
 	try {
-		Tower* temp = new Tower();
+		
 		int rowID = atoi(row[TableInfo::Towers::ID].c_str());
 		temp->ID = static_cast<TowerTypes>(rowID);
 
@@ -30,10 +32,14 @@ Tower* Tower::buildFromRow(mysqlpp::Row row) {
 		temp->cost = atoi(row[TableInfo::Towers::COST].c_str());
 		return temp;
 	}
-	catch (Exception e) {
-		// If anything this would be some sort of access violation
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
 	}
 
+	delete temp;
 	return nullptr;
 }
 
