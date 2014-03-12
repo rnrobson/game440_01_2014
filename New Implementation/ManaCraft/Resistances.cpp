@@ -62,6 +62,8 @@ std::vector<Resistances*> Resistances::fetchAllFromDB() {
 		return resistances;
 	}
 	catch (Exception e) {
-		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+		throw e;
 	}
+
+	return std::vector<Resistances*>();
 }

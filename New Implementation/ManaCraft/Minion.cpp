@@ -76,6 +76,8 @@ std::vector<Minion*> Minion::fetchAllFromDB() {
 		return minions;
 	}
 	catch (Exception e) {
-		std::cout << e.what() << "\n";
+		throw e;
 	}
+
+	return std::vector<Minion*>();
 }

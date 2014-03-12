@@ -67,6 +67,8 @@ std::vector<Tower*> Tower::fetchAllFromDB() {
 		return towers;
 	}
 	catch (Exception e) {
-		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+		throw e;
 	}
+
+	return std::vector<Tower*>();
 }

@@ -54,6 +54,8 @@ std::vector<Element*> Element::fetchAllFromDB() {
 		return elements;
 	}
 	catch (Exception e) {
-		// eventually DatabaseAPI::queryDatabase will throw notConnectedException of some sort
+		throw e;
 	}
+
+	return std::vector<Element*>();
 }
