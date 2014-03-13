@@ -9,6 +9,13 @@ std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> Window::mRenderer
 //Other static members
 SDL_Rect Window::mBox;
 
+bool Window::musicMute;
+bool Window::soundEffect1Mute;
+bool Window::soundEffect2Mute;
+int Window::musicVolumeLevel;
+int Window::soundEffect1VolumeLevel;
+int Window::soundEffect2VolumeLevel;
+
 void Window::Init(std::string title, int width, int height){
 	//initialize all SDL subsystems
 	if (SDL_Init(SDL_INIT_EVERYTHING) == -1)
@@ -17,6 +24,16 @@ void Window::Init(std::string title, int width, int height){
 		throw std::runtime_error("TTF Init Failed");
 	if (IMG_Init(IMG_INIT_PNG) == -1)
 		throw std::runtime_error("Failed to Initialize PNG Extension");
+	if (SDL_Init(SDL_INIT_AUDIO) == -1)
+		throw std::runtime_error("Failed to Initialize SDL_MIXER");
+
+	int audio_rate = 22050;
+	Uint16 audio_format = AUDIO_S16SYS;
+	int audio_channels = 2;
+	int audio_buffers = 4096;
+	if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers)) {
+		throw std::runtime_error("Unable to Open Audio");
+	}
 
 	//Setup our window size
 	mBox.x = 0;
@@ -36,6 +53,17 @@ void Window::Init(std::string title, int width, int height){
 	//Make sure it created ok
 	if (mRenderer == nullptr)
 		throw std::runtime_error("Failed to create renderer");
+
+	//Set the Audio Level
+	Window::musicMute = false;
+	Window::soundEffect1Mute = false;
+	Window::soundEffect2Mute = false;
+	Window::musicVolumeLevel = 64;
+	Window::soundEffect1VolumeLevel = 64;
+	Window::soundEffect2VolumeLevel = 64;
+	Mix_Volume(AudioChannel::MusicChannel, Window::musicVolumeLevel);
+	Mix_Volume(AudioChannel::SoundEffectChannel1, Window::soundEffect1VolumeLevel);
+	Mix_Volume(AudioChannel::SoundEffectChannel2, Window::soundEffect2VolumeLevel);
 }
 
 void Window::Quit(){
@@ -50,6 +78,10 @@ void Window::Quit(){
 
 	// Quit the TTF Extension
 	TTF_Quit();
+
+	// Quit the Audio Extension
+		//if (Mix_Playing(AudioChannel::Channel0) == 1)
+	Mix_CloseAudio();
 
 	// Quit the program
 	SDL_Quit();

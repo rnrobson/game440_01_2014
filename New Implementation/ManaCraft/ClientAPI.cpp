@@ -7,6 +7,9 @@ std::vector<TTF_Font*> ClientAPI::fonts;
 std::vector<std::string> ClientAPI::textureKeys;
 std::vector<SDL_Texture*> ClientAPI::textures;
 
+std::vector<std::string> ClientAPI::audioKeys;
+std::vector<Mix_Chunk*> ClientAPI::audio;
+
 std::vector<std::string> ClientAPI::colourKeys;
 std::vector<SDL_Color> ClientAPI::colours;
 

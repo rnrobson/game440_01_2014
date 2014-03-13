@@ -100,6 +100,8 @@
     <ClCompile Include="GridNode.cpp" />
     <ClCompile Include="GridSquare.cpp" />
     <ClCompile Include="GuiContainer.cpp" />
+    <ClCompile Include="GuiGridLayer.cpp" />
+    <ClCompile Include="GuiGridSquare.cpp" />
     <ClCompile Include="InfluenceLayer.cpp" />
     <ClCompile Include="InfluenceSquare.cpp" />
     <ClCompile Include="IngamePause.cpp" />
@@ -150,6 +152,7 @@
     <ClInclude Include="ArtSquare.h" />
     <ClInclude Include="AssetLayer.h" />
     <ClInclude Include="AssetSquare.h" />
+    <ClInclude Include="AudioChannel.h" />
     <ClInclude Include="AudioEngine.h" />
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="Button.h" />
@@ -163,6 +166,8 @@
     <ClInclude Include="FrameLimiter.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameModel.h" />
+    <ClInclude Include="GridLayer.h" />
+    <ClInclude Include="GridSquare.h" />
     <ClInclude Include="GuiMinion.h" />
     <ClInclude Include="GuiProjectile.h" />
     <ClInclude Include="GuiTower.h" />
@@ -183,9 +188,9 @@
     <ClInclude Include="Element.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameLobby.h" />
-    <ClInclude Include="GridLayer.h" />
+    <ClInclude Include="GuiGridLayer.h" />
     <ClInclude Include="GridNode.h" />
-    <ClInclude Include="GridSquare.h" />
+    <ClInclude Include="GuiGridSquare.h" />
     <ClInclude Include="GUI.h" />
     <ClInclude Include="GuiContainer.h" />
     <ClInclude Include="GuiElement.h" />

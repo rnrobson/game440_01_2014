@@ -86,7 +86,7 @@ public:
 	}
 
 	static void MuteAll() {
-		AudioEngine::MuteAll();
+		APIHelper::ToggleAllAudio();
 		printf("Mute Button Pressed");
 	}
 };

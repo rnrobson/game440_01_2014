@@ -24,6 +24,17 @@ public:
 	static SDL_Texture* LoadPNGTexture(const std::string &file) { return Window::LoadTexture(file); }
 	static TTF_Font* LoadFont(const std::string &file, int fontSize) { return Window::LoadFont(file, fontSize); }
 
+	static Mix_Chunk* LoadAudioFile(const std::string &file) {
+		Mix_Chunk *sound = NULL;
+
+		sound = Mix_LoadWAV(file.c_str());
+		//sound = Mix_LoadWAV("Resources/Audios/test.wav");
+		if (sound == NULL) {
+			std::cout << Mix_GetError() <<std::endl;
+		}
+		return sound;
+	}
+
 	static SDL_Rect RectHelper(int x, int y, int w, int h) { return { x, y, w, h }; } // Window::RectHelper(x, y, w, h); }
 	static SDL_Color ColourHelper(int r, int g, int b, int a) { return { r, g, b, a }; }
 
@@ -38,6 +49,16 @@ public:
 		APIEvents::SDLTextInputEnabled = !APIEvents::SDLTextInputEnabled;
 		return APIEvents::SDLTextInputEnabled;
 	}
+
+	static void ToggleAllAudio() { Window::ToggleAllAudio(); }
+
+	static int GetMusicVolume(int _level) { return Window::GetMusicVolume(); }
+	static int GetSoundEffect1Volume(int _level) { return Window::GetSoundEffect1Volume(); }
+	static int GetSoundEffect2Volume(int _level) { return Window::GetSoundEffect2Volume(); }
+
+	static void SetMusicVolume(int _level) { Window::SetMusicVolume(_level); }
+	static void SetSoundEffect1Volume(int _level) { Window::SetSoundEffect1Volume(_level); }
+	static void SetSoundEffect2Volume(int _level) { Window::SetSoundEffect2Volume(_level); }
 };
 
 #endif

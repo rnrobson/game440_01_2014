@@ -5,9 +5,12 @@
 //#include "ClientAPI.h"
 #include "Includes.h"
 #include "APIEvents.h"
+#include "AudioChannel.h"
 #include <memory>
 
 //What we think our window class should look like
+
+
 class Window {
 public:
 	//Start SDL and TTF, create the window and renderer
@@ -62,9 +65,59 @@ public:
 
 	static SDL_Renderer* Renderer();
 
+	static bool IsAllAudioMuted(){
+		return musicMute && soundEffect1Mute && soundEffect2Mute;
+	};
+
+	static void ToggleAllAudio() {
+		if (musicMute) {
+			Mix_Volume(AudioChannel::MusicChannel, 0);
+		}
+		else Mix_Volume(AudioChannel::MusicChannel, musicVolumeLevel);
+		musicMute = !musicMute;
+
+		if (soundEffect1Mute) {
+			Mix_Volume(AudioChannel::SoundEffectChannel1, 0);
+		}
+		else Mix_Volume(AudioChannel::SoundEffectChannel1, soundEffect1VolumeLevel);
+		soundEffect1Mute = !soundEffect1Mute;
+
+		if (soundEffect2Mute) {
+			Mix_Volume(AudioChannel::SoundEffectChannel2, 0);
+		}
+		else Mix_Volume(AudioChannel::SoundEffectChannel1, soundEffect2VolumeLevel);
+		soundEffect2Mute = !soundEffect2Mute;
+
+	}
+
+	static int GetMusicVolume() { return musicVolumeLevel; }
+	static int GetSoundEffect1Volume() { return soundEffect1VolumeLevel; }
+	static int GetSoundEffect2Volume() { return soundEffect2VolumeLevel; }
+
+	static void SetMusicVolume(int _level) { 
+		musicVolumeLevel = _level; 
+		Mix_Volume(AudioChannel::MusicChannel, musicVolumeLevel); 
+	}
+	static void SetSoundEffect1Volume(int _level) {
+		soundEffect1VolumeLevel = _level;
+		Mix_Volume(AudioChannel::SoundEffectChannel1, soundEffect1VolumeLevel);
+	}
+	static void SetSoundEffect2Volume(int _level) {
+		soundEffect2VolumeLevel = _level;
+		Mix_Volume(AudioChannel::SoundEffectChannel2, soundEffect1VolumeLevel);
+	}
+
+
 private:
 	static std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> mWindow;
 	static std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> mRenderer;
 	static SDL_Rect mBox;
+
+	static bool musicMute;
+	static bool soundEffect1Mute;
+	static bool soundEffect2Mute;
+	static int musicVolumeLevel;
+	static int soundEffect1VolumeLevel;
+	static int soundEffect2VolumeLevel;
 };
 #endif

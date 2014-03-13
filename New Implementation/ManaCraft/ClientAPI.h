@@ -28,6 +28,9 @@ private:
 	static std::vector<std::string> textureKeys;
 	static std::vector<SDL_Texture*> textures;
 
+	static std::vector<std::string> audioKeys;
+	static std::vector<Mix_Chunk*> audio;
+
 	static std::vector<std::string> colourKeys;
 	static std::vector<SDL_Color> colours;
 
@@ -99,6 +102,13 @@ private:
 		}
 		textures.clear();
 
+		audioKeys.clear();
+		for (size_t i = 0; i < audio.size(); i++)
+		{
+			Mix_FreeChunk(audio.at(i));
+		}
+		audio.clear();
+
 		colourKeys.clear();
 		colours.clear();
 
@@ -159,6 +169,11 @@ public:
 		textures.push_back(_textures);
 	}
 
+	static void AddAudio(std::string _key, Mix_Chunk* _audio){
+		audioKeys.push_back(_key);
+		audio.push_back(_audio);
+	}
+
 	static void AddColour(std::string _key, SDL_Color _colour)
 	{
 		colourKeys.push_back(_key);
@@ -211,6 +226,21 @@ public:
 			}
 		}
 	}
+
+	static void RemoveAudio(std::string _key)
+	{
+		for (size_t i = 0; i < audioKeys.size(); i++)
+		{
+			if (audioKeys.at(i) == _key)
+			{
+				audioKeys.erase(audioKeys.begin() + i);
+				Mix_FreeChunk(audio.at(i));
+				audio.erase(audio.begin() + i);
+				break;
+			}
+		}
+	}
+
 
 	static void RemoveColour(std::string _key)
 	{
@@ -284,6 +314,18 @@ public:
 			if (textureKeys.at(i) == _key)
 			{
 				return textures.at(i);
+			}
+		}
+		return nullptr;
+	}
+
+	static Mix_Chunk* GetAudio(std::string _key)
+	{
+		for (size_t i = 0; i < audioKeys.size(); i++)
+		{
+			if (audioKeys.at(i) == _key)
+			{
+				return audio.at(i);
 			}
 		}
 		return nullptr;

@@ -16,7 +16,7 @@ GuiContainer::GuiContainer()
 	textFields = std::vector<TextField*>{};
 	labels = std::vector<Label*>{};
 	checkboxes = std::vector<Checkbox*>{};
-	grids = std::vector<GridLayer*>{};
+	grids = std::vector<GuiGridLayer*>{};
 
 	onEscapeKeyPressed = nullptr;
 	onEnterKeyPressed = nullptr;
@@ -24,6 +24,8 @@ GuiContainer::GuiContainer()
 	Active = true;
 	Enabled = true;
 	SetPosition({ 0, 0, 0, 0 });
+
+	music = nullptr;
 }
 
 void GuiContainer::SetPosition(SDL_Rect _position)
@@ -168,7 +170,7 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 		}
 	}
 
-	for each (GridLayer* gl in grids)
+	for each (GuiGridLayer* gl in grids)
 	{
 		if (gl->Active) {
 			gl->HandleMouseMotionEvent(e);
@@ -229,7 +231,7 @@ void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 		}
 	}
 
-	for each (GridLayer* gl in grids)
+	for each (GuiGridLayer* gl in grids)
 	{
 		if (gl->Active) {
 			gl->HandleMouseDownEvent(e);
@@ -296,7 +298,7 @@ void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 		}
 	}
 
-	for each (GridLayer* gl in grids)
+	for each (GuiGridLayer* gl in grids)
 	{
 		if (gl->Active) {
 			gl->HandleMouseUpEvent(e);
@@ -357,7 +359,7 @@ void GuiContainer::HandleMouseClickEvent()
 		}
 	}
 
-	for each (GridLayer* gl in grids)
+	for each (GuiGridLayer* gl in grids)
 	{
 		if (gl->Active) {
 			gl->HandleMouseClickEvent();

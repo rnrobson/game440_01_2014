@@ -11,7 +11,7 @@
 #include "TextField.h"
 #include "Checkbox.h"
 #include "Slider.h"
-#include "GridLayer.h"
+#include "GuiGridLayer.h"
 
 class GuiContainer
 {
@@ -38,7 +38,9 @@ private:
 	std::vector<Slider*> sliders;
 
 	std::vector<std::string> gridKeys;
-	std::vector<GridLayer*> grids;
+	std::vector<GuiGridLayer*> grids;
+
+	Mix_Chunk* music;
 
 	SDL_Rect position;
 
@@ -79,6 +81,10 @@ public:
 	GuiContainer();
 	~GuiContainer() { CleanMemory(); }
 
+	void SetBackgroundAudio(Mix_Chunk* _music) { music = _music; }
+	void Play() { if (music != nullptr) Mix_PlayChannel(AudioChannel::MusicChannel, music, -1); }
+	void Pause(){ Mix_Pause(AudioChannel::MusicChannel); }
+
 #pragma region Adds
 	void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)
 	{
@@ -88,7 +94,7 @@ public:
 		guiContainers.push_back(_guiContainer);
 	}
 	
-	void AddGridLayer(std::string _key, GridLayer* _guiContainer)
+	void AddGridLayer(std::string _key, GuiGridLayer* _guiContainer)
 	{
 		gridKeys.push_back(_key);
 
@@ -262,7 +268,7 @@ public:
 		return nullptr;
 	}
 
-	GridLayer* GetGridLayer(std::string _key)
+	GuiGridLayer* GetGridLayer(std::string _key)
 	{
 		for (size_t i = 0; i < gridKeys.size(); i++)
 		{
