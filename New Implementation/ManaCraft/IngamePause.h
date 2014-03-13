@@ -116,14 +116,15 @@ public:
 
 	static void Pause()
 	{
-		isPaused = isPaused ? false : true;
+		releaseAllButtons();
+		isPaused = !isPaused;
 		ClientAPI::GetGuiContainer("IngamePause")->Active = isPaused;
 	}
 
 	static void Pause(std::string containerID)
 	{
 		releaseAllButtons(); //BANDAID
-		isPaused = isPaused ? false : true;
+		isPaused = !isPaused;
 		ClientAPI::GetGuiContainer("IngamePause")->Active = isPaused;
 		ClientAPI::GetGuiContainer(containerID)->Active = ClientAPI::GetGuiContainer(containerID)->Active ? false : true;
 	}

@@ -144,7 +144,7 @@ void CustomDraw()
 
 void OnEscapePressed()
 {
-	IngamePause::Pause("MainMenu");
+	IngamePause::Pause();
 }
 void OnEnterPressed()
 {
