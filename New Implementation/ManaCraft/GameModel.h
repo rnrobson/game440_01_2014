@@ -6,7 +6,7 @@
 #include "Tower.h"
 #include "Projectile.h"
 #include "GridSquare.h"
-
+#include "PlayerBase.h"
 
 struct GameModel{
 
@@ -20,7 +20,6 @@ public:
 
 	unsigned int id;
 
-	bool active;
 	bool paused;
 
 	Teams* teams;
@@ -32,8 +31,8 @@ public:
 	vector<Projectile*> projectiles;
 	vector<GridSquare*> gridSquares;
 
-	float base1HP;
-	float base2HP;
+	PlayerBase* darkBase;
+	PlayerBase* lightBase;
 
 	GameModel()
 	{
@@ -55,29 +54,40 @@ public:
 		teams = new Teams(3);
 		team1mps = 0.0f;
 		team2mps = 0.0f;
-		active = false;
 		paused = false;
-		base1HP = MAX_BASE_HP;
-		base2HP = MAX_BASE_HP;
+
+		darkBase = new PlayerBase(-100, 0, 1000, 20, 30);
+		lightBase = new PlayerBase(80, 0, 1000, 20, 30);
+
 		for (int i = 0; i < MAX_MINIONS; i++)
 		{
 			Minion* minion = new Minion();
+			minion->id = i;
+			minion->name = "Generic Minion";
 			minion->health = 100;
 			minion->xPos = 10.0f;
 			minion->yPos = 20.0f;
+			minion->colWidth = 10;
+			minion->colHeight = 20;
+			minion->collisionBox->x = (int)round(minion->xPos);// -minion->colWidth / 2;
+			minion->collisionBox->y = (int)round(minion->yPos);// -minion->colHeight / 2;
+			minion->collisionBox->w = minion->colWidth;
+			minion->collisionBox->h = minion->colHeight;
+
 			minion->manaPerSecond = 10.0f;
 			minion->armour = 50;
 			minion->speed = 3;
 			minion->damage = 5;
 			minion->researchCost = 50;
 			minion->level = 1;
-			minion->name = "Generic Minion";
 			minion->summonCost = 50;
 			minions.push_back(minion);
 		}
 		for (int i = 0; i < MAX_TOWERS; i++)
 		{
 			Tower* tower = new Tower();
+			tower->name = "Generic Tower";
+			tower->id = i;
 			tower->range = 20;
 			tower->firingRate = 2.0f;
 			tower->damage = 3;
@@ -86,7 +96,6 @@ public:
 			tower->summonCost = 100;
 			tower->zoneOfInfluence = 'v';
 			tower->level = 1;
-			tower->name = "generic tower";
 			tower->researchCost = 100;
 			tower->upgradeCost = 50;
 			towers.push_back(tower);

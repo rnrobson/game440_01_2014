@@ -113,6 +113,7 @@
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBase.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Resistances.cpp" />
     <ClCompile Include="ScreenFader.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="NetServer.h" />
     <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="PlayerBase.h" />
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="ConnectionException.h" />

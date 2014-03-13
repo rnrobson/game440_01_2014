@@ -21,6 +21,10 @@ public:
 	unsigned int armour;
 	unsigned int speed;
 
+	SDL_Rect* collisionBox;
+	unsigned int colWidth;
+	unsigned int colHeight;
+
 	Minion();
 	~Minion();
 

@@ -7,17 +7,17 @@ Entity::Entity() :
 elementID(ElementTypes::FIRE), 
 name(""), damage(0), 
 level(0), cost(0), 
-summonCost(0), upgradeCost(0), researchCost(0){
+summonCost(0), upgradeCost(0), researchCost(0),id(0){
 }
 
 Entity::Entity(const ElementTypes _elementID, 
 				const std::string& _name, const uint _damage, 
 				const uint _level, const uint _cost, 
-				const uint _summonCost,	const uint _upgradeCost, const uint _researchCost)	:
+				const uint _summonCost, const uint _upgradeCost, const uint _researchCost, const uint _id) :
 				elementID(_elementID), 
 				name(_name), damage(_damage),
 				level(_level), cost(_cost), 
-				summonCost(_summonCost), upgradeCost(_upgradeCost), researchCost(_researchCost) {
+				summonCost(_summonCost), upgradeCost(_upgradeCost), researchCost(_researchCost), id(0) {
 }
 
 

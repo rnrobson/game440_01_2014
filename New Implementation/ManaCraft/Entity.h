@@ -22,9 +22,10 @@ public:
 	unsigned int summonCost;
 	unsigned int upgradeCost;
 	unsigned int researchCost;
+	uint id;
 	
 	Entity();
-	Entity(const ManaCraft::Database::ElementTypes _elementID, const std::string& _name, const uint _damage, const uint _level, const uint _cost, const uint _summonCost, const uint _upgradeCost, const uint _researchCost);
+	Entity(const ManaCraft::Database::ElementTypes _elementID, const std::string& _name, const uint _damage, const uint _level, const uint _cost, const uint _summonCost, const uint _upgradeCost, const uint _researchCost, const uint _id);
 	virtual ~Entity();
 
 	virtual bool Serialize(char* data, Uint16 dataFlags);

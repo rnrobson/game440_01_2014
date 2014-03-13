@@ -5,6 +5,7 @@ using namespace ManaCraft::Database;
 
 Minion::Minion() : Entity(), xPos(0), yPos(0),
 manaPerSecond(0), health(0), armour(0), speed(0) {
+	collisionBox = new SDL_Rect();
 }
 
 Minion::~Minion() {
