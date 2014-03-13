@@ -85,6 +85,7 @@
     <ClCompile Include="ArtSquare.cpp" />
     <ClCompile Include="AssetLayer.cpp" />
     <ClCompile Include="AssetSquare.cpp" />
+    <ClCompile Include="AudioEngine.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Checkbox.cpp" />
     <ClCompile Include="ClientAPI.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="ArtSquare.h" />
     <ClInclude Include="AssetLayer.h" />
     <ClInclude Include="AssetSquare.h" />
+    <ClInclude Include="AudioEngine.h" />
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Checkbox.h" />

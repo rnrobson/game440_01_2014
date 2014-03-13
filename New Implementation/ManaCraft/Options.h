@@ -2,48 +2,14 @@
 #include "ClientAPI.h"
 #include "API_Util.h"
 #include "SDL_mixer.h"
+#include "AudioEngine.h"
 
 class Options
 {
 public:
 	static void Load()
 	{
-		
-		// Audio
-		int audio_rate = 22050;
-		Uint16 audio_format = AUDIO_S16SYS;
-		int audio_channels = 2;
-		int audio_buffers = 4096;
-		
-		SDL_Init(SDL_INIT_AUDIO);
-
-		if (Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers)) {
-			printf("Unable to open audio!\n");
-			exit(1);
-		}
-
-		Mix_Chunk *sound = NULL;
-
-		sound = Mix_LoadWAV("Resources/Audios/Menu/Bg.ogg");
-		//sound = Mix_LoadWAV("Resources/Audios/test.wav");
-		if (sound == NULL) {
-			fprintf(stderr, "Unable to load WAV file: %s\n", Mix_GetError());
-		}
-
-		int channel;
-
-		channel = Mix_PlayChannel(-1, sound, -1);
-		if (channel == -1) {
-			fprintf(stderr, "Unable to play WAV file: %s\n", Mix_GetError());
-		}
-
-		// Clear Audio on  close
-	/*	while (Mix_Playing(channel) != 0);
-
-		Mix_FreeChunk(sound);
-
-		Mix_CloseAudio();*/
-		////////////////////////
+		bool testau = false;
 
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
@@ -64,7 +30,7 @@ public:
 
 		//add textures
 		API_Util::AddTexture("GameLogo", "Resources/Images/ManaCraft.png", API_Util::PNG);
-		API_Util::AddTexture("Background", "Resources/Images/background.png", API_Util::PNG);
+		API_Util::AddTexture("Background", "Resources/Images/backgroundPlain.png", API_Util::PNG);
 		API_Util::AddTexture("SmallBtnNormal", "Resources/GUITextures/smallBtnNormal.bmp", API_Util::BMP);
 		API_Util::AddTexture("SmallBtnHover", "Resources/GUITextures/smallBtnHover.bmp", API_Util::BMP);
 		API_Util::AddTexture("SmallBtnDown", "Resources/GUITextures/smallBtnDown.bmp", API_Util::BMP);
@@ -86,6 +52,8 @@ public:
 
 		//add labels
 		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options"), "Lbl_Options", "Options", { 450, 400, 200, 100 }, "OGWEAR", "White");
+		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options"), "Lbl_Music", "Music Volume: 64", { 420, 500, 200, 100 }, "Systema_22", "Black");
+		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options"), "Lbl_SFX", "SFX Volume: 64", { 420, 530, 200, 100 }, "Systema_22", "Black");
 
 		//add button
 		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("Options"), "returnToMainMenu", { 900, 720, 100, 30 }, "MedBtnNormal");
@@ -96,6 +64,16 @@ public:
 		ClientAPI::GetGuiContainer("Options")->GetButton("returnToMainMenu")->GetLabel()->SetPadding({ 29, 8, 0, 0 });
 
 		ClientAPI::GetGuiContainer("Options")->GetButton("returnToMainMenu")->SubscribeOnMouseClick(ReturnToMainMenu);
+		//
+
+		API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("Options"), "muteBtn", { 460, 460, 100, 30 }, "MedBtnNormal");
+
+		API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("Options"),
+			"muteBtn", "Mute All", "Systema_11", "Black");
+
+		ClientAPI::GetGuiContainer("Options")->GetButton("muteBtn")->GetLabel()->SetPadding({ 20, 8, 0, 0 });
+
+		ClientAPI::GetGuiContainer("Options")->GetButton("muteBtn")->SubscribeOnMouseClick(MuteAll);
 
 		//Making options container not visible
 		ClientAPI::GetGuiContainer("Options")->Active = false;
@@ -105,5 +83,10 @@ public:
 		ClientAPI::GetGuiContainer("Options")->Active = false;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 		ScreenFader::FadeOut();
+	}
+
+	static void MuteAll() {
+		AudioEngine::MuteAll();
+		printf("Mute Button Pressed");
 	}
 };

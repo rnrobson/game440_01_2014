@@ -252,6 +252,9 @@
     <ClCompile Include="PlayerBase.cpp">
       <Filter>Source Files\Data Structures</Filter>
     </ClCompile>
+    <ClCompile Include="AudioEngine.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -523,6 +526,9 @@
     </ClInclude>
     <ClInclude Include="Command_UpdateMinions.h">
       <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioEngine.h">
+      <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
