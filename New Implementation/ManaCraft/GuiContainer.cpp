@@ -8,6 +8,7 @@ GuiContainer::GuiContainer()
 	textFieldKeys = std::vector<std::string>{};
 	labelKeys = std::vector<std::string>{};
 	checkboxKeys = std::vector<std::string>{};
+	gridKeys = std::vector<std::string>{};
 
 	guiContainers = std::vector<GuiContainer*>{};
 	guiElements = std::vector<GuiElement*>{};
@@ -15,6 +16,7 @@ GuiContainer::GuiContainer()
 	textFields = std::vector<TextField*>{};
 	labels = std::vector<Label*>{};
 	checkboxes = std::vector<Checkbox*>{};
+	grids = std::vector<GridLayer*>{};
 
 	onEscapeKeyPressed = nullptr;
 	onEnterKeyPressed = nullptr;
@@ -31,6 +33,11 @@ void GuiContainer::SetPosition(SDL_Rect _position)
 	for (size_t i = 0; i < guiContainers.size(); i++)
 	{
 		guiContainers.at(i)->SetPosition(_position);
+	}
+
+	for (size_t i = 0; i < grids.size(); i++)
+	{
+		grids.at(i)->SetPosition(_position);
 	}
 
 	for (size_t i = 0; i < guiElements.size(); i++)
@@ -93,6 +100,11 @@ void GuiContainer::Update(double time)
 			sliders.at(i)->Update(time);
 		}
 
+		for (size_t i = 0; i < grids.size(); i++)
+		{
+			grids.at(i)->Update(time);
+		}
+
 		for (size_t i = 0; i < guiContainers.size(); i++)
 		{
 			guiContainers.at(i)->Update(time);
@@ -132,6 +144,11 @@ void GuiContainer::Draw()
 			sliders.at(i)->Draw();
 		}
 
+		for (size_t i = 0; i < grids.size(); i++)
+		{
+			grids.at(i)->Draw();
+		}
+
 		for (size_t i = 0; i < guiContainers.size(); i++)
 		{
 			guiContainers.at(i)->Draw();
@@ -148,6 +165,13 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 	{
 		if (guic->Active) {
 			guic->HandleMouseMotionEvent(e);
+		}
+	}
+
+	for each (GridLayer* gl in grids)
+	{
+		if (gl->Active) {
+			gl->HandleMouseMotionEvent(e);
 		}
 	}
 
@@ -202,6 +226,13 @@ void GuiContainer::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 	{
 		if (guic->Active) {
 			guic->HandleMouseDownEvent(e);
+		}
+	}
+
+	for each (GridLayer* gl in grids)
+	{
+		if (gl->Active) {
+			gl->HandleMouseDownEvent(e);
 		}
 	}
 
@@ -265,6 +296,13 @@ void GuiContainer::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 		}
 	}
 
+	for each (GridLayer* gl in grids)
+	{
+		if (gl->Active) {
+			gl->HandleMouseUpEvent(e);
+		}
+	}
+
 	for each (GuiElement* element in guiElements)
 	{
 		if (element->Active) {
@@ -316,6 +354,13 @@ void GuiContainer::HandleMouseClickEvent()
 	{
 		if (guic->Active) {
 			guic->HandleMouseClickEvent();
+		}
+	}
+
+	for each (GridLayer* gl in grids)
+	{
+		if (gl->Active) {
+			gl->HandleMouseClickEvent();
 		}
 	}
 

@@ -11,6 +11,7 @@
 #include "TextField.h"
 #include "Checkbox.h"
 #include "Slider.h"
+#include "GridLayer.h"
 
 class GuiContainer
 {
@@ -35,6 +36,9 @@ private:
 
 	std::vector<std::string> sliderKeys;
 	std::vector<Slider*> sliders;
+
+	std::vector<std::string> gridKeys;
+	std::vector<GridLayer*> grids;
 
 	SDL_Rect position;
 
@@ -63,6 +67,9 @@ private:
 
 		sliderKeys.clear();
 		sliders.clear();
+
+		gridKeys.clear();
+		grids.clear();
 	}
 
 public:
@@ -79,6 +86,14 @@ public:
 
 		_guiContainer->SetPosition(position);
 		guiContainers.push_back(_guiContainer);
+	}
+	
+	void AddGridLayer(std::string _key, GridLayer* _guiContainer)
+	{
+		gridKeys.push_back(_key);
+
+		_guiContainer->SetPosition(position);
+		grids.push_back(_guiContainer);
 	}
 
 	void AddGuiElement(std::string _key, GuiElement* _guiElement)
@@ -138,6 +153,19 @@ public:
 			{
 				guiContainerKeys.erase(guiContainerKeys.begin() + i);
 				guiContainers.erase(guiContainers.begin() + i);
+				break;
+			}
+		}
+	}
+
+	void RemoveGridLayer(std::string _key)
+	{
+		for (size_t i = 0; i < gridKeys.size(); i++)
+		{
+			if (gridKeys.at(i) == _key)
+			{
+				gridKeys.erase(gridKeys.begin() + i);
+				grids.erase(grids.begin() + i);
 				break;
 			}
 		}
@@ -229,6 +257,18 @@ public:
 			if (guiContainerKeys.at(i) == _key)
 			{
 				return guiContainers.at(i);
+			}
+		}
+		return nullptr;
+	}
+
+	GridLayer* GetGridLayer(std::string _key)
+	{
+		for (size_t i = 0; i < gridKeys.size(); i++)
+		{
+			if (gridKeys.at(i) == _key)
+			{
+				return grids.at(i);
 			}
 		}
 		return nullptr;

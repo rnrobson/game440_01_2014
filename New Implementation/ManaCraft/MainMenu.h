@@ -47,6 +47,9 @@ public:
 		//-- Add in menu assets
 		ClientAPI::AddGuiContainer("MainMenu", new GuiContainer());
 
+		// THIS CAUSES PROBLEMS:
+		//ClientAPI::GetGuiContainer("MainMenu")->AddGridLayer("Grid", new GridLayer());
+
 		//-- Background
 		ClientAPI::GetGuiContainer("MainMenu")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("Background"), APIHelper::RectHelper(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)));
 
