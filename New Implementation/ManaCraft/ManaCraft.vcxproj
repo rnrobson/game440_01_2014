@@ -219,6 +219,7 @@
     <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Tower.h" />
     <ClInclude Include="Command_TripleAFloat.h" />
+    <ClInclude Include="ViewGames.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Worker.h" />
     <ClInclude Include="WorkItem.h" />

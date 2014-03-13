@@ -19,8 +19,8 @@ public:
 		SDL_QueryTexture(texture, NULL, NULL, &rectWidth, &rectHeight); //Grab the texture data and set the width and height of our dst rectangle to the textures dimensions
 		rect = {0, 0, rectWidth, rectHeight };
 		SetDirection(0, 0);
-		originalX = GetPosition().x;
-		originalY = GetPosition().y;
+		originalX = (float)GetPosition().x;
+		originalY = (float)GetPosition().y;
 
 	}
 	virtual void Update(double time)
@@ -33,12 +33,12 @@ public:
 
 				rect.x += offset.x + padding.x;
 				rect.y += offset.y + padding.y;
-				SetPosition((int)GetPosition().x + (directionX * speed), //Set the position of the particle and update based on its directional vector and speed
-					(int)GetPosition().y + (directionY * speed));
+				SetPosition((float)(GetPosition().x + (directionX * speed)), //Set the position of the particle and update based on its directional vector and speed
+							(float)(GetPosition().y + (directionY * speed)));
 				
 				//Reduce the alpha over time
 				if (alpha >= 10){
-					alpha -= time / 20;
+					alpha -= (int)(time / (2 * timeInSeconds));
 				}else{
 					alpha = 0;
 				}
@@ -66,17 +66,17 @@ public:
 	float GetDirectionX() { return directionX; }
 	float GetDirectionY() { return directionY; }
 
-	void SetPosition(float x, float y) { rect.x = x; rect.y = y;}
+	void SetPosition(float x, float y) { rect.x = (int)x; rect.y = (int)y; }
 	void SetOriginalPosition(float x, float y){ originalX = x, originalY = y; }
 	void SetDirection(float x, float y){ directionX = x; directionY = y; }
 	void SetSpeed(float _speed) { speed = _speed; }
-
+	void SetAlphaTimer(float _time) { timeInSeconds = _time; }
 	void ResetParticle() { alpha = 255; alive = true, SetPosition(originalX, originalY); }
 	bool isAlive() { return alive; }
 
 private:
-	int rectWidth, rectHeight, originalX, originalY;
-	float directionX, directionY, speed, alpha;
+	int rectWidth, rectHeight, alpha;
+	float directionX, directionY, speed, originalX, originalY, timeInSeconds;
 	bool alive;
 };
 
@@ -120,17 +120,19 @@ private:
 class Burst : public ParticleSystem{
 public:
 	Burst();
-	Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating);
+	Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds);
+	float GetFrequency(){ return frequency; }
 private:
 	virtual void Setup();
 	virtual void Update(double time);
+	float frequency;
 };
 
 /* EMITTER PARTICLE CLASS */
 class Emitter : public ParticleSystem{
 public:
 	Emitter();
-	Emitter(size_t numberOfParticles, SDL_Texture* texture, bool oneShot, int xDirection, int yDirection);
+	Emitter(size_t numberOfParticles, SDL_Texture* texture, bool oneShot, float xDirection, float yDirection);
 private:
 	float xDirection, yDirection, timer;
 	virtual void Setup();

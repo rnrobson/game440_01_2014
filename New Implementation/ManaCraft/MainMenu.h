@@ -152,6 +152,9 @@ public:
 	static void Click_viewButton()
 	{
 		std::cout << "View saved games.\n";
+		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
+		ClientAPI::GetGuiContainer("ViewGames")->Active = true;
+		ScreenFader::FadeOut();
 	}
 
 	static void Click_optionsButton()
