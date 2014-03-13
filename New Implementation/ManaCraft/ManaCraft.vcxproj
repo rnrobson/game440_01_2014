@@ -108,6 +108,8 @@
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionPath.cpp" />
     <ClCompile Include="NetBroadcaster.cpp" />
+    <ClCompile Include="NetClient.cpp" />
+    <ClCompile Include="NetServer.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -163,6 +165,9 @@
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />
     <ClInclude Include="NetBroadcaster.h" />
+    <ClInclude Include="NetClient.h" />
+    <ClInclude Include="NetReceiver.h" />
+    <ClInclude Include="NetServer.h" />
     <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="ServerCommand.h" />

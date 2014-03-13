@@ -10,6 +10,8 @@
 #include "BlockingQueue.h"
 #include "Connection.h"
 #include "ConnectionException.h"
+#include "NetClient.h"
+#include "Packet.h"
 
 using namespace ManaCraft;
 
@@ -18,8 +20,8 @@ using namespace ManaCraft;
 			static bool running;
 
 			//static Networking::Connection master;
-			static std::vector<Networking::Connection*> connections;
-			static BlockingQueue<Byte*> dataToWorker;
+			static std::vector<Networking::NetClient*> connections;
+			static BlockingQueue<Networking::Packet*> dataToWorker;
 			static BlockingQueue<int> dataToClient;
 
 			/// <summary>[InitLiaison]

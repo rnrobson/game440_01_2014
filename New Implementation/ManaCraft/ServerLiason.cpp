@@ -1,11 +1,11 @@
 #include "ServerLiason.h"
-
+#include "NetServer.h"
 using namespace ManaCraft::Networking;
 using namespace ManaCraft::Client;
 using namespace std;
 
 // The Connection Variable
-Connection clientConnection("76.70.80.145", 25508);
+NetClient clientConnection("192.168.0.102", 27015);
 SDL_Thread *listening, *sending; // The Threads
 bool isRunning = false;
 
@@ -42,12 +42,14 @@ int ServerLiason::ListenToServer(void*) {
 	bool listen = true;
 
 	while (listen) {
-		Byte* data; 
-		int len = clientConnection.ReceiveData(&data);
-
-		if (len > 0) { 
-			cout << "Successfully received data, length is: " << len << endl;
-			ProcessData(data, len);
+		Packet* packet = clientConnection.Receive();
+		if (packet != nullptr) {
+			std::cout << "Data received." << std::endl;
+			std::cout << "Length of data : " << packet->GetDataLength() << std::endl;
+			std::cout << "Protocol ID: " << packet->GetProtocolID() << std::endl;
+			std::cout << "Packet Data: " << packet->GetData() << std::endl;
+			std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
+			ProcessData(packet); 
 		}
 	}
 	CloseConnection();
@@ -59,14 +61,11 @@ void ServerLiason::CloseConnection() {
 	clientConnection.Close();
 }
 
-void ServerLiason::ProcessData(Byte* data, int len) {
-	Byte* protocolData = new char[sizeof(__int16)];
-	for (int i = 0; i < sizeof(__int16); ++i)
-		protocolData[i] = data[i];
+void ServerLiason::ProcessData(Packet* packet) {
+	
+	SC_Protocol protocol = (SC_Protocol)(packet->GetProtocolID());
 
-	SC_Protocol protocol = (SC_Protocol)(Deserialize::Int16(protocolData));
-
-	cout << "The deserialized protocol is: " << protocol;
+	cout << "The protocol is: " << protocol;
 
 	switch (protocol) {
 		case ManaCraft::Networking::CLIENT_LOST:

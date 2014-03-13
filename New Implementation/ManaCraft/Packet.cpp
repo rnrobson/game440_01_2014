@@ -16,6 +16,11 @@ mDataLength(strlen(data)), mPayload(nullptr) {
 	NewPayload();
 }
 
+Packet::Packet(short protocolID, Byte* data) :
+mSecurityHeader(nullptr), mProtocolID(protocolID), mData(data),
+mDataLength(strlen(data)), mPayload(nullptr) {
+}
+
 Packet::~Packet() {
 	delete[] mPayload;
 	mPayload = nullptr;

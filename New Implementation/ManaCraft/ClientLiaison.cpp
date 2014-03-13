@@ -1,11 +1,12 @@
 #include "ClientLiaison.h"
 #include "Serialize.h"
 #include"ServerIncludes.h"
+#include "Packet.h"
 bool ClientLiaison::running = false;
-Networking::Connection master(NULL, 21025);
-std::vector<Networking::Connection*> ClientLiaison::connections = std::vector<Networking::Connection*>();
+Networking::NetServer master(27015);
+std::vector<Networking::NetClient*> ClientLiaison::connections = std::vector<Networking::NetClient*>();
 BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
-BlockingQueue<Byte*> ClientLiaison::dataToWorker = BlockingQueue<Byte*>();
+BlockingQueue<Networking::Packet*> ClientLiaison::dataToWorker = BlockingQueue<Networking::Packet*>();
 
 SDL_Thread *incoming, *outgoing;
 
@@ -57,22 +58,24 @@ int ClientLiaison::ClientListen(void*) {
 
 	while(listening) {
 		try {
-			Networking::Connection* connection = master.Listen();
+			Networking::NetClient* connection = master.Listen();
 			
-			if(connection != NULL) {
+			if(connection != nullptr) {
 				connections.push_back(connection);
 				std::cout << "connected" << std::endl;
 
 				for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
-					Byte* buf = nullptr;
-					int len;
+					Networking::Packet* packet;
 
-					len = (*iter)->ReceiveData(&buf);
+					packet = (*iter)->Receive();
 
-					if(len > 0) {
-						std::cout << "Data received. Length of data: " << len << std::endl;
+					if(packet != nullptr) {
+						std::cout << "Data received." << std::endl;
+						std::cout << "Length of data : " << packet->GetDataLength() << std::endl;
+						std::cout << "Protocol ID: " << packet->GetProtocolID() << std::endl;
+						std::cout << "Packet Data: " << packet->GetData() << std::endl;
 						std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
-						dataToWorker.push(buf);
+						dataToWorker.push(packet);
 					}
 				}
 			}
@@ -92,13 +95,11 @@ void ClientLiaison::SendToWorker() {
 	bool sending = true;
 
 	while(sending) {
-		Byte* buf = nullptr;
+		Networking::Packet* packet = nullptr;
 
-		buf = dataToWorker.pop();
+		packet = dataToWorker.pop();
 
-		Networking::CS_Protocol protocolID = (Networking::CS_Protocol)Networking::Deserialize::Int16(buf);
-
-		buf += sizeof(Byte)* 2;
+		Networking::CS_Protocol protocolID = (Networking::CS_Protocol)packet->GetProtocolID();
 
 #pragma region Big Switch
 		switch(protocolID) {

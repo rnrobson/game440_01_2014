@@ -34,6 +34,13 @@ namespace ManaCraft {
 			/// </summary>
 			Packet(const Byte* securityHeader, short protocolID, Byte* data);
 
+			/// <summary>[Packet]
+			/// <para>Create a generic packet container.</para>
+			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
+			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
+			/// </summary>
+			Packet(short protocolID, Byte* data);
+
 			// Destructor (Not used currently)
 			~Packet();
 
@@ -84,6 +91,12 @@ namespace ManaCraft {
 			/// <returns>Returns the size of the payload.</returns>
 			/// </summary>
 			int PayloadSize() const;
+
+			/// <summary>[Execute]
+			/// <para>Override this method for each packet.</para>
+			/// <returns>Returns the size of the payload.</returns>
+			/// </summary>
+			virtual void Execute() {};
 		};
 	}
 }

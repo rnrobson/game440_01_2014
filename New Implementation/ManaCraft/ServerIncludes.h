@@ -3,9 +3,8 @@
 
 #include <iostream>
 #include <string>
-#include "Connection.h"
-
-
+#include "NetServer.h"
+#include "Packet.h"
 //using namespace ManaCraft;
 
 #endif
