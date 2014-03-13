@@ -13,14 +13,16 @@ Server::Server()
 void Server::Run()
 {
 
+
 	ServerTester* tester = new ServerTester(50);
-	/*tester->Test_Command_TripleAFloat();
-	tester->Test_Command_IntFloatProduct();
-	tester->Test_Command_CreateNewGame();*/
-	
+
+	//tester->Test_Command_TripleAFloat();
+	//tester->Test_Command_IntFloatProduct();
+	//tester->Test_Command_CreateNewGame(); 
+	//tester->Test_Command_UpdateMinions();
+
 	std::cout << "\nRunning all tests...";
 	tester->RunAllTests();
-	
 
 	getchar();
 }

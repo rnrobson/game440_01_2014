@@ -18,8 +18,8 @@ public:
 	{
 		if (*(int*)data<1)
 		{
-			cout << "invalid game id";
-			cout << endl; 
+		/*	cout << "invalid game id";
+			cout << endl; */
 		}
 		else{
 
@@ -27,13 +27,11 @@ public:
 			if (GameManager::games.size() < GameManager::MAX_GAMES)
 			{
 				GameManager::games.push_back(game);
-				cout << "Created new game - Number of games: " << GameManager::games.size();
-				cout << endl;
 			}
 			else
 			{
-				cout << "Max Games Reached - Unable to create new game";
-				cout << endl;
+			/*	cout << "Max Games Reached - Unable to create new game";
+				cout << endl;*/
 			}
 		}
 	}

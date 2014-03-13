@@ -18,3 +18,14 @@ void GameManager::Init()
 	games.reserve(MAX_GAMES);
 
 }
+GameModel* GameManager::FindGame(uint _gameID)
+{
+	for (size_t i = 0; i < games.size(); i++)
+	{
+		if (games[i]->id == _gameID)
+		{
+			return games[i];
+		}
+	}
+	return NULL;
+}

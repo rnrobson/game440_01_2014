@@ -6,6 +6,6 @@
 #include "Command_TripleAFloat.h"
 #include "Command_IntFloatProduct.h"
 #include "Command_CreateNewGame.h"
-
+#include "Command_UpdateMinions.h"
 
 #endif

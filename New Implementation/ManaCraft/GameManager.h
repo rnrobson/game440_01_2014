@@ -14,6 +14,7 @@ public:
 	static const unsigned int MAX_GAMES;
 	static unsigned int numRunningGames;
 	static std::vector<GameModel*> games;
+	static GameModel* FindGame(uint _gameID);
 	
 	GameManager();
 	~GameManager();

@@ -67,6 +67,9 @@
     <Filter Include="Source Files\Testbed">
       <UniqueIdentifier>{2a23f5aa-6a82-4568-a13d-8a025c1e75b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ServerCommands">
+      <UniqueIdentifier>{4a37f465-33cc-4100-966a-c339612df976}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -410,13 +413,7 @@
     <ClInclude Include="Worker.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
-    <ClInclude Include="ServerCommand.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
     <ClInclude Include="ServerIncludes.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="TestCommand.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="IngamePause.h">
@@ -439,9 +436,6 @@
     </ClInclude>
     <ClInclude Include="AnimatedSprite.h">
       <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerCommandIncludes.h">
-      <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="TestDatabase.h">
       <Filter>Header Files\Database</Filter>
@@ -485,15 +479,6 @@
     <ClInclude Include="ServerTester.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
-    <ClInclude Include="Command_CreateNewGame.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="Command_IntFloatProduct.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="Command_TripleAFloat.h">
-      <Filter>Header Files\Server</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
@@ -517,6 +502,27 @@
     </ClInclude>
     <ClInclude Include="PlayerBase.h">
       <Filter>Header Files\Data Structures</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_CreateNewGame.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_IntFloatProduct.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_TripleAFloat.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCommand.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerCommandIncludes.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCommand.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_UpdateMinions.h">
+      <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
