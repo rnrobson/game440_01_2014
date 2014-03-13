@@ -116,37 +116,16 @@ public:
 
 	static void Pause()
 	{
-		if (!isPaused)
-		{
-			ClientAPI::GetGuiContainer("IngamePause")->Active = true;
-			isPaused = true;
-			//ScreenFader::FadeOut();
-		}
-		else
-		{
-			ClientAPI::GetGuiContainer("IngamePause")->Active = false;
-			isPaused = false;
-			//ScreenFader::FadeOut();
-		}
+		isPaused = isPaused ? false : true;
+		ClientAPI::GetGuiContainer("IngamePause")->Active = isPaused;
 	}
 
 	static void Pause(std::string containerID)
 	{
 		releaseAllButtons(); //BANDAID
-		if (!isPaused)
-		{
-			ClientAPI::GetGuiContainer(containerID)->Active = false;
-			ClientAPI::GetGuiContainer("IngamePause")->Active = true;
-			isPaused = true;
-			//ScreenFader::FadeOut();
-		}
-		else
-		{
-			isPaused = false;
-			ClientAPI::GetGuiContainer(containerID)->Active = true;
-			ClientAPI::GetGuiContainer("IngamePause")->Active = false;
-			//ScreenFader::FadeOut();
-		}
+		isPaused = isPaused ? false : true;
+		ClientAPI::GetGuiContainer("IngamePause")->Active = isPaused;
+		ClientAPI::GetGuiContainer(containerID)->Active = ClientAPI::GetGuiContainer(containerID)->Active ? false : true;
 	}
 
 	static void Click_resume()
@@ -163,10 +142,9 @@ public:
 
 	static void Click_save()
 	{
-		std::cout << "Save game\n";
+		std::cout << "Save game\n"; 
 		Pause();
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
-		//ScreenFader::FadeOut();
 	}
 
 	static void Click_quitMenu()
@@ -174,7 +152,6 @@ public:
 		Pause();
 		ClientAPI::SetAllGuiContainersInactive(); //Disables all the current GUI Objects before setting the main menu to active
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
-		//ScreenFader::FadeOut();
 	}
 
 	static void Click_quitDesktop()
@@ -183,7 +160,8 @@ public:
 	}
 
 	//BANDAID FIX FOR THE BUTTON DARKENING PROBLEM
-	static void releaseAllButtons(){
+	static void releaseAllButtons()
+	{
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->isPressedDown = false;
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->isPressedDown = false;
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->isPressedDown = false;

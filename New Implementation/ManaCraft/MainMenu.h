@@ -138,7 +138,6 @@ public:
 		std::cout << "Login to network.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
 		ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
-
 	}
 
 	static void Click_createButton()
