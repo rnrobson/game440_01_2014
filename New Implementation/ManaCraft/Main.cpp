@@ -24,6 +24,7 @@
 #include "Options.h"
 #include "GUI.h"
 #include "AudioEngine.h"
+#include "InGameGUI.h"
 
 //-- Function Prototypes
 void TransferControlToClient();
@@ -99,6 +100,7 @@ void TransferControlToClient() {
 	GameLobby::Load();
 	ViewGames::Load();
 	AudioEngine::Load();
+	InGameGUI::Load();
 
 	//--Temporary asset loading
 	SDL_Texture *_minionTexture = APIHelper::LoadPNGTexture("Resources/Sprites/MinionSS.png");
