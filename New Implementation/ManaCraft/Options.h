@@ -49,6 +49,11 @@ public:
 		//add logo
 		ClientAPI::GetGuiContainer("Options")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
 
+		//add sliders
+		ClientAPI::GetGuiContainer("Options")->AddSlider("slider", new Slider(APIHelper::RectHelper(200, 100, 200, 20),
+																			APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 0, 0, 255)),
+																			APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 255, 255, 255))));
+
 		//add labels
 		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options"), "Lbl_Options", "Options", { 450, 400, 200, 100 }, "OGWEAR", "White");
 		API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options"), "Lbl_Music", "Music Volume: 64", { 420, 500, 200, 100 }, "Systema_22", "Black");

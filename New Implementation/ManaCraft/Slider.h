@@ -6,6 +6,11 @@ class Slider :
 private:
 	SDL_Texture* slider;
 	SDL_Rect sliderRect;
+	
+	bool isPressedDown;
+	
+	void ClampSlider();
+
 public: 
 
 	Slider(SDL_Rect _rect, SDL_Texture* _sliderBar, SDL_Texture* _slider);
@@ -22,5 +27,8 @@ public:
 
 	virtual void OnMouseDown(SDL_MouseButtonEvent e);
 	virtual void OnMouseUp(SDL_MouseButtonEvent e);
+	virtual void OnMouseClick();
+	virtual void OnMouseMotion(SDL_MouseMotionEvent e);
+
 };
 

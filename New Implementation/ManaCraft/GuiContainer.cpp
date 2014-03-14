@@ -215,7 +215,7 @@ void GuiContainer::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 	for each (Slider* slider in sliders)
 	{
 		if (slider->Active) {
-			slider->OnMouseHover(e);
+			slider->OnMouseMotion(e);
 		}
 	}
 }
