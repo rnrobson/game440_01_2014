@@ -252,9 +252,6 @@
     <ClCompile Include="PlayerBase.cpp">
       <Filter>Source Files\Data Structures</Filter>
     </ClCompile>
-    <ClCompile Include="AudioEngine.cpp">
-      <Filter>Source Files\Client\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="GuiGridLayer.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -523,9 +520,6 @@
     </ClInclude>
     <ClInclude Include="Command_UpdateMinions.h">
       <Filter>Header Files\ServerCommands</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioEngine.h">
-      <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="AudioChannel.h">
       <Filter>Header Files\GUI</Filter>

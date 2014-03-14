@@ -2,7 +2,6 @@
 #include "ClientAPI.h"
 #include "API_Util.h"
 #include "SDL_mixer.h"
-#include "AudioEngine.h"
 
 class Options
 {
