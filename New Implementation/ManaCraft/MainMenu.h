@@ -171,6 +171,7 @@ public:
 	{
 		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 		ClientAPI::GetGuiContainer("GUI")->Active = true;
+		ClientAPI::GetGuiContainer("InGameGUI")->Active = true;
 		ScreenFader::FadeOut();
 	}
 
