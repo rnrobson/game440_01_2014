@@ -12,14 +12,14 @@ class PacketFactory
 public:
 	/// <summary>[CreateServerClientPacket]
 	/// <para>Converts a regular packet into the Command Packet that corresponds to its Protocol.</para>
-	/// <para> [Packet& packet] A packet holding a protocol and the corresponding data for that command.</para>
+	/// <para> [const Packet& packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <para>Returns the converted packet.</para>
 	/// </summary>
 	static Networking::Packet* CreateToServerPacket(const Networking::Packet& packet);
 
 	/// <summary>[CreateClientServerPacket]
 	/// <para>Converts a regular packet into the Command Packet that corresponds to its Protocol.</para>
-	/// <para>[Packet& packet] A packet holding a protocol and the corresponding data for that command.</para>
+	/// <para>[const Packet& packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <para>Returns the converted packet.</para>
 	/// </summary>
 	static Networking::Packet* CreateToClientPacket(const Networking::Packet& packet);
