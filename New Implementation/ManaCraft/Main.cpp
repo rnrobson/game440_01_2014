@@ -11,6 +11,9 @@
 #if CLIENT_BUILD
 #include "ClientAPI.h"
 
+//-- Networking
+#include "ServerLiason.h"
+
 //-- Helper Functions
 #include "ScreenFader.h"
 
@@ -31,6 +34,7 @@ void CustomUpdate(double time);
 void CustomDraw();
 void OnEscapePressed();
 void OnEnterPressed();
+void InitSDLNet();
 #endif
 
 #if SERVER_BUILD
@@ -81,6 +85,9 @@ int main(int argc, char* argcs[]) {
 void TransferControlToClient() {
 	////-- Initialize the API
 	ClientAPI::Init();
+
+	// Initialize SDLNet and start connection
+	InitSDLNet();
 
 	// Set Custom Events
 	ClientAPI::SubscribeCustomUpdate(CustomUpdate);
@@ -149,6 +156,17 @@ void OnEscapePressed()
 void OnEnterPressed()
 {
 	
+}
+
+void InitSDLNet() {
+	//Init SDL_net
+	if (SDLNet_Init() == -1)
+		std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
+	else {
+		std::cout << "SDL_net was initialized properly" << std::endl;
+		// If it was properly initialized, start the threads.
+		ManaCraft::Client::ServerLiason::Start();
+	}
 }
 #endif
 

@@ -3,17 +3,24 @@
 
 #include <iostream>
 #include "Packet.h"
+#include "NetClient.h"
 
 namespace ManaCraft {
 	namespace Client {
 		class ServerLiason {
 			private:
-				static int SendToServer(void*);
-				static int ListenToServer(void*);
-				static void CloseConnection();
-				static void ProcessData(ManaCraft::Networking::Packet* packet);
+				static int StaticSendToServer(void* data);
+				int SendToServer();
+				static int StaticListenToServer(void* data);
+				int ListenToServer();
+				void CloseConnection();
+				void ProcessData(ManaCraft::Networking::Packet* packet);
+
+				SDL_Thread* listening;
+				SDL_Thread* sending;
 
 			public:
+				ServerLiason();
 				static void Start();
 		};
 	}

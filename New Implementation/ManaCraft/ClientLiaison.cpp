@@ -51,7 +51,7 @@ int ClientLiaison::ClientListen(void*) {
 	std::cout << std::endl << "Master connection attempted to open: " << i << std::endl;
 
 	if(i == 1) {
-		std::cout << "Listening on port: 21025" << std::endl;
+		std::cout << "Listening on port: " << master.GetIP().port << std::endl;
 	} else {
 		std::cout << "Failed to open master connecton." << std::endl;
 	}

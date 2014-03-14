@@ -1,44 +1,51 @@
 #include "ServerLiason.h"
-#include "NetServer.h"
+
 using namespace ManaCraft::Networking;
 using namespace ManaCraft::Client;
 using namespace std;
 
-// The Connection Variable
-NetClient clientConnection("192.168.0.102", 27015);
-SDL_Thread *listening, *sending; // The Threads
-bool isRunning = false;
+NetClient clientConnection("192.168.2.18", 27015);// Set the clientConnection
+bool hasStarted = false;
 
-void ServerLiason::Start() {
-	// TODO: Test with server sending data
-
+ServerLiason::ServerLiason() {
 	// Open the connection
 	int openState = clientConnection.Open();
 
 	if (openState == 0) {
-		cout << "The connection didn't open, throw something." << endl;
+		cout << "The connection didn't open. Host: " << clientConnection.GetIP().host << " Port: " << clientConnection.GetIP().port << endl;
 	}
 	else {
-		cout << "Successfully connected on: " << clientConnection.GetIP().host << endl;
-		isRunning = true;
+		cout << "Client successfully connected on: " << clientConnection.GetIP().host << endl;
+		hasStarted = true;
 
-		listening = SDL_CreateThread(ListenToServer, "listening", NULL);
+		listening = SDL_CreateThread(StaticListenToServer, "listening", this);
 		if (listening == NULL) {
-			cout << "Listening didn't create its thread, throw something." << endl;
+			cout << "Listening didn't create its thread." << endl;
 		}
 
-		sending = SDL_CreateThread(SendToServer, "sending", NULL);
+		sending = SDL_CreateThread(StaticSendToServer, "sending", this);
 		if (sending == NULL) {
-			cout << "Sending didn't create its thread, throw something." << endl;
+			cout << "Sending didn't create its thread." << endl;
 		}
 	}
 }
 
-int ServerLiason::SendToServer(void*) {
+void ServerLiason::Start() {
+	if (!hasStarted)
+		ServerLiason();
+}
+
+
+int ServerLiason::SendToServer() {
 	return 0;
 }
 
-int ServerLiason::ListenToServer(void*) {
+int ServerLiason::StaticSendToServer(void* data) {
+	return ((ServerLiason*)data)->SendToServer();
+}
+
+
+int ServerLiason::ListenToServer() {
 	bool listen = true;
 
 	while (listen) {
@@ -56,8 +63,13 @@ int ServerLiason::ListenToServer(void*) {
 	return 0;
 }
 
+int ServerLiason::StaticListenToServer(void* data) {
+	return((ServerLiason*)data)->ListenToServer();
+}
+
+
 void ServerLiason::CloseConnection() {
-	isRunning = false;
+	hasStarted = false;
 	clientConnection.Close();
 }
 

@@ -3,7 +3,7 @@
 using namespace ManaCraft::Networking;
 
 Connection::Connection(char* host, Uint16 port) {
-	printf("Connection constructor called with host %s and port %i", host, port);
+	printf("Connection constructor called with host %s and port %i\n", host, port);
 	// Resolve the host and port provided
 	if (SDLNet_ResolveHost(&mIPAddress, host, port) < 0) {
 		printf("Unable to resolve host: %s\n", SDLNet_GetError());
