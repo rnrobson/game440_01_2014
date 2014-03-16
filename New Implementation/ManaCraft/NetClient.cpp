@@ -79,7 +79,7 @@ Packet* NetClient::Receive() {
 			Byte* protocol = new char[2];
 			SDLNet_TCP_Recv(mSocket, protocol, 2);
 
-			__int16 protocolID = Deserialize::Int16(length);
+			__int16 protocolID = Deserialize::Int16(protocol);
 			// Can check against expected value now
 
 			// Initialize the buffer and fill it with the data in Bytes
