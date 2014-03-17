@@ -261,6 +261,9 @@
     <ClCompile Include="PacketFactory.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadedListener.cpp">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -544,6 +547,9 @@
     </ClInclude>
     <ClInclude Include="PacketFactory.h">
       <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadedListener.h">
+      <Filter>Header Files\Networking</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

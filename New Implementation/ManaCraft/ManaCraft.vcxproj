@@ -137,6 +137,7 @@
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
     <ClCompile Include="TextField.cpp" />
+    <ClCompile Include="ThreadedListener.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="Tooltip.cpp" />
     <ClCompile Include="Tower.cpp" />
@@ -230,6 +231,7 @@
     <ClInclude Include="TestProtocol.h" />
     <ClInclude Include="TestSerialize.h" />
     <ClInclude Include="TextField.h" />
+    <ClInclude Include="ThreadedListener.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Tower.h" />
