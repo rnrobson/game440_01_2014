@@ -2,7 +2,7 @@
 
 using namespace ManaCraft::Networking;
 
-Byte* Serialize::Int8(Byte* data, __int8 num) {
+char* Serialize::Int8(char* data, __int8 num) {
 	__int8* pInt8 = (__int8*)data;
 	*pInt8 = num;
 	return data += sizeof(__int8);
@@ -17,7 +17,7 @@ void Serialize::Int8(std::vector<char>& buffer, const unsigned int index, const 
 	delete pInt8;
 }
 
-Byte* Serialize::UInt8(Byte* data, unsigned __int8 num) {
+char* Serialize::UInt8(char* data, unsigned __int8 num) {
 	unsigned __int8* pUInt8 = (unsigned __int8*)data;
 	*pUInt8 = num;
 	return data += sizeof(unsigned __int8);
@@ -32,7 +32,7 @@ void Serialize::UInt8(std::vector<char>& buffer, const unsigned int index, const
 	delete pUInt8;
 }
 
-Byte* Serialize::Int16(Byte* data, __int16 num) {
+char* Serialize::Int16(char* data, __int16 num) {
 	__int16* pInt16 = (__int16*)data;
 	*pInt16 = num;
 	return data += sizeof(__int16);
@@ -48,7 +48,7 @@ void Serialize::Int16(std::vector<char>& buffer, const unsigned int index, const
 	delete pInt16;
 }
 
-Byte* Serialize::UInt16(Byte* data, unsigned __int16 num) {
+char* Serialize::UInt16(char* data, unsigned __int16 num) {
 	unsigned __int16* pUInt16 = (unsigned __int16*)data;
 	*pUInt16 = num;
 	return data += sizeof(unsigned __int16);
@@ -64,7 +64,7 @@ void Serialize::UInt16(std::vector<char>& buffer, const unsigned int index, cons
 	delete pUInt16;
 }
 
-Byte* Serialize::Int32(Byte* data, __int32 num) {
+char* Serialize::Int32(char* data, __int32 num) {
 	__int32* pInt32 = (__int32*)data;
 	*pInt32 = num;
 	return data += sizeof(__int32);
@@ -82,7 +82,7 @@ void Serialize::Int32(std::vector<char>& buffer, const unsigned int index, const
 	delete pInt32;
 }
 
-Byte* Serialize::UInt32(Byte* data, unsigned __int32 num) {
+char* Serialize::UInt32(char* data, unsigned __int32 num) {
 	unsigned __int32* pUInt32 = (unsigned __int32*)data;
 	*pUInt32 = num;
 	return data += sizeof(unsigned __int32);
@@ -100,7 +100,7 @@ void Serialize::UInt32(std::vector<char>& buffer, const unsigned int index, cons
 	delete pUInt32;
 }
 
-Byte* Serialize::Int64(Byte* data, __int64 num) {
+char* Serialize::Int64(char* data, __int64 num) {
 	__int64* pInt64 = (__int64*)data;
 	*pInt64 = num;
 	return data += sizeof(__int64);
@@ -123,7 +123,7 @@ void Serialize::Int64(std::vector<char>& buffer, const unsigned int index, const
 	delete pInt64;
 }
 
-Byte* Serialize::UInt64(Byte* data, unsigned __int64 num) {
+char* Serialize::UInt64(char* data, unsigned __int64 num) {
 	unsigned __int64* pUInt64 = (unsigned __int64*)data;
 	*pUInt64 = num;
 	return data += sizeof(unsigned __int64);
@@ -146,7 +146,7 @@ void Serialize::UInt64(std::vector<char>& buffer, const unsigned int index, cons
 	delete pUInt64;
 }
 
-Byte* Serialize::Float(Byte* data, float num) {
+char* Serialize::Float(char* data, float num) {
 	Serialize::Int32(data, *(__int32*)&num);
 	return data += sizeof(float);
 }
@@ -163,7 +163,7 @@ void Serialize::Float(std::vector<char>& buffer, const unsigned int index, const
 	delete pFloat;
 }
 
-Byte* Serialize::Double(Byte* data, double num) {
+char* Serialize::Double(char* data, double num) {
 	Serialize::Int64(data, *(__int64*)&num);
 	return data += sizeof(double);
 }
@@ -185,7 +185,7 @@ void Serialize::Double(std::vector<char>& buffer, const unsigned int index, cons
 	delete pDouble;
 }
 
-__int8 Deserialize::Int8(Byte* data) {
+__int8 Deserialize::Int8(char* data) {
 	__int8 tempInt8 = *(__int8*)data;
 	return tempInt8;
 }
@@ -194,7 +194,7 @@ __int8 Deserialize::Int8(std::vector<char>& buffer, const unsigned int index) {
 	return *(__int8*)&buffer[index];
 }
 
-unsigned __int8 Deserialize::UInt8(Byte* data) {
+unsigned __int8 Deserialize::UInt8(char* data) {
 	unsigned __int8 tempUInt8 = *(unsigned __int8*)data;
 	return tempUInt8;
 }
@@ -203,7 +203,7 @@ unsigned __int8 Deserialize::UInt8(std::vector<char>& buffer, const unsigned int
 	return *(unsigned __int8*)&buffer[index];
 }
 
-__int16 Deserialize::Int16(Byte* data) {
+__int16 Deserialize::Int16(char* data) {
 	__int16 tempInt16 = *(__int16*)data;
 	return tempInt16;
 }
@@ -212,7 +212,7 @@ __int16 Deserialize::Int16(std::vector<char>& buffer, const unsigned int index) 
 	return *(__int16*)&buffer[index];
 }
 
-unsigned __int16 Deserialize::UInt16(Byte* data) {
+unsigned __int16 Deserialize::UInt16(char* data) {
 	unsigned __int16 tempUInt16 = *(unsigned __int16*)data;
 	return tempUInt16;
 }
@@ -221,7 +221,7 @@ unsigned __int16 Deserialize::UInt16(std::vector<char>& buffer, const unsigned i
 	return *(unsigned __int16*)&buffer[index];
 }
 
-__int32 Deserialize::Int32(Byte* data) {
+__int32 Deserialize::Int32(char* data) {
 	__int32 tempInt32 = *(__int32*)data;
 	return tempInt32;
 }
@@ -230,7 +230,7 @@ __int32 Deserialize::Int32(std::vector<char>& buffer, const unsigned int index) 
 	return *(__int32*)&buffer[index];
 }
 
-unsigned __int32 Deserialize::UInt32(Byte* data) {
+unsigned __int32 Deserialize::UInt32(char* data) {
 	unsigned __int32 tempUInt32 = *(unsigned __int32*)data;
 	return tempUInt32;
 }
@@ -239,7 +239,7 @@ unsigned __int32 Deserialize::UInt32(std::vector<char>& buffer, const unsigned i
 	return *(unsigned __int32*)&buffer[index];
 }
 
-__int64 Deserialize::Int64(Byte* data) {
+__int64 Deserialize::Int64(char* data) {
 	__int64 tempInt64 = *(__int64*)data;
 	return tempInt64;
 }
@@ -248,7 +248,7 @@ __int64 Deserialize::Int64(std::vector<char>& buffer, const unsigned int index) 
 	return *(__int64*)&buffer[index];
 }
 
-unsigned __int64 Deserialize::UInt64(Byte* data) {
+unsigned __int64 Deserialize::UInt64(char* data) {
 	unsigned __int64 tempUInt64 = *(unsigned __int64*)data;
 	return tempUInt64;
 }
@@ -257,7 +257,7 @@ unsigned __int64 Deserialize::UInt64(std::vector<char>& buffer, const unsigned i
 	return *(unsigned __int64*)&buffer[index];
 }
 
-float Deserialize::Float(Byte* data) {
+float Deserialize::Float(char* data) {
 	__int32 tempInt32 = Deserialize::Int32(data);
 	return *(float*)&tempInt32;
 }
@@ -266,7 +266,7 @@ float Deserialize::Float(std::vector<char>& buffer, const unsigned int index) {
 	return *(float*)&buffer[index];
 }
 
-double Deserialize::Double(Byte* data) {
+double Deserialize::Double(char* data) {
 	__int64 tempInt64 = Deserialize::Int64(data);
 	return *(double*)&tempInt64;
 }
