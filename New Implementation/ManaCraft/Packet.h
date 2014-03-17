@@ -1,7 +1,7 @@
 #ifndef PACKET_H
 #define PACKET_H
 
-typedef char Byte;
+#include <vector>
 
 namespace ManaCraft {
 	namespace Networking {
@@ -9,58 +9,52 @@ namespace ManaCraft {
 		private:
 			short mProtocolID;
 			short mDataLength;
-			const Byte* mSecurityHeader;
-			Byte* mData;
-			Byte* mPayload;
+			int mSecurityHeader;
+			std::vector<char> mData;
+			std::vector<char> mPayload;
 
-			// Rebuild Payload
-			void NewPayload();
-
-			// Override copy constructors
-			Packet(const Packet&);
-			void operator=(const Packet&);
-
-		public:
 			/// <summary>[Packet]
 			/// <para>Initializes a new Packet and initializes variables as null.</para>
 			/// </summary>
 			Packet();
 
+		public:
 			/// <summary>[Packet]
+			/// <para>Creates a packet with the provided data (YOU MUST ).</para>
+			/// <para>[int securityHeader] Should point to 4 pre-allocated Bytes.</para>
+			/// <para>[short protocolID] A protocol id that represents the type of data being sent.</para>
+			/// <para>[std::vector<char>& data] A pre-allocated vector of characters of data to be sent.</para>
+			/// </summary>
+			Packet(int securityHeader, short protocolID, std::vector<char>& data);
+
+			/// <summary>[Initialize]
 			/// <para>Send data over the current network connection.</para>
 			/// <para>[Byte* securityHeader] Should point to 4 pre-allocated Bytes.</para>
 			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
 			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
 			/// </summary>
-			Packet(const Byte* securityHeader, short protocolID, Byte* data);
-
-			/// <summary>[Packet]
-			/// <para>Create a generic packet container.</para>
-			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
-			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
-			/// </summary>
-			Packet(short protocolID, Byte* data);
+			void Initialize();
 
 			// Destructor (Not used currently)
-			~Packet();
+			virtual ~Packet();
 
 			/// <summary>[SetProtocolID]
 			/// <para>[SETTER] Set the packet porotocol ID.</para>
-			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
+			/// <para>[short protocolID] A protocol id that represents the type of data being sent.</para>
 			/// </summary>
-			void SetProtocolID(short newProtocolID);
+			void SetProtocolID(short protocolID);
 
 			/// <summary>[SetData]
 			/// <para>[SETTER] Set the packet data.</para>
 			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
 			/// </summary>
-			void SetData(Byte* newData);
+			void SetData(std::vector<char>& newData);
 
 			/// <summary>[GetSecurityHeader]
 			/// <para>[GETTER] Get the packet security header.</para>
 			/// <returns>Returns the packet security header.</returns>
 			/// </summary>
-			const Byte* GetSecurityHeader() const;
+			const int GetSecurityHeader() const;
 
 			/// <summary>[GetProtocolID]
 			/// <para>[GETTER] Get the packet porotocol ID.</para>
@@ -72,7 +66,7 @@ namespace ManaCraft {
 			/// <para>[GETTER] Get the packet's data.</para>
 			/// <returns>Returns the packet's data.</returns>
 			/// </summary>
-			Byte* GetData() const;
+			std::vector<char> GetData() const;
 
 			/// <summary>[GetDataLength]
 			/// <para>[GETTER] Get the length of the data.</para>
@@ -84,19 +78,13 @@ namespace ManaCraft {
 			/// <para>[GETTER] Get the packet in Bytes.</para>
 			/// <returns>Returns the packet as an array of Bytes.</returns>
 			/// </summary>
-			Byte* GetPayload() const;
+			std::vector<char> GetPayload() const;
 
 			/// <summary>[PayloadSize]
 			/// <para>[GETTER] Get the size of the payload.</para>
 			/// <returns>Returns the size of the payload.</returns>
 			/// </summary>
-			int PayloadSize() const;
-
-			/// <summary>[Execute]
-			/// <para>Override this method for each packet.</para>
-			/// <returns>Returns the size of the payload.</returns>
-			/// </summary>
-			virtual void Execute() {};
+			int GetPayloadSize() const;
 		};
 	}
 }

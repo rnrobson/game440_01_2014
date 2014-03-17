@@ -1,43 +1,49 @@
 #include "Packet.h"
 #include <string.h>
+#include <iostream>
 #include "Serialize.h"
 
 using namespace ManaCraft::Networking;
 
-Packet::Packet() :
-mSecurityHeader(nullptr), mProtocolID(0),
-mData(nullptr), mDataLength(0),
-mPayload(nullptr) {
+Packet::Packet() : mSecurityHeader(0), mProtocolID(0), mDataLength(0) {
 }
 
-Packet::Packet(const Byte* securityHeader, short protocolID, Byte* data) :
-mSecurityHeader(securityHeader), mProtocolID(protocolID), mData(data),
-mDataLength(strlen(data)), mPayload(nullptr) {
-	NewPayload();
-}
-
-Packet::Packet(short protocolID, Byte* data) :
-mSecurityHeader(nullptr), mProtocolID(protocolID), mData(data),
-mDataLength(strlen(data)), mPayload(nullptr) {
+Packet::Packet(int securityHeader, short protocolID, std::vector<char>& data) :
+mSecurityHeader(securityHeader), mProtocolID(protocolID) {
+	SetData(data);
 }
 
 Packet::~Packet() {
-	delete[] mPayload;
-	mPayload = nullptr;
 }
 
-void Packet::SetProtocolID(short newProtocolID) {
-	mProtocolID = newProtocolID;
-	NewPayload();
+void Packet::Initialize() {
+	mData.clear();
+	mPayload = std::vector<char>(GetPayloadSize());
+	unsigned int pos = 0;
+	Serialize::Int32(mPayload, pos, mSecurityHeader);
+	pos += sizeof(__int32);
+	Serialize::Int16(mPayload, pos, mDataLength);
+	pos += sizeof(__int16);
+	Serialize::Int16(mPayload, pos, mProtocolID);
+	pos += sizeof(__int16);
+	for (int i = pos; i < pos + mDataLength; ++i) {
+		mPayload[i] = mData[i];
+	}
+	Serialize::Int32(mPayload, pos, mSecurityHeader);
 }
 
-void Packet::SetData(Byte* newData) {
+void Packet::SetProtocolID(short protocolID) {
+	mProtocolID = protocolID;
+	Initialize();
+}
+
+void Packet::SetData(std::vector<char>& newData) {
 	mData = newData;
-	mDataLength = strlen(mData);
-	NewPayload();
+	mDataLength = mData.size();
+	Initialize();
 }
 
-const Byte* Packet::GetSecurityHeader() const {
+const int Packet::GetSecurityHeader() const {
 	return mSecurityHeader;
 }
 
@@ -45,7 +51,7 @@ short Packet::GetProtocolID() const {
 	return mProtocolID;
 }
 
-Byte* Packet::GetData() const {
+std::vector<char> Packet::GetData() const {
 	return mData;
 }
 
@@ -53,31 +59,10 @@ short Packet::GetDataLength() const {
 	return mDataLength;
 }
 
-int Packet::PayloadSize() const {
-	return strlen(mSecurityHeader) + sizeof(short) * 2 + mDataLength + strlen(mSecurityHeader);
+int Packet::GetPayloadSize() const {
+	return sizeof(int) * 2 + sizeof(__int16) * 2 + mDataLength;
 }
 
-Byte* Packet::GetPayload() const {
+std::vector<char> Packet::GetPayload() const {
 	return mPayload;
-}
-
-void Packet::NewPayload() {
-	if (mPayload != nullptr) {
-		delete[] mPayload;
-	}
-	mPayload = new Byte[PayloadSize()];
-	Byte* currPos = mPayload;
-	for (unsigned int i = 0; i < strlen(mSecurityHeader); ++i) {
-		currPos[i] = mSecurityHeader[i];
-	}
-	currPos += strlen(mSecurityHeader);
-	currPos = Serialize::Int16(currPos, mDataLength);
-	currPos = Serialize::Int16(currPos, mProtocolID);
-	for (int i = 0; i < mDataLength; ++i) {
-		currPos[i] = mData[i];
-	}
-	currPos += mDataLength;
-	for (unsigned int i = 0; i < strlen(mSecurityHeader); ++i) {
-		currPos[i] = mSecurityHeader[i];
-	}
 }
