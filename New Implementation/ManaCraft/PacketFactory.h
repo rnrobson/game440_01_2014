@@ -39,6 +39,8 @@ public:
 #pragma region CS_Protocol Packets
 
 class CloseGamePacket : public CommandPacket {
+private:
+	std::string username;
 public:
 	CloseGamePacket(const Packet* packet);
 	void Execute();
@@ -47,43 +49,66 @@ public:
 class LoginPlayerPacket : public CommandPacket {
 private:
 	std::string username;
-	__int16 usernameLength;
 public:
 	LoginPlayerPacket(const Packet* packet);
 	void Execute();
 };
 
 class LogoutPlayerPacket : public CommandPacket {
+private:
+	std::string username;
 public:
 	LogoutPlayerPacket(const Packet* packet);
 	void Execute();
 };
 
 class SendMessageIGPacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
+	std::string message;
 public:
 	SendMessageIGPacket(const Packet* packet);
 	void Execute();
 };
 
 class SendMessageGLPacket : public CommandPacket {
+	__int16 lobbyID;
+	std::string username;
+	std::string message;
 public:
 	SendMessageGLPacket(const Packet* packet);
 	void Execute();
 };
 
 class SendWhisperPacket : public CommandPacket {
+private:
+	std::string sendingUser;
+	std::string receivingUser;
+	std::string message;
+	__int16 gameID;
+	__int16 teamID;
 public:
 	SendWhisperPacket(const Packet* packet);
 	void Execute();
 };
 
 class SendPartyMsgIGPacket : public CommandPacket {
+private:
+	std::string username;
+	std::string message;
+	__int16 gameID;
+	__int16 teamID;
 public:
 	SendPartyMsgIGPacket(const Packet* packet);
 	void Execute();
 };
 
 class SendPartyMsgGLPacket : public CommandPacket {
+private:
+	std::string username;
+	std::string message;
+	__int16 lobbyID;
 public:
 	SendPartyMsgGLPacket(const Packet* packet);
 	void Execute();

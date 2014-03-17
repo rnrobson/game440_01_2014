@@ -206,11 +206,11 @@ namespace ManaCraft {
 			// There are currently: 5/25
 
 			/// <summary>Will send a message to the server meant for all the players within that game
-			/// <para>Data: [4] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
+			/// <para>Data: [2] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
 			SEND_MESSAGE_IG = 2200,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
+			/// <para>Data: [2] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
 			SEND_MESSAGE_GL,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
@@ -218,11 +218,11 @@ namespace ManaCraft {
 			/// </summary>
 			SEND_WHISPER,
 			/// <summary>Will send a message to the server meant for players in the same party - while in game.
-			/// <para>Data: [4] GameID, [4] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
+			/// <para>Data: [2] GameID, [2] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
 			SEND_PARTY_MSG_IG,
 			/// <summary>Will send a message to the server meant for players in the same party - while in the game lobby.
-			/// <para>Data: [4] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
+			/// <para>Data: [2] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
 			SEND_PARTY_MSG_GL,
 
@@ -236,7 +236,7 @@ namespace ManaCraft {
 			/// </summary>
 			REFRESH_GAMES = 2250,
 			/// <summary>Requests that the player joins the selected game.
-			/// <para>Data: [4] GameID, [1] Username Length, [N] Username </para>
+			/// <para>Data: [2] GameID, [1] Username Length, [N] Username </para>
 			/// </summary>
 			JOIN_GAME,
 			/// <summary>Requests that the server create a game with the player as the host.
@@ -250,15 +250,15 @@ namespace ManaCraft {
 			// There are currently: 6/50
 
 			/// <summary>Requests that the player joins the team they have selected
-			/// <para>Data: [4] LobbyID, [4] TeamID, [1] Username Length, [N] Username</para>
+			/// <para>Data: [2] LobbyID, [2] TeamID, [1] Username Length, [N] Username</para>
 			/// </summary>
 			JOIN_TEAM = 2300,
 			/// <summary>Requests that the player leave from the game they are currently in. 
-			/// <para>Data: [4] LobbyID, [1] Username Length, [N] Username</para>
+			/// <para>Data: [2] LobbyID, [1] Username Length, [N] Username</para>
 			/// </summary>
 			LEAVE_GAME,
 			/// <summary>Requests that the player is sent back to the bench if they are currently on a team
-			/// <para>Data: [4] LobbyID, [1] Username Length, [N] Username</para>
+			/// <para>Data: [2] LobbyID, [1] Username Length, [N] Username</para>
 			/// </summary>
 			BENCH_PLAYER,
 			/// <summary>Updates the player's ready status and sends it to the server.
@@ -266,11 +266,11 @@ namespace ManaCraft {
 			/// </summary>
 			READY_STATUS,
 			/// <summary>Host Only - Requests that the host's game be disbanded.
-			/// <para>Data: [4] GameID </para>
+			/// <para>Data: [2] GameID </para>
 			/// </summary>
 			DISBAND_GAME,
 			/// <summary>Host Only - Will send to the server the new gameplay options for the players
-			/// <para>Data: [4] GameID, [???] OptionsData</para>
+			/// <para>Data: [2] GameID, [???] OptionsData</para>
 			/// </summary>
 			SET_GAMEPLAY_OPTIONS,
 			
@@ -280,7 +280,7 @@ namespace ManaCraft {
 			//There are currently: 4/100
 			
 			/// <summary> Sends a requests to the server to place a tower in the designated spot.
-			/// <para>Data: [4] GameID, [4] TowerID, [4] Gridspace, [1] Username Length, [N] Username</para>
+			/// <para>Data: [2] GameID, [2] TowerID, [4] Gridspace, [1] Username Length, [N] Username</para>
 			/// </summary>
 			PLACE_TOWER = 2400,
 			/// <summary> Sends a request to the server to place a minion at the starting portal.
