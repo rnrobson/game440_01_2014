@@ -1,6 +1,6 @@
 #include "PacketFactory.h"
 
-Networking::Packet* PacketFactory::CreateToServerPacket(const Networking::Packet* packet) {
+Networking::Packet* PacketFactory::CreateFromClientPacket(const Networking::Packet* packet) {
 
 	std::cout << "PacketFactory creating packet." << std::endl;
 
@@ -65,7 +65,7 @@ Networking::Packet* PacketFactory::CreateToServerPacket(const Networking::Packet
 	}
 }
 
-Networking::Packet* PacketFactory::CreateToClientPacket(const Networking::Packet* packet) {
+Networking::Packet* PacketFactory::CreateFromServerPacket(const Networking::Packet* packet) {
 	switch (packet->GetProtocolID()) {
 	case Networking::CLIENT_LOST:
 		return new ClientLostPacket(packet);

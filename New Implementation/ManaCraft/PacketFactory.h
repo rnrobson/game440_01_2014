@@ -17,14 +17,14 @@ public:
 	/// <para> [const Packet* packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <returns>Returns the converted packet.</returns>
 	/// </summary>
-	static Networking::Packet* CreateToServerPacket(const Networking::Packet* packet);
+	static Networking::Packet* CreateFromClientPacket(const Networking::Packet* packet);
 
 	/// <summary>[CreateClientServerPacket]
 	/// <para>Converts a regular packet into the Command Packet that corresponds to its Protocol.</para>
 	/// <para>[const Packet* packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <returns>Returns the converted packet.</returns>
 	/// </summary>
-	static Networking::Packet* CreateToClientPacket(const Networking::Packet* packet);
+	static Networking::Packet* CreateFromServerPacket(const Networking::Packet* packet);
 
 private: 
 	PacketFactory() { };
