@@ -18,7 +18,7 @@ namespace ManaCraft {
 		// This just allows for verbose protocol parameters.
 		typedef __int16 ProtocolCommand;
 
-		const char* const SEC_HEAD = "MCFT";
+		const int SEC_HEAD = 1729;
 
 		enum SC_Protocol : __int16 {
 			// Connection type protocols are: 1150 - 1199
