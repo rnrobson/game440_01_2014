@@ -5,7 +5,7 @@
 
 using namespace ManaCraft::Networking;
 
-Packet::Packet() : mSecurityHeader(0), mProtocolID(0), mDataLength(0) {
+Packet::Packet() : mSecurityHeader(0), mProtocolID(0) {
 }
 
 Packet::Packet(int securityHeader, short protocolID, std::vector<char>& data) :
@@ -22,14 +22,14 @@ void Packet::Initialize() {
 	unsigned int pos = 0;
 	Serialize::Int32(mPayload, pos, mSecurityHeader);
 	pos += sizeof(__int32);
-	Serialize::Int16(mPayload, pos, mDataLength);
+	Serialize::Int16(mPayload, pos, GetDataLength());
 	pos += sizeof(__int16);
 	Serialize::Int16(mPayload, pos, mProtocolID);
 	pos += sizeof(__int16);
-	for (int i = pos; i < pos + mDataLength; ++i) {
-		mPayload[i] = mData[i];
+	for (unsigned int i = 0; i < GetDataLength(); ++i) {
+		mPayload[pos + i] = mData[i];
 	}
-	pos += mDataLength;
+	pos += GetDataLength();
 	Serialize::Int32(mPayload, pos, mSecurityHeader);
 }
 
@@ -40,7 +40,6 @@ void Packet::SetProtocolID(short protocolID) {
 
 void Packet::SetData(std::vector<char>& newData) {
 	mData = newData;
-	mDataLength = mData.size();
 	Initialize();
 }
 
@@ -57,11 +56,11 @@ std::vector<char> Packet::GetData() const {
 }
 
 short Packet::GetDataLength() const {
-	return mDataLength;
+	return mData.size();
 }
 
 int Packet::GetPayloadSize() const {
-	return sizeof(int) * 2 + sizeof(__int16) * 2 + mDataLength;
+	return sizeof(mSecurityHeader) * 2 + sizeof(mProtocolID) * 2 + GetDataLength();
 }
 
 std::vector<char> Packet::GetPayload() const {

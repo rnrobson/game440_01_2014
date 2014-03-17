@@ -7,9 +7,8 @@ namespace ManaCraft {
 	namespace Networking {
 		class Packet {
 		private:
-			short mProtocolID;
-			short mDataLength;
 			int mSecurityHeader;
+			short mProtocolID;
 			std::vector<char> mData;
 			std::vector<char> mPayload;
 
