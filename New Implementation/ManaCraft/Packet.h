@@ -20,18 +20,15 @@ namespace ManaCraft {
 
 		public:
 			/// <summary>[Packet]
-			/// <para>Creates a packet with the provided data (YOU MUST ).</para>
-			/// <para>[int securityHeader] Should point to 4 pre-allocated Bytes.</para>
+			/// <para>Creates a packet with the provided data (You MUST call Initialize() to serialize the packet).</para>
+			/// <para>[int securityHeader] Should point to the security header defined in Protocol.</para>
 			/// <para>[short protocolID] A protocol id that represents the type of data being sent.</para>
-			/// <para>[std::vector<char>& data] A pre-allocated vector of characters of data to be sent.</para>
+			/// <para>[std::vector<char>& data] A pre-allocated vector of characters.</para>
 			/// </summary>
 			Packet(int securityHeader, short protocolID, std::vector<char>& data);
 
 			/// <summary>[Initialize]
-			/// <para>Send data over the current network connection.</para>
-			/// <para>[Byte* securityHeader] Should point to 4 pre-allocated Bytes.</para>
-			/// <para>[Byte protocolID] A protocol id that represents the type of data being sent.</para>
-			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
+			/// <para>Serializes the packet into a vector of characters. Use GetPayload() to get the vector.</para>
 			/// </summary>
 			void Initialize();
 
@@ -46,7 +43,7 @@ namespace ManaCraft {
 
 			/// <summary>[SetData]
 			/// <para>[SETTER] Set the packet data.</para>
-			/// <para>[Byte* data] A pre-allocated array of Bytes of data to be sent.</para>
+			/// <para>[std::vector<char>& data] A pre-allocated vector of chars.</para>
 			/// </summary>
 			void SetData(std::vector<char>& newData);
 
@@ -76,7 +73,7 @@ namespace ManaCraft {
 
 			/// <summary>[Payload]
 			/// <para>[GETTER] Get the packet in Bytes.</para>
-			/// <returns>Returns the packet as an array of Bytes.</returns>
+			/// <returns>Returns the packet as a vector of chars.</returns>
 			/// </summary>
 			std::vector<char> GetPayload() const;
 

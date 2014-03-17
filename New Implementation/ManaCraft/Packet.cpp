@@ -17,7 +17,7 @@ Packet::~Packet() {
 }
 
 void Packet::Initialize() {
-	mData.clear();
+	mPayload.clear();
 	mPayload = std::vector<char>(GetPayloadSize());
 	unsigned int pos = 0;
 	Serialize::Int32(mPayload, pos, mSecurityHeader);
@@ -29,6 +29,7 @@ void Packet::Initialize() {
 	for (int i = pos; i < pos + mDataLength; ++i) {
 		mPayload[i] = mData[i];
 	}
+	pos += mDataLength;
 	Serialize::Int32(mPayload, pos, mSecurityHeader);
 }
 
