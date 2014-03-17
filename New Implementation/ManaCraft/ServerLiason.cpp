@@ -54,7 +54,6 @@ int ServerLiason::ListenToServer() {
 			std::cout << "Data received." << std::endl;
 			std::cout << "Length of data : " << packet->GetDataLength() << std::endl;
 			std::cout << "Protocol ID: " << packet->GetProtocolID() << std::endl;
-			std::cout << "Packet Data: " << packet->GetData() << std::endl;
 			std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
 			ProcessData(packet); 
 		}

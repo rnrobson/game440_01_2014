@@ -66,3 +66,7 @@ int Packet::GetPayloadSize() const {
 std::vector<char> Packet::GetPayload() const {
 	return mPayload;
 }
+
+void Packet::Execute() {
+	//Only implemented in Command Packets
+}

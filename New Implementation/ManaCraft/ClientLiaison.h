@@ -12,6 +12,7 @@
 #include "ConnectionException.h"
 #include "NetClient.h"
 #include "Packet.h"
+#include "PacketFactory.h"
 
 using namespace ManaCraft;
 
@@ -21,7 +22,7 @@ using namespace ManaCraft;
 
 			//static Networking::Connection master;
 			static std::vector<Networking::NetClient*> connections;
-			static BlockingQueue<Networking::Packet*> dataToWorker;
+			static BlockingQueue<Networking::Packet> dataToWorker;
 			static BlockingQueue<int> dataToClient;
 
 			/// <summary>[InitLiaison]

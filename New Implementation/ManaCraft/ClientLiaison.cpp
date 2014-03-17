@@ -2,11 +2,12 @@
 #include "Serialize.h"
 #include"ServerIncludes.h"
 #include "Packet.h"
+
 bool ClientLiaison::running = false;
 Networking::NetServer master(27015);
 std::vector<Networking::NetClient*> ClientLiaison::connections = std::vector<Networking::NetClient*>();
 BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
-BlockingQueue<Networking::Packet*> ClientLiaison::dataToWorker = BlockingQueue<Networking::Packet*>();
+BlockingQueue<Networking::Packet> ClientLiaison::dataToWorker = BlockingQueue<Networking::Packet>();
 
 SDL_Thread *incoming, *outgoing;
 
@@ -62,20 +63,14 @@ int ClientLiaison::ClientListen(void*) {
 			
 			if(connection != nullptr) {
 				connections.push_back(connection);
-				std::cout << "connected" << std::endl;
 
 				for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
-					Networking::Packet* packet;
-
-					packet = (*iter)->Receive();
+					Networking::Packet *packet = (*iter)->Receive();
 
 					if(packet != nullptr) {
-						std::cout << "Data received." << std::endl;
-						std::cout << "Length of data : " << packet->GetDataLength() << std::endl;
-						std::cout << "Protocol ID: " << packet->GetProtocolID() << std::endl;
-						std::cout << "Packet Data: " << packet->GetData() << std::endl;
-						std::cout << "Placing received data onto the Send to Worker queue" << std::endl;
-						dataToWorker.push(packet);
+						packet = PacketFactory::CreateToServerPacket(packet);
+
+						packet->Execute();
 					}
 				}
 			}
@@ -92,25 +87,7 @@ int ClientLiaison::ClientListen(void*) {
 }
 
 void ClientLiaison::SendToWorker() {
-	bool sending = true;
 
-	while(sending) {
-		Networking::Packet* packet = nullptr;
-
-		packet = dataToWorker.pop();
-
-		Networking::CS_Protocol protocolID = (Networking::CS_Protocol)packet->GetProtocolID();
-
-#pragma region Big Switch
-		switch(protocolID) {
-		default:
-			break;
-		case Networking::LOGIN_PLAYER:
-			break;
-		}
-#pragma endregion
-
-	}
 }
 
 void ClientLiaison::CloseLiaison() {

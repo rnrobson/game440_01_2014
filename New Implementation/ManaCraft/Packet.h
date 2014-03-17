@@ -81,6 +81,12 @@ namespace ManaCraft {
 			/// <returns>Returns the size of the payload.</returns>
 			/// </summary>
 			int GetPayloadSize() const;
+
+			/// <summary>[Execute]
+			/// <para>Executes the command associated with the packet.</para>
+			/// <para>ONLY implemented in Command Packets.</para>
+			/// <summary>
+			virtual void Execute();
 		};
 	}
 }

@@ -113,6 +113,7 @@
     <ClCompile Include="NetClient.cpp" />
     <ClCompile Include="NetServer.cpp" />
     <ClCompile Include="Packet.cpp" />
+    <ClCompile Include="PacketFactory.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBase.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="NetReceiver.h" />
     <ClInclude Include="NetServer.h" />
     <ClInclude Include="NetworkCommands.h" />
+    <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayerBase.h" />
     <ClInclude Include="ServerCommand.h" />

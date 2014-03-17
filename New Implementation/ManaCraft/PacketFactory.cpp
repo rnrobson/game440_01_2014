@@ -1,13 +1,21 @@
 #include "PacketFactory.h"
 
-Networking::Packet* PacketFactory::CreateToClientPacket(const Networking::Packet& packet) {
-	switch (packet.GetProtocolID()) {
+Networking::Packet* PacketFactory::CreateToServerPacket(const Networking::Packet* packet) {
+
+	std::cout << "PacketFactory creating packet." << std::endl;
+
+	__int16 protocol = packet->GetProtocolID();
+
+	std::cout << "Protocol: " << protocol << std::endl;
+
+	switch ((Networking::CS_Protocol)protocol) {
+	default:
 	case Networking::CLOSE_GAME:
 		return new CloseGamePacket(packet);
 	case Networking::LOGIN_PLAYER:
-		return new LoginPacket(packet);
+		return new LoginPlayerPacket(packet);
 	case Networking::LOGOUT_PLAYER:
-		return new LogoutPacket(packet);
+		return new LogoutPlayerPacket(packet);
 	case Networking::SEND_MESSAGE_IG:
 		return new SendMessageIGPacket(packet);
 	case Networking::SEND_MESSAGE_GL:
@@ -49,7 +57,7 @@ Networking::Packet* PacketFactory::CreateToClientPacket(const Networking::Packet
 	case Networking::PAUSE_GAME:
 		return new PauseGamePacket(packet);
 	case Networking::END_GAME:
-		return new PauseGamePacket(packet);
+		return new EndGamePacket(packet);
 	case Networking::RESUME_GAME:
 		return new ResumeGamePacket(packet);
 	case Networking::QUIT_GAME:
@@ -57,83 +65,220 @@ Networking::Packet* PacketFactory::CreateToClientPacket(const Networking::Packet
 	}
 }
 
-Networking::Packet* PacketFactory::CreateToServerPacket(const Networking::Packet& packet) {
-	switch (packet.GetProtocolID) {
-	case Networking::CLIENT_LOST:
-		return new ClientLostPacket(packet);
-	case Networking::CLIENT_REJOIN:
-		return new ClientRejoinPacket(packet);
-	case Networking::RETURN_LOGIN_STATUS:
-		return new ReturnLoginStatusPacket(packet);
-	case Networking::BROADCAST_MESSAGE_IG:
-		return new BroadcastMessageInGamePacket(packet);
-	case Networking::BROADCAST_MESSAGE_GL:
-		return new BroadcastMessageGameLobbyPacket(packet);
-	case Networking::DISPLAY_WHISPER:
-		return new DisplayWhisperPacket(packet);
-	case Networking::BROADCAST_PARTY_MESSAGE_IG:
-		return new BroadcastPartyMessageInGamePacket(packet);
-	case Networking::BROADCAST_PARTY_MESSAGE_GL:
-		return new BroadcastPartyMessageInGamePacket(packet);
-	case Networking::POPULATE_GAMES:
-		return new PopulateGamesPacket(packet);
-	case Networking::RETURN_JOIN_GAME_STATUS:
-		return new ReturnJoinGameStatusPacket(packet);
-	case Networking::RETURN_CREATED_GAME:
-		return new ReturnCreatedGamePacket(packet);
-	case Networking::REFRESH_LOBBY:
-		return new RefreshLobbyPacket(packet);
-	case Networking::RETURN_DISBAND_GAME:
-		return new ReturnDisbandGamePacket(packet);
-	case Networking::BROADCAST_DISBAND_GAME:
-		return new BroadcastDisbandGamePacket(packet);
-	case Networking::RETURN_JOIN_TEAM:
-		return new ReturnJoinTeamPacket(packet);
-	case Networking::RETURN_BENCH_PLAYER:
-		return new ReturnBenchPlayerPacket(packet);
-	case Networking::UPDATE_GAMEPLAY_OPTIONS:
-		return new UpdateGameplayOptionsPacket(packet);
-	case Networking::MINION_SUMMONED:
-		return new MinionSummonedPacket(packet);
-	case Networking::BROADCAST_SUMMON_MINION:
-		return new BroadcastSummonMinionPacket(packet);
-	case Networking::TOWER_PLACED:
-		return new TowerPlacedPacket(packet);
-	case Networking::BROADCAST_TOWER_PLACED:
-		return new BroadcastTowerPlacedPacket(packet);
-	case Networking::UPDATE_ECONOMY:
-		return new UpdateEconomyPacket(packet);
-	case Networking::UPDATE_BASE_HP:
-		return new UpdateBaseHealthPacket(packet);
-	case Networking::ASSIGN_RESOURCE_NODE:
-		return new AssignResourceNodePacket(packet);
-	case Networking::RETURN_RESEARCH_MINION:
-		return new ReturnResearchMinionPacket(packet);
-	case Networking::RETURN_RESEARCH_TOWER:
-		return new ReturnResearchTowerPacket(packet);
-	case Networking::RETURN_KICK_STATUS:
-		return new ReturnKickStatusPacket(packet);
-	case Networking::RETURN_PAUSE_GAME:
-		return new ReturnPauseGamePacket(packet);
-	case Networking::RETURN_END_GAME:
-		return new ReturnEndGamePacket(packet);
-	case Networking::RETURN_RESUME_GAME:
-		return new ReturnResumeGamePacket(packet);
-	case Networking::RETURN_QUIT_GAME:
-		return new ReturnQuitGamePacket(packet);
-	}
+//Other method commented due to Linker errors because of unimplemented constructors
+//Will implement them tomorrow or something
+
+//Networking::Packet* PacketFactory::CreateToClientPacket(const Networking::Packet* packet) {
+//	switch (packet->GetProtocolID()) {
+//	case Networking::CLIENT_LOST:
+//		return new ClientLostPacket(packet);
+//	case Networking::CLIENT_REJOIN:
+//		return new ClientRejoinPacket(packet);
+//	case Networking::RETURN_LOGIN_STATUS:
+//		return new ReturnLoginStatusPacket(packet);
+//	case Networking::BROADCAST_MESSAGE_IG:
+//		return new BroadcastMessageInGamePacket(packet);
+//	case Networking::BROADCAST_MESSAGE_GL:
+//		return new BroadcastMessageGameLobbyPacket(packet);
+//	case Networking::DISPLAY_WHISPER:
+//		return new DisplayWhisperPacket(packet);
+//	case Networking::BROADCAST_PARTY_MESSAGE_IG:
+//		return new BroadcastPartyMessageInGamePacket(packet);
+//	case Networking::BROADCAST_PARTY_MESSAGE_GL:
+//		return new BroadcastPartyMessageInGamePacket(packet);
+//	case Networking::POPULATE_GAMES:
+//		return new PopulateGamesPacket(packet);
+//	case Networking::RETURN_JOIN_GAME_STATUS:
+//		return new ReturnJoinGameStatusPacket(packet);
+//	case Networking::RETURN_CREATED_GAME:
+//		return new ReturnCreatedGamePacket(packet);
+//	case Networking::REFRESH_LOBBY:
+//		return new RefreshLobbyPacket(packet);
+//	case Networking::RETURN_DISBAND_GAME:
+//		return new ReturnDisbandGamePacket(packet);
+//	case Networking::BROADCAST_DISBAND_GAME:
+//		return new BroadcastDisbandGamePacket(packet);
+//	case Networking::RETURN_JOIN_TEAM:
+//		return new ReturnJoinTeamPacket(packet);
+//	case Networking::RETURN_BENCH_PLAYER:
+//		return new ReturnBenchPlayerPacket(packet);
+//	case Networking::UPDATE_GAMEPLAY_OPTIONS:
+//		return new UpdateGameplayOptionsPacket(packet);
+//	case Networking::MINION_SUMMONED:
+//		return new MinionSummonedPacket(packet);
+//	case Networking::BROADCAST_SUMMON_MINION:
+//		return new BroadcastSummonMinionPacket(packet);
+//	case Networking::TOWER_PLACED:
+//		return new TowerPlacedPacket(packet);
+//	case Networking::BROADCAST_TOWER_PLACED:
+//		return new BroadcastTowerPlacedPacket(packet);
+//	case Networking::UPDATE_ECONOMY:
+//		return new UpdateEconomyPacket(packet);
+//	case Networking::UPDATE_BASE_HP:
+//		return new UpdateBaseHealthPacket(packet);
+//	case Networking::ASSIGN_RESOURCE_NODE:
+//		return new AssignResourceNodePacket(packet);
+//	case Networking::RETURN_RESEARCH_MINION:
+//		return new ReturnResearchMinionPacket(packet);
+//	case Networking::RETURN_RESEARCH_TOWER:
+//		return new ReturnResearchTowerPacket(packet);
+//	case Networking::RETURN_KICK_STATUS:
+//		return new ReturnKickStatusPacket(packet);
+//	case Networking::RETURN_PAUSE_GAME:
+//		return new ReturnPauseGamePacket(packet);
+//	case Networking::RETURN_END_GAME:
+//		return new ReturnEndGamePacket(packet);
+//	case Networking::RETURN_RESUME_GAME:
+//		return new ReturnResumeGamePacket(packet);
+//	case Networking::RETURN_QUIT_GAME:
+//		return new ReturnQuitGamePacket(packet);
+//	}
+//}
+
+#pragma region CS Packet Constructors
+
+CommandPacket::CommandPacket(const Networking::Packet* packet) : Packet(*packet) {
+
 }
+
+CloseGamePacket::CloseGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+LoginPlayerPacket::LoginPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	usernameLength = 0;
+
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	__int16 len = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	std::cout << "Username Length: " << len << std::endl;
+
+	char* name = new char[len + 1];
+	for(int i = 0; i < len; ++i) {
+		name[i] = data[index];
+		++index;
+	}
+	name[len] = '\0';
+
+	username.append(name);
+}
+
+LogoutPlayerPacket::LogoutPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SendMessageIGPacket::SendMessageIGPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SendMessageGLPacket::SendMessageGLPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SendPartyMsgIGPacket::SendPartyMsgIGPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SendPartyMsgGLPacket::SendPartyMsgGLPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+RefreshGamesPacket::RefreshGamesPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+JoinGamePacket::JoinGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+CreateGamePacket::CreateGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+JoinTeamPacket::JoinTeamPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+LeaveGamePacket::LeaveGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+BenchPlayerPacket::BenchPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+ReadyStatusPacket::ReadyStatusPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+DisbandGamePacket::DisbandGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SetGameplayOptionsPacket::SetGameplayOptionsPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+PlaceTowerPacket::PlaceTowerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+SummonMinionPacket::SummonMinionPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+ResearchMinionPacket::ResearchMinionPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+ResearchTowerPacket::ResearchTowerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+KickPlayerPacket::KickPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+PauseGamePacket::PauseGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+EndGamePacket::EndGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+ResumeGamePacket::ResumeGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+QuitGamePacket::QuitGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+
+}
+
+#pragma endregion
+
+#pragma region SC Packet Constructors
+
+//wow so empty much space very blank
+
+#pragma endregion
 
 #pragma region CS Packet Executes
 void CloseGamePacket::Execute() {
 
 }
 
-void LoginPacket::Execute() {
-
+void LoginPlayerPacket::Execute() {
+	std::cout << "Logged in: " << username << std::endl;
 }
 
-void LogoutPacket::Execute() {
+void LogoutPlayerPacket::Execute() {
 
 }
 
@@ -231,7 +376,7 @@ void QuitGamePacket::Execute() {
 #pragma endregion
 
 #pragma region SC Packet Executes
-
+/*
 void ClientLostPacket::Execute() {
 
 }
@@ -355,7 +500,7 @@ void ReturnResumeGamePacket::Execute() {
 void ReturnQuitGamePacket::Execute() {
 
 }
-
+*/
 #pragma endregion
 
 #pragma region IS Packet Executes
