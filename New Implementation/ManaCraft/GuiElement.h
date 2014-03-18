@@ -108,6 +108,7 @@ public:
 		return false;
 	}
 
+	float Layer = 0.0f;
 	int GetHeight() { return rect.h; }
 	int GetWidth() { return rect.w; }
 	int GetX() { return rect.x; }

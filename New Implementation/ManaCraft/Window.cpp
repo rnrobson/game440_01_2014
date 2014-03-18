@@ -135,7 +135,7 @@ SDL_Texture* Window::LoadTexture(const std::string &file)
 {
 	SDL_Texture *texture = IMG_LoadTexture(Window::mRenderer.get(), file.c_str());
 	if (texture == nullptr)
-		std::cout << "LoadTexture" << std::endl;
+		std::cout << "LoadTexture()" + file << std::endl;
 	return texture;
 }
 TTF_Font* Window::LoadFont(const std::string &file, int fontSize)

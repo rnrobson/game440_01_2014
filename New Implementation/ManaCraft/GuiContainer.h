@@ -16,11 +16,14 @@
 class GuiContainer
 {
 private:
-	std::vector<std::string> guiContainerKeys;
-	std::vector<GuiContainer*> guiContainers;
+	//std::vector<std::string> guiContainerKeys;
+	//std::vector<GuiContainer*> guiContainers;
 
-	std::vector<std::string> guiElementKeys;
-	std::vector<GuiElement*> guiElements;
+	//std::vector<std::string> guiElementKeys;
+	//std::vector<GuiElement*> guiElements;
+
+	std::map<std::string, GuiContainer*> guiContainers;
+	std::map<std::string, GuiElement*> guiElements;
 
 	Mix_Chunk* music;
 
@@ -31,10 +34,10 @@ private:
 
 	void CleanMemory()
 	{
-		guiContainerKeys.clear();
+		//guiContainerKeys.clear();
 		guiContainers.clear();
 
-		guiElementKeys.clear();
+		//guiElementKeys.clear();
 		guiElements.clear();
 	}
 
@@ -52,25 +55,28 @@ public:
 #pragma region Adds
 	void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)
 	{
-		guiContainerKeys.push_back(_key);
-
 		_guiContainer->SetPosition(position);
-		guiContainers.push_back(_guiContainer);
+
+		guiContainers.emplace(_key, _guiContainer);
+		//guiContainerKeys.push_back(_key);
+		//guiContainers.push_back(_guiContainer);
 	}
 
 	void AddGuiElement(std::string _key, GuiElement* _guiElement)
 	{
-		guiElementKeys.push_back(_key);
-
 		_guiElement->SetOffset(position);
-		guiElements.push_back(_guiElement);
+
+		guiElements.emplace(_key, _guiElement);
+		//guiElementKeys.push_back(_key);
+		//guiElements.push_back(_guiElement);
 	}
 
 #pragma endregion
 #pragma region Removes
 	void RemoveGuiContainer(std::string _key)
 	{
-		for (size_t i = 0; i < guiContainerKeys.size(); i++)
+		guiContainers.erase(_key);
+		/*for (size_t i = 0; i < guiContainerKeys.size(); i++)
 		{
 			if (guiContainerKeys.at(i) == _key)
 			{
@@ -78,12 +84,13 @@ public:
 				guiContainers.erase(guiContainers.begin() + i);
 				break;
 			}
-		}
+		}*/
 	}
 
 	void RemoveGuiElement(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		guiElements.erase(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
@@ -91,104 +98,112 @@ public:
 				guiElements.erase(guiElements.begin() + i);
 				break;
 			}
-		}
+		}*/
 	}
 #pragma endregion
 #pragma region Gets
 	GuiContainer* GetGuiContainer(std::string _key)
 	{
-		for (size_t i = 0; i < guiContainerKeys.size(); i++)
+		return guiContainers.at(_key);
+		/*for (size_t i = 0; i < guiContainerKeys.size(); i++)
 		{
 			if (guiContainerKeys.at(i) == _key)
 			{
 				return guiContainers.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	GuiElement* GetGuiElement(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	GuiGridLayer* GetGridLayer(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return (GuiGridLayer*)guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return (GuiGridLayer*)guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	Button* GetButton(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return (Button*)guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return (Button*)guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	TextField* GetTextField(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return (TextField*)guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return (TextField*)guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	Label* GetLabel(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return (Label*)guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return (Label*)guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	Checkbox* GetCheckbox(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return (Checkbox*)guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return (Checkbox*)guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 
 	Slider* GetSlider(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		return (Slider*)guiElements.at(_key);
+		/*for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
 			if (guiElementKeys.at(i) == _key)
 			{
 				return (Slider*)guiElements.at(i);
 			}
 		}
-		return nullptr;
+		return nullptr;*/
 	}
 #pragma endregion
 
