@@ -500,9 +500,7 @@ BroadcastPartyMessageInGamePacket::BroadcastPartyMessageInGamePacket(const Packe
 
 }
 
-BroadcastPartyMessageInGamePacket::BroadcastPartyMessageInGamePacket(const Packet* packet) : CommandPacket(packet) {
 
-}
 
 PopulateGamesPacket::PopulateGamesPacket(const Packet* packet) : CommandPacket(packet) {
 

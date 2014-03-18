@@ -68,7 +68,7 @@ int ClientLiaison::ClientListen(void*) {
 					Networking::Packet *packet = (*iter)->Receive();
 
 					if(packet != nullptr) {
-						packet = PacketFactory::CreateToServerPacket(packet);
+						packet = PacketFactory::CreateFromServerPacket(packet);
 
 						packet->Execute();
 					}

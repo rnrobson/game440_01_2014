@@ -3,7 +3,7 @@
 
 #include "PacketFactory.h"
 #include "ThreadPool.h"
-
+#include "NetClient.h"
 namespace ManaCraft {
 	namespace Networking {
 		class ThreadedListener
