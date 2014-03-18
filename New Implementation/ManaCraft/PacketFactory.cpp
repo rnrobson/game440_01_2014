@@ -704,7 +704,7 @@ void QuitGamePacket::Execute() {
 #pragma endregion
 
 #pragma region SC Packet Executes
-/*
+
 void ClientLostPacket::Execute() {
 
 }
@@ -828,7 +828,7 @@ void ReturnResumeGamePacket::Execute() {
 void ReturnQuitGamePacket::Execute() {
 
 }
-*/
+
 #pragma endregion
 
 #pragma region IS Packet Executes
