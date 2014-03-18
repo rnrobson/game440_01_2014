@@ -4,6 +4,8 @@
 #include "PacketFactory.h"
 #include "ThreadPool.h"
 #include "NetClient.h"
+#include <vector>
+
 namespace ManaCraft {
 	namespace Networking {
 		class ThreadedListener
@@ -14,7 +16,7 @@ namespace ManaCraft {
 		private:
 			ThreadPool* pool;
 			static int Listen(void*);
-			static std::vector<NetClient*> clientList;
+			static std::vector<NetClient*> threadedClients;
 		};
 	}
 }
