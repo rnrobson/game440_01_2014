@@ -108,8 +108,8 @@ public:
 		ClientAPI::GetGuiContainer("GUI")->GetGuiContainer("Chat")->AddGuiElement("ScrollBarBacking", new GuiElement(ClientAPI::GetTexture("scrollBarBacking"), APIHelper::RectHelper(40 + CHATBOX_WIDTH, SCREEN_HEIGHT - CHATBOX_HEIGHT - 48, SCROLLBAR_WIDTH, SCROLLBAR_HEIGHT)));
 
 			//Chat Buttons
-		ClientAPI::GetGuiContainer("GUI")->GetGuiContainer("Chat")->AddButton("scrollUpButton", new Button(ClientAPI::GetTexture("scrollUpButton"), APIHelper::RectHelper(42+CHATBOX_WIDTH, SCREEN_HEIGHT - SCROLLBAR_HEIGHT - 48 - 36, 17, 9)));
-		ClientAPI::GetGuiContainer("GUI")->GetGuiContainer("Chat")->AddButton("scrollDownButton", new Button(ClientAPI::GetTexture("scrollDownButton"), APIHelper::RectHelper(42 + CHATBOX_WIDTH, SCREEN_HEIGHT - 48 - 25, 17, 9)));
+		ClientAPI::GetGuiContainer("GUI")->GetGuiContainer("Chat")->AddGuiElement("scrollUpButton", new Button(ClientAPI::GetTexture("scrollUpButton"), APIHelper::RectHelper(42 + CHATBOX_WIDTH, SCREEN_HEIGHT - SCROLLBAR_HEIGHT - 48 - 36, 17, 9)));
+		ClientAPI::GetGuiContainer("GUI")->GetGuiContainer("Chat")->AddGuiElement("scrollDownButton", new Button(ClientAPI::GetTexture("scrollDownButton"), APIHelper::RectHelper(42 + CHATBOX_WIDTH, SCREEN_HEIGHT - 48 - 25, 17, 9)));
 
 			//Button Listeners
 		ClientAPI::GetGuiContainer("GUI")->GetGuiContainer("Chat")->GetButton("scrollUpButton")->SubscribeOnMouseClick(GUI::Click_scrollUpButton);

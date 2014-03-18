@@ -62,49 +62,49 @@ public:
 
 		int xBtn, btnIndex = 0;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("LoginBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("LoginBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->AddLabel("Login/Logout", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("CreateGameBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("CreateGameBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->AddLabel("Create Game", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("ViewGamesBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("ViewGamesBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->AddLabel("View Games", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("OptionsBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("OptionsBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->AddLabel("Options", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("TutorialBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("TutorialBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->AddLabel("Tutorial", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddButton("QuitBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("QuitBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->AddLabel("Quit", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->AddButton("CreditsBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), creditsBtnRect));
+		ClientAPI::GetGuiContainer("MainMenu")->AddGuiElement("CreditsBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), creditsBtnRect));
 		ClientAPI::GetGuiContainer("MainMenu")->GetButton("CreditsBtn")->AddLabel("Credits", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("MainMenu")->GetButton("CreditsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
 

@@ -18,18 +18,18 @@ int testmain(int argc, char* args[])
 	ClientAPI::AddFont("OGWEAR", Window::LoadFont("Resources/Fonts/OGWEAR.ttf", 24));//TTF_Font* font = Window::LoadFont("OGWEAR.ttf", 24);
 	
 	ClientAPI::AddGuiContainer("Test Container", new GuiContainer());
-	ClientAPI::GetGuiContainer("TestContainer")->AddButton("ImageButton", new Button(APIHelper::LoadPNGTexture("Resources/Images/evilTestingIcon.png"), APIHelper::RectHelper(100, 100, 200, 267)));
-	ClientAPI::GetGuiContainer("TestContainer")->AddButton("Button1", new Button(APIHelper::RectHelper(200, 200, 200, 100)));//Button* b = new Button(Window::RectHelper(200, 200, 200, 100));
+	ClientAPI::GetGuiContainer("TestContainer")->AddGuiElement("ImageButton", new Button(APIHelper::LoadPNGTexture("Resources/Images/evilTestingIcon.png"), APIHelper::RectHelper(100, 100, 200, 267)));
+	ClientAPI::GetGuiContainer("TestContainer")->AddGuiElement("Button1", new Button(APIHelper::RectHelper(200, 200, 200, 100)));//Button* b = new Button(Window::RectHelper(200, 200, 200, 100));
 	ClientAPI::GetGuiContainer("TestContainer")->GetButton("Button1")->AddLabel("Button Label 25 Button Label 255", ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1"), true);// font, colour, true);
 	
-	ClientAPI::GetGuiContainer("TestContainer")->AddLabel("Label1", new Label("Text Label 1", APIHelper::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
+	ClientAPI::GetGuiContainer("TestContainer")->AddGuiElement("Label1", new Label("Text Label 1", APIHelper::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
 	
 	ClientAPI::GetGuiContainer("TestContainer")->AddGuiContainer("Container 1", new GuiContainer());
-	ClientAPI::GetGuiContainer("TestContainer")->GetGuiContainer("Container 1")->AddButton("C Button 1", new Button(APIHelper::RectHelper(300, 500, 100, 100)));
-	ClientAPI::GetGuiContainer("TestContainer")->GetGuiContainer("Container 1")->AddLabel("C Label1", new Label("C Text Label 1", APIHelper::RectHelper(200, 600, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
+	ClientAPI::GetGuiContainer("TestContainer")->GetGuiContainer("Container 1")->AddGuiElement("C Button 1", new Button(APIHelper::RectHelper(300, 500, 100, 100)));
+	ClientAPI::GetGuiContainer("TestContainer")->GetGuiContainer("Container 1")->AddGuiElement("C Label1", new Label("C Text Label 1", APIHelper::RectHelper(200, 600, 200, 100), ClientAPI::GetFont("OGWEAR"), ClientAPI::GetColor("Colour1")));// Label* l = new Label("Text Label 1", Window::RectHelper(600, 200, 200, 100), ClientAPI::GetFont("OGWEAR"), colour);// font, colour);
 	ClientAPI::GetGuiContainer("TestContainer")->GetGuiContainer("Container 1")->SetPosition(APIHelper::RectHelper(200, -200, 0, 0));
 
-	ClientAPI::GetGuiContainer("TestContainer")->RemoveLabel("Label1");
+	ClientAPI::GetGuiContainer("TestContainer")->RemoveGuiElement("Label1");
 	ClientAPI::GetGuiContainer("TestContainer")->GetGuiContainer("Container 1")->Active = false;
 
 	//-- Start the APIs main loop

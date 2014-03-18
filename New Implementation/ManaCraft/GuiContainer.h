@@ -22,24 +22,6 @@ private:
 	std::vector<std::string> guiElementKeys;
 	std::vector<GuiElement*> guiElements;
 
-	std::vector<std::string> buttonKeys;
-	std::vector<Button*> buttons;
-
-	std::vector<std::string> textFieldKeys;
-	std::vector<TextField*> textFields;
-
-	std::vector<std::string> labelKeys;
-	std::vector<Label*> labels;
-
-	std::vector<std::string> checkboxKeys;
-	std::vector<Checkbox*> checkboxes;
-
-	std::vector<std::string> sliderKeys;
-	std::vector<Slider*> sliders;
-
-	std::vector<std::string> gridKeys;
-	std::vector<GuiGridLayer*> grids;
-
 	Mix_Chunk* music;
 
 	SDL_Rect position;
@@ -54,24 +36,6 @@ private:
 
 		guiElementKeys.clear();
 		guiElements.clear();
-
-		buttonKeys.clear();
-		buttons.clear();
-
-		textFieldKeys.clear();
-		textFields.clear();
-
-		labelKeys.clear();
-		labels.clear();
-
-		checkboxKeys.clear();
-		checkboxes.clear();
-
-		sliderKeys.clear();
-		sliders.clear();
-
-		gridKeys.clear();
-		grids.clear();
 	}
 
 public:
@@ -93,14 +57,6 @@ public:
 		_guiContainer->SetPosition(position);
 		guiContainers.push_back(_guiContainer);
 	}
-	
-	void AddGridLayer(std::string _key, GuiGridLayer* _guiContainer)
-	{
-		gridKeys.push_back(_key);
-
-		_guiContainer->SetPosition(position);
-		grids.push_back(_guiContainer);
-	}
 
 	void AddGuiElement(std::string _key, GuiElement* _guiElement)
 	{
@@ -110,45 +66,6 @@ public:
 		guiElements.push_back(_guiElement);
 	}
 
-	void AddButton(std::string _key, Button* _button)
-	{
-		buttonKeys.push_back(_key);
-
-		_button->SetOffset(position);
-		buttons.push_back(_button);
-	}
-
-	void AddTextField(std::string _key, TextField* _textField)
-	{
-		textFieldKeys.push_back(_key);
-	
-		_textField->SetOffset(position);
-		textFields.push_back(_textField);
-	}
-
-	void AddLabel(std::string _key, Label* _label)
-	{
-		labelKeys.push_back(_key);
-
-		_label->SetOffset(position);
-		labels.push_back(_label);
-	}
-
-	void AddCheckbox(std::string _key, Checkbox* _checkbox)
-	{
-		checkboxKeys.push_back(_key);
-
-		_checkbox->SetOffset(position);
-		checkboxes.push_back(_checkbox);
-	}
-
-	void AddSlider(std::string _key, Slider* _slider)
-	{
-		labelKeys.push_back(_key);
-
-		_slider->SetOffset(position);
-		sliders.push_back(_slider);
-	}
 #pragma endregion
 #pragma region Removes
 	void RemoveGuiContainer(std::string _key)
@@ -164,19 +81,6 @@ public:
 		}
 	}
 
-	void RemoveGridLayer(std::string _key)
-	{
-		for (size_t i = 0; i < gridKeys.size(); i++)
-		{
-			if (gridKeys.at(i) == _key)
-			{
-				gridKeys.erase(gridKeys.begin() + i);
-				grids.erase(grids.begin() + i);
-				break;
-			}
-		}
-	}
-
 	void RemoveGuiElement(std::string _key)
 	{
 		for (size_t i = 0; i < guiElementKeys.size(); i++)
@@ -185,71 +89,6 @@ public:
 			{
 				guiElementKeys.erase(guiElementKeys.begin() + i);
 				guiElements.erase(guiElements.begin() + i);
-				break;
-			}
-		}
-	}
-
-	void RemoveButton(std::string _key)
-	{
-		for (size_t i = 0; i < buttonKeys.size(); i++)
-		{
-			if (buttonKeys.at(i) == _key)
-			{
-				buttonKeys.erase(buttonKeys.begin() + i);
-				buttons.erase(buttons.begin() + i);
-				break;
-			}
-		}
-	}
-
-	void RemoveTextField(std::string _key)
-	{
-		for (size_t i = 0; i < textFieldKeys.size(); i++)
-		{
-			if (textFieldKeys.at(i) == _key)
-			{
-				textFieldKeys.erase(textFieldKeys.begin() + i);
-				textFields.erase(textFields.begin() + i);
-				break;
-			}
-		}
-	}
-
-	void RemoveLabel(std::string _key)
-	{
-		for (size_t i = 0; i < labelKeys.size(); i++)
-		{
-			if (labelKeys.at(i) == _key)
-			{
-				labelKeys.erase(labelKeys.begin() + i);
-				labels.erase(labels.begin() + i);
-				break;
-			}
-		}
-	}
-
-	void RemoveCheckbox(std::string _key)
-	{
-		for (size_t i = 0; i < checkboxKeys.size(); i++)
-		{
-			if (checkboxKeys.at(i) == _key)
-			{
-				checkboxKeys.erase(checkboxKeys.begin() + i);
-				checkboxes.erase(checkboxes.begin() + i);
-				break;
-			}
-		}
-	}
-
-	void RemoveSlider(std::string _key)
-	{
-		for (size_t i = 0; i < sliderKeys.size(); i++)
-		{
-			if (sliderKeys.at(i) == _key)
-			{
-				sliderKeys.erase(sliderKeys.begin() + i);
-				sliders.erase(sliders.begin() + i);
 				break;
 			}
 		}
@@ -268,18 +107,6 @@ public:
 		return nullptr;
 	}
 
-	GuiGridLayer* GetGridLayer(std::string _key)
-	{
-		for (size_t i = 0; i < gridKeys.size(); i++)
-		{
-			if (gridKeys.at(i) == _key)
-			{
-				return grids.at(i);
-			}
-		}
-		return nullptr;
-	}
-
 	GuiElement* GetGuiElement(std::string _key)
 	{
 		for (size_t i = 0; i < guiElementKeys.size(); i++)
@@ -292,13 +119,25 @@ public:
 		return nullptr;
 	}
 
+	GuiGridLayer* GetGridLayer(std::string _key)
+	{
+		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		{
+			if (guiElementKeys.at(i) == _key)
+			{
+				return (GuiGridLayer*)guiElements.at(i);
+			}
+		}
+		return nullptr;
+	}
+
 	Button* GetButton(std::string _key)
 	{
-		for (size_t i = 0; i < buttonKeys.size(); i++)
+		for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
-			if (buttonKeys.at(i) == _key)
+			if (guiElementKeys.at(i) == _key)
 			{
-				return buttons.at(i);
+				return (Button*)guiElements.at(i);
 			}
 		}
 		return nullptr;
@@ -306,11 +145,11 @@ public:
 
 	TextField* GetTextField(std::string _key)
 	{
-		for (size_t i = 0; i < textFieldKeys.size(); i++)
+		for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
-			if (textFieldKeys.at(i) == _key)
+			if (guiElementKeys.at(i) == _key)
 			{
-				return textFields.at(i);
+				return (TextField*)guiElements.at(i);
 			}
 		}
 		return nullptr;
@@ -318,11 +157,11 @@ public:
 
 	Label* GetLabel(std::string _key)
 	{
-		for (size_t i = 0; i < labelKeys.size(); i++)
+		for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
-			if (labelKeys.at(i) == _key)
+			if (guiElementKeys.at(i) == _key)
 			{
-				return labels.at(i);
+				return (Label*)guiElements.at(i);
 			}
 		}
 		return nullptr;
@@ -330,11 +169,11 @@ public:
 
 	Checkbox* GetCheckbox(std::string _key)
 	{
-		for (size_t i = 0; i < checkboxKeys.size(); i++)
+		for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
-			if (checkboxKeys.at(i) == _key)
+			if (guiElementKeys.at(i) == _key)
 			{
-				return checkboxes.at(i);
+				return (Checkbox*)guiElements.at(i);
 			}
 		}
 		return nullptr;
@@ -342,11 +181,11 @@ public:
 
 	Slider* GetSlider(std::string _key)
 	{
-		for (size_t i = 0; i < sliderKeys.size(); i++)
+		for (size_t i = 0; i < guiElementKeys.size(); i++)
 		{
-			if (sliderKeys.at(i) == _key)
+			if (guiElementKeys.at(i) == _key)
 			{
-				return sliders.at(i);
+				return (Slider*)guiElements.at(i);
 			}
 		}
 		return nullptr;

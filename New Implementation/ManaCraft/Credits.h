@@ -61,7 +61,7 @@ public:
 		ClientAPI::GetGuiContainer("Credits")->AddGuiContainer("ServerCredits", new GuiContainer());
 		ClientAPI::GetGuiContainer("Credits")->AddGuiContainer("DatabaseCredits", new GuiContainer());
 
-		ClientAPI::GetGuiContainer("Credits")->AddButton("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
+		ClientAPI::GetGuiContainer("Credits")->AddGuiElement("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
 		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		ClientAPI::GetGuiContainer("Credits")->GetButton("BackBtn")->SubscribeOnMouseClick(Credits::Click_backButton);
@@ -69,38 +69,38 @@ public:
 
 		ClientAPI::GetGuiContainer("Credits")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogoSmall"), APIHelper::RectHelper(SCREEN_WIDTH / 2 - 250, 0, 500, 250)));
 
-		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddLabel("ClientHeader", new Label("Client Team", APIHelper::RectHelper(clientRect.x, clientRect.y - LABEL_SPACE_Y * 2, clientRect.w, LABEL_SPACE_Y),
+		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddGuiElement("ClientHeader", new Label("Client Team", APIHelper::RectHelper(clientRect.x, clientRect.y - LABEL_SPACE_Y * 2, clientRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		for (int i = 0; i < 9; i++)
 		{
-			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddLabel("c" + i, new Label(clientStrings[i],
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ClientCredits")->AddGuiElement("c" + i, new Label(clientStrings[i],
 				APIHelper::RectHelper(clientRect.x, clientRect.y + (i * LABEL_SPACE_Y), clientRect.w, LABEL_SPACE_Y),
 				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		}
 
-		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("NetworkCredits")->AddLabel("NetworkHeader", new Label("Networking Team", APIHelper::RectHelper(networkRect.x, networkRect.y - LABEL_SPACE_Y * 2, networkRect.w, LABEL_SPACE_Y),
+		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("NetworkCredits")->AddGuiElement("NetworkHeader", new Label("Networking Team", APIHelper::RectHelper(networkRect.x, networkRect.y - LABEL_SPACE_Y * 2, networkRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		for (int i = 0; i < 7; i++)
 		{
-			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("NetworkCredits")->AddLabel("n" + i, new Label(networkStrings[i],
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("NetworkCredits")->AddGuiElement("n" + i, new Label(networkStrings[i],
 				APIHelper::RectHelper(networkRect.x, networkRect.y + (i * LABEL_SPACE_Y), networkRect.w, LABEL_SPACE_Y),
 				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		}
 
-		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ServerCredits")->AddLabel("ServerHeader", new Label("Server Team", APIHelper::RectHelper(serverRect.x, serverRect.y - LABEL_SPACE_Y * 2, serverRect.w, LABEL_SPACE_Y),
+		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ServerCredits")->AddGuiElement("ServerHeader", new Label("Server Team", APIHelper::RectHelper(serverRect.x, serverRect.y - LABEL_SPACE_Y * 2, serverRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		for (int i = 0; i < 7; i++)
 		{
-			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ServerCredits")->AddLabel("s" + i, new Label(serverStrings[i],
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("ServerCredits")->AddGuiElement("s" + i, new Label(serverStrings[i],
 				APIHelper::RectHelper(serverRect.x, serverRect.y + (i * LABEL_SPACE_Y), serverRect.w, LABEL_SPACE_Y),
 				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		}
 
-		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("DatabaseCredits")->AddLabel("DatabaseHeader", new Label("Database Team", APIHelper::RectHelper(databaseRect.x, databaseRect.y - LABEL_SPACE_Y * 2, databaseRect.w, LABEL_SPACE_Y),
+		ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("DatabaseCredits")->AddGuiElement("DatabaseHeader", new Label("Database Team", APIHelper::RectHelper(databaseRect.x, databaseRect.y - LABEL_SPACE_Y * 2, databaseRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		for (int i = 0; i < 5; i++)
 		{
-			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("DatabaseCredits")->AddLabel("d" + i, new Label(databaseStrings[i],
+			ClientAPI::GetGuiContainer("Credits")->GetGuiContainer("DatabaseCredits")->AddGuiElement("d" + i, new Label(databaseStrings[i],
 				APIHelper::RectHelper(databaseRect.x, databaseRect.y + (i * LABEL_SPACE_Y), databaseRect.w, LABEL_SPACE_Y),
 				ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 		}

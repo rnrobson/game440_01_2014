@@ -126,17 +126,18 @@ void Button::Draw()
 	}
 }
 
+void Button::OnMouseMotion(SDL_MouseMotionEvent e) {
+	if (!Intersects({ e.x, e.y, 1, 1 })){
+		isHovering = false;
+	}
+}
 void Button::OnMouseHover(SDL_MouseMotionEvent e)
 {
 	if (!Active) return;
 	if (!Enabled) return;
 
-	if (Intersects({ e.x, e.y, 1, 1 }))
-	{
-		isHovering = true;
-		GuiElement::OnMouseHover(e);
-	}
-	else isHovering = false;
+	isHovering = true;
+	GuiElement::OnMouseHover(e);
 }
 void Button::OnMouseClick()
 {

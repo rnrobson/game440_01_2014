@@ -36,6 +36,7 @@ public:
 	virtual void Update(double _time);
 	virtual void Draw();
 
+	virtual void OnMouseMotion(SDL_MouseMotionEvent e);
 	virtual void OnMouseHover(SDL_MouseMotionEvent e);
 	virtual void OnMouseClick();
 	virtual void OnMouseDown(SDL_MouseButtonEvent e);

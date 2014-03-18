@@ -87,7 +87,7 @@ void TransferControlToClient() {
 	ClientAPI::Init();
 
 	// Initialize SDLNet and start connection
-	InitSDLNet();
+	//InitSDLNet();
 
 	// Set Custom Events
 	ClientAPI::SubscribeCustomUpdate(CustomUpdate);

@@ -69,35 +69,35 @@ public:
 
 		int xBtn, btnIndex = 0;
 
-		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddButton("ResumeBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("ResumeBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->GetX();
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->AddLabel("Resume", systema, black, true);
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddButton("OptionsBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("OptionsBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->GetX();
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->AddLabel("Options", systema, black, true);
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddButton("SaveQuitBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("SaveQuitBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->GetX();
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->AddLabel("Save & Quit", systema, black, true);
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddButton("QuitMenuBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("QuitMenuBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->GetX();
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->AddLabel("Quit > Menu", systema, black, true);
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddButton("QuitDesktopBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("QuitDesktopBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->GetX();
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
 		ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->AddLabel("Quit > Desktop", systema, black, true);

@@ -60,7 +60,7 @@ public:
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("GameListBg"), 
 			APIHelper::RectHelper(0, 0, SCREEN_WIDTH - PADDING * 2, SCREEN_HEIGHT - SCREEN_HEIGHT / 3)));
 
-		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddLabel("GamesHeader",
+		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddGuiElement("GamesHeader",
 			new Label("Game Name  |  Players  |  Game Mode  |  Game Length  |  Ongoing",
 			APIHelper::RectHelper(PADDING / 2, PADDING, SCREEN_WIDTH - MARGIN, PADDING),
 			ogwear, white));
@@ -70,31 +70,31 @@ public:
 			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddGuiContainer("Game" + i, new GuiContainer());
 			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetGuiContainer("Game" + i)->SetPosition(
 				APIHelper::RectHelper(MARGIN, MARGIN * 3 + (i * ((LIST_SPC_Y * 2) + LIST_SIZE_Y)), SCREEN_WIDTH - MARGIN * 3, LIST_SIZE_Y + LIST_SPC_Y));
-			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetGuiContainer("Game" + i)->AddLabel("Game" + i,
+			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetGuiContainer("Game" + i)->AddGuiElement("Game" + i,
 				new Label("2v2 QM - Much robson, such maj | 3 / 4 | Sudden Death | 30m | Yes", //Get info from DB/Network
 				APIHelper::RectHelper(MARGIN, 0, SCREEN_WIDTH - MARGIN * 4, LIST_SIZE_Y),
 				systema, white));
-			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetGuiContainer("Game" + i)->AddButton("Button" + i,
+			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetGuiContainer("Game" + i)->AddGuiElement("Button" + i,
 				new Button(ClientAPI::GetTexture("SmallBtnNormal"), APIHelper::RectHelper(0, 0, smallBtnRect.w, smallBtnRect.h)));
 			ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetGuiContainer("Game" + i)->GetButton("Button" + i)->
 				SubscribeOnMouseClick(ViewGames::Click_join);
 		}
 
-		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddButton("Refresh", new Button(ClientAPI::GetTexture("LongBtnNormal"),
+		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddGuiElement("Refresh", new Button(ClientAPI::GetTexture("LongBtnNormal"),
 			APIHelper::RectHelper(centerRect.x - longBtnRect.w / 2, (SCREEN_HEIGHT - SCREEN_HEIGHT / 3) - (longBtnRect.h + MARGIN), longBtnRect.w, longBtnRect.h)));
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("Refresh")->AddLabel("Refresh Games", systema, black, true);
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("Refresh")->GetLabel()->SetPadding(APIHelper::RectHelper(0, 2, 0, 0));
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("Refresh")->SubscribeOnMouseClick(ViewGames::Click_refresh);
 
-		ClientAPI::GetGuiContainer("ViewGames")->AddCheckbox("InProgress", new Checkbox({ 50, 50, 50, 50 }, { 255, 0, 0, 255 }, { 255, 255, 255, 255 }));
-		ClientAPI::GetGuiContainer("ViewGames")->AddLabel("CheckboxLabel", new Label("Only view games in progress that I am in.", 
+		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("InProgress", new Checkbox({ 50, 50, 50, 50 }, { 255, 0, 0, 255 }, { 255, 255, 255, 255 }));
+		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("CheckboxLabel", new Label("Only view games in progress that I am in.",
 			APIHelper::RectHelper(centerRect.x / 2, SCREEN_HEIGHT - MARGIN * 4, centerRect.x, MARGIN), systema, white));
 		ClientAPI::GetGuiContainer("ViewGames")->GetCheckbox("InProgress")->SetPosition(PADDING + centerRect.x + centerRect.x / 2, (SCREEN_HEIGHT - MARGIN * 4) - 
 			ClientAPI::GetGuiContainer("ViewGames")->GetCheckbox("InProgress")->GetHeight() / 4);
 		ClientAPI::GetGuiContainer("ViewGames")->GetCheckbox("InProgress")->Checked = false;
 		ClientAPI::GetGuiContainer("ViewGames")->GetCheckbox("InProgress")->SubscribeOnMouseClick(ViewGames::Click_checkbox);
 
-		ClientAPI::GetGuiContainer("ViewGames")->AddButton("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
+		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->SubscribeOnMouseClick(ViewGames::Click_backButton);

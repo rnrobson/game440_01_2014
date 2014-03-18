@@ -15,13 +15,13 @@ public:
 	static void AddButtonToContainer(GuiContainer *_cName, std::string _btnName, SDL_Rect _rect, std::string _texName = "")
 	{
 		(_texName == "") ?
-			_cName->AddButton(_btnName, new Button(_rect)) :
-			_cName->AddButton(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
+			_cName->AddGuiElement(_btnName, new Button(_rect)) :
+			_cName->AddGuiElement(_btnName, new Button(ClientAPI::GetTexture(_texName), _rect));
 	}
 
 	static void AddCheckBoxToContainer(GuiContainer *_cName, std::string _cbName, SDL_Rect _rect, SDL_Color _checkColor, SDL_Color _outlineColor)
 	{
-		_cName->AddCheckbox(_cbName, new Checkbox(_rect, _checkColor, _outlineColor));
+		_cName->AddGuiElement(_cbName, new Checkbox(_rect, _checkColor, _outlineColor));
 	}
 
 	static void AddColor(std::string _clrName, int _r, int _g, int _b, int _a)
@@ -41,7 +41,7 @@ public:
 
 	static void AddLabelToContainer(GuiContainer *_cName, std::string _lblName, std::string _text, SDL_Rect _rect, std::string _fontName, std::string _clrName)
 	{
-		_cName->AddLabel(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
+		_cName->AddGuiElement(_lblName, new Label(_text, _rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_clrName)));
 	}
 
 	static void AddLabelToContainerButton(GuiContainer *_cName, std::string _btnName, std::string _lblText, std::string _fontName, std::string _clrName, bool _center = false)
@@ -64,6 +64,6 @@ public:
 
 	static void AddTextFieldToContainer(GuiContainer *_cName, std::string _tfName, SDL_Rect _rect, std::string _fontName, std::string _fontColour)
 	{
-		_cName->AddTextField(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
+		_cName->AddGuiElement(_tfName, new TextField(_rect, ClientAPI::GetFont(_fontName), ClientAPI::GetColor(_fontColour)));
 	}
 };
