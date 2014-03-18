@@ -6,14 +6,15 @@
 Server::Server()
 {
 	Init();
-	Run();
 }
 /// <summary>[Run]
 /// <para>This method starts running the server</para>
 /// </summary>
 void Server::Run()
 {
-	ServerTester* tester = new ServerTester(50);
+	running = true;
+
+	//ServerTester* tester = new ServerTester(50);
 
 	//tester->Test_Command_TripleAFloat();
 	//tester->Test_Command_IntFloatProduct();
@@ -22,8 +23,11 @@ void Server::Run()
 
 	bool dontUpdate; // There might be too many ticks per ms
 	int timeSnapshot = -1; // Temp var for comparing ms for above issue
-	Uint32 elapsedTime = 0;
-	Uint32 deltaTime = 16;
+	
+	//spoofing commands coming in from the client to the workQueue
+	Uint32 testTimeSnapShot = -1;
+	bool dontTest;
+
 	while (true)
 	{
 		// Grab us the time since SDL init
@@ -51,11 +55,28 @@ void Server::Run()
 
 		// Take a snapshot of the current ms
 		timeSnapshot = elapsedTime;
+
+
+		//spoofing commands coming in from the client to the workQueue every 2 secs
+		Uint32 timeToSimulateCommand = 2000;
+		if (testTimeSnapShot == elapsedTime)
+			dontTest = true;
+		else
+			dontTest = false;
+
+		if (!dontTest && elapsedTime % timeToSimulateCommand == 0)
+		{
+			float x = rand() % 99;
+			ServerCommand* testCMD = new Command_TripleAFloat(&x);
+			workCrew->addWork(testCMD);
+
+		}
+		testTimeSnapShot = elapsedTime;
 	}
 
-	std::cout << "\nRunning all tests...";
+	/*std::cout << "\nRunning all tests...";
 	tester->RunAllTests();
-
+*/
 	getchar();
 }
 
@@ -72,23 +93,22 @@ Server::~Server()
 /// </summary>
 void Server::Init()
 {
-	gameManager = new GameManager();
+	running = false;
+	elapsedTime = 0;
 
-	int myGameID = 1;
 	gameManager = new GameManager();
-	ServerCommand* cmd = new Command_CreateNewGame(&myGameID);
-	cmd->Execute();
+	workCrew = new ThreadPool(numWorkers);
+
+	ServerCommand* newGameCMD = new Command_CreateNewGame(1);
+	//workQueue.push(cmd);
+	workCrew->addWork(newGameCMD);
 	//commenting out because it prevents anything else from displaying on the console
 	//ClientLiaison::Run();
 }
 
 void Server::Update() {
-	int myGameID = 1;
-	ServerCommand* cmd = new Command_UpdateMinions(&myGameID);
-	workQueue.push(cmd);
+	
+	ServerCommand* updateMinsCMD = new Command_UpdateMinions(1);
+	workCrew->addWork(updateMinsCMD);
 
-	if (!workQueue.empty()) {
-		workQueue.front()->Execute();
-		workQueue.pop();
-	}
 }

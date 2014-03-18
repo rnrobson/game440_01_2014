@@ -21,7 +21,7 @@ public:
 class ThreadPool
 {
 private:
-	BlockingQueue<WorkItem>		workQue;
+	BlockingQueue<ServerCommand*>		workQue;
 	SDL_Thread					**threadList;
 	int							numThreads;
 	int							activeThreads;
@@ -35,7 +35,7 @@ public:
 
 	~ThreadPool();
 
-	void addWork(WorkItem &w);
+	void addWork(ServerCommand* w);
 
 	void shutdown();
 

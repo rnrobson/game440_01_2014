@@ -6,17 +6,19 @@
 
 class Command_UpdateMinions : public ServerCommand
 {
+private:
+	uint gameID;
 public:
-	Command_UpdateMinions(void* _data)
+	//Command_UpdateMinions(void* _data)
+	Command_UpdateMinions(uint _gameID)
 	{
-
-		data = _data;
+		gameID = _gameID;
 	}
 	~Command_UpdateMinions(){}
 
 	void Execute()
 	{
-		uint gameID = *(uint*)data;
+		cout << "Updating minions in game ID: " << gameID << endl;
 		bool gameFound = false;
 
 		if (gameID<1)
@@ -32,7 +34,7 @@ public:
 			{
 				if (games[i]->id == gameID)
 				{
-					
+
 					gameFound = true;
 					UpdateMinions(games[i]);
 					break;
@@ -44,12 +46,12 @@ public:
 			}
 			games.clear();
 		}
-		
+
 
 	}
 	void UpdateMinions(GameModel* game)
 	{
-		vector<Minion*> minions=game->minions;
+		vector<Minion*> minions = game->minions;
 		for (size_t i = 0; i < minions.size(); i++)
 		{
 			//update pos

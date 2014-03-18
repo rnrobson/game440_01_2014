@@ -76,7 +76,7 @@ void ServerTester::Test_Command_CreateNewGame()
 	for (int i = numberOfTests / (-2); i<1; i++)
 	{
 		numGames = GameManager::games.size();
-		command = new Command_CreateNewGame(&i);
+		command = new Command_CreateNewGame(i);
 		command->Execute();
 		if (GameManager::games.size() == numGames)
 			numTestsPassed++;
@@ -87,7 +87,7 @@ void ServerTester::Test_Command_CreateNewGame()
 	for (unsigned int i = 1; i <= GameManager::MAX_GAMES; i++)
 	{
 		numGames = GameManager::games.size();
-		command = new Command_CreateNewGame(&i);
+		command = new Command_CreateNewGame(i);
 		command->Execute();
 		if (GameManager::games.size() > numGames)
 			numTestsPassed++;
@@ -98,7 +98,7 @@ void ServerTester::Test_Command_CreateNewGame()
 	for (int i = GameManager::MAX_GAMES + 1; i < numberOfTests / 2; i++)
 	{
 		numGames = GameManager::games.size();
-		command = new Command_CreateNewGame(&i);
+		command = new Command_CreateNewGame(i);
 		command->Execute();
 		if (GameManager::games.size() == numGames)
 			numTestsPassed++;
@@ -117,7 +117,7 @@ void ServerTester::Test_Command_UpdateMinions()
 	Reset();
 
 	uint id = 1;
-	ServerCommand* command = new Command_CreateNewGame(&id);
+	ServerCommand* command = new Command_CreateNewGame(id);
 	command->Execute();
 	GameModel* game = GameManager::FindGame(id);
 	//saving the variables to test results against
@@ -139,7 +139,7 @@ void ServerTester::Test_Command_UpdateMinions()
 			speedArr[i] = minions[i]->speed;
 		}
 
-		command = new Command_UpdateMinions(&id);
+		command = new Command_UpdateMinions(id);
 
 		for (int i = 0; i <= numberOfTests / 2; i++)
 		{

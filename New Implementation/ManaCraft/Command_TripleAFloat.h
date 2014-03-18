@@ -21,7 +21,7 @@ struct Params_TripleAFloat
 class Command_TripleAFloat : public ServerCommand
 {
 public:
-	
+
 	Params_TripleAFloat* params;
 
 	Command_TripleAFloat(void* _data)
@@ -36,7 +36,7 @@ public:
 	void Execute()
 	{
 		params->result = params->x*3.0f;
-		//printf("\nTripleAFloatCommand: Executed --result = %f", params.result);
+		printf("\nTripleAFloatCommand: Executed --result = %f\n", params->result);
 	}
 
 };

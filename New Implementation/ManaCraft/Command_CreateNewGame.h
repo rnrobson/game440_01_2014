@@ -6,31 +6,35 @@
 
 class Command_CreateNewGame : public ServerCommand
 {
+private:
+	uint gameID;
 public:
-	Command_CreateNewGame(void* _data)
+	//Command_CreateNewGame(void* _data)
+	Command_CreateNewGame(uint _gameID)
 	{
-		
-			data = _data;
+		gameID = _gameID;
 	}
 	~Command_CreateNewGame(){}
 
 	void Execute()
 	{
-		if (*(int*)data<1)
+		if (gameID<1)
 		{
-		/*	cout << "invalid game id";
+			/*	cout << "invalid game id";
 			cout << endl; */
 		}
 		else{
+			//uint gameID = *(unsigned int*)data;
 
-			GameModel* game = new GameModel(*(unsigned int*)data);
+			GameModel* game = new GameModel(gameID);
 			if (GameManager::games.size() < GameManager::MAX_GAMES)
 			{
 				GameManager::games.push_back(game);
+				cout << "Game created with ID: " << gameID << endl;
 			}
 			else
 			{
-			/*	cout << "Max Games Reached - Unable to create new game";
+				/*	cout << "Max Games Reached - Unable to create new game";
 				cout << endl;*/
 			}
 		}

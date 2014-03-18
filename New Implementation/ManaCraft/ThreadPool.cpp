@@ -11,13 +11,13 @@ int pool_worker_function(void *data)
 	ThreadPool *pool = wd->pool;
 	int index = wd->threadIndex;
 	pool->incActiveThreads();
-	WorkItem item = pool->workQue.pop();
-	std::cout << "thread " << index << " gets work item " << item.workFunc << std::endl;
-	while (item.workFunc)
+	ServerCommand* item = pool->workQue.pop();
+	//std::cout << "thread " << index << " gets work item " << item.workFunc << std::endl;
+	while (item)
 	{
-		item.workFunc(item.workData);
+		item->Execute();
 		item = pool->workQue.pop();
-		std::cout << "thread gets work item " << item.workFunc << std::endl;
+		//std::cout << "thread gets work item " << item.workFunc << std::endl;
 	}
 	std::cout << "worker decrementing thread count\n";
 	pool->decActiveThreads(index);
@@ -76,7 +76,7 @@ int ThreadPool::activeThreadCount()
 	return result;
 }
 
-void ThreadPool::addWork(WorkItem &w)
+void ThreadPool::addWork(ServerCommand* w)
 {
 	workQue.push(w);
 }
@@ -84,7 +84,7 @@ void ThreadPool::addWork(WorkItem &w)
 void ThreadPool::shutdown()
 {
 	int n = activeThreadCount();
-	WorkItem item;
+	ServerCommand* item;
 
 	if (n <= 0) return;
 

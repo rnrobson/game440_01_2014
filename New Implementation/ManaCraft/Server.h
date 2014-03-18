@@ -14,16 +14,25 @@
 #include "ServerCommand.h"
 #include "ServerCommandIncludes.h"
 #include "ServerTester.h"
+#include "ThreadPool.h"
 
 class Server {
 private:
 	bool running;
 	unsigned int numRunningGames = 0;
+
+	const Uint32 deltaTime = 1000;//setting to 1000 for testing - should be 16 for 60 fps
+	Uint32 elapsedTime;//keeps track of time since SDL was initialized
+
 	BlockingQueue<ServerCommand*> workQueue;
 	GameManager* gameManager;
-	
+	ThreadPool* workCrew;
+	const uint numWorkers = 3;
+
 	void Init();
 	void Update();
+	int WorkOnQueue(void* data);
+	
 
 public:
 	Server();
