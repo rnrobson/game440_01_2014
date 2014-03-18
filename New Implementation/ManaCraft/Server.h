@@ -21,7 +21,9 @@ private:
 	unsigned int numRunningGames = 0;
 	BlockingQueue<ServerCommand*> workQueue;
 	GameManager* gameManager;
+	
 	void Init();
+	void Update();
 
 public:
 	Server();
