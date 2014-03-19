@@ -119,6 +119,11 @@ public:
 
 
 	}
+
+	static bool GameModel::CompareGamesByID(GameModel *gameOne, GameModel *gameTwo)
+	{
+		return gameOne->id > gameTwo->id;
+	}
 };
 
 

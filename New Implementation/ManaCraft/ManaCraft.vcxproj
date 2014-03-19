@@ -106,6 +106,7 @@
     <ClCompile Include="IngamePause.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LocalDB.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionPath.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />
+    <ClInclude Include="LocalDB.h" />
     <ClInclude Include="NetBroadcaster.h" />
     <ClInclude Include="NetClient.h" />
     <ClInclude Include="NetReceiver.h" />
