@@ -15,6 +15,7 @@
 #include "ServerCommandIncludes.h"
 #include "ServerTester.h"
 #include "ThreadPool.h"
+#include "LocalDB.h"
 
 class Server {
 private:
@@ -27,12 +28,13 @@ private:
 	BlockingQueue<ServerCommand*> workQueue;
 	GameManager* gameManager;
 	ThreadPool* workCrew;
+	LocalDB* localDB;
+
 	const uint numWorkers = 3;
 
 	void Init();
 	void Update();
 	int WorkOnQueue(void* data);
-	
 
 public:
 	Server();

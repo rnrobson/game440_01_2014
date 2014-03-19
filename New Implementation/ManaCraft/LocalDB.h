@@ -18,6 +18,7 @@ public:
 	static GameModel* LoadGame(uint _gameID);
 	bool UnloadGame(uint _gameID);
 	bool SaveGame(uint _gameID);
+	ManaCraft::Database::DatabaseAPI* getDbConnection();
 
 	LocalDB();
 	~LocalDB();

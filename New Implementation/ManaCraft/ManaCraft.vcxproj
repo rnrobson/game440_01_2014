@@ -134,6 +134,7 @@
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="TestDatabase.cpp" />
     <ClCompile Include="Tester.cpp" />
+    <ClCompile Include="TestLocalDB.cpp" />
     <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="GuiMinion.h" />
     <ClInclude Include="GuiProjectile.h" />
     <ClInclude Include="GuiTower.h" />
+    <ClInclude Include="TestLocalDB.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />
     <ClInclude Include="LocalDB.h" />

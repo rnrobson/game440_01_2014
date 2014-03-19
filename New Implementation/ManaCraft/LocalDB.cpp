@@ -5,20 +5,36 @@ std::vector<GameModel*> LocalDB::games;
 
 LocalDB::LocalDB()
 {
-	InitConnection();
+	cout << "[LocalDB]: Created...\n";
+	
+	if (InitConnection())
+	{
+		cout << "[LocalDB]: Connected to DB...\n";
+	}
 }
 
 LocalDB::~LocalDB()
 {
-	CloseConnection();
-	delete &dbConnection;
+	cout << "[LocalDB]: Deconstructing LocalDB...\n";
+	for (size_t i = 0; i < games.size(); i++)
+	{
+		if (games[i])
+		{
+			SaveGame(i);
+			UnloadGame(i);
+		}
+	}
+
+	if (CloseConnection())
+	{
+		cout << "[LocalDB]: Disconnected from DB...\n";
+	}
 }
 
 bool LocalDB::InitConnection()
 {
-	dbConnection->setConnectionParams("", "", "", "");
 	dbConnection->connectToDatabase();
-	return true;
+	return dbConnection->isConnected();
 }
 
 bool LocalDB::CloseConnection()
@@ -27,7 +43,7 @@ bool LocalDB::CloseConnection()
 	{
 		dbConnection->disconnectFromDatabase();
 	}
-	return true;
+	return !dbConnection->isConnected();
 }
 
 GameModel* LocalDB::LoadGame(uint _gameID)
@@ -42,7 +58,12 @@ GameModel* LocalDB::LoadGame(uint _gameID)
 			}
 		}
 	}
-	return NULL; //request the game from the DB and creates a game, adds it to the games vector and load it
+	return NULL; //request the game from the DB and creates a game and adds it to the games vector and load it
+}
+
+ManaCraft::Database::DatabaseAPI* LocalDB::getDbConnection()
+{
+	return dbConnection;
 }
 
 bool LocalDB::UnloadGame(uint _gameID)

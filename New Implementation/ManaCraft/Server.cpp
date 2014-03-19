@@ -100,10 +100,10 @@ void Server::Init()
 	workCrew = new ThreadPool(numWorkers);
 
 	ServerCommand* newGameCMD = new Command_CreateNewGame(1);
-	//workQueue.push(cmd);
 	workCrew->addWork(newGameCMD);
-	//commenting out because it prevents anything else from displaying on the console
-	//ClientLiaison::Run();
+
+	localDB = new LocalDB();
+
 }
 
 void Server::Update() {

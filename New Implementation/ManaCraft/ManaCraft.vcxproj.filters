@@ -267,6 +267,9 @@
     <ClCompile Include="LocalDB.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="TestLocalDB.cpp">
+      <Filter>Source Files\Testbed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="LocalDB.h">
       <Filter>Header Files\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="TestLocalDB.h">
+      <Filter>Header Files\Testbed</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
