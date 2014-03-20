@@ -1,13 +1,15 @@
 #include "ServerLobby.h"
 
-ServerLobby::ServerLobby(ServerPlayer *lobbyHost, int teamSize) : teams(teamSize)
+ServerLobby::ServerLobby(ThreadPool *workCrew, ServerPlayer *lobbyHost, int teamSize) : teams(teamSize)
 {
+	WorkCrew = workCrew;
 	host = lobbyHost;
 	EnterNewPlayer(host);
 }
 
 ServerLobby::ServerLobby()
 {
+
 }
 
 
@@ -17,7 +19,15 @@ ServerLobby::~ServerLobby()
 
 void ServerLobby::StartGame()
 {
-	//Start game with gameModel.teams = teams.
+	int gameID = 1;
+	ServerCommand *newGameCMD = new Command_CreateNewGame(gameID);
+	WorkCrew->addWork(newGameCMD);
+	//newGameCMD->Execute();
+
+	GameModel *gameModel;
+	gameModel = GameManager::FindGame(gameID);
+	gameModel->teams = &teams;
+	gameModel->host = host;
 }
 
 void ServerLobby::CloseLobby()

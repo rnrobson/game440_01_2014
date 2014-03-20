@@ -4,6 +4,9 @@
 
 #include "Teams.h"
 #include "GameModel.h"
+#include "Command_CreateNewGame.h"
+#include "ThreadPool.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -12,10 +15,10 @@ class ServerLobby
 public:
 	ServerPlayer *host;
 	Teams teams;
-	GameModel gameModel;
 	vector<ServerPlayer*> readyPlayers;
+	ThreadPool *WorkCrew;
 
-	ServerLobby(ServerPlayer *lobbyHost, int teamSize);
+	ServerLobby(ThreadPool *workCrew, ServerPlayer *lobbyHost, int teamSize);
 	ServerLobby();
 	~ServerLobby();
 	

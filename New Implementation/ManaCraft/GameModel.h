@@ -22,6 +22,7 @@ public:
 
 	bool paused;
 
+	ServerPlayer* host;
 	Teams* teams;
 	float team1mps;
 	float team2mps;
