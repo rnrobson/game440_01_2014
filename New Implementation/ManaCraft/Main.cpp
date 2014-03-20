@@ -1,5 +1,5 @@
 #define CLIENT_BUILD 0
-#define SERVER_BUILD 0
+#define SERVER_BUILD 1
 
 
 #include <SDL.h>
