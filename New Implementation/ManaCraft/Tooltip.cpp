@@ -31,3 +31,13 @@ void Tooltip::Draw()
 		Label::Draw();
 	}
 }
+
+void Tooltip::OnMouseHover(SDL_MouseMotionEvent e)
+{
+	Active = true;
+}
+
+void Tooltip::OnMouseMotion(SDL_MouseMotionEvent e)
+{
+	Active = false;
+}

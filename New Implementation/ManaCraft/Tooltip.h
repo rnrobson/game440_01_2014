@@ -12,4 +12,7 @@ public:
 
 	virtual void Update(double _time);
 	virtual void Draw();
+
+	virtual void OnMouseHover(SDL_MouseMotionEvent e);
+	virtual void OnMouseMotion(SDL_MouseMotionEvent e);
 };
