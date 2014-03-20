@@ -16,7 +16,8 @@ namespace ManaCraft {
 		private:
 			ThreadPool* pool;
 			static int Listen(void*);
-			static std::vector<NetClient*> threadedClients;
+			static int Receive(void*);
+			static std::vector<SDL_Thread*> threadedClients;
 		};
 	}
 }

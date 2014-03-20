@@ -5,7 +5,7 @@
 using namespace ManaCraft::Networking;
 
 SDL_Thread *listenThread;
-std::vector<NetClient*> ThreadedListener::threadedClients = std::vector<NetClient*>();
+std::vector<SDL_Thread*> ThreadedListener::threadedClients = std::vector<SDL_Thread*>();
 NetServer server(27015);
 
 ThreadedListener::ThreadedListener() {
@@ -26,9 +26,23 @@ int ThreadedListener::Listen(void*) {
 		NetClient* client = server.Listen();
 		if (client) {
 			std::cout << "Client Connected" << std::endl;
-			threadedClients.push_back(client);
+			SDL_Thread* clientThread = SDL_CreateThread(Receive, "receiveThread", client);
+			threadedClients.push_back(clientThread);
 		}
 	}
 	return 0;
 }
 
+int ThreadedListener::Receive(void* data)
+{
+	while (true)
+	{
+		NetClient* client = (NetClient*)data;
+		Packet* receivedPacket = client->Receive();
+		if (receivedPacket != nullptr)
+		{
+			PacketFactory::CreateFromClientPacket(client->Receive());
+		}
+	}
+	return 0;
+}
