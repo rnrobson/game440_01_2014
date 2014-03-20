@@ -2,16 +2,16 @@
 //#include "Window.h"
 
 //-- Function Prototypes
-void Update(double time);
-void Draw();
+void testmainUpdate(double time);
+void testmainDraw();
 
 int testmain(int argc, char* args[])
 {
 	//-- Initialize the API
 	ClientAPI::Init();
 
-	ClientAPI::SubscribeCustomUpdate(Update);
-	ClientAPI::SubscribeCustomDraw(Draw);
+	ClientAPI::SubscribeCustomUpdate(testmainUpdate);
+	ClientAPI::SubscribeCustomDraw(testmainDraw);
 
 	//-- Add in some Sample Assets
 	ClientAPI::AddColour("Colour1", APIHelper::ColourHelper(155,205,225,205));//SDL_Color colour = { 155, 205, 225, 205 };
@@ -39,7 +39,7 @@ int testmain(int argc, char* args[])
 	return 0;
 }
 
-void Update(double time)
+void testmainUpdate(double time)
 {
 	std::cout << "Entering Custom Update" << std::endl;
 
@@ -47,7 +47,7 @@ void Update(double time)
 	ClientAPI::ExitMainLoop();
 }
 
-void Draw()
+void testmainDraw()
 {
 	std::cout << "Entering Custom Draw" << std::endl;
 }

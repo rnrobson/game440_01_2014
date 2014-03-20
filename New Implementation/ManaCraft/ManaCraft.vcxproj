@@ -87,8 +87,10 @@
     <ClCompile Include="AssetSquare.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Checkbox.cpp" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="ClientAPI.cpp" />
     <ClCompile Include="ClientLiaison.cpp" />
+    <ClCompile Include="ClientSettings.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="DatabaseAPI.cpp" />
     <ClCompile Include="Element.cpp" />
@@ -159,8 +161,10 @@
     <ClInclude Include="BlockingQueue.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Checkbox.h" />
+    <ClInclude Include="Client.h" />
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
+    <ClInclude Include="ClientSettings.h" />
     <ClInclude Include="Command_CreateNewGame.h" />
     <ClInclude Include="Command_UpdateMinions.h" />
     <ClInclude Include="DatabaseAPI.h" />
@@ -168,6 +172,7 @@
     <ClInclude Include="FrameLimiter.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameModel.h" />
+    <ClInclude Include="Gamestate.h" />
     <ClInclude Include="GridLayer.h" />
     <ClInclude Include="GridSquare.h" />
     <ClInclude Include="GuiMinion.h" />

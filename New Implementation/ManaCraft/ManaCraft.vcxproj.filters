@@ -70,6 +70,12 @@
     <Filter Include="Header Files\ServerCommands">
       <UniqueIdentifier>{4a37f465-33cc-4100-966a-c339612df976}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Client\ClientGUI">
+      <UniqueIdentifier>{403be147-a29e-448c-96a4-4d5d223acb27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Client\ClientGUI">
+      <UniqueIdentifier>{ce6cf9ad-04b4-4f6f-9fe5-9e352d0a7c3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -195,17 +201,8 @@
     <ClCompile Include="IngamePause.cpp">
       <Filter>Source Files\Client\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Source Files\Client\Utilities</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Client</Filter>
-    </ClCompile>
     <ClCompile Include="Teams.cpp">
       <Filter>Source Files\Server</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimatedSprite.cpp">
-      <Filter>Source Files\Client</Filter>
     </ClCompile>
     <ClCompile Include="TestDatabase.cpp">
       <Filter>Source Files\Database</Filter>
@@ -269,6 +266,21 @@
     </ClCompile>
     <ClCompile Include="TestLocalDB.cpp">
       <Filter>Source Files\Testbed</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSprite.cpp">
+      <Filter>Source Files\Client\ClientGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files\Client\ClientGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source Files\Client\ClientGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientSettings.cpp">
+      <Filter>Source Files\Client</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -428,23 +440,8 @@
     <ClInclude Include="IngamePause.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>Header Files\Client\Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
     <ClInclude Include="Teams.h">
       <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="GuiMinion.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="GuiTower.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimatedSprite.h">
-      <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="TestDatabase.h">
       <Filter>Header Files\Database</Filter>
@@ -466,9 +463,6 @@
     </ClInclude>
     <ClInclude Include="FrameLimiter.h">
       <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="GuiProjectile.h">
-      <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="DatabaseAPI.h">
       <Filter>Header Files\Database</Filter>
@@ -562,6 +556,33 @@
     </ClInclude>
     <ClInclude Include="TestLocalDB.h">
       <Filter>Header Files\Testbed</Filter>
+    </ClInclude>
+    <ClInclude Include="Gamestate.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSprite.h">
+      <Filter>Header Files\Client\ClientGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiMinion.h">
+      <Filter>Header Files\Client\ClientGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiProjectile.h">
+      <Filter>Header Files\Client\ClientGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiTower.h">
+      <Filter>Header Files\Client\ClientGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files\Client\ClientGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files\Client\ClientGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientSettings.h">
+      <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
