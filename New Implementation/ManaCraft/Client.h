@@ -58,16 +58,7 @@ private:
 	static void OnEscapePressed();
 	static void OnEnterPressed();
 
-	void InitSDLNet(){
-		//Init SDL_net
-		if (SDLNet_Init() == -1)
-			std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
-		else {
-			std::cout << "SDL_net was initialized properly" << std::endl;
-			// If it was properly initialized, start the threads.
-			ManaCraft::Client::ServerLiason::Start();
-		}
-	}
+	void InitSDLNet();
 };
 
 #endif

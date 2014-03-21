@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Packet.h"
 #include "NetClient.h"
+#include "BlockingQueue.h"
 
 namespace ManaCraft {
 	namespace Client {
@@ -14,14 +15,15 @@ namespace ManaCraft {
 				static int StaticListenToServer(void* data);
 				int ListenToServer();
 				void CloseConnection();
-				void ProcessData(ManaCraft::Networking::Packet* packet);
 
 				SDL_Thread* listening;
 				SDL_Thread* sending;
+				
 
 			public:
 				ServerLiason();
 				static void Start();
+				static void AddMessage(ManaCraft::Networking::Packet* packet);
 		};
 	}
 }
