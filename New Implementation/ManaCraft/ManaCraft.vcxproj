@@ -97,6 +97,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FrameLimiter.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameModel.cpp" />
     <ClCompile Include="GridLayer.cpp" />
     <ClCompile Include="GridNode.cpp" />
     <ClCompile Include="GridSquare.cpp" />
