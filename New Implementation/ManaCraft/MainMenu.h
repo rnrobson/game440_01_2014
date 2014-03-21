@@ -11,7 +11,7 @@ public:
 		const int SCREEN_WIDTH = Window::Box().w;
 		const int SCREEN_HEIGHT = Window::Box().h;
 		const int MARGIN_Y = 40;
-		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
+		const int BUTTON_SPC_Y = 20, BUTTON_SPC_X = 10;
 
 		TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
@@ -69,13 +69,6 @@ public:
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		btnIndex++;
 
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("CreateGameBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
-		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->GetX();
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->AddLabel("Create Game", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
-		btnIndex++;
-
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("ViewGamesBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
 		xBtn = ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->GetX();
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
@@ -109,7 +102,6 @@ public:
 		ClientAPI::GetGuiContainer("MainMenu")->GetButton("CreditsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
 
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->SubscribeOnMouseClick(MainMenu::Click_loginButton);
-		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("CreateGameBtn")->SubscribeOnMouseClick(MainMenu::Click_createButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->SubscribeOnMouseClick(MainMenu::Click_viewButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SubscribeOnMouseClick(MainMenu::Click_optionsButton);
 		ClientAPI::GetGuiContainer("MainMenu")->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->SubscribeOnMouseClick(MainMenu::Click_tutorialButton);
@@ -141,14 +133,6 @@ public:
 		std::cout << "Login to network.\n";
 		ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
 		ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
-	}
-
-	static void Click_createButton()
-	{
-		std::cout << "Create a new game.\n";
-		ClientAPI::GetGuiContainer("MainMenu")->Active = false;
-		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
-		ScreenFader::FadeOut();
 	}
 
 	static void Click_viewButton()

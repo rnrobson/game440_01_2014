@@ -47,6 +47,7 @@ public:
 		SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
 
 		//--Other rects
+		SDL_Rect createBtnRect = APIHelper::RectHelper(SCREEN_WIDTH / 2 - longBtnRect.w / 2, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, longBtnRect.w, longBtnRect.h);
 		SDL_Rect backBtnRect = APIHelper::RectHelper(BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
 
 		ClientAPI::AddGuiContainer("ViewGames", new GuiContainer());
@@ -98,6 +99,11 @@ public:
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->SubscribeOnMouseClick(ViewGames::Click_backButton);
+
+		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("CreateGameBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), backBtnRect));
+		ClientAPI::GetGuiContainer("ViewGames")->GetButton("CreateGameBtn")->AddLabel("Create Game", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+		ClientAPI::GetGuiContainer("ViewGames")->GetButton("CreateGameBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
+		ClientAPI::GetGuiContainer("ViewGames")->GetButton("CreateGameBtn")->SubscribeOnMouseClick(ViewGames::Click_backButton);
 
 		ClientAPI::GetGuiContainer("ViewGames")->Active = false;
 	}
