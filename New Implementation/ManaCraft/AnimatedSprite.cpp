@@ -1,6 +1,5 @@
 #include "AnimatedSprite.h"
 
-
 AnimatedSprite::AnimatedSprite(SDL_Texture *tex, int posX, int posY, int sheetSzX, int sheetSzY)
 :Sprite(tex, posX, posY)
 {
@@ -62,7 +61,6 @@ void AnimatedSprite::Update()
 	timeElapsed = SDL_GetTicks();
 	if (timeElapsed - lastUpdated >= 83)//about 12 frames/second 1000ms/12frames=83.3
 	{
-		Sprite::RenderTexture(sheet, Window::Renderer(), x, y, &clips[currentFrame]);
 		if (row == LEFT)
 		{
 			if (currentFrame == (row * sheetY) + sheetY - 1)//when left animation reaches last frame, set animation back to first frame
@@ -87,4 +85,8 @@ void AnimatedSprite::Update()
 		currentFrame++;
 		lastUpdated = timeElapsed;
 	}
+}
+void AnimatedSprite::Draw()
+{
+	SDL_RenderCopy(Window::Renderer(), sheet, &clips[currentFrame], &rect);
 }

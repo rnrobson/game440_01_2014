@@ -13,6 +13,7 @@ public:
 	void Up();
 	void Down();
 	void Update();
+	virtual void Draw();
 private:
 
 	int width;
