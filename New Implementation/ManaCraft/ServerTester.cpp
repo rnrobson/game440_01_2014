@@ -72,19 +72,11 @@ void ServerTester::Test_Command_CreateNewGame()
 	Command_CreateNewGame* command;
 	unsigned int numGames;
 
-	//no new games should be created for a -ve or 0 id 
-	for (int i = numberOfTests / (-2); i<1; i++)
-	{
-		numGames = GameManager::games.size();
-		command = new Command_CreateNewGame(i);
-		command->Execute();
-		if (GameManager::games.size() == numGames)
-			numTestsPassed++;
-		else
-			numTestsFailed++;
-	}
+	vector<GameModel*> games = GameManager::games;
+	GameManager::games.clear();
+	
 	//games should be created for values from 1 - max_games
-	for (unsigned int i = 1; i <= GameManager::MAX_GAMES; i++)
+	for (uint i = 1; i <= GameManager::MAX_GAMES; i++)
 	{
 		numGames = GameManager::games.size();
 		command = new Command_CreateNewGame(i);
@@ -95,7 +87,7 @@ void ServerTester::Test_Command_CreateNewGame()
 			numTestsFailed++;
 	}
 	//no new games for if already at max_games
-	for (int i = GameManager::MAX_GAMES + 1; i < numberOfTests / 2; i++)
+	for (int i = GameManager::MAX_GAMES + 1; i <= numberOfTests ; i++)
 	{
 		numGames = GameManager::games.size();
 		command = new Command_CreateNewGame(i);
@@ -109,8 +101,11 @@ void ServerTester::Test_Command_CreateNewGame()
 	printf("\n\nTest_Command_CreateNewGame Complete: %i Passes, %i Failures", numTestsPassed, numTestsFailed);
 	
 	GameManager::games.clear();
+	GameManager::games = games;
+	games.clear();
 	delete command;
 	command = NULL;
+
 }
 void ServerTester::Test_Command_UpdateMinions()
 {

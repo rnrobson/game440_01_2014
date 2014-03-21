@@ -25,6 +25,37 @@ void GameModel::UpdateMinions()
 				//do damage to enemy base
 				//kill minion
 		//update minion position (pathing)
+
+	for (size_t i = 0; i < minions.size(); i++)
+	{
+		//update pos -- not pathing right now because no map or pathing info exists
+		minions[i]->xPos += minions[i]->speed;
+		minions[i]->yPos += minions[i]->speed;
+
+		//make sure collider is updated with position
+		//casting minion position as ints for now - not sure what the game will require
+		minions[i]->collisionBox->x = (int)round(minions[i]->xPos) - minions[i]->colWidth / 2;
+		minions[i]->collisionBox->y = (int)round(minions[i]->yPos) - minions[i]->colHeight / 2;
+
+		if (minions[i]->health <= 0)
+		{
+			//remove MpS bonus from player who had spawned it
+			minions.erase(minions.begin() + i);
+			continue;
+		}
+
+		//get reference to player to find out which base this minion should do damage to
+		//assuming this is a light minion - will do damage to dark base
+		if (SDL_IntersectRect(darkBase->collisionBox, minions[i]->collisionBox, new SDL_Rect()))
+		{
+			darkBase->TakeDamage(minions[i]->damage);
+			//remove MpS bonus from player who had spawned it
+			minions.erase(minions.begin() + i);
+			continue;
+		}
+	}
+
+
 }
 void GameModel::UpdateTowers()
 {

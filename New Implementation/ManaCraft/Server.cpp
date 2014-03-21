@@ -6,6 +6,7 @@
 Server::Server()
 {
 	Init();
+	
 }
 /// <summary>[Run]
 /// <para>This method starts running the server</para>
@@ -14,6 +15,8 @@ void Server::Run()
 {
 	running = true;
 
+	//uncomment this to run tests for the server commands before game loop starts
+	
 	//ServerTester* tester = new ServerTester(50);
 
 	//tester->Test_Command_TripleAFloat();
@@ -21,6 +24,10 @@ void Server::Run()
 	//tester->Test_Command_CreateNewGame(); 
 	//tester->Test_Command_UpdateMinions();
 
+	/*std::cout << "\nRunning all tests...";
+	tester->RunAllTests();*/
+
+	
 	bool dontUpdate; // There might be too many ticks per ms
 	int timeSnapshot = -1; // Temp var for comparing ms for above issue
 	
@@ -74,9 +81,8 @@ void Server::Run()
 		testTimeSnapShot = elapsedTime;
 	}
 
-	/*std::cout << "\nRunning all tests...";
-	tester->RunAllTests();
-*/
+	
+
 	getchar();
 }
 
