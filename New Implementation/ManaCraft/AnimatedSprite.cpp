@@ -56,7 +56,7 @@ void AnimatedSprite::Down()
 	row = DOWN;
 	currentFrame = row * sheetY;
 }
-void AnimatedSprite::Update()
+void AnimatedSprite::Update(double time)
 {
 	timeElapsed = SDL_GetTicks();
 	if (timeElapsed - lastUpdated >= 83)//about 12 frames/second 1000ms/12frames=83.3
@@ -85,6 +85,8 @@ void AnimatedSprite::Update()
 		currentFrame++;
 		lastUpdated = timeElapsed;
 	}
+
+	Sprite::Update(time);
 }
 void AnimatedSprite::Draw()
 {

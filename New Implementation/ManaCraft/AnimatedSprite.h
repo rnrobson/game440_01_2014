@@ -12,7 +12,7 @@ public:
 	void Right();
 	void Up();
 	void Down();
-	void Update();
+	void Update(double time);
 	virtual void Draw();
 private:
 

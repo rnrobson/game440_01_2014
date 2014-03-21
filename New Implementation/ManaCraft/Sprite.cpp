@@ -13,6 +13,11 @@ Sprite::~Sprite()
 {
 }
 
+void Sprite::Update(double time)
+{
+	GuiElement::Update(time);
+}
+
 void Sprite::Draw()
 {
 	GuiElement::Draw();

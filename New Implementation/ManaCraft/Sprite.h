@@ -9,7 +9,7 @@ private:
 public:
 	Sprite(SDL_Texture *t, int posX, int posY);
 	~Sprite();
+	virtual void Update(double time);
 	virtual void Draw();
-
 };
 

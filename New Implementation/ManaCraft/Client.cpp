@@ -2,6 +2,23 @@
 
 Client* Client::instance;
 
+
+void Client::InitSDLNet(){
+	//Init SDL_net
+	if (SDLNet_Init() == -1)
+		std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
+	else {
+		std::cout << "SDL_net was initialized properly" << std::endl;
+		// If it was properly initialized, start the threads.
+		try {
+			ManaCraft::Client::ServerLiason::Start();
+		}
+		catch (ManaCraft::Networking::ConnectionOpenException e) {
+			std::cout << "Unable to open socket: " << e.what() << std::endl;
+		}
+	}
+}
+
 Client::Client()
 {
 	////-- Initialize the API
@@ -116,20 +133,4 @@ void Client::OnEscapePressed()
 void Client::OnEnterPressed()
 {
 	Client::GetInstance()->Settings()->isHost = true;
-}
-
-void Client::InitSDLNet(){
-	//Init SDL_net
-	if (SDLNet_Init() == -1)
-		std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
-	else {
-		std::cout << "SDL_net was initialized properly" << std::endl;
-		// If it was properly initialized, start the threads.
-		try {
-			ManaCraft::Client::ServerLiason::Start();
-		}
-		catch (ManaCraft::Networking::ConnectionOpenException e) {
-			std::cout << "Unable to open socket: " << e.what() << std::endl;
-		}
-	}
 }
