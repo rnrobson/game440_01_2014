@@ -1,47 +1,51 @@
 #include "ThreadedListener.h"
-#include "ClientLiaison.h"
+#include "NetClient.h"
 #include "NetServer.h"
+#include "ThreadPool.h"
+#include "Command_ClientReceive.h"
+#include "Command_ServerReceive.h"
 
 using namespace ManaCraft::Networking;
 
-SDL_Thread *listenThread;
-std::vector<SDL_Thread*> ThreadedListener::threadedClients = std::vector<SDL_Thread*>();
-NetServer server(27015);
+ThreadPool* ThreadedListener::threadPool = 0;
 
-ThreadedListener::ThreadedListener() {
-	pool = new ThreadPool(5);
-	
-	listenThread = SDL_CreateThread(Listen, "listenThread", NULL);
-	if (!listenThread) {
-		std::cout << "Failed to create listen thread: " << SDL_GetError << std::endl;
+ThreadedListener::ThreadedListener(NetServer* server, unsigned int numberOfThreads) {
+	if (!server->Open()) {
+		std::cout << "Failed to initialize server on port: " << server->GetIP().port;
+	}
+	else {
+		std::cout << "Listening...\n";
+		ThreadedListener::threadPool = new ThreadPool(numberOfThreads);
+		acceptThread = SDL_CreateThread(Accept, "listenThread", server);
+		if (!acceptThread) {
+			std::cout << "Failed to create listen thread: " << SDL_GetError << std::endl;
+		}
+	}
+}
+
+ThreadedListener::ThreadedListener(NetClient* client, unsigned int numberOfThreads) {
+	if (!client->Open()) {
+		std::cout << "Failed to connect to server: " << client->GetIP().host << ":" << client->GetIP().port;
+	}
+	else {
+		ThreadedListener::threadPool = new ThreadPool(numberOfThreads);
+		Command_ServerReceive* receiveFromServer = new Command_ServerReceive(client);
+		threadPool->addWork(receiveFromServer);
 	}
 }
 
 ThreadedListener::~ThreadedListener() {
-
+	threadPool->shutdown();
 }
 
-int ThreadedListener::Listen(void*) {
+int ThreadedListener::Accept(void* server) {
+	NetServer* masterServer = (NetServer*)server;
 	while (true) {
-		NetClient* client = server.Listen();
-		if (client) {
-			std::cout << "Client Connected" << std::endl;
-			SDL_Thread* clientThread = SDL_CreateThread(Receive, "receiveThread", client);
-			threadedClients.push_back(clientThread);
-		}
-	}
-	return 0;
-}
-
-int ThreadedListener::Receive(void* data)
-{
-	while (true)
-	{
-		NetClient* client = (NetClient*)data;
-		Packet* receivedPacket = client->Receive();
-		if (receivedPacket != nullptr)
-		{
-			PacketFactory::CreateFromClientPacket(client->Receive());
+		NetClient* client = masterServer->Listen();
+		if (client != nullptr) {
+			std::cout << "Client Connected." << std::endl;
+			Command_ClientReceive* receiveFromClient = new Command_ClientReceive(client);
+			threadPool->addWork(receiveFromClient);
 		}
 	}
 	return 0;

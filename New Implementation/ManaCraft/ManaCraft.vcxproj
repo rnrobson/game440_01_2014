@@ -166,7 +166,9 @@
     <ClInclude Include="ClientAPI.h" />
     <ClInclude Include="ClientLiaison.h" />
     <ClInclude Include="ClientSettings.h" />
+    <ClInclude Include="Command_ClientReceive.h" />
     <ClInclude Include="Command_CreateNewGame.h" />
+    <ClInclude Include="Command_ServerReceive.h" />
     <ClInclude Include="Command_UpdateMinions.h" />
     <ClInclude Include="DatabaseAPI.h" />
     <ClInclude Include="Dictionary.h" />

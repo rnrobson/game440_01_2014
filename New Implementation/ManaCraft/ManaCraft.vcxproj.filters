@@ -587,5 +587,11 @@
     <ClInclude Include="ClientSettings.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
+    <ClInclude Include="Command_ClientReceive.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_ServerReceive.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
