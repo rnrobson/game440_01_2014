@@ -16,16 +16,16 @@ Networking::Packet* PacketFactory::CreateFromClientPacket(const Networking::Pack
 		return new LoginPlayerPacket(packet);
 	case Networking::LOGOUT_PLAYER:
 		return new LogoutPlayerPacket(packet);
-	case Networking::SEND_MESSAGE_IG:
+	/*case Networking::SEND_MESSAGE_IG:
 		return new SendMessageIGPacket(packet);
 	case Networking::SEND_MESSAGE_GL:
-		return new SendMessageGLPacket(packet);
+		return new SendMessageGLPacket(packet);*/
 	case Networking::SEND_WHISPER:
 		return new SendWhisperPacket(packet);
-	case Networking::SEND_PARTY_MSG_IG:
+	/*case Networking::SEND_PARTY_MSG_IG:
 		return new SendPartyMsgIGPacket(packet);
 	case Networking::SEND_PARTY_MSG_GL:
-		return new SendPartyMsgGLPacket(packet);
+		return new SendPartyMsgGLPacket(packet);*/
 	case Networking::REFRESH_GAMES:
 		return new RefreshGamesPacket(packet);
 	case Networking::JOIN_GAME:
