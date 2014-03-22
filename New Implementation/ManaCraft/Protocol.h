@@ -208,23 +208,16 @@ namespace ManaCraft {
 			/// <summary>Will send a message to the server meant for all the players within that game
 			/// <para>Data: [2] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
-			SEND_MESSAGE_IG = 2200,
+			SEND_PARTY_MSG = 2200,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
 			/// <para>Data: [2] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
-			SEND_MESSAGE_GL,
+			SEND_LOBBY_MSG,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// <para>Data: [1] Username Length (S), [1] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message</para>
+			/// <para>Data: [1] Username Length, [n] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message</para>
 			/// </summary>
 			SEND_WHISPER,
-			/// <summary>Will send a message to the server meant for players in the same party - while in game.
-			/// <para>Data: [2] GameID, [2] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
-			/// </summary>
-			SEND_PARTY_MSG_IG,
-			/// <summary>Will send a message to the server meant for players in the same party - while in the game lobby.
-			/// <para>Data: [2] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
-			/// </summary>
-			SEND_PARTY_MSG_GL,
+		
 
 
 
@@ -232,15 +225,15 @@ namespace ManaCraft {
 			// There are currently: 3/25
 
 			/// <summary>Sends a request for a list of refreshed games in the Game Viewer scene.
-			/// <para>Data: [1] Username Length, [1] Game Count, [N] Username, [N] Game Data</para>
+			/// <para>Data:</para>
 			/// </summary>
 			REFRESH_GAMES = 2250,
 			/// <summary>Requests that the player joins the selected game.
-			/// <para>Data: [2] GameID, [1] Username Length, [N] Username </para>
+			/// <para>Data: [2] GameID</para>
 			/// </summary>
 			JOIN_GAME,
 			/// <summary>Requests that the server create a game with the player as the host.
-			/// <para>Data: [1] Username Length, [N] Username</para>
+			/// <para>Data:</para>
 			/// </summary>
 			CREATE_GAME,
 
