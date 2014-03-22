@@ -81,12 +81,21 @@ public:
 				SubscribeOnMouseClick(ViewGames::Click_join);
 		}
 
+		// Refresh Game Button
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddGuiElement("Refresh", new Button(ClientAPI::GetTexture("LongBtnNormal"),
-			APIHelper::RectHelper(centerRect.x - longBtnRect.w / 2, (SCREEN_HEIGHT - SCREEN_HEIGHT / 3) - (longBtnRect.h + MARGIN), longBtnRect.w, longBtnRect.h)));
+			APIHelper::RectHelper(centerRect.x - longBtnRect.w * 2.5, (SCREEN_HEIGHT - SCREEN_HEIGHT / 3) - (longBtnRect.h + MARGIN), longBtnRect.w, longBtnRect.h)));
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("Refresh")->AddLabel("Refresh Games", systema, black, true);
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("Refresh")->GetLabel()->SetPadding(APIHelper::RectHelper(0, 2, 0, 0));
 		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("Refresh")->SubscribeOnMouseClick(ViewGames::Click_refresh);
 
+		// Create Game Button
+		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->AddGuiElement("CreateGameBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"),
+			APIHelper::RectHelper(centerRect.x + longBtnRect.w * 1.3, (SCREEN_HEIGHT - SCREEN_HEIGHT / 3) - (longBtnRect.h + MARGIN), longBtnRect.w, longBtnRect.h)));
+		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("CreateGameBtn")->AddLabel("Create Game", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("CreateGameBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
+		ClientAPI::GetGuiContainer("ViewGames")->GetGuiContainer("GamesList")->GetButton("CreateGameBtn")->SubscribeOnMouseClick(ViewGames::Click_createGameButton);
+
+		
 		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("InProgress", new Checkbox({ 50, 50, 50, 50 }, { 255, 0, 0, 255 }, { 255, 255, 255, 255 }));
 		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("CheckboxLabel", new Label("Only view games in progress that I am in.",
 			APIHelper::RectHelper(centerRect.x / 2, SCREEN_HEIGHT - MARGIN * 4, centerRect.x, MARGIN), systema, white));
@@ -95,17 +104,14 @@ public:
 		ClientAPI::GetGuiContainer("ViewGames")->GetCheckbox("InProgress")->Checked = false;
 		ClientAPI::GetGuiContainer("ViewGames")->GetCheckbox("InProgress")->SubscribeOnMouseClick(ViewGames::Click_checkbox);
 
-		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
+		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), { backBtnRect.x, backBtnRect.y, backBtnRect.w, backBtnRect.h }));
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 		ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->SubscribeOnMouseClick(ViewGames::Click_backButton);
 
-		ClientAPI::GetGuiContainer("ViewGames")->AddGuiElement("CreateGameBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), backBtnRect));
-		ClientAPI::GetGuiContainer("ViewGames")->GetButton("CreateGameBtn")->AddLabel("Create Game", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
-		ClientAPI::GetGuiContainer("ViewGames")->GetButton("CreateGameBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(2, 2, 0, 0));
-		ClientAPI::GetGuiContainer("ViewGames")->GetButton("CreateGameBtn")->SubscribeOnMouseClick(ViewGames::Click_backButton);
-
 		ClientAPI::GetGuiContainer("ViewGames")->Active = false;
+
+		ClientAPI::GetGuiContainer("ViewGames")->SubscribeOnEscapeKeyPressed(ViewGames::Click_backButton);
 	}
 
 	static void Click_checkbox()
@@ -130,6 +136,14 @@ public:
 		std::cout << "Back to main menu.\n";
 		ClientAPI::GetGuiContainer("ViewGames")->Active = false;
 		ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+		ScreenFader::FadeOut();
+	}
+
+	static void Click_createGameButton()
+	{
+		std::cout << "Go To Game Lobby.\n";
+		ClientAPI::GetGuiContainer("ViewGames")->Active = false;
+		ClientAPI::GetGuiContainer("GameLobby")->Active = true;
 		ScreenFader::FadeOut();
 	}
 };

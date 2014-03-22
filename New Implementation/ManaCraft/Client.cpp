@@ -127,7 +127,7 @@ void Client::Draw()
 
 void Client::OnEscapePressed()
 {
-	IngamePause::Pause();
+	//IngamePause::Pause();
 }
 
 void Client::OnEnterPressed()
