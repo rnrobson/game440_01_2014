@@ -210,3 +210,36 @@ void ServerTester::Test_Command_UpdateMinions()
 	delete[] speedArr;
 
 }
+
+void ServerTester::Test_ServerLobby(ThreadPool *workCrew)
+{
+	printf("\nTesting ServerLobby:");
+
+	ServerPlayer *hostPlayer = new ServerPlayer();
+	ServerLobby *serverLobby = new ServerLobby(workCrew, hostPlayer, 3);
+
+	//Initial info:
+	printf("\n TeamSize: %i", serverLobby->teams.MaxPlayers / 2);
+	printf("\n MaxPlayers: %i", serverLobby->teams.MaxPlayers);
+	printLobbyState(serverLobby, 1);
+
+	//Tests:
+	serverLobby->EnterNewPlayer(new ServerPlayer());
+	printLobbyState(serverLobby, 2);
+
+	//Testing Complete:
+	printf("\nServerLobby testing completed.\nPress Enter key to continue...\n");
+	getchar();
+}
+
+void ServerTester::printLobbyState(ServerLobby *lobby, int testNumber)
+{
+	//State info:
+	printf("\n ---Lobby State %i---", testNumber);
+	printf("\n PlayerCount: %i", lobby->teams.PlayerCount);
+	printf("\n Team1: %i", lobby->teams.Team1.size());
+	printf("\n Team2: %i", lobby->teams.Team2.size());
+	printf("\n Bench: %i", lobby->teams.Bench.size());
+	printf("\n ReadyPlayers: %i", lobby->readyPlayers.size());
+	printf("\n -------------------");
+}

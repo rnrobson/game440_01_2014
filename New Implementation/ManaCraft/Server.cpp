@@ -17,12 +17,14 @@ void Server::Run()
 
 	//uncomment this to run tests for the server commands before game loop starts
 	
-	//ServerTester* tester = new ServerTester(50);
+	ServerTester* tester = new ServerTester(50);
 
 	//tester->Test_Command_TripleAFloat();
 	//tester->Test_Command_IntFloatProduct();
 	//tester->Test_Command_CreateNewGame(); 
 	//tester->Test_Command_UpdateMinions();
+
+	tester->Test_ServerLobby(workCrew);
 
 	/*std::cout << "\nRunning all tests...";
 	tester->RunAllTests();*/

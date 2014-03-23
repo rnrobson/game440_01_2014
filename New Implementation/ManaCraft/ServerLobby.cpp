@@ -5,6 +5,7 @@ ServerLobby::ServerLobby(ThreadPool *workCrew, ServerPlayer *lobbyHost, int team
 	WorkCrew = workCrew;
 	host = lobbyHost;
 	EnterNewPlayer(host);
+
 }
 
 ServerLobby::ServerLobby()
@@ -19,15 +20,19 @@ ServerLobby::~ServerLobby()
 
 void ServerLobby::StartGame()
 {
-	int gameID = 1;
-	ServerCommand *newGameCMD = new Command_CreateNewGame(gameID);
-	WorkCrew->addWork(newGameCMD);
-	//newGameCMD->Execute();
+	if (readyPlayers.size() == teams.PlayerCount && teams.Team1.size() == teams.Team2.size())
+	{
+		int gameID = 1;
+		ServerCommand *newGameCMD = new Command_CreateNewGame(gameID);
+		WorkCrew->addWork(newGameCMD);
+		//newGameCMD->Execute();
 
-	GameModel *gameModel;
-	gameModel = GameManager::FindGame(gameID);
-	gameModel->teams = &teams;
-	gameModel->host = host;
+		GameModel *gameModel;
+		gameModel = GameManager::FindGame(gameID);
+		gameModel->teams = &teams;
+		gameModel->host = host;
+	}
+
 }
 
 void ServerLobby::CloseLobby()
@@ -37,6 +42,7 @@ void ServerLobby::CloseLobby()
 
 void ServerLobby::ReadyPlayer(ServerPlayer *player)
 {
+	UnReadyPlayer(player);
 	readyPlayers.push_back(player);
 }
 
