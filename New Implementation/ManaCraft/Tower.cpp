@@ -3,6 +3,7 @@
 
 Tower::Tower(void)
 {
+	timer = 0;
 }
 
 
@@ -71,4 +72,20 @@ std::vector<Tower*> Tower::fetchAllFromDB() {
 	}
 
 	return std::vector<Tower*>();
+}
+
+void Tower::FireAtMinion(Minion* minion)
+{
+	//check if reload timer is up
+		//create a projectile and launch it towers minion
+
+	//calculating reload timer based on firing rate
+	Uint32 reloadTimer = (uint)round(1000*firingRate);
+	if (timer >= reloadTimer)
+	{
+		//fire
+
+		timer = 0;
+	}
+	
 }

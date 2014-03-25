@@ -1,4 +1,6 @@
 #include "GameModel.h"
+#include "Element.h"
+#include <algorithm>
 
 GameModel::GameModel()
 {
@@ -15,18 +17,8 @@ GameModel::~GameModel(){}
 
 void GameModel::UpdateMinions()
 {
-	//loop trough all minions in the minion list in the game ID
-		//check for HP
-			//if dead
-				//remove MpS bonus from player who had spawned it
-				//remove from minion list
-		//check if at enemy base
-			//if yes:
-				//do damage to enemy base
-				//kill minion
-		//update minion position (pathing)
-
-	for (size_t i = 0; i < minions.size(); i++)
+	//iterating backwards since we could be removing minions
+	for (unsigned i = minions.size(); i-- > 0;)
 	{
 		//update pos -- not pathing right now because no map or pathing info exists
 		minions[i]->xPos += minions[i]->speed;
@@ -40,6 +32,12 @@ void GameModel::UpdateMinions()
 		if (minions[i]->health <= 0)
 		{
 			//remove MpS bonus from player who had spawned it
+
+			//find all the towers' target lists this minion is in and remove itself from them
+			for (size_t j = 0; j < towers.size(); j++)
+			{
+				towers[i]->targetList.remove(minions[i]);
+			}
 			minions.erase(minions.begin() + i);
 			continue;
 		}
@@ -54,31 +52,128 @@ void GameModel::UpdateMinions()
 			continue;
 		}
 	}
-
+	//let the clients in this game know to update it's minions (& playerbase?)
 
 }
-void GameModel::UpdateTowers()
+void GameModel::UpdateTowers(Uint32 dt)
 {
-		//loop through all towers in the tower list in the gameID
-			//find minions within range
-			//add them to a queue
-					//fire at first minion in queue
-			//if minion dies or leave range, remove from queue
+	//loop through all the towers in this game
+	for (size_t i = 0; i < towers.size(); i++)
+	{
+		//get the tower's position
+		uint towerXPos=towers[i]->infSquare->xPos;
+		uint towerYPos = towers[i]->infSquare->yPos;
+
+		//loop through all the minions in the game
+		//this will be optimized further using Quad tree
+		for (size_t j = 0; j < minions.size(); j++)
+		{
+			//get dist from the tower to the minion
+			float xDif = minions[i]->xPos - towerXPos;
+			float yDif = minions[i]->yPos - towerYPos;
+			float dist = sqrt(xDif*xDif + yDif * yDif);
+
+			//check if the minion is already present in the tower's list
+			list<Minion*>::iterator findMinion = std::find(towers[i]->targetList.begin(), towers[i]->targetList.end(), minions[i]);
+			
+			//minion was not found in the tower's target list
+			if (findMinion == towers[i]->targetList.end())
+			{
+				if (dist <= towers[i]->range)
+				{
+					towers[i]->targetList.push_back(minions[i]);
+				}
+			}
+			//minion is already in the tower's target list
+			else
+			{
+				//if minion moves past tower's range, remove it from the target list
+				if (dist > towers[i]->range)
+				{
+					towers[i]->targetList.remove(minions[i]);
+				}
+			}
+		}
+		//check if the tower's reload timer is up
+		Uint32 reloadTimer = (uint)round(1000 * towers[i]->firingRate);
+		if (towers[i]->timer >= reloadTimer)
+		{
+			//the tower fires at the first minion in it's target list
+			towers[i]->FireAtMinion(towers[i]->targetList.front());
+			towers[i]->timer = 0;
+		}
+		towers[i]->timer += dt;
+	}
+
+	//let the clients in this game know to update it's towers (& minions?)
 }
 void GameModel::UpdateProjectiles()
 {
-	//	//loop through all projectiles in the list in the gameID
-	//			//check for collision with minions
-	//				//if collided
-	//					//damage calculation (gets info from tower that owns projectile)
-	//					//despawn projectile
-	//		//if projectile reaches max range/timer
-	//			//despawn projectile
+	//iterating backwards since we could be removing projectiles
+	for (unsigned i = projectiles.size(); i-- > 0;)
+	{
+		//move projectile
+		projectiles[i]->xPos += projectiles[i]->xDir;
+		projectiles[i]->yPos += projectiles[i]->yDir;
+
+		//unoptimized linear collision check for now
+		for (size_t j = 0; j < minions.size(); j++)
+		{
+			if (SDL_IntersectRect(projectiles[i]->collisionBox, minions[j]->collisionBox, new SDL_Rect()))
+			{
+				//projectile has hit the minion - do damage calculations
+
+				//projectiles origin tower
+				Tower* tower = projectiles[i]->origin;
+				float towerBaseDamage = (float)tower->damage;
+				//get the resist value to check based on tower's element
+				int resist;
+				switch (tower->elementID)
+				{
+				case ManaCraft::Database::ElementTypes::FIRE:
+					resist = minions[i]->resists->fireResistance;
+					break;
+				case ManaCraft::Database::ElementTypes::EARTH:
+					resist = minions[i]->resists->earthResistance;
+					break;
+				case ManaCraft::Database::ElementTypes::WATER:
+					resist = minions[i]->resists->waterResistance;
+					break;
+				case ManaCraft::Database::ElementTypes::WIND:
+					resist = minions[i]->resists->windResistance;
+					break;
+				default:
+					resist = 0;
+					break;
+				}
+				//reducing damage based on % reists
+				float damageAfterResists = towerBaseDamage*(100 - resist) / 100;
+				//reducing damage based on armour (out of 10)
+				float finalDamage = damageAfterResists*(10 - minions[i]->armour) / 10;
+
+				//converting damage to int for now beacause health is treated as an int
+				int dmgToApply = (int)round(finalDamage);
+
+				//applying damage to minion
+				//minion health is setup as a uint so should not go below zero
+				if (minions[i]->health >= dmgToApply)
+					minions[i]->health -= dmgToApply;
+				else
+					minions[i]->health = 0;
+
+				//despawn projectile after doing damage
+				projectiles.erase(projectiles.begin() + i);
+				continue;
+			}
+		}//minion loop ends
+
+	}//projectile loop ends
+	
 }
-void GameModel::UpdateEconomy()
+void GameModel::UpdateEconomy(Uint32 dt)
 {
-	//	//loop through all players in the gameID
-	//		//add MpS value to total mana
+		//loop through all players in the gameID
+			//add MpS value to total mana
 }
 
 
@@ -147,8 +242,6 @@ void GameModel::Init()
 	for (int i = 0; i < MAX_PROJECTILES; i++)
 	{
 		Projectile* projectile = new Projectile();
-		projectile->xPos = 0.0f;
-		projectile->yPos = 0.0f;
 		projectiles.push_back(projectile);
 	}
 	for (int i = 0; i < MAX_GRIDSQUARES; i++)

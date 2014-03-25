@@ -19,6 +19,7 @@ public:
 	float manaPerSecond;
 	unsigned int health;
 	unsigned int armour;
+	Resistances* resists;
 	unsigned int speed;
 
 	SDL_Rect* collisionBox;

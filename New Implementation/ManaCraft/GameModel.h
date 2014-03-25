@@ -30,9 +30,9 @@ public:
 	static bool CompareGamesByID(GameModel *gameOne, GameModel *gameTwo);
 
 	void UpdateMinions();
-	void UpdateTowers();
+	void UpdateTowers(Uint32 dt);
 	void UpdateProjectiles();
-	void UpdateEconomy();
+	void UpdateEconomy(Uint32 dt);
 
 	GameModel();
 	GameModel(unsigned int _id);
