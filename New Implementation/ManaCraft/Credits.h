@@ -12,7 +12,7 @@ public:
 		const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
 
 		std::string clientStrings[9] = { "Andrew Godfroy", "Cassandra Siewert", "Christian Adao", "David Vo", "Geordie Powers", "Neil Schlachter", "Tyler Remazki", "Deanna Sowa" };
-		std::string networkStrings[7] = { "Joshua O'Donnell", "Philip Diehl", "Dean Watts", "Suleyman Tahirli", "Brian Lefrancois", "Sarah Childs", "Mitch Andrews" };
+		std::string networkStrings[7] = { "Mitch Andrews", "Joshua O'Donnell", "Philip Diehl", "Dean Watts", "Suleyman Tahirli", "Brian Lefrancois", "Sarah Childs" };
 		std::string serverStrings[7] = { "Rohun Banerji", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Wayne Gauthier" };
 		std::string databaseStrings[5] = { "Robert Evola", "Matt Mayo", "Vinny Crupi", "Kyle Nokes", "Jordan Hurst" };
 

@@ -22,27 +22,35 @@ class ClientAPI
 private:
 	#pragma region Resources
 	//-- Fonts, Textures & Colours
-	static std::vector<std::string> fontKeys;
-	static std::vector<TTF_Font*> fonts;
+
+	static std::map<std::string, TTF_Font*> fonts;
+	//static std::vector<std::string> fontKeys;
+	//static std::vector<TTF_Font*> fonts;
 	
-	static std::vector<std::string> textureKeys;
-	static std::vector<SDL_Texture*> textures;
+	static std::map<std::string, SDL_Texture*> textures;
+	//static std::vector<std::string> textureKeys;
+	//static std::vector<SDL_Texture*> textures;
 
-	static std::vector<std::string> audioKeys;
-	static std::vector<Mix_Chunk*> audio;
+	static std::map<std::string, Mix_Chunk*> audio;
+	//static std::vector<std::string> audioKeys;
+	//static std::vector<Mix_Chunk*> audio;
 
-	static std::vector<std::string> colourKeys;
-	static std::vector<SDL_Color> colours;
+	static std::map<std::string, SDL_Color> colours;
+	//static std::vector<std::string> colourKeys;
+	//static std::vector<SDL_Color> colours;
 
-	static std::vector<std::string> rectKeys;
-	static std::vector<SDL_Rect> rects;
+	static std::map<std::string, SDL_Rect> rects;
+	//static std::vector<std::string> rectKeys;
+	//static std::vector<SDL_Rect> rects;
 
 	//-- API Objects
-	static std::vector<std::string> guiContainerKeys;
-	static std::vector<GuiContainer*> guiContainers;
+	static std::map<std::string, GuiContainer*> guiContainers;
+	//static std::vector<std::string> guiContainerKeys;
+	//static std::vector<GuiContainer*> guiContainers;
 
-	static std::vector<std::string> guiElementKeys;
-	static std::vector<GuiElement*> guiElements;
+	static std::map<std::string, GuiElement*> guiElements;
+	//static std::vector<std::string> guiElementKeys;
+	//static std::vector<GuiElement*> guiElements;
 
 	static bool quit;
 
@@ -54,23 +62,14 @@ private:
 	static void(*EscapeKeyPressedFunc)();
 
 	static void SetupHelper(){
-		fontKeys = std::vector<std::string>{};
-		textureKeys = std::vector<std::string>{};
-		colourKeys = std::vector<std::string>{};
-		rectKeys = std::vector<std::string>{};
+		fonts = std::map<std::string, TTF_Font*>{};
+		textures = std::map<std::string, SDL_Texture*>{};
+		audio = std::map<std::string, Mix_Chunk*>{};
+		colours = std::map<std::string, SDL_Color>{};
+		rects = std::map<std::string, SDL_Rect>{};
 
-		guiContainerKeys = std::vector<std::string>{};
-		guiElementKeys = std::vector<std::string>{};
-
-		fonts = std::vector<TTF_Font*>{};
-		textures = std::vector<SDL_Texture*>{};
-		colours = std::vector<SDL_Color>{};
-		rects = std::vector<SDL_Rect>{};
-
-		guiContainers = std::vector<GuiContainer*>{};
-		guiElements = std::vector<GuiElement*>{};
-
-
+		guiContainers = std::map<std::string, GuiContainer*>{};
+		guiElements = std::map<std::string, GuiElement*>{};
 
 		CustomUpdateFunc = nullptr;
 		CustomDrawFunc = nullptr;
@@ -88,34 +87,28 @@ private:
 	}
 	static void CleanMemory()
 	{
-		fontKeys.clear();
-		for (size_t i = 0; i < fonts.size(); i++)
+		for (std::map<std::string, TTF_Font*>::iterator it = fonts.begin(); it != fonts.end(); ++it)
 		{
-			TTF_CloseFont(fonts.at(i));
+			TTF_CloseFont(it->second);
 		}
 		fonts.clear();
 
-		textureKeys.clear();
-		for (size_t i = 0; i < textures.size(); i++)
+		for (std::map<std::string, SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
 		{
-			SDL_DestroyTexture(textures.at(i));
+			SDL_DestroyTexture(it->second);
 		}
 		textures.clear();
 
-		audioKeys.clear();
-		for (size_t i = 0; i < audio.size(); i++)
+		for (std::map<std::string, Mix_Chunk*>::iterator it = audio.begin(); it != audio.end(); ++it)
 		{
-			Mix_FreeChunk(audio.at(i));
+			Mix_FreeChunk(it->second);
 		}
 		audio.clear();
 
-		colourKeys.clear();
 		colours.clear();
 
-		rectKeys.clear();
 		rects.clear();
 
-		guiElementKeys.clear();
 		guiElements.clear();
 
 		delete frameLimiter;
@@ -159,55 +152,48 @@ public:
 	#pragma region Adds
 	static void AddFont(std::string _key, TTF_Font* _font)
 	{
-		fontKeys.push_back(_key);
-		fonts.push_back(_font);
+		fonts.insert(std::pair<std::string, TTF_Font*>(_key, _font));
 	}
 
 	static void AddTexture(std::string _key, SDL_Texture* _textures)
 	{
-		textureKeys.push_back(_key);
-		textures.push_back(_textures);
+		textures.insert(std::pair<std::string, SDL_Texture*>(_key, _textures));
 	}
 
-	static void AddAudio(std::string _key, Mix_Chunk* _audio){
-		audioKeys.push_back(_key);
-		audio.push_back(_audio);
+	static void AddAudio(std::string _key, Mix_Chunk* _audio)
+	{
+		audio.insert(std::pair<std::string, Mix_Chunk*>(_key, _audio));
 	}
 
 	static void AddColour(std::string _key, SDL_Color _colour)
 	{
-		colourKeys.push_back(_key);
-		colours.push_back(_colour);
+		colours.insert(std::pair<std::string, SDL_Color>(_key, _colour));
 	}
 
 	static void AddRect(std::string _key, SDL_Rect _colour)
 	{
-		rectKeys.push_back(_key);
-		rects.push_back(_colour);
+		rects.insert(std::pair<std::string, SDL_Rect>(_key, _colour));
 	}
 
 	static void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)
 	{
-		guiContainerKeys.push_back(_key);
-		guiContainers.push_back(_guiContainer);
+		guiContainers.insert(std::pair<std::string, GuiContainer*>(_key, _guiContainer));
 	}
 
 	static void AddGuiElement(std::string _key, GuiElement* _guiElement)
 	{
-		guiElementKeys.push_back(_key);
-		guiElements.push_back(_guiElement);
+		guiElements.insert(std::pair<std::string, GuiElement*>(_key, _guiElement));
 	}
 	#pragma endregion
 	#pragma region Removes
 	static void RemoveFont(std::string _key)
 	{
-		for (size_t i = 0; i < fontKeys.size(); i++)
+		for (std::map<std::string, TTF_Font*>::iterator it = fonts.begin(); it != fonts.end(); ++it)
 		{
-			if (fontKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				fontKeys.erase(fontKeys.begin() + i);
-				TTF_CloseFont(fonts.at(i));
-				fonts.erase(fonts.begin() + i);
+				TTF_CloseFont(it->second);
+				fonts.erase(it->first);
 				break;
 			}
 		}
@@ -215,13 +201,12 @@ public:
 
 	static void RemoveTexture(std::string _key)
 	{
-		for (size_t i = 0; i < textureKeys.size(); i++)
+		for (std::map<std::string, SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
 		{
-			if (textureKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				textureKeys.erase(textureKeys.begin() + i);
-				SDL_DestroyTexture(textures.at(i));
-				textures.erase(textures.begin() + i);
+				SDL_DestroyTexture(it->second);
+				textures.erase(it->first);
 				break;
 			}
 		}
@@ -229,13 +214,12 @@ public:
 
 	static void RemoveAudio(std::string _key)
 	{
-		for (size_t i = 0; i < audioKeys.size(); i++)
+		for (std::map<std::string, Mix_Chunk*>::iterator it = audio.begin(); it != audio.end(); ++it)
 		{
-			if (audioKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				audioKeys.erase(audioKeys.begin() + i);
-				Mix_FreeChunk(audio.at(i));
-				audio.erase(audio.begin() + i);
+				Mix_FreeChunk(it->second);
+				audio.erase(it->first);
 				break;
 			}
 		}
@@ -244,12 +228,11 @@ public:
 
 	static void RemoveColour(std::string _key)
 	{
-		for (size_t i = 0; i < colourKeys.size(); i++)
+		for (std::map<std::string, SDL_Color>::iterator it = colours.begin(); it != colours.end(); ++it)
 		{
-			if (colourKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				colourKeys.erase(colourKeys.begin() + i);
-				colours.erase(colours.begin() + i);
+				colours.erase(it->first);
 				break;
 			}
 		}
@@ -257,12 +240,11 @@ public:
 
 	static void RemoveRect(std::string _key)
 	{
-		for (size_t i = 0; i < rectKeys.size(); i++)
+		for (std::map<std::string, SDL_Rect>::iterator it = rects.begin(); it != rects.end(); ++it)
 		{
-			if (rectKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				rectKeys.erase(rectKeys.begin() + i);
-				rects.erase(rects.begin() + i);
+				rects.erase(it->first);
 				break;
 			}
 		}
@@ -270,12 +252,11 @@ public:
 
 	static void RemoveGuiContainer(std::string _key)
 	{
-		for (size_t i = 0; i < guiContainerKeys.size(); i++)
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 		{
-			if (guiContainerKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				guiContainerKeys.erase(guiContainerKeys.begin() + i);
-				guiContainers.erase(guiContainers.begin() + i);
+				guiContainers.erase(it->first);
 				break;
 			}
 		}
@@ -283,12 +264,11 @@ public:
 
 	static void RemoveGuiElement(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 		{
-			if (guiElementKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				guiElementKeys.erase(guiElementKeys.begin() + i);
-				guiElements.erase(guiElements.begin() + i);
+				guiElements.erase(it->first);
 				break;
 			}
 		}
@@ -297,11 +277,11 @@ public:
 	#pragma region Gets
 	static TTF_Font* GetFont(std::string _key)
 	{
-		for (size_t i = 0; i < fontKeys.size(); i++)
+		for (std::map<std::string, TTF_Font*>::iterator it = fonts.begin(); it != fonts.end(); ++it)
 		{
-			if (fontKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return fonts.at(i);
+				return it->second;
 			}
 		}
 		return nullptr;
@@ -309,11 +289,11 @@ public:
 
 	static SDL_Texture* GetTexture(std::string _key)
 	{
-		for (size_t i = 0; i < textureKeys.size(); i++)
+		for (std::map<std::string, SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it)
 		{
-			if (textureKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return textures.at(i);
+				return it->second;
 			}
 		}
 		return nullptr;
@@ -321,11 +301,11 @@ public:
 
 	static Mix_Chunk* GetAudio(std::string _key)
 	{
-		for (size_t i = 0; i < audioKeys.size(); i++)
+		for (std::map<std::string, Mix_Chunk*>::iterator it = audio.begin(); it != audio.end(); ++it)
 		{
-			if (audioKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return audio.at(i);
+				return it->second;
 			}
 		}
 		return nullptr;
@@ -333,11 +313,11 @@ public:
 
 	static SDL_Color GetColor(std::string _key)
 	{
-		for (size_t i = 0; i < colourKeys.size(); i++)
+		for (std::map<std::string, SDL_Color>::iterator it = colours.begin(); it != colours.end(); ++it)
 		{
-			if (colourKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return colours.at(i);
+				return it->second;
 			}
 		}
 		return { 0, 0, 0, 0 };
@@ -345,11 +325,11 @@ public:
 
 	static SDL_Rect GetRect(std::string _key)
 	{
-		for (size_t i = 0; i < rectKeys.size(); i++)
+		for (std::map<std::string, SDL_Rect>::iterator it = rects.begin(); it != rects.end(); ++it)
 		{
-			if (rectKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return rects.at(i);
+				return it->second;
 			}
 		}
 		return{ 0, 0, 0, 0 };
@@ -357,19 +337,19 @@ public:
 
 	static void SetAllGuiContainersInactive()
 	{
-		for (size_t i = 0; i < guiContainerKeys.size(); i++)
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 		{
-			guiContainers.at(i)->Active = false;
+			it->second->Active = false;
 		}
 	}
 
 	static GuiContainer* GetGuiContainer(std::string _key)
 	{
-		for (size_t i = 0; i < guiContainerKeys.size(); i++)
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 		{
-			if (guiContainerKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return guiContainers.at(i);
+				return it->second;
 			}
 		}
 		return nullptr;
@@ -377,11 +357,11 @@ public:
 
 	static GuiElement* GetGuiElement(std::string _key)
 	{
-		for (size_t i = 0; i < guiElementKeys.size(); i++)
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 		{
-			if (guiElementKeys.at(i) == _key)
+			if (it->first == _key)
 			{
-				return guiElements.at(i);
+				return it->second;
 			}
 		}
 		return nullptr;

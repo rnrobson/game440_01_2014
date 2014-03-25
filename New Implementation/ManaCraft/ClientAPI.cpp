@@ -1,26 +1,15 @@
 #include "ClientAPI.h"
 
 #pragma region Private Variable Initalizations
-std::vector<std::string> ClientAPI::fontKeys;
-std::vector<TTF_Font*> ClientAPI::fonts;
+std::map<std::string, TTF_Font*> ClientAPI::fonts;
+std::map<std::string, SDL_Texture*> ClientAPI::textures;
+std::map<std::string, Mix_Chunk*> ClientAPI::audio;
+std::map<std::string, SDL_Color> ClientAPI::colours;
+std::map<std::string, SDL_Rect> ClientAPI::rects;
 
-std::vector<std::string> ClientAPI::textureKeys;
-std::vector<SDL_Texture*> ClientAPI::textures;
-
-std::vector<std::string> ClientAPI::audioKeys;
-std::vector<Mix_Chunk*> ClientAPI::audio;
-
-std::vector<std::string> ClientAPI::colourKeys;
-std::vector<SDL_Color> ClientAPI::colours;
-
-std::vector<std::string> ClientAPI::rectKeys;
-std::vector<SDL_Rect> ClientAPI::rects;
-
-std::vector<std::string> ClientAPI::guiContainerKeys;
-std::vector<GuiContainer*> ClientAPI::guiContainers;
-
-std::vector<std::string> ClientAPI::guiElementKeys;
-std::vector<GuiElement*> ClientAPI::guiElements;
+//-- API Objects
+std::map<std::string, GuiContainer*> ClientAPI::guiContainers;
+std::map<std::string, GuiElement*> ClientAPI::guiElements;
 
 void (*ClientAPI::CustomUpdateFunc)(double);
 void (*ClientAPI::CustomDrawFunc)();
@@ -55,14 +44,14 @@ void ClientAPI::Update(double time)
 	CheckEvents();
 
 	#pragma region Update All Elements
-	for (size_t i = 0; i < guiContainers.size(); i++)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		guiContainers.at(i)->Update(time);
+		it->second->Update(time);
 	}
 
-	for (size_t i = 0; i < guiElements.size(); i++)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		guiElements.at(i)->Update(time);
+		it->second->Update(time);
 	}
 	#pragma endregion
 
@@ -74,14 +63,14 @@ void ClientAPI::Draw()
 	Window::Clear();
 
 	#pragma region Draw All Elements
-	for (size_t i = 0; i < guiElements.size(); i++)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		guiElements.at(i)->Draw();
+		it->second->Draw();
 	}
 
-	for (size_t i = 0; i < guiContainers.size(); i++)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		guiContainers.at(i)->Draw();
+		it->second->Draw();
 	}
 	#pragma endregion
 
@@ -142,84 +131,84 @@ void ClientAPI::CheckEvents()
 
 void ClientAPI::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 {
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleMouseMotionEvent(e);
+		if (it->second->Active) {
+			it->second->HandleMouseMotionEvent(e);
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnMouseMotion(e);
+		if (it->second->Active) {
+			it->second->OnMouseMotion(e);
 		}
 	}
 }
 void ClientAPI::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 {
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleMouseDownEvent(e);
+		if (it->second->Active) {
+			it->second->HandleMouseDownEvent(e);
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			if (element->Intersects(APIEvents::MousePosition))
-				element->OnMouseDown(e);
+		if (it->second->Active) {
+			if (it->second->Intersects(APIEvents::MousePosition))
+				it->second->OnMouseDown(e);
 		}
 	}
 }
 void ClientAPI::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 {
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleMouseUpEvent(e);
+		if (it->second->Active) {
+			it->second->HandleMouseUpEvent(e);
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnMouseUp(e);
+		if (it->second->Active) {
+			it->second->OnMouseUp(e);
 		}
 	}
 }
 void ClientAPI::HandleMouseClickEvent()
 {
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleMouseClickEvent();
+		if (it->second->Active) {
+			it->second->HandleMouseClickEvent();
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			if (element->Intersects(APIEvents::MousePosition))
-				element->OnMouseClick();
+		if (it->second->Active) {
+			if (it->second->Intersects(APIEvents::MousePosition))
+				it->second->OnMouseClick();
 		}
 	}
 }
 
 void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
 {
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleTextInputEvent(e);
+		if (it->second->Active) {
+			it->second->HandleTextInputEvent(e);
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnTextInput(e);
+		if (it->second->Active) {
+			it->second->OnTextInput(e);
 		}
 	}
 }
@@ -237,33 +226,33 @@ void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 		HandleEscapeKeyPressed();
 	}
 
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleKeyboardDownEvent(e);
+		if (it->second->Active) {
+			it->second->HandleKeyboardDownEvent(e);
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnKeyboardDown(e);
+		if (it->second->Active) {
+			it->second->OnKeyboardDown(e);
 		}
 	}
 }
 void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleKeyboardUpEvent(e);
+		if (it->second->Active) {
+			it->second->HandleKeyboardUpEvent(e);
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnKeyboardUp(e);
+		if (it->second->Active) {
+			it->second->OnKeyboardUp(e);
 		}
 	}
 }
@@ -275,17 +264,17 @@ void ClientAPI::HandleEnterKeyPressed()
 		(*EnterKeyPressedFunc)();
 	}
 
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleEnterKeyPressed();
+		if (it->second->Active) {
+			it->second->HandleEnterKeyPressed();
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnEnterKeyPressed();
+		if (it->second->Active) {
+			it->second->OnEnterKeyPressed();
 		}
 	}
 }
@@ -297,17 +286,17 @@ void ClientAPI::HandleEscapeKeyPressed()
 		(*EscapeKeyPressedFunc)();
 	}
 
-	for each (GuiContainer* guic in guiContainers)
+	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
 	{
-		if (guic->Active) {
-			guic->HandleEscapeKeyPressed();
+		if (it->second->Active) {
+			it->second->HandleEscapeKeyPressed();
 		}
 	}
 
-	for each (GuiElement* element in guiElements)
+	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
 	{
-		if (element->Active) {
-			element->OnEscapeKeyPressed();
+		if (it->second->Active) {
+			it->second->OnEscapeKeyPressed();
 		}
 	}
 }
