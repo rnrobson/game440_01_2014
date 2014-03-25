@@ -69,6 +69,13 @@ namespace ManaCraft {
 				const static unsigned char SELL_PRICE		= 11;
 			};
 
+			const struct Game {
+			public:
+				static std::string TABLE_NAME() { return "Game"; }
+				const static unsigned char ID				= 0;
+				const static unsigned char NAME				= 1;
+			};
+
 		};
 
 	}

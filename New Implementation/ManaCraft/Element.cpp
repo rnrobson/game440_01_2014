@@ -4,7 +4,7 @@ Element::Element() { }
 
 Element::~Element() { }
 
-Element* Element::buildFromRow(mysqlpp::Row row) {
+Element* Element::buildFromRow(mysqlpp::Row& row) {
 	using namespace ManaCraft::Database;
 
 	Element* temp = new Element();

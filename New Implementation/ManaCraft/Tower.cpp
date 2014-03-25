@@ -11,7 +11,7 @@ Tower::~Tower(void)
 {
 }
 
-Tower* Tower::buildFromRow(mysqlpp::Row row) {
+Tower* Tower::buildFromRow(mysqlpp::Row& row) {
 	using namespace ManaCraft::Database;
 
 	Tower* temp = new Tower();

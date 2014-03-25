@@ -7,7 +7,7 @@
 
 class Element {
 private:
-	static Element* buildFromRow(mysqlpp::Row row);
+	static Element* buildFromRow(mysqlpp::Row& row);
 
 public:
 	ManaCraft::Database::ElementTypes ID;

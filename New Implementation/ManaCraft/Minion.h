@@ -8,7 +8,7 @@
 class Minion : public Entity
 {
 private:
-	static Minion* buildFromRow(mysqlpp::Row row);
+	static Minion* buildFromRow(mysqlpp::Row& row);
 
 public:
 	ManaCraft::Database::MinionTypes ID;

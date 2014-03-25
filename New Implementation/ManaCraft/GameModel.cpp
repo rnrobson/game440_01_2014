@@ -255,3 +255,43 @@ void GameModel::Init()
 
 
 }
+
+GameModel* GameModel::LoadGameByID(unsigned int _id) {
+	using namespace ManaCraft::Database;
+
+	GameModel* temp = new GameModel();
+
+	try {
+		Query query = DatabaseAPI::getQuery();
+		
+		// Game Table
+		query.clear();
+		query << "SELECT * FROM Game WHERE ID = " << mysqlpp::quote << _id;
+
+		if (UseQueryResult result = query.use()) {
+			Row row;
+			if (row = result.fetch_row()) {
+				temp->id = atoi(row[TableInfo::Game::ID].c_str());
+			}
+			else {
+				// ID NOT FOUND IN DATABASE
+			}
+		}
+
+		// Load subtables here
+
+		return temp;
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+
+	delete temp;
+	return nullptr;
+}

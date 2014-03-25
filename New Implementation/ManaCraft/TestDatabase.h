@@ -7,6 +7,7 @@
 #include "Tower.h"
 #include "Element.h"
 #include "Resistances.h"
+#include "GameModel.h"
 
 namespace ManaCraft {
 	namespace Database {
@@ -38,6 +39,8 @@ namespace ManaCraft {
 			static void testLoadTowers();
 			static void testLoadElements();
 			static void testLoadResistances();
+
+			static void testSaveLoadGame();
 
 		public:
 			/// <summary>

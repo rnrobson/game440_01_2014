@@ -1,6 +1,7 @@
 #ifndef GAME_MODEL_H
 #define GAME_MODEL_H
 
+#include "DatabaseAPI.h"
 #include "Teams.h"
 #include "Minion.h"
 #include "Tower.h"
@@ -28,6 +29,7 @@ public:
 	PlayerBase* lightBase;
 
 	static bool CompareGamesByID(GameModel *gameOne, GameModel *gameTwo);
+	static GameModel* LoadGameByID(unsigned int _id);
 
 	void UpdateMinions();
 	void UpdateTowers(Uint32 dt);

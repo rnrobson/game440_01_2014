@@ -5,7 +5,7 @@
 class Resistances
 {
 private:
-	static Resistances* buildFromRow(mysqlpp::Row row);
+	static Resistances* buildFromRow(mysqlpp::Row& row);
 
 public:
 	ManaCraft::Database::ElementTypes elementID;

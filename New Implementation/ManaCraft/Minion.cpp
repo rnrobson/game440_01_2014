@@ -103,7 +103,7 @@ bool Minion::Deserialize(char* data) {
 	return true;
 }
 
-Minion* Minion::buildFromRow(mysqlpp::Row row) {
+Minion* Minion::buildFromRow(mysqlpp::Row& row) {
 	using namespace ManaCraft::Database;
 
 	//Create temporary minion pointer

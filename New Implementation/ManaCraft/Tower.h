@@ -12,7 +12,7 @@ class Tower : public Entity
 {
 private:
 	
-	static Tower* buildFromRow(mysqlpp::Row row);
+	static Tower* buildFromRow(mysqlpp::Row& row);
 
 public:
 	ManaCraft::Database::TowerTypes ID;

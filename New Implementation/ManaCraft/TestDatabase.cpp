@@ -22,6 +22,8 @@ void TestDatabase::runTests() {
 	testLoadElements();
 	testLoadResistances();
 
+	DatabaseAPI::disconnectFromDatabase();
+
 	std::cout << "Database tests complete. Successes: " << totalSuccesses << "\tFailures: " << totalFailures << std::endl;
 	totalSuccesses = totalFailures = testSuccesses = testFailures = 0; // reset all test counts after they've been reported
 }
@@ -102,8 +104,6 @@ void TestDatabase::testQuery() {
 		++testFailures;
 	}
 
-	DatabaseAPI::disconnectFromDatabase();
-
 	std::cout << "Query tests complete. Successes: " << testSuccesses << "\tFailures: " << testFailures << std::endl;
 	resetTestCounts();
 }
@@ -141,8 +141,6 @@ void TestDatabase::testLoadMinions()
 		}
 		std::cout << "\n-------------------------------------------------\n";
 	}
-
-	DatabaseAPI::disconnectFromDatabase();
 }
 
 void TestDatabase::testLoadTowers()
@@ -177,8 +175,6 @@ void TestDatabase::testLoadTowers()
 		}
 		std::cout << "\n-------------------------------------------------\n";
 	}
-
-	DatabaseAPI::disconnectFromDatabase();
 }
 
 void TestDatabase::testLoadElements()
@@ -209,8 +205,6 @@ void TestDatabase::testLoadElements()
 		}
 		std::cout << "\n-------------------------------------------------\n";
 	}
-
-	DatabaseAPI::disconnectFromDatabase();
 }
 
 void TestDatabase::testLoadResistances()
@@ -243,6 +237,22 @@ void TestDatabase::testLoadResistances()
 		}
 		std::cout << "\n-------------------------------------------------\n";
 	}
+}
 
-	DatabaseAPI::disconnectFromDatabase();
+void TestDatabase::testSaveLoadGame() {
+	DatabaseAPI::connectToDatabase();
+	int id = 22;
+
+	// SAVE HERE
+
+	// WIP
+	GameModel* g = GameModel::LoadGameByID(id);
+	if (g->id == id) {
+		std::cout << "GameModel Success" << std::endl;
+	}
+	else {
+		std::cout << "GameModel Failure" << std::endl;
+	}
+
+	delete g;	// Make sure other tests delete results
 }

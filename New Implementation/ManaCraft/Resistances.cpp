@@ -10,7 +10,7 @@ Resistances::~Resistances(void)
 {
 }
 
-Resistances* Resistances::buildFromRow(mysqlpp::Row row) {
+Resistances* Resistances::buildFromRow(mysqlpp::Row& row) {
 	using namespace ManaCraft::Database;
 
 	Resistances* temp = new Resistances();
