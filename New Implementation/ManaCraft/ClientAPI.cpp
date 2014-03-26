@@ -16,7 +16,9 @@ void (*ClientAPI::CustomDrawFunc)();
 void(*ClientAPI::EnterKeyPressedFunc)();
 void(*ClientAPI::EscapeKeyPressedFunc)();
 
+Page* ClientAPI::focus;
 FrameLimiter* ClientAPI::frameLimiter;
+GuiAPIMode ClientAPI::guiAPIMode;
 
 bool ClientAPI::quit;
 #pragma endregion
@@ -43,17 +45,27 @@ void ClientAPI::Update(double time)
 {
 	CheckEvents();
 
-	#pragma region Update All Elements
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		it->second->Update(time);
+	default:
+	case GuiAPIMode::APIHandleMode:
+#pragma region Update All Elements
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			it->second->Update(time);
+		}
+
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			it->second->Update(time);
+		}
+#pragma endregion
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		focus->Update(time);
+		break;
 	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		it->second->Update(time);
-	}
-	#pragma endregion
 
 	//-- Run Custom Update if it exists
 	if (CustomUpdateFunc != NULL) { (*CustomUpdateFunc)(time); }
@@ -62,17 +74,26 @@ void ClientAPI::Draw()
 {
 	Window::Clear();
 
-	#pragma region Draw All Elements
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		it->second->Draw();
-	}
+	default:
+	case GuiAPIMode::APIHandleMode:
+#pragma region Draw All Elements
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			it->second->Draw();
+		}
 
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
-	{
-		it->second->Draw();
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			it->second->Draw();
+		}
+#pragma endregion
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		focus->Draw();
+		break;
 	}
-	#pragma endregion
 
 	//-- Run Custom Update if it exists
 	if (CustomDrawFunc != NULL) { (*CustomDrawFunc)(); }
@@ -131,86 +152,131 @@ void ClientAPI::CheckEvents()
 
 void ClientAPI::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 {
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleMouseMotionEvent(e);
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnMouseMotion(e);
+			}
 		}
-	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnMouseMotion(e);
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnMouseMotion(e);
+			}
 		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
+	
 }
 void ClientAPI::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 {
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleMouseDownEvent(e);
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnMouseDown(e);
+			}
 		}
+
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				if (it->second->Intersects(APIEvents::MousePosition))
+					it->second->OnMouseDown(e);
+			}
+		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			if (it->second->Intersects(APIEvents::MousePosition))
-				it->second->OnMouseDown(e);
-		}
-	}
 }
 void ClientAPI::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 {
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleMouseUpEvent(e);
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnMouseUp(e);
+			}
 		}
+
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnMouseUp(e);
+			}
+		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnMouseUp(e);
-		}
-	}
 }
 void ClientAPI::HandleMouseClickEvent()
 {
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleMouseClickEvent();
-		}
-	}
-
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			if (it->second->Intersects(APIEvents::MousePosition))
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
 				it->second->OnMouseClick();
+			}
 		}
+
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				if (it->second->Intersects(APIEvents::MousePosition))
+					it->second->OnMouseClick();
+			}
+		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
+	
 }
 
 void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
 {
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleTextInputEvent(e);
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnTextInput(e);
+			}
 		}
-	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnTextInput(e);
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnTextInput(e);
+			}
 		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
+	
 }
 void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 {
@@ -226,34 +292,51 @@ void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 		HandleEscapeKeyPressed();
 	}
 
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleKeyboardDownEvent(e);
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnKeyboardDown(e);
+			}
 		}
-	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnKeyboardDown(e);
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnKeyboardDown(e);
+			}
 		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
+	
 }
 void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 {
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleKeyboardUpEvent(e);
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnKeyboardUp(e);
+			}
 		}
-	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnKeyboardUp(e);
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnKeyboardUp(e);
+			}
 		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
 }
 void ClientAPI::HandleEnterKeyPressed()
@@ -264,18 +347,26 @@ void ClientAPI::HandleEnterKeyPressed()
 		(*EnterKeyPressedFunc)();
 	}
 
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleEnterKeyPressed();
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnEnterKeyPressed();
+			}
 		}
-	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnEnterKeyPressed();
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnEnterKeyPressed();
+			}
 		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
 }
 void ClientAPI::HandleEscapeKeyPressed()
@@ -286,17 +377,25 @@ void ClientAPI::HandleEscapeKeyPressed()
 		(*EscapeKeyPressedFunc)();
 	}
 
-	for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+	switch (ClientAPI::guiAPIMode)
 	{
-		if (it->second->Active) {
-			it->second->HandleEscapeKeyPressed();
+	default:
+	case GuiAPIMode::APIHandleMode:
+		for (std::map<std::string, GuiContainer*>::iterator it = guiContainers.begin(); it != guiContainers.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnEscapeKeyPressed();
+			}
 		}
-	}
 
-	for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
-	{
-		if (it->second->Active) {
-			it->second->OnEscapeKeyPressed();
+		for (std::map<std::string, GuiElement*>::iterator it = guiElements.begin(); it != guiElements.end(); ++it)
+		{
+			if (it->second->Active) {
+				it->second->OnEscapeKeyPressed();
+			}
 		}
+		break;
+	case GuiAPIMode::ProgrammerHandleMode:
+		break;
 	}
 }

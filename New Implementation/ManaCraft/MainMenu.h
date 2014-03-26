@@ -1,5 +1,7 @@
 #pragma once
 #include "Page.h"
+#include "ClientAPI.h"
+
 class MainMenu :
 	public Page
 {

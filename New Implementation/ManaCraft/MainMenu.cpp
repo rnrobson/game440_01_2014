@@ -1,5 +1,6 @@
 #include "MainMenu.h"
 #include "ScreenFader.h"
+#include "ClientAPI.h"
 
 MainMenu::MainMenu()
 :Page()

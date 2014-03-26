@@ -162,9 +162,6 @@
     <ClCompile Include="Slider.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="testMain.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="TextField.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -600,6 +597,9 @@
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="GuiObject.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiAPIMode.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>

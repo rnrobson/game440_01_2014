@@ -140,7 +140,6 @@
     <ClCompile Include="TestDatabase.cpp" />
     <ClCompile Include="Tester.cpp" />
     <ClCompile Include="TestLocalDB.cpp" />
-    <ClCompile Include="testMain.cpp" />
     <ClCompile Include="TestProtocol.cpp" />
     <ClCompile Include="TestSerialize.cpp" />
     <ClCompile Include="TextField.cpp" />
@@ -179,6 +178,7 @@
     <ClInclude Include="Gamestate.h" />
     <ClInclude Include="GridLayer.h" />
     <ClInclude Include="GridSquare.h" />
+    <ClInclude Include="GuiAPIMode.h" />
     <ClInclude Include="GuiMinion.h" />
     <ClInclude Include="GuiObject.h" />
     <ClInclude Include="GuiProjectile.h" />

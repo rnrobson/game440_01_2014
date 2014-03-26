@@ -5,6 +5,9 @@
 #include "Includes.h"
 #include "APIHelper.h"
 #include "APIEvents.h"
+#include "GuiAPIMode.h"
+
+#include "Page.h"
 
 #include "FrameLimiter.h"
 #include "Window.h"
@@ -15,6 +18,8 @@
 #include "TextField.h"
 #include "Checkbox.h"
 #include "Slider.h"
+
+//class Page;
 
 class ClientAPI
 {
@@ -53,7 +58,9 @@ private:
 
 	static bool quit;
 
+	static Page* focus;
 	static FrameLimiter* frameLimiter;
+	static GuiAPIMode guiAPIMode;
 
 	static void (*CustomUpdateFunc)(double);
 	static void (*CustomDrawFunc)();
@@ -132,57 +139,66 @@ public:
 	static void Init(std::string title = "Window", int FPS = 30, int width = 1024, int height = 768) 
 	{ 
 		Window::Init(title, width, height); 
+
 		frameLimiter = new FrameLimiter(FPS);
+		guiAPIMode = GuiAPIMode::APIHandleMode;
+
 		SetupHelper();
-	}
-	static void Exit() { Quit(); }
+	};
+	static void Exit() { Quit(); };
 	static void Quit() 
 	{ 
 		CleanMemory();
 		APIHelper::ToggleTextInput();
 		Window::Quit(); 
-	}
+	};
 	
-	static void SubscribeCustomUpdate(void(*updateFunc)(double)) { CustomUpdateFunc = updateFunc; }
-	static void SubscribeCustomDraw(void(*drawFunc)()) { CustomDrawFunc = drawFunc; }
-	static void SubscribeEnterKeyFunc(void(*enterKeyFunc)()) { EnterKeyPressedFunc = enterKeyFunc; }
-	static void SubscribeEscapeKeyFunc(void(*escapeKeyFunc)()) { EscapeKeyPressedFunc = escapeKeyFunc; }
+	static void SetAPIHandleMode(GuiAPIMode mode){ guiAPIMode = mode; };
+	static GuiAPIMode GetAPIHandleMode() { return guiAPIMode; };
+
+	static void SetFocus(Page* page) { focus = page; };
+	static Page* GetFocus() { return focus; };
+
+	static void SubscribeCustomUpdate(void(*updateFunc)(double)) { CustomUpdateFunc = updateFunc; };
+	static void SubscribeCustomDraw(void(*drawFunc)()) { CustomDrawFunc = drawFunc; };
+	static void SubscribeEnterKeyFunc(void(*enterKeyFunc)()) { EnterKeyPressedFunc = enterKeyFunc; };
+	static void SubscribeEscapeKeyFunc(void(*escapeKeyFunc)()) { EscapeKeyPressedFunc = escapeKeyFunc; };
 
 	#pragma region Adds
 	static void AddFont(std::string _key, TTF_Font* _font)
 	{
 		fonts.insert(std::pair<std::string, TTF_Font*>(_key, _font));
-	}
+	};
 
 	static void AddTexture(std::string _key, SDL_Texture* _textures)
 	{
 		textures.insert(std::pair<std::string, SDL_Texture*>(_key, _textures));
-	}
+	};
 
 	static void AddAudio(std::string _key, Mix_Chunk* _audio)
 	{
 		audio.insert(std::pair<std::string, Mix_Chunk*>(_key, _audio));
-	}
+	};
 
 	static void AddColour(std::string _key, SDL_Color _colour)
 	{
 		colours.insert(std::pair<std::string, SDL_Color>(_key, _colour));
-	}
+	};
 
 	static void AddRect(std::string _key, SDL_Rect _colour)
 	{
 		rects.insert(std::pair<std::string, SDL_Rect>(_key, _colour));
-	}
+	};
 
 	static void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)
 	{
 		guiContainers.insert(std::pair<std::string, GuiContainer*>(_key, _guiContainer));
-	}
+	};
 
 	static void AddGuiElement(std::string _key, GuiElement* _guiElement)
 	{
 		guiElements.insert(std::pair<std::string, GuiElement*>(_key, _guiElement));
-	}
+	};
 	#pragma endregion
 	#pragma region Removes
 	static void RemoveFont(std::string _key)
@@ -196,7 +212,7 @@ public:
 				break;
 			}
 		}
-	}
+	};
 
 	static void RemoveTexture(std::string _key)
 	{
@@ -209,7 +225,7 @@ public:
 				break;
 			}
 		}
-	}
+	};
 
 	static void RemoveAudio(std::string _key)
 	{
@@ -222,8 +238,7 @@ public:
 				break;
 			}
 		}
-	}
-
+	};
 
 	static void RemoveColour(std::string _key)
 	{
@@ -235,7 +250,7 @@ public:
 				break;
 			}
 		}
-	}
+	};
 
 	static void RemoveRect(std::string _key)
 	{
@@ -247,7 +262,7 @@ public:
 				break;
 			}
 		}
-	}
+	};
 
 	static void RemoveGuiContainer(std::string _key)
 	{
@@ -259,7 +274,7 @@ public:
 				break;
 			}
 		}
-	}
+	};
 
 	static void RemoveGuiElement(std::string _key)
 	{
@@ -271,7 +286,7 @@ public:
 				break;
 			}
 		}
-	}
+	};
 	#pragma endregion
 	#pragma region Gets
 	static TTF_Font* GetFont(std::string _key)
@@ -284,7 +299,7 @@ public:
 			}
 		}
 		return nullptr;
-	}
+	};
 
 	static SDL_Texture* GetTexture(std::string _key)
 	{
@@ -296,7 +311,7 @@ public:
 			}
 		}
 		return nullptr;
-	}
+	};
 
 	static Mix_Chunk* GetAudio(std::string _key)
 	{
@@ -308,7 +323,7 @@ public:
 			}
 		}
 		return nullptr;
-	}
+	};
 
 	static SDL_Color GetColor(std::string _key)
 	{
@@ -320,7 +335,7 @@ public:
 			}
 		}
 		return { 0, 0, 0, 0 };
-	}
+	};
 
 	static SDL_Rect GetRect(std::string _key)
 	{
@@ -332,7 +347,7 @@ public:
 			}
 		}
 		return{ 0, 0, 0, 0 };
-	}
+	};
 
 	static void SetAllGuiContainersInactive()
 	{
@@ -340,7 +355,7 @@ public:
 		{
 			it->second->Active = false;
 		}
-	}
+	};
 
 	static GuiContainer* GetGuiContainer(std::string _key)
 	{
@@ -352,7 +367,7 @@ public:
 			}
 		}
 		return nullptr;
-	}
+	};
 
 	static GuiElement* GetGuiElement(std::string _key)
 	{
@@ -364,15 +379,10 @@ public:
 			}
 		}
 		return nullptr;
-	}
+	};
 	#pragma endregion
 
 	static void BeginMainLoop();
-	static void ExitMainLoop()
-	{
-		quit = true;
-	}
-
-
+	static void ExitMainLoop() { quit = true; };
 };
 #endif

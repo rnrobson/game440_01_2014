@@ -27,6 +27,9 @@ Client::Client()
 	// Initialize SDLNet and start connection
 	InitSDLNet();
 
+	// Set the API Mode
+	ClientAPI::SetAPIHandleMode(GuiAPIMode::APIHandleMode);
+
 	// Set Custom Events
 	ClientAPI::SubscribeCustomUpdate(Update);
 	ClientAPI::SubscribeCustomDraw(Draw);

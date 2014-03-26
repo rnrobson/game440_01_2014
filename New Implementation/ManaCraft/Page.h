@@ -2,7 +2,7 @@
 #ifndef PAGE_H
 #define PAGE_H
 
-#include "ClientAPI.h"
+#include "GuiContainer.h"
 //#include "ScreenFader.h"
 
 class Page
@@ -12,7 +12,7 @@ protected:
 
 public:
 	Page() { content = new GuiContainer(); };
-	virtual ~Page() { delete content; }
+	virtual ~Page() { delete content; };
 
 	//===================
 	//-- Must Impliment
@@ -24,6 +24,6 @@ public:
 	//===================
 	//-- Helper Methods
 	//===================
-	GuiContainer* GetContent() { return content; }
+	GuiContainer* GetContent() { return content; };
 };
 #endif
