@@ -226,6 +226,8 @@ void ServerTester::Test_ServerLobby(ThreadPool *workCrew)
 	//Tests:
 	serverLobby->EnterNewPlayer(new ServerPlayer());
 	printLobbyState(serverLobby, 2);
+	serverLobby->ReadyPlayer(serverLobby->teams.Bench[0]);
+	printLobbyState(serverLobby, 3);
 
 	//Testing Complete:
 	printf("\nServerLobby testing completed.\nPress Enter key to continue...\n");

@@ -9,5 +9,6 @@ class ServerPlayer
 public:
 	ServerPlayer();
 	~ServerPlayer();
+	vector<ServerPlayer*> *Team;
 };
 

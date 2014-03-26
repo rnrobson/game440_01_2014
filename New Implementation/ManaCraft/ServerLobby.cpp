@@ -42,8 +42,11 @@ void ServerLobby::CloseLobby()
 
 void ServerLobby::ReadyPlayer(ServerPlayer *player)
 {
-	UnReadyPlayer(player);
-	readyPlayers.push_back(player);
+	if (player->Team != &teams.Bench)
+	{
+		UnReadyPlayer(player);
+		readyPlayers.push_back(player);
+	}
 }
 
 void ServerLobby::UnReadyPlayer(ServerPlayer *player)
@@ -69,6 +72,7 @@ void ServerLobby::EnterNewPlayer(ServerPlayer *player)
 
 void ServerLobby::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam)
 {
+	UnReadyPlayer(player);
 	teams.PlayerChangeTeam(player, toTeam);
 }
 

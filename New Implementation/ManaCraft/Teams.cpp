@@ -25,6 +25,7 @@ void Teams::EnterNewPlayer(ServerPlayer *player)
 	{
 		PlayerCount++;
 		Bench.push_back(player);
+		player->Team = &Bench;
 	}
 }
 
@@ -50,6 +51,7 @@ void Teams::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam
 		if (FindAndRemove(player))
 		{
 			toTeam->push_back(player);
+			player->Team = toTeam;
 		}
 	}
 }
@@ -72,6 +74,7 @@ bool Teams::FindAndRemove(ServerPlayer *player)
 		if (Team1.at(i) == player)
 		{
 			Team1.erase(Team1.begin() + i);
+			player->Team = NULL;
 			return true;
 		}
 	}
@@ -81,6 +84,7 @@ bool Teams::FindAndRemove(ServerPlayer *player)
 		if (Team2.at(i) == player)
 		{
 			Team2.erase(Team2.begin() + i);
+			player->Team = NULL;
 			return true;
 		}
 	}
@@ -90,6 +94,7 @@ bool Teams::FindAndRemove(ServerPlayer *player)
 		if (Bench.at(i) == player)
 		{
 			Bench.erase(Bench.begin() + i);
+			player->Team = NULL;
 			return true;
 		}
 	}
