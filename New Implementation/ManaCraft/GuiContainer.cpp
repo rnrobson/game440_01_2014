@@ -1,6 +1,6 @@
 #include "GuiContainer.h"
 
-GuiContainer::GuiContainer()
+GuiContainer::GuiContainer() : GuiObject()
 {
 	//guiContainerKeys = std::vector<std::string>{};
 	//guiElementKeys = std::vector<std::string>{};
@@ -14,8 +14,6 @@ GuiContainer::GuiContainer()
 	onEscapeKeyPressed = nullptr;
 	onEnterKeyPressed = nullptr;
 
-	Active = true;
-	Enabled = true;
 	SetPosition({ 0, 0, 0, 0 });
 
 	music = nullptr;
@@ -45,10 +43,8 @@ void GuiContainer::SetPosition(SDL_Rect _position)
 void GuiContainer::Update(double time)
 {
 	if (Active){
-		/*for (size_t i = 0; i < guiElements.size(); i++)
-		{
-			guiElements.at(i)->Update(time);
-		}*/
+		GuiObject::Update(time);
+
 		for (auto it = guiElements.begin(); it != guiElements.end(); ++it) {
 			it->second->Update(time);
 		}
@@ -56,19 +52,13 @@ void GuiContainer::Update(double time)
 		for (auto it = guiContainers.begin(); it != guiContainers.end(); ++it) {
 			it->second->Update(time);
 		}
-		/*for (size_t i = 0; i < guiContainers.size(); i++)
-		{
-			guiContainers.at(i)->Update(time);
-		}*/
 	}
 }
 void GuiContainer::Draw()
 {
 	if (Active) {
-		/*for (size_t i = 0; i < guiElements.size(); i++)
-		{
-			guiElements.at(i)->Draw();
-		}*/
+		GuiObject::Draw();
+
 		for (auto it = guiElements.begin(); it != guiElements.end(); ++it) {
 			it->second->Draw();
 		}
@@ -76,11 +66,6 @@ void GuiContainer::Draw()
 		for (auto it = guiContainers.begin(); it != guiContainers.end(); ++it) {
 			it->second->Draw();
 		}
-
-		/*for (size_t i = 0; i < guiContainers.size(); i++)
-		{
-			guiContainers.at(i)->Draw();
-		}*/
 	}
 }
 

@@ -2,15 +2,16 @@
 #ifndef GUI_ELEMENT_H
 #define GUI_ELEMENT_H
 
-//#include "ClientAPI.h"
-//#include "Includes.h"
-//#include <SDL.h>
+#include "GuiObject.h"
+
 #include "Window.h"
 #include "APIHelper.h"
 
-class GuiElement
+class GuiElement: public GuiObject
 {
 protected:
+	GuiObject* parent;
+
 	SDL_Texture *texture;
 	SDL_Rect rect;
 	SDL_Rect offset;
@@ -47,22 +48,19 @@ protected:
 		padding = { 0, 0, 0, 0 };
 	}
 public:
-	bool Active = true;
-	bool Enabled = true;
-
-	GuiElement()
+	GuiElement() :GuiObject()
 	{
 		texture = nullptr;
 		rect = { 0, 0, 0, 0 };
 		SetupHelper();
 	}
-	GuiElement(SDL_Texture *_texture, SDL_Rect _rect)
+	GuiElement(SDL_Texture *_texture, SDL_Rect _rect) :GuiObject()
 	{
 		texture = _texture;
 		rect = _rect;
 		SetupHelper();
 	}
-	virtual ~GuiElement() { Free(); }
+	~GuiElement() { Free(); GuiObject::~GuiObject(); }
 	virtual void Free()
 	{
 		if (texture != NULL)
@@ -78,7 +76,7 @@ public:
 		delete &padding;
 	}
 
-	virtual void Update(double _time) { if (Active) { if (Enabled) {} } }
+	virtual void Update(double _time) { if (Active) { if (Enabled) { GuiObject::Update(_time); } } }
 	virtual void Draw()
 	{
 		if (Active) {
@@ -87,6 +85,8 @@ public:
 			rectangle.y += offset.y + padding.y;
 
 			SDL_RenderCopyEx(Window::Renderer(), texture, NULL, &rectangle, 0, NULL, flip); //SDL_RenderCopyEx(Window::Renderer(), texture, NULL, &rect, 0, NULL, flip);
+		
+			GuiObject::Draw();
 		}
 	}
 

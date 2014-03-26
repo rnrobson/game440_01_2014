@@ -12,9 +12,11 @@
 #include "ScreenFader.h"
 
 //-- Load Menus
+#include "MainMenu.h"
+
+//-- Need to be converted to new Menu Format
 #include "GameLobby.h"
 #include "ViewGames.h"
-#include "MainMenu.h"
 #include "IngamePause.h"
 #include "LoginPopup.h"
 #include "Credits.h"
@@ -26,6 +28,9 @@ class Client
 {
 protected:
 	Client();
+
+	MainMenu* mainMenu;
+
 public:
 	static Client* GetInstance(){
 		if (instance == nullptr) {
@@ -41,7 +46,7 @@ public:
 
 	void Run()
 	{
-		settings->GameState = MainMenu;
+		settings->GameState = GS_MainMenu;
 
 		//-- Start the APIs main loop
 		ClientAPI::BeginMainLoop();

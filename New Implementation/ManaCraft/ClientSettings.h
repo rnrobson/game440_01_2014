@@ -12,7 +12,7 @@ public:
 	ClientSettings();
 	~ClientSettings();
 
-	Gamestate GameState = None;
+	Gamestate GameState = GS_None;
 
 	std::string Username;
 	bool loggedIn;

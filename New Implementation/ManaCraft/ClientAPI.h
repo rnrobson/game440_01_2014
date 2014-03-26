@@ -5,7 +5,6 @@
 #include "Includes.h"
 #include "APIHelper.h"
 #include "APIEvents.h"
-#include "Dictionary.h"
 
 #include "FrameLimiter.h"
 #include "Window.h"
@@ -367,13 +366,6 @@ public:
 		return nullptr;
 	}
 	#pragma endregion
-	
-#pragma region Dictionarys
-	//static Dictionary<SDL_Color> colours;
-	//static Dictionary<SDL_Rect> rectangles;
-	//static Dictionary<GuiContainer*> guiContainers;
-	//static Dictionary<GuiElement*> guiElements;
-#pragma endregion
 
 	static void BeginMainLoop();
 	static void ExitMainLoop()

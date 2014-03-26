@@ -2,9 +2,12 @@
 #ifndef GUI_CONTAINER_H
 #define GUI_CONTAINER_H
 
+#include "GuiObject.h"
+
 #include "Includes.h"
 #include "APIEvents.h"
 
+//-- Include all GuiObjects so that GuiContainer can return specified types
 #include "GuiElement.h"
 #include "Button.h"
 #include "Label.h"
@@ -13,7 +16,7 @@
 #include "Slider.h"
 #include "GuiGridLayer.h"
 
-class GuiContainer
+class GuiContainer : public GuiObject
 {
 private:
 	//std::vector<std::string> guiContainerKeys;
@@ -42,11 +45,9 @@ private:
 	}
 
 public:
-	bool Active;
-	bool Enabled;
 
 	GuiContainer();
-	~GuiContainer() { CleanMemory(); }
+	~GuiContainer() { CleanMemory(); GuiObject::~GuiObject(); }
 
 	void SetBackgroundAudio(Mix_Chunk* _music) { music = _music; }
 	void Play() { if (music != nullptr) Mix_PlayChannel(AudioChannel::MusicChannel, music, -1); }

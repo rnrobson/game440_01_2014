@@ -285,6 +285,12 @@
     <ClCompile Include="GameModel.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="GuiObject.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -398,9 +404,6 @@
     <ClInclude Include="LoginPopup.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="Options.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
@@ -460,9 +463,6 @@
     </ClInclude>
     <ClInclude Include="GameModel.h">
       <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="Dictionary.h">
-      <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="FrameLimiter.h">
       <Filter>Header Files\GUI</Filter>
@@ -592,6 +592,15 @@
     </ClInclude>
     <ClInclude Include="Command_ServerReceive.h">
       <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Page.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiObject.h">
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

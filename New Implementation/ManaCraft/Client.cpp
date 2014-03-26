@@ -57,7 +57,7 @@ void Client::LoadContent()
 {
 	//--Call individual load methods
 	ScreenFader::Load();
-	MainMenu::Load();
+	mainMenu = new MainMenu(); //MainMenu_O::Load();
 	IngamePause::Load();
 	LoginPopup::Load();
 	GUI::Load();
@@ -76,23 +76,23 @@ void Client::Update(double time)
 
 	switch (GetInstance()->Settings()->GameState)
 	{
-	case None:
+	case GS_None:
 		break;
-	case MainMenu:
+	case GS_MainMenu:
 		break;
-	case Options:
+	case GS_Options:
 		break;
-	case Credits:
+	case GS_Credits:
 		break;
-	case ViewGames:
+	case GS_ViewGames:
 		break;
-	case Lobby:
+	case GS_Lobby:
 		break;
-	case Tutorial:
+	case GS_Tutorial:
 		break;
-	case InGame:
+	case GS_InGame:
 		break;
-	case Paused:
+	case GS_Paused:
 		break;
 	}
 }
@@ -104,23 +104,23 @@ void Client::Draw()
 
 	switch (GetInstance()->Settings()->GameState)
 	{
-	case None:
+	case GS_None:
 		break;
-	case MainMenu:
+	case GS_MainMenu:
 		break;
-	case Options:
+	case GS_Options:
 		break;
-	case Credits:
+	case GS_Credits:
 		break;
-	case ViewGames:
+	case GS_ViewGames:
 		break;
-	case Lobby:
+	case GS_Lobby:
 		break;
-	case Tutorial:
+	case GS_Tutorial:
 		break;
-	case InGame:
+	case GS_InGame:
 		break;
-	case Paused:
+	case GS_Paused:
 		break;
 	}
 }

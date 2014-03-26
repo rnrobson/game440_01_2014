@@ -1,12 +1,12 @@
 enum Gamestate
 {
-	None		=	0, 
-	MainMenu	=	1,
-	Options		=	2,
-	Credits		=	3,
-	ViewGames	=	4,
-	Lobby		=	5,
-	Tutorial	=	6,
-	InGame		=	7,
-	Paused		=	8,
+	GS_None			=	0, 
+	GS_MainMenu		= 1,
+	GS_Options		= 2,
+	GS_Credits		= 3,
+	GS_ViewGames	= 4,
+	GS_Lobby		= 5,
+	GS_Tutorial		= 6,
+	GS_InGame		= 7,
+	GS_Paused		= 8,
 };
