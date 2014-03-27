@@ -55,10 +55,10 @@ namespace ManaCraft {
 			/// </summary>
 			static Query queryDatabase(const std::string& queryStr);
 
-			class IDNotFound : public std::exception
+			class IDNotFoundException : public std::exception
 			{
 			public:
-				IDNotFound() throw() { }
+				IDNotFoundException() throw() { }
 				const char* what() const throw() { return "IDNotFoundException: Could not find ID in the Database.\n"; }
 			};
 

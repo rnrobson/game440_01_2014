@@ -281,22 +281,69 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 
 	try {
 		Query query = DatabaseAPI::getQuery();
-		
+		UseQueryResult result;
+		Row row;
+
 		// Game Table
 		query.clear();
 		query << "SELECT * FROM Game WHERE ID = " << mysqlpp::quote << _id;
 
-		if (UseQueryResult result = query.use()) {
-			Row row;
+		if (result = query.use()) {
 			if (row = result.fetch_row()) {
-				temp->id = atoi(row[TableInfo::Game::ID].c_str());
+				temp->id = atoi(row[TableInfo::Game::ID].c_str());	// Assign game ID
 			}
 			else {
-				// ID NOT FOUND IN DATABASE
+				throw DatabaseAPI::IDNotFoundException();
 			}
 		}
 
-		// Load subtables here
+		// Game_Teams table
+		int teamIDs[2];
+		query.clear();
+		query << "SELECT * FROM Game_Teams WHERE GameID = " << mysqlpp::quote << _id;
+
+		if (result = query.use()) {
+			for (int i = 0; i < 2; ++i) {
+				if (row = result.fetch_row()) {
+					teamIDs[i] = atoi(row[TableInfo::GameTeam::TEAM_ID].c_str());	// Save team IDs
+				}
+				else {
+					throw DatabaseAPI::IDNotFoundException();
+				}
+			}
+		}
+
+		// Create teams object
+		temp->teams = new Teams();
+
+		// Move here downwards to Teams.cpp
+		// Team_Players table
+
+		// Team 1
+		int team1PlayerIDs[3];
+		query.clear();
+		query << "SELECT * FROM Team_Players WHERE TeamID = " << mysqlpp::quote << teamIDs[0];
+
+		if (result = query.use()) {
+			for (int i = 0; i < 3; ++i) {	// for each possible player
+				if (row = result.fetch_row()) {
+					team1PlayerIDs[i] = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());	// Save team1 player IDs
+				}
+			}
+		}
+
+		// Team 2
+		int team2PlayerIDs[3];
+		query.clear();
+		query << "SELECT * FROM Team_Players WHERE TeamID = " << mysqlpp::quote << teamIDs[1];
+
+		if (result = query.use()) {
+			for (int i = 0; i < 3; ++i) {	// for each possible player
+				if (row = result.fetch_row()) {
+					team2PlayerIDs[i] = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());	// Save team2 player IDs
+				}
+			}
+		}
 
 		return temp;
 	}

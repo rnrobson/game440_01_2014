@@ -76,6 +76,27 @@ namespace ManaCraft {
 				const static unsigned char NAME				= 1;
 			};
 
+			const struct GameTeam {
+			public:
+				static std::string TABLE_NAME() { return "Game_Teams"; }
+				const static unsigned char GAME_ID			= 0;
+				const static unsigned char TEAM_ID			= 1;
+			};
+
+			const struct Team {
+			public:
+				static std::string TABLE_NAME() { return "Team"; }
+				const static unsigned char ID				= 0;
+				const static unsigned char Name				= 1;
+			};
+
+			const struct TeamPlayers {
+			public:
+				static std::string TABLE_NAME() { return "Team_Players"; }
+				const static unsigned char TEAM_ID			 = 0;
+				const static unsigned char PLAYER_ID		 = 1;
+			};
+
 		};
 
 	}
