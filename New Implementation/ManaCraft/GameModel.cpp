@@ -2,6 +2,8 @@
 #include "Element.h"
 #include <algorithm>
 
+static int lastID = -1;
+
 GameModel::GameModel()
 {
 	id = 1;
@@ -334,4 +336,42 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 
 	delete temp;
 	return nullptr;
+}
+
+void GameModel::LoadNextID() {
+	using namespace ManaCraft::Database;
+
+	try {
+		Query query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "SELECT MAX(ID) FROM Game";
+
+		if (UseQueryResult result = query.use()) {
+			if (Row row = result.fetch_row()) {
+				nextID = atoi(row[TableInfo::Game::ID].c_str());
+			}
+			else {	// Table is empty
+				nextID = 0;
+			}
+		}
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+}
+
+int GameModel::GetNextID() {
+	if (GameModel::nextID == -1) {
+		// Databse hasn't been loaded yet silly billy
+		// throw an error or something
+	}
+	else {
+		return GameModel::nextID++;
+	}
 }
