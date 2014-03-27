@@ -617,5 +617,8 @@
     <ClInclude Include="ViewGames.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Header Files\Client</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

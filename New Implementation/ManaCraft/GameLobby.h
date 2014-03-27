@@ -1,8 +1,13 @@
 #pragma once
 #include "Page.h"
+#include "Message.h"
+
 class GameLobby :
 	public Page
 {
+private:
+	std::vector<Message> messageLog;
+
 protected:
 	GameLobby();
 
@@ -15,6 +20,7 @@ public:
 	virtual void Load();
 	virtual void Update(double time);
 	virtual void Draw();
+	virtual void AddMessageToLog(std::string message, MessageType type);
 
 	//============
 	//--- Events 
@@ -38,4 +44,5 @@ public:
 	static void EnableGameStart(bool _state);
 	static void EnableGameOptions(bool _state);
 };
+
 

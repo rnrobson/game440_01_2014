@@ -350,3 +350,21 @@ void GameLobby::EnableGameOptions(bool _state)
 	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->Enabled = !_state;
 	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->Enabled = !_state;
 }
+
+void GameLobby::AddMessageToLog(std::string message, MessageType type)
+{
+	Message newMessage = Message(message, type);
+	messageLog.push_back(newMessage);
+	switch (type)
+	{
+	case MessageType::Team:
+
+		break;
+	case MessageType::Public:
+
+		break;
+	case MessageType::Whisper:
+
+		break;
+	}
+}
