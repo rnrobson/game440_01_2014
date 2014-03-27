@@ -116,23 +116,22 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 
 	try {
 		Query query = DatabaseAPI::getQuery();
-		UseQueryResult result;
-		Row row;
-
+		
 		// Team_Players table
 		for (int i = 0; i < 2; ++i) {	// for each team
 			query.clear();
 			query << "SELECT * FROM Team_Players WHERE TeamID = " << mysqlpp::quote << (i == 0 ? temp->team1ID : temp->team2ID);
 
-			if (result = query.use()) {
-				for (int i = 0; i < 3; ++i) {	// for each possible player
-					if (row = result.fetch_row()) {
+			if (UseQueryResult result = query.use()) {
+				for (int j = 0; j < 3; ++j) {	// for each possible player
+					if (Row row = result.fetch_row()) {
 
 						// Create player
 						ServerPlayer* player;
 						int playerID = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());
 
 						player = ServerPlayer::LoadPlayerByID(playerID);
+						player->Team = (i == 0 ? &(temp->Team1) : &(temp->Team2));
 
 						if (i == 0) {
 							temp->Team1.push_back(player);
@@ -143,7 +142,7 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 
 					}
 					// First row fetch with no result means no result returned from DB, IDNotFound
-					else if (i == 0) {
+					else if (j == 0) {
 						throw DatabaseAPI::IDNotFoundException();
 					}
 				}

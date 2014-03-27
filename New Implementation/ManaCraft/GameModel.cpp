@@ -282,15 +282,15 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 
 	try {
 		Query query = DatabaseAPI::getQuery();
-		UseQueryResult result;
-		Row row;
+		
+		
 
 		// Game Table
 		query.clear();
 		query << "SELECT * FROM Game WHERE ID = " << mysqlpp::quote << _id;
 
-		if (result = query.use()) {
-			if (row = result.fetch_row()) {
+		if (UseQueryResult result = query.use()) {
+			if (Row row = result.fetch_row()) {
 				// ASSIGN VALUES HERE once there is something to assign
 			}
 			else {
@@ -303,9 +303,9 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 		query.clear();
 		query << "SELECT * FROM Game_Teams WHERE GameID = " << mysqlpp::quote << _id;
 
-		if (result = query.use()) {
+		if (UseQueryResult result = query.use()) {
 			for (int i = 0; i < 2; ++i) {
-				if (row = result.fetch_row()) {
+				if (Row row = result.fetch_row()) {
 					teamIDs[i] = atoi(row[TableInfo::GameTeam::TEAM_ID].c_str());	// Save team IDs
 				}
 				else {

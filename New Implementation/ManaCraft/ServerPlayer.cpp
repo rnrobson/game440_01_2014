@@ -15,18 +15,17 @@ ServerPlayer* ServerPlayer::LoadPlayerByID(int _id) {
 
 	// Create player
 	ServerPlayer* temp = new ServerPlayer();
+	temp->id = _id;
 
 	try {
 		Query query = DatabaseAPI::getQuery();
-		UseQueryResult result;
-		Row row;
-
+		
 		// Players table
 		query.clear();
 		query << "SELECT * FROM Player WHERE ID = " << mysqlpp::quote << _id;
 
-		if (result = query.use()) {
-			if (row = result.fetch_row()) {
+		if (UseQueryResult result = query.use()) {
+			if (Row row = result.fetch_row()) {
 				// ASSIGN VALUES HERE once there is something to assign
 			}
 			else {

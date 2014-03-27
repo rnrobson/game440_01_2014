@@ -21,6 +21,7 @@ void TestDatabase::runTests() {
 	testLoadTowers();
 	testLoadElements();
 	testLoadResistances();
+	testSaveLoadGame();
 
 	DatabaseAPI::disconnectFromDatabase();
 
@@ -241,17 +242,29 @@ void TestDatabase::testLoadResistances()
 
 void TestDatabase::testSaveLoadGame() {
 	DatabaseAPI::connectToDatabase();
-	int id = 22;
+	int id = 23;
 
 	// SAVE HERE
 
 	// WIP
+	
 	GameModel* g = GameModel::LoadGameByID(id);
 	if (g->id == id) {
-		std::cout << "GameModel Success" << std::endl;
+		std::cout << "GameModel Success!" << std::endl;
+		std::cout << "Team 1 ID: " << g->teams->team1ID << std::endl;
+		for (ServerPlayer* p : g->teams->Team1)
+		{
+			std::cout << "\tPlayer " << p->id << "Loaded" << std::endl;
+		}
+
+		std::cout << "\nTeam 2 ID: " << g->teams->team2ID << std::endl;
+		for (ServerPlayer* p : g->teams->Team2)
+		{
+			std::cout << "\tPlayer " << p->id << "Loaded" << std::endl;
+		}
 	}
 	else {
-		std::cout << "GameModel Failure" << std::endl;
+		std::cout << "GameModel Failure!" << std::endl;
 	}
 
 	delete g;	// Make sure other tests delete results
