@@ -76,6 +76,6 @@ bool LocalDB::UnloadGame(uint _gameID)
 
 bool LocalDB::SaveGame(uint _gameID)
 {
-	dbConnection->saveGame(); //this should take a gameModel and write the tables to the DB
+	//dbConnection->saveGame(); //this should take a gameModel and write the tables to the DB
 	return true;
 }

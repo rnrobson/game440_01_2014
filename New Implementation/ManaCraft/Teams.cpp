@@ -101,3 +101,64 @@ bool Teams::FindAndRemove(ServerPlayer *player)
 
 	return false;
 }
+
+Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
+	using namespace ManaCraft::Database;
+	
+	// Create teams
+	Teams* temp = new Teams();
+	temp->Team1 = vector<ServerPlayer*>();
+	temp->Team2 = vector<ServerPlayer*>();
+
+	try {
+		Query query = DatabaseAPI::getQuery();
+		UseQueryResult result;
+		Row row;
+
+		// Team_Players table
+		for (int i = 0; i < 2; ++i) {	// for each team
+			query.clear();
+			query << "SELECT * FROM Team_Players WHERE TeamID = " << mysqlpp::quote << (i == 0 ? temp->team1ID : temp->team2ID);
+
+			if (result = query.use()) {
+				for (int i = 0; i < 3; ++i) {	// for each possible player
+					if (row = result.fetch_row()) {
+
+						// Create player
+						ServerPlayer* player;
+						int playerID = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());
+
+						//player = ServerPlayer::LoadPlayerByID(playerID);
+
+						if (i == 0) {
+							temp->Team1.push_back(player);
+						}
+						else {
+							temp->Team2.push_back(player);
+						}
+
+					}
+					// First row fetch with no result means no result returned from DB, IDNotFound
+					else if (i == 0) {
+						throw DatabaseAPI::IDNotFoundException();
+					}
+				}
+			}
+
+		}
+
+		return temp;
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+
+	delete temp;
+	return nullptr;
+}

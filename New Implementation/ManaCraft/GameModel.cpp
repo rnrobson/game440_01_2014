@@ -313,37 +313,11 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 			}
 		}
 
-		// Create teams object
-		temp->teams = new Teams();
+		// Load teams
+		temp->teams = Teams::LoadTeamsByIDs(teamIDs[0], teamIDs[1]);
 
-		// Move here downwards to Teams.cpp
-		// Team_Players table
-
-		// Team 1
-		int team1PlayerIDs[3];
-		query.clear();
-		query << "SELECT * FROM Team_Players WHERE TeamID = " << mysqlpp::quote << teamIDs[0];
-
-		if (result = query.use()) {
-			for (int i = 0; i < 3; ++i) {	// for each possible player
-				if (row = result.fetch_row()) {
-					team1PlayerIDs[i] = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());	// Save team1 player IDs
-				}
-			}
-		}
-
-		// Team 2
-		int team2PlayerIDs[3];
-		query.clear();
-		query << "SELECT * FROM Team_Players WHERE TeamID = " << mysqlpp::quote << teamIDs[1];
-
-		if (result = query.use()) {
-			for (int i = 0; i < 3; ++i) {	// for each possible player
-				if (row = result.fetch_row()) {
-					team2PlayerIDs[i] = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());	// Save team2 player IDs
-				}
-			}
-		}
+		// Load towers
+		// eventually
 
 		return temp;
 	}
