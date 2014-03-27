@@ -1,30 +1,32 @@
 #include "Server.h"
 #include "PacketFactory.h"
-/// <summary>[Server]
-/// <para>The Server's Constructor</para>
-/// </summary>
+
+BlockingQueue<CommandPacket*> InitQueue()
+{
+	BlockingQueue<CommandPacket*> temp;
+	return temp;
+}
+BlockingQueue<CommandPacket*> Server::workQueue(InitQueue());
+
 Server::Server()
 {
 	Init();
 	
 }
-/// <summary>[Run]
-/// <para>This method starts running the server</para>
-/// </summary>
 void Server::Run()
 {
 	running = true;
 
 	//uncomment this to run tests for the server commands before game loop starts
 	
-	ServerTester* tester = new ServerTester(50);
+	//ServerTester* tester = new ServerTester(50);
 
 	//tester->Test_Command_TripleAFloat();
 	//tester->Test_Command_IntFloatProduct();
 	//tester->Test_Command_CreateNewGame(); 
 	//tester->Test_Command_UpdateMinions();
 
-	tester->Test_ServerLobby(workCrew);
+	//tester->Test_ServerLobby(workCrew);
 
 	/*std::cout << "\nRunning all tests...";
 	tester->RunAllTests();*/
@@ -37,8 +39,17 @@ void Server::Run()
 	Uint32 testTimeSnapShot = -1;
 	bool dontTest;
 
-	while (true)
+	while (running)
 	{
+		//pop a command off workqueu if any are present
+		if (!workQueue.empty())
+		{
+			workQueue.front()->Execute();
+			workQueue.pop();
+		}
+
+		//go into update loop
+
 		// Grab us the time since SDL init
 		elapsedTime = SDL_GetTicks();
 
@@ -59,9 +70,6 @@ void Server::Run()
 				Update();
 			}
 		}
-
-		/* NEED A BREAK CONDITION TO MAKE THIS WHILE TRUE NOT RETARDED */
-
 		// Take a snapshot of the current ms
 		timeSnapshot = elapsedTime;
 
@@ -77,7 +85,7 @@ void Server::Run()
 		{
 			float x = rand() % 99;
 			CommandPacket* testCMD = new Command_TripleAFloat(&x);
-			workCrew->addWork(testCMD);
+			Server::AddWork(testCMD);
 
 		}
 		testTimeSnapShot = elapsedTime;
@@ -88,27 +96,20 @@ void Server::Run()
 	getchar();
 }
 
-/// <summary>[~Server]
-/// <para>The Server's Destructor</para>
-/// </summary>
 Server::~Server()
 {
 
 }
 
-/// <summary>[Init]
-/// <para>This methind initializes the server. Imports the settings via XML and loads the Client Liaison, woirker and DB Liaison</para>
-/// </summary>
 void Server::Init()
 {
-	running = false;
+	running = true;
 	elapsedTime = 0;
 
 	gameManager = new GameManager();
-	workCrew = new ThreadPool(numWorkers);
 
 	CommandPacket* newGameCMD = new Command_CreateNewGame(1);
-	workCrew->addWork(newGameCMD);
+	Server::AddWork(newGameCMD);
 
 	localDB = new LocalDB();
 
@@ -117,6 +118,21 @@ void Server::Init()
 void Server::Update() {
 	
 	CommandPacket* updateMinsCMD = new Command_UpdateMinions(1);
-	workCrew->addWork(updateMinsCMD);
+	Server::AddWork(updateMinsCMD);
 
+}
+void Server::AddWork(CommandPacket* command)
+{
+	Server::workQueue.push(command);
+}
+
+void Server::Shutdown()
+{
+	running = false;
+	while (!workQueue.empty())
+	{
+		workQueue.pop();
+	}
+	delete gameManager;
+	delete localDB;
 }
