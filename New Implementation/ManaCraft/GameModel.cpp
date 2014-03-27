@@ -286,8 +286,6 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 	try {
 		Query query = DatabaseAPI::getQuery();
 		
-		
-
 		// Game Table
 		query.clear();
 		query << "SELECT * FROM Game WHERE ID = " << mysqlpp::quote << _id;
@@ -319,6 +317,10 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 
 		// Load teams
 		temp->teams = Teams::LoadTeamsByIDs(teamIDs[0], teamIDs[1]);
+
+		if (temp->teams == nullptr) {
+			// it dun broke, throw jank
+		}
 
 		// Load towers
 		// eventually
