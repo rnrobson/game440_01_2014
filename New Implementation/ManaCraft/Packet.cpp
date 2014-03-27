@@ -30,7 +30,7 @@ void Packet::Initialize() {
 		mPayload[pos + i] = mData[i];
 	}
 	pos += GetDataLength();
-	Serialize::Int32(mPayload, pos, mSecurityHeader);
+	Serialize::Int32(mPayload, pos, mSecurityHeader); 
 }
 
 void Packet::SetProtocolID(short protocolID) {

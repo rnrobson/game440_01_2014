@@ -1,5 +1,5 @@
 #include "Server.h"
-
+#include "PacketFactory.h"
 /// <summary>[Server]
 /// <para>The Server's Constructor</para>
 /// </summary>
@@ -76,7 +76,7 @@ void Server::Run()
 		if (!dontTest && elapsedTime % timeToSimulateCommand == 0)
 		{
 			float x = rand() % 99;
-			ServerCommand* testCMD = new Command_TripleAFloat(&x);
+			CommandPacket* testCMD = new Command_TripleAFloat(&x);
 			workCrew->addWork(testCMD);
 
 		}
@@ -107,7 +107,7 @@ void Server::Init()
 	gameManager = new GameManager();
 	workCrew = new ThreadPool(numWorkers);
 
-	ServerCommand* newGameCMD = new Command_CreateNewGame(1);
+	CommandPacket* newGameCMD = new Command_CreateNewGame(1);
 	workCrew->addWork(newGameCMD);
 
 	localDB = new LocalDB();
@@ -116,7 +116,7 @@ void Server::Init()
 
 void Server::Update() {
 	
-	ServerCommand* updateMinsCMD = new Command_UpdateMinions(1);
+	CommandPacket* updateMinsCMD = new Command_UpdateMinions(1);
 	workCrew->addWork(updateMinsCMD);
 
 }

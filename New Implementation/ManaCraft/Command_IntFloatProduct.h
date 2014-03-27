@@ -4,7 +4,7 @@
 //#include <iostream>
 //#include "ServerIncludes.h"
 //#include "ServerCommandIncludes.h"
-#include "ServerCommand.h"
+#include "PacketFactory.h"
 
 struct Params_IntFloatProduct
 {
@@ -20,15 +20,15 @@ public:
 	}
 	~Params_IntFloatProduct(){}
 };
-class Command_IntFloatProduct : public ServerCommand
+class Command_IntFloatProduct : public CommandPacket
 {
 public:
 	Params_IntFloatProduct* params;
+	Packet nullPacket;
 
-	Command_IntFloatProduct(void* _data)
+	Command_IntFloatProduct(void* _data) : CommandPacket(&nullPacket)
 	{
-		data = _data;
-		params = (Params_IntFloatProduct*)data;
+		params = (Params_IntFloatProduct*)_data;
 		//printf("\nIntFloatProductCommand: Initialized --float = %f", params->x);
 		//printf("\nIntFloatProductCommand: Initialized --int = %i", params->y);
 	}

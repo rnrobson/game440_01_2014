@@ -1,18 +1,18 @@
 #pragma once
-#include "ServerCommand.h"
+#include "PacketFactory.h"
 #include "NetClient.h"
 #include "PacketFactory.h"
 
 using namespace ManaCraft::Networking;
 
-class Command_ClientReceive : public ServerCommand {
+class Command_ClientReceive : public CommandPacket {
 private:
 	NetClient* client;
+	Packet nullPacket;
 
 public:
-	Command_ClientReceive(NetClient* _data) {
-		data = _data;
-		client = (NetClient*)data;
+	Command_ClientReceive(NetClient* _data) : CommandPacket(&nullPacket) {
+		client = (NetClient*)_data;
 	}
 
 	~Command_ClientReceive() {

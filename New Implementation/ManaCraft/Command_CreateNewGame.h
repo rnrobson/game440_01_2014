@@ -1,15 +1,16 @@
 #ifndef COMMAND_CREATE_NEW_GAME_H
 #define COMMAND_CREATE_NEW_GAME_H
 
-#include "ServerCommand.h"
+#include "PacketFactory.h"
 #include "GameManager.h"
 
-class Command_CreateNewGame : public ServerCommand
+class Command_CreateNewGame : public CommandPacket
 {
 private:
 	uint gameID;
+	Packet nullPacket;
 public:
-	Command_CreateNewGame(uint _gameID)
+	Command_CreateNewGame(uint _gameID) : CommandPacket(&nullPacket)
 	{
 		gameID = _gameID;
 	}

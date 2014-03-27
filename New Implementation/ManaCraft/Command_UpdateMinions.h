@@ -1,16 +1,19 @@
+
 #ifndef COMMAND_UPDATE_MINIONS_H
 #define COMMAND_UPDATE_MINIONS_H
 
-#include "ServerCommand.h"
+#include "PacketFactory.h"
 #include "GameManager.h"
+#include "Packet.h"
 
-class Command_UpdateMinions : public ServerCommand
+class Command_UpdateMinions : public CommandPacket
 {
 private:
 	uint gameID;
+	Packet nullPacket;
 public:
 	//Command_UpdateMinions(void* _data)
-	Command_UpdateMinions(uint _gameID)
+	Command_UpdateMinions(uint _gameID) : CommandPacket(&nullPacket)
 	{
 		gameID = _gameID;
 	}

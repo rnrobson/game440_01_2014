@@ -1,12 +1,10 @@
 #ifndef TEST_COMMAND_H
 #define TEST_COMMAND_H
 
-
+#include "PacketFactory.h"
 #include <iostream>
 
-#include "ServerCommand.h"
-
-class TestCommand : public ServerCommand
+class TestCommand : public CommandPacket
 {
 public:
 	struct Params
@@ -14,13 +12,11 @@ public:
 		int x;
 	};
 	Params params;
-	TestCommand(void* _data)
+	Packet nullPacket;
+
+	TestCommand(void* _data) : CommandPacket(&nullPacket)
 	{
-
-		data = _data;
-
-		params = *(Params*)data;
-
+		params = *(Params*)_data;
 		printf("\nTestCommand: Initialized --data = %i", params.x);
 	}
 

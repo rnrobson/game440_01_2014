@@ -1,5 +1,7 @@
 #include "ServerTester.h"
 #include "Server.h"
+#include "PacketFactory.h"
+
 ServerTester::ServerTester(int numTests)
 {
 	numberOfTests = numTests;
@@ -112,7 +114,7 @@ void ServerTester::Test_Command_UpdateMinions()
 	Reset();
 
 	uint id = 1;
-	ServerCommand* command = new Command_CreateNewGame(id);
+	CommandPacket* command = new Command_CreateNewGame(id);
 	command->Execute();
 	GameModel* game = GameManager::FindGame(id);
 	//saving the variables to test results against

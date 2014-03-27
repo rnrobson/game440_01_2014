@@ -2,7 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <SDL_timer.h>
-
+#include "PacketFactory.h"
 
 
 int pool_worker_function(void *data)
@@ -11,7 +11,7 @@ int pool_worker_function(void *data)
 	ThreadPool *pool = wd->pool;
 	int index = wd->threadIndex;
 	pool->incActiveThreads();
-	ServerCommand* item = pool->workQue.pop();
+	CommandPacket* item = pool->workQue.pop();
 	//std::cout << "thread " << index << " gets work item " << item.workFunc << std::endl;
 	while (item)
 	{
@@ -76,7 +76,7 @@ int ThreadPool::activeThreadCount()
 	return result;
 }
 
-void ThreadPool::addWork(ServerCommand* w)
+void ThreadPool::addWork(CommandPacket* w)
 {
 	workQue.push(w);
 }
@@ -84,7 +84,7 @@ void ThreadPool::addWork(ServerCommand* w)
 void ThreadPool::shutdown()
 {
 	int n = activeThreadCount();
-	ServerCommand* item;
+	CommandPacket* item;
 
 	if (n <= 0) return;
 

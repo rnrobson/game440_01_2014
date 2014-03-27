@@ -12,12 +12,12 @@ namespace ManaCraft {
 			std::vector<char> mData;
 			std::vector<char> mPayload;
 
+		public:
 			/// <summary>[Packet]
 			/// <para>Initializes a new Packet and initializes variables as null.</para>
 			/// </summary>
 			Packet();
 
-		public:
 			/// <summary>[Packet]
 			/// <para>Creates a packet with the provided data (You MUST call Initialize() to serialize the packet).</para>
 			/// <para>[int securityHeader] Should point to the security header defined in Protocol.</para>

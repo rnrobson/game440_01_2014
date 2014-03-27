@@ -4,7 +4,7 @@
 //#include <iostream>
 //#include "ServerIncludes.h"
 //#include "ServerCommandIncludes.h"
-#include "ServerCommand.h"
+#include "PacketFactory.h"
 
 struct Params_TripleAFloat
 {
@@ -18,16 +18,16 @@ struct Params_TripleAFloat
 	~Params_TripleAFloat(){}
 };
 
-class Command_TripleAFloat : public ServerCommand
+class Command_TripleAFloat : public CommandPacket
 {
 public:
 
 	Params_TripleAFloat* params;
+	Packet nullPacket;
 
-	Command_TripleAFloat(void* _data)
+	Command_TripleAFloat(void* _data) : CommandPacket(&nullPacket)
 	{
-		data = _data;
-		params = (Params_TripleAFloat*)data;
+		params = (Params_TripleAFloat*)_data;
 
 		//printf("\nTripleAFloatCommand: Initialized --data = %f", params.x);
 	}
@@ -40,5 +40,4 @@ public:
 	}
 
 };
-
 #endif

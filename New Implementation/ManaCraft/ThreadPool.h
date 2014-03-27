@@ -3,7 +3,7 @@
 
 #include "BlockingQueue.h"
 #include "WorkItem.h"
-
+#include "PacketFactory.h"
 class ThreadPool;
 
 class WorkerData
@@ -21,7 +21,7 @@ public:
 class ThreadPool
 {
 private:
-	BlockingQueue<ServerCommand*>		workQue;
+	BlockingQueue<CommandPacket*>		workQue;
 	SDL_Thread					**threadList;
 	int							numThreads;
 	int							activeThreads;
@@ -35,7 +35,7 @@ public:
 
 	~ThreadPool();
 
-	void addWork(ServerCommand* w);
+	void addWork(CommandPacket* w);
 
 	void shutdown();
 

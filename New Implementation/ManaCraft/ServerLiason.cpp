@@ -46,12 +46,9 @@ int ServerLiason::SendToServer() {
 
 	while (hasStarted) { // While it's started run through the queue
 		if (!sendMsgQueue.empty()) {
-			/*Packet* p = nullptr;
-			p = &sendMsgQueue.pop();
+			Packet* p = &sendMsgQueue.pop();
 
 			clientConnection->Send(*p);
-			
-			TODO figure out a way around the packet's private constructor*/
 		}
 	}
 	return 0;

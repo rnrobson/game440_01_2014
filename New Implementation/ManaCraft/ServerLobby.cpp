@@ -1,4 +1,5 @@
 #include "ServerLobby.h"
+#include "PacketFactory.h"
 
 ServerLobby::ServerLobby(ThreadPool *workCrew, ServerPlayer *lobbyHost, int teamSize) : teams(teamSize)
 {
@@ -23,7 +24,7 @@ void ServerLobby::StartGame()
 	if (readyPlayers.size() == teams.PlayerCount && teams.Team1.size() == teams.Team2.size())
 	{
 		int gameID = 1;
-		ServerCommand *newGameCMD = new Command_CreateNewGame(gameID);
+		CommandPacket *newGameCMD = new Command_CreateNewGame(gameID);
 		WorkCrew->addWork(newGameCMD);
 		//newGameCMD->Execute();
 
