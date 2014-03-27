@@ -165,3 +165,31 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 	delete temp;
 	return nullptr;
 }
+
+void Teams::DeleteTeams() {
+	using namespace ManaCraft::Database;
+
+	try {
+		for (int i = 0; i < 2; ++i) {	// for each team
+			Query query = DatabaseAPI::getQuery();
+			query.clear();
+			query << "DELETE FROM Team WHERE ID =" << mysqlpp::quote << (i == 0 ? this->team1ID : this->team2ID);
+			query.execute();
+
+			query = DatabaseAPI::getQuery();
+			query.clear();
+			query << "DELETE FROM Team_PLayers WHERE ID =" << mysqlpp::quote << (i == 0 ? this->team1ID : this->team2ID);
+			query.execute();
+		}
+
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+}

@@ -31,6 +31,9 @@ public:
 	static GameModel* LoadGameByID(unsigned int _id);
 	static void LoadNextID();
 
+	void SaveGame();
+	void DeleteGame();
+
 	void UpdateMinions();
 	void UpdateTowers(Uint32 dt);
 	void UpdateProjectiles();

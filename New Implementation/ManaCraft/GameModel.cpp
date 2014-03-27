@@ -339,6 +339,39 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 	return nullptr;
 }
 
+void GameModel::DeleteGame() {
+	using namespace ManaCraft::Database;
+
+	try {
+
+		this->teams->DeleteTeams();
+
+		Query query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "DELETE FROM Game WHERE ID = " << mysqlpp::quote << this->id;
+		query.execute();
+
+		query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "DELETE FROM Game_Teams WHERE ID = " << mysqlpp::quote << this->id;
+		query.execute();
+
+		query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "DELETE FROM Game_Player_Towers WHERE ID = " << mysqlpp::quote << this->id;
+		query.execute();
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+}
+
 void GameModel::LoadNextID() {
 	using namespace ManaCraft::Database;
 

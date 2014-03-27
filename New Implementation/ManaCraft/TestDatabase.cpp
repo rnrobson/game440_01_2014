@@ -23,6 +23,8 @@ void TestDatabase::runTests() {
 	testLoadResistances();
 	testSaveLoadGame();
 
+	//testDelete();
+
 	DatabaseAPI::disconnectFromDatabase();
 
 	std::cout << "Database tests complete. Successes: " << totalSuccesses << "\tFailures: " << totalFailures << std::endl;
@@ -268,4 +270,19 @@ void TestDatabase::testSaveLoadGame() {
 	}
 
 	delete g;	// Make sure other tests delete results
+}
+
+void TestDatabase::testDelete()
+{
+	DatabaseAPI::connectToDatabase();
+
+	Query query = DatabaseAPI::getQuery();
+	query.clear();
+	query << "DELETE FROM Test_Table WHERE ID = 1";
+	query.execute();
+
+	query = DatabaseAPI::getQuery();
+	query.clear();
+	query << "DELETE FROM Test_Table WHERE ID = 2";
+	query.execute();
 }

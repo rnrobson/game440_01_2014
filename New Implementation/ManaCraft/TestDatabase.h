@@ -42,6 +42,8 @@ namespace ManaCraft {
 
 			static void testSaveLoadGame();
 
+			static void testDelete();
+
 		public:
 			/// <summary>
 			/// <para>Runs tests on the DatabaseAPI with the default connection parameters.</para>

@@ -25,6 +25,8 @@ public:
 	void KickPlayer(ServerPlayer *player);
 
 	static Teams* LoadTeamsByIDs(int _team1ID, int _team2ID);
+	void SaveTeams();
+	void DeleteTeams();
 
 private:
 	bool FindAndRemove(ServerPlayer *player);
