@@ -1,7 +1,7 @@
 #pragma once
 #include "GuiGridSquare.h"
 
-class GuiGridLayer {
+class GuiGridLayer : public GuiElement {
 public:
 	char tileSize;
 	unsigned int rows;
@@ -9,14 +9,14 @@ public:
 
 	bool Active;
 	bool Enabled;
-
-	GuiGridSquare layer[10][10];
+	std::vector<GuiGridSquare*> layer;
 
 	GuiGridLayer();
+	GuiGridLayer(SDL_Texture* _tileTexture, unsigned int _rows, unsigned int _columns);
 	~GuiGridLayer(void);
 
-	void Update(double time);
-	void Draw();
+	virtual void Update(double time);
+	virtual void Draw();
 
 	void HandleMouseClickEvent();
 	void HandleMouseMotionEvent(SDL_MouseMotionEvent e);

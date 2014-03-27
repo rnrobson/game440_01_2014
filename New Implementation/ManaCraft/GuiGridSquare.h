@@ -1,21 +1,16 @@
 #pragma once
 #include "GuiElement.h"
+#include "GridSquare.h"
 
 class GuiGridSquare : public GuiElement
 {
 public:
-	/*unsigned int id;
-	unsigned int xPos;
-	unsigned int yPos;
-	*/
-
-	SDL_Rect srcRect = SDL_Rect();
-	SDL_Rect destRect = SDL_Rect();
-	//SDL_Texture *texture;
+	SDL_Rect m_sourceRectangle = SDL_Rect();
+	SDL_Rect m_destinationRectangle = SDL_Rect();
+	SDL_Texture* m_gridTexture;
 
 	GuiGridSquare();
-	GuiGridSquare(SDL_Texture *_texture);
-	GuiGridSquare(SDL_Texture *_texture, SDL_Rect _srcRect, SDL_Rect _destRect);
+	GuiGridSquare(SDL_Texture* _tileSet, GridSquare _gridSquare, unsigned int width, unsigned int height);
 	~GuiGridSquare(void);
 
 	virtual void Draw();
