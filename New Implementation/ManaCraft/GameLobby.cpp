@@ -354,6 +354,9 @@ void GameLobby::EnableGameOptions(bool _state)
 void GameLobby::AddMessageToLog(std::string message, MessageType type)
 {
 	Message newMessage = Message(message, type);
+	//newMessage.message = message;
+	//newMessage.type = type;
+
 	messageLog.push_back(newMessage);
 	switch (type)
 	{

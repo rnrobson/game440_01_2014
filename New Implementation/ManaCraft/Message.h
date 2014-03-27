@@ -1,3 +1,10 @@
+enum MessageType
+{
+	Team,
+	Public,
+	Whisper
+};
+
 struct Message
 {
 	std::string message;
@@ -6,12 +13,4 @@ struct Message
 	Message(std::string _message, MessageType _type) : message(_message), type(_type) 
 	{
 	}
-};
-
-
-enum MessageType
-{
-	Team,
-	Public,
-	Whisper
 };
