@@ -20,10 +20,13 @@ void ParticleSystem::Initialize(size_t particleNum)
 {
 	for (size_t i = 0; i < particleNum; i++)
 	{
-		if (particleTexture != nullptr)
+		for (size_t k = 0; k < m_ParticleTextures.size(); k++)
 		{
-			Particle* myParticle = new Particle(particleTexture);
-			particleList.push_back(myParticle);
+			if (m_ParticleTextures.at(k) != nullptr)
+			{
+				Particle* myParticle = new Particle(m_ParticleTextures.at(k));
+				particleList.push_back(myParticle);
+			}
 		}
 	}
 }
@@ -46,9 +49,19 @@ void ParticleSystem::Setup(){}
 
 /* Burst Particle System */
 Burst::Burst(){};
-Burst::Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds)
+Burst::Burst(size_t numberOfParticles, SDL_Texture* _particleTextures, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds)
 {
-	SetTexture(texture);
+	SetTexture(_particleTextures);
+	SetRepeat(isRepeating);
+	SetSpeed(particleSpeed);
+	SetRandom(randomSpeeds);
+	frequency = frequencyInSeconds;
+	ParticleSystem::Initialize(numberOfParticles);
+	Setup();
+}
+Burst::Burst(size_t numberOfParticles, std::vector<SDL_Texture*> _particleTextures, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds)
+{
+	SetTextures(_particleTextures);
 	SetRepeat(isRepeating);
 	SetSpeed(particleSpeed);
 	SetRandom(randomSpeeds);
