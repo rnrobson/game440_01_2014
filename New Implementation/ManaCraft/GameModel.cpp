@@ -63,23 +63,41 @@ void GameModel::UpdateTowers(Uint32 dt)
 		//get the tower's position
 		uint towerXPos=towers[i]->infSquare->xPos;
 		uint towerYPos = towers[i]->infSquare->yPos;
+		uint towerRange = towers[i]->range;
 
 		//loop through all the minions in the game
-		//this will be optimized further using Quad tree
 		for (size_t j = 0; j < minions.size(); j++)
 		{
-			//get dist from the tower to the minion
-			float xDif = minions[i]->xPos - towerXPos;
-			float yDif = minions[i]->yPos - towerYPos;
-			float dist = sqrt(xDif*xDif + yDif * yDif);
+			//difference in x coodrinates
+			float xDif = abs(minions[i]->xPos - towerXPos);
+			
+			bool inRange = false;//will be flipped to true if a minion is in range
 
 			//check if the minion is already present in the tower's list
 			list<Minion*>::iterator findMinion = std::find(towers[i]->targetList.begin(), towers[i]->targetList.end(), minions[i]);
-			
+
+			//optimising distance search
+			//minion won't be in range if the x value diff is greater than range
+			if (xDif <= towerRange)
+			{
+				float yDif = abs(minions[i]->yPos - towerYPos);
+				//same for y
+				if (yDif <= towerRange)
+				{
+					//finally doing a dist check for accuracy
+					float dist = sqrt(xDif*xDif + yDif * yDif);
+					if (dist <= towerRange)
+					{
+						inRange = true;
+					}
+				}
+			}
+
 			//minion was not found in the tower's target list
 			if (findMinion == towers[i]->targetList.end())
 			{
-				if (dist <= towers[i]->range)
+				//if a minion is not present in the targetlist and is in range, it gets added to the list
+				if (inRange)
 				{
 					towers[i]->targetList.push_back(minions[i]);
 				}
@@ -88,7 +106,7 @@ void GameModel::UpdateTowers(Uint32 dt)
 			else
 			{
 				//if minion moves past tower's range, remove it from the target list
-				if (dist > towers[i]->range)
+				if (!inRange)
 				{
 					towers[i]->targetList.remove(minions[i]);
 				}
