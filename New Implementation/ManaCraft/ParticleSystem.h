@@ -92,7 +92,11 @@ public:
 	//Setters
 	void SetPosition(float x, float y);
 	void SetSpeed(float _speed);
-	void SetTexture(SDL_Texture* _texture) { particleTexture = _texture; }
+	void SetTexture(SDL_Texture* _texture) { m_ParticleTextures.push_back(_texture); }
+	void SetTextures(std::vector<SDL_Texture*> _textures) {
+		for (int i = 0; i < _textures.size(); i++)
+			m_ParticleTextures.push_back(_textures.at(i));
+	}
 	void SetRepeat(bool _repeat) { repeating = _repeat; }
 	void SetRandom(bool myBool) { randomSpeeds = myBool; }
 
@@ -102,14 +106,13 @@ public:
 	bool isRandomSpeeds(){ return randomSpeeds; }
 
 	void Initialize(size_t numberOfParticles);
-
 	std::vector<Particle*> particleList;
+
 private:
 	bool randomSpeeds;
 	bool repeating;
 	float particleSpeed;
-	//std::vector<SDL_Texture*> particleTextures;
-	SDL_Texture* particleTexture;
+	std::vector<SDL_Texture*> m_ParticleTextures;
 	virtual void Update(double time);
 	virtual void Draw();
 };
@@ -120,7 +123,8 @@ private:
 class Burst : public ParticleSystem{
 public:
 	Burst();
-	Burst(size_t numberOfParticles, SDL_Texture* texture, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds);
+	Burst(size_t numberOfParticles, SDL_Texture* _particleTextures, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds);
+	Burst(size_t numberOfParticles, std::vector<SDL_Texture*> _particleTextures, float particleSpeed, bool randomSpeeds, bool isRepeating, float frequencyInSeconds);
 	float GetFrequency(){ return frequency; }
 private:
 	virtual void Setup();

@@ -12,7 +12,6 @@
 class GameModel{
 
 public:
-
 	unsigned int id;
 	bool paused;
 	ServerPlayer* host;
@@ -30,6 +29,7 @@ public:
 
 	static bool CompareGamesByID(GameModel *gameOne, GameModel *gameTwo);
 	static GameModel* LoadGameByID(unsigned int _id);
+	static void LoadNextID();
 
 	void UpdateMinions();
 	void UpdateTowers(Uint32 dt);
@@ -41,6 +41,8 @@ public:
 	~GameModel();
 
 private:
+	static int nextID;
+
 	const int MAX_MINIONS = 500;
 	const int MAX_TOWERS = 100;
 	const int MAX_PROJECTILES = 600;
@@ -48,6 +50,7 @@ private:
 	const float MAX_BASE_HP = 300.0f;
 
 	void Init();
+	static int GetNextID();
 };
 
 
