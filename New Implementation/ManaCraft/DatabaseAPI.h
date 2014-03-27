@@ -1,6 +1,7 @@
 #ifndef DATABASE_API_H
 #define DATABASE_API_H
 
+#include <exception>
 #include <string>
 #include <vector>
 #include <mysql++.h>
@@ -54,35 +55,12 @@ namespace ManaCraft {
 			/// </summary>
 			static Query queryDatabase(const std::string& queryStr);
 
-			/// <summary> Get information of specific tower of TowerType. </summary>
-			void getTowerInfo(const TowerTypes tower);
-			/// <summary> Get information on all the Towers. </summary>
-			void getAllTowerInfo();
-
-			/// <summary> Get information of specific minion of MinionType. </summary>
-			void getMinionInfo(const MinionTypes minion);
-			// <summary> Get information on all Minions. </summary>
-			void getAllMinionInfo();
-
-			///// <summary> Get information of specific element of ElementType. </summary>
-			//void getElementInfo(const ElementTypes element);
-			///// <summary> Get information on all Elements. </summary>
-			//static std::vector<Element> getAllElementInfo();
-
-			/// <summary> Get information of specific Resistance of ElementType. </summary>
-			void getResistanceInfo(const ElementTypes element);
-			// <summary> Get information on all Resistances. </summary>
-			void getAllResistanceInfo();
-
-			/// <summary> Saves the current game being played. </summary>
-			void saveGame(); //TODO: lol figure how this is going to work
-			/// <summary> Pulls information for a Save Game
-			void getSaveGame(const unsigned int& saveID);
-
-			/// <summary> Get a players information from the database.
-			/// <para>[string] Username of the player.
-			/// </summary>
-			void getPlayerInfo(const std::string& name);
+			class IDNotFound : public std::exception
+			{
+			public:
+				IDNotFound() throw() { }
+				const char* what() const throw() { return "IDNotFoundException: Could not find ID in the Database.\n"; }
+			};
 
 		};
 	}
