@@ -3,6 +3,7 @@
 #include <algorithm>
 
 static int lastID = -1;
+int GameModel::nextID = 0;
 
 GameModel::GameModel()
 {
