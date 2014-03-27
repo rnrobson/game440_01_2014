@@ -34,6 +34,7 @@ void MainMenu::Load(){
 
 	TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
+	ClientAPI::AddAudio("BtnAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/btnClick.ogg"));
 	ClientAPI::AddFont("Systema", systema);
 
 	//-- Main colors
@@ -128,7 +129,7 @@ void MainMenu::Load(){
 	content->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SubscribeOnMouseClick(MainMenu::Click_quitButton);
 	content->GetButton("CreditsBtn")->SubscribeOnMouseClick(MainMenu::Click_creditsButton);
 
-
+	ClientAPI::GetGuiContainer("MainMenu")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
 	//FOR TESTING ANIMATED SPRITE
 	//SDL_Texture *texture = nullptr;
 	//texture = IMG_LoadTexture(Window::Renderer(), "Resources/Sprites/MinionSS.png");
@@ -176,6 +177,7 @@ void MainMenu::OnEscapePressed()
 void MainMenu::Click_loginButton()
 {
 	std::cout << "Login to network.\n";
+	ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
 	ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
 }
@@ -183,6 +185,7 @@ void MainMenu::Click_loginButton()
 void MainMenu::Click_viewButton()
 {
 	std::cout << "View saved games.\n";
+	ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	ClientAPI::GetGuiContainer("ViewGames")->Active = true;
 	ScreenFader::FadeOut();
@@ -191,6 +194,7 @@ void MainMenu::Click_viewButton()
 void MainMenu::Click_optionsButton()
 {
 	std::cout << "Open options menu.\n";
+	ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	ClientAPI::GetGuiContainer("Options")->Active = true;
 	ScreenFader::FadeOut();
@@ -198,6 +202,7 @@ void MainMenu::Click_optionsButton()
 
 void MainMenu::Click_tutorialButton()
 {
+	ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	ClientAPI::GetGuiContainer("GUI")->Active = true;
 	ClientAPI::GetGuiContainer("InGameGUI")->Active = true;
@@ -206,12 +211,14 @@ void MainMenu::Click_tutorialButton()
 
 void MainMenu::Click_quitButton()
 {
+	ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	ClientAPI::ExitMainLoop();
 }
 
 void MainMenu::Click_creditsButton()
 {
 	std::cout << "Show credits.\n";
+	ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	ClientAPI::GetGuiContainer("MainMenu")->Active = false;
 	ClientAPI::GetGuiContainer("Credits")->Active = true;
 	ScreenFader::FadeOut();

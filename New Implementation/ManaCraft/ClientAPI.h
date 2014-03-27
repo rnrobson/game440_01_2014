@@ -28,33 +28,19 @@ private:
 	//-- Fonts, Textures & Colours
 
 	static std::map<std::string, TTF_Font*> fonts;
-	//static std::vector<std::string> fontKeys;
-	//static std::vector<TTF_Font*> fonts;
 	
 	static std::map<std::string, SDL_Texture*> textures;
-	//static std::vector<std::string> textureKeys;
-	//static std::vector<SDL_Texture*> textures;
 
 	static std::map<std::string, Mix_Chunk*> audio;
-	//static std::vector<std::string> audioKeys;
-	//static std::vector<Mix_Chunk*> audio;
 
 	static std::map<std::string, SDL_Color> colours;
-	//static std::vector<std::string> colourKeys;
-	//static std::vector<SDL_Color> colours;
 
 	static std::map<std::string, SDL_Rect> rects;
-	//static std::vector<std::string> rectKeys;
-	//static std::vector<SDL_Rect> rects;
 
 	//-- API Objects
 	static std::map<std::string, GuiContainer*> guiContainers;
-	//static std::vector<std::string> guiContainerKeys;
-	//static std::vector<GuiContainer*> guiContainers;
 
 	static std::map<std::string, GuiElement*> guiElements;
-	//static std::vector<std::string> guiElementKeys;
-	//static std::vector<GuiElement*> guiElements;
 
 	static bool quit;
 

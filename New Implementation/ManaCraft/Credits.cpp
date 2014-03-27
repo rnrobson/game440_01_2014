@@ -37,6 +37,7 @@ void Credits::Load()
 
 	TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 
+	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
 	ClientAPI::AddFont("Systema", systema);
 
 	//-- Main colors
@@ -123,6 +124,9 @@ void Credits::Load()
 			APIHelper::RectHelper(databaseRect.x, databaseRect.y + (i * LABEL_SPACE_Y), databaseRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 	}
+
+	ClientAPI::GetGuiContainer("Credits")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
+
 	content->Active = false;
 }
 
@@ -153,6 +157,7 @@ void Credits::OnEscapePressed()
 void Credits::Click_backButton()
 {
 	std::cout << "Back to main menu.\n";
+	ClientAPI::GetGuiContainer("Credits")->Sfx1Play();
 	ClientAPI::GetGuiContainer("Credits")->Active = false;
 	ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 	ScreenFader::FadeOut();

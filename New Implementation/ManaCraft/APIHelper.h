@@ -37,6 +37,18 @@ public:
 
 	static SDL_Rect RectHelper(int x, int y, int w, int h) { return { x, y, w, h }; } // Window::RectHelper(x, y, w, h); }
 	static SDL_Color ColourHelper(int r, int g, int b, int a) { return { r, g, b, a }; }
+	static bool Intersects(SDL_Rect _rect1, SDL_Rect _rect2)
+	{
+		if (SDL_HasIntersection(&_rect1, &_rect2) == SDL_TRUE)
+		{
+			return true;
+		}
+		else if (SDL_HasIntersection(&_rect1, &_rect2) == SDL_FALSE)
+		{
+			return false;
+		}
+		return false;
+	}
 
 	static bool DidKeyGetPressed(SDL_Scancode key) { return APIEvents::DidKeyGetPressed(key); }
 	static bool DidMouseClick() { return APIEvents::DidMouseClick(); }
