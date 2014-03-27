@@ -60,7 +60,9 @@ void Client::LoadContent()
 {
 	//--Call individual load methods
 	ScreenFader::Load();
+
 	mainMenu = new MainMenu(); //MainMenu_O::Load();
+	
 	IngamePause::Load();
 	LoginPopup::Load();
 	GUI::Load();

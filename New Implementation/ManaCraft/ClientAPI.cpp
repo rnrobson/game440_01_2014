@@ -171,6 +171,7 @@ void ClientAPI::HandleMouseMotionEvent(SDL_MouseMotionEvent e)
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnMouseMotion(e);
 		break;
 	}
 	
@@ -197,6 +198,7 @@ void ClientAPI::HandleMouseDownEvent(SDL_MouseButtonEvent e)
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnMouseDown(e);
 		break;
 	}
 
@@ -222,6 +224,7 @@ void ClientAPI::HandleMouseUpEvent(SDL_MouseButtonEvent e)
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnMouseUp(e);
 		break;
 	}
 
@@ -248,6 +251,7 @@ void ClientAPI::HandleMouseClickEvent()
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnMouseClick();
 		break;
 	}
 	
@@ -274,6 +278,7 @@ void ClientAPI::HandleTextInputEvent(SDL_TextInputEvent e)
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnTextInput(e);
 		break;
 	}
 	
@@ -311,6 +316,7 @@ void ClientAPI::HandleKeyboardDownEvent(SDL_KeyboardEvent e)
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnKeyboardDown(e);
 		break;
 	}
 	
@@ -336,6 +342,7 @@ void ClientAPI::HandleKeyboardUpEvent(SDL_KeyboardEvent e)
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnKeyboardUp(e);
 		break;
 	}
 }
@@ -366,6 +373,7 @@ void ClientAPI::HandleEnterKeyPressed()
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnEnterKeyPressed();
 		break;
 	}
 }
@@ -396,6 +404,7 @@ void ClientAPI::HandleEscapeKeyPressed()
 		}
 		break;
 	case GuiAPIMode::ProgrammerHandleMode:
+		focus->OnEscapeKeyPressed();
 		break;
 	}
 }
