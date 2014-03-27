@@ -13,14 +13,14 @@
 
 //-- Load Menus
 #include "MainMenu.h"
-
-//-- Need to be converted to new Menu Format
-#include "GameLobby.h"
-#include "ViewGames.h"
-#include "IngamePause.h"
-#include "LoginPopup.h"
 #include "Credits.h"
 #include "Options.h"
+#include "GameLobby.h"
+#include "ViewGames.h"
+
+//-- Need to be converted to new Menu Format
+#include "IngamePause.h"
+#include "LoginPopup.h"
 #include "GUI.h"
 #include "InGameGUI.h"
 
@@ -30,6 +30,10 @@ protected:
 	Client();
 
 	MainMenu* mainMenu;
+	Credits* credits;
+	Options* options;
+	GameLobby* gameLobby;
+	ViewGames* viewGames;
 
 public:
 	static Client* GetInstance(){

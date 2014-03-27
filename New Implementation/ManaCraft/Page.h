@@ -7,9 +7,7 @@
 
 class Page
 {
-protected:
-	Page* instance;
-	
+protected:	
 	GuiContainer* content;
 
 public:

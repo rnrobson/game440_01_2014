@@ -2,6 +2,8 @@
 #include "ScreenFader.h"
 #include "ClientAPI.h"
 
+MainMenu* MainMenu::instance;
+
 MainMenu::MainMenu()
 :Page()
 {
@@ -9,6 +11,13 @@ MainMenu::MainMenu()
 	content->SubscribeOnEnterKeyPressed(OnEscapePressed);
 
 	Load();
+}
+
+MainMenu* MainMenu::GetInstance()
+{
+	if (MainMenu::instance == nullptr) { MainMenu::instance = new MainMenu(); }
+
+	return MainMenu::instance;
 }
 
 

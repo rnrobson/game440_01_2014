@@ -61,15 +61,15 @@ void Client::LoadContent()
 	//--Call individual load methods
 	ScreenFader::Load();
 
-	mainMenu = new MainMenu(); //MainMenu_O::Load();
-	
+	mainMenu = MainMenu::GetInstance(); //MainMenu_O::Load();
+	options = Options::GetInstance(); //Options::Load();
+	credits = Credits::GetInstance(); //Credits::Load();
+	gameLobby = GameLobby::GetInstance(); //GameLobby::Load();
+	viewGames = ViewGames::GetInstance(); //ViewGames::Load();
+
 	IngamePause::Load();
 	LoginPopup::Load();
 	GUI::Load();
-	Options::Load();
-	Credits::Load();
-	GameLobby::Load();
-	ViewGames::Load();
 	InGameGUI::Load();
 
 }

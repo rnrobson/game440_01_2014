@@ -288,6 +288,21 @@
     <ClCompile Include="GuiObject.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Page.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Credits.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Options.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLobby.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewGames.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -389,19 +404,10 @@
     <ClInclude Include="DataDefinitions.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="Credits.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="GameLobby.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="GUI.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="LoginPopup.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="Options.h">
       <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="API_Util.h">
@@ -490,9 +496,6 @@
     </ClInclude>
     <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="ViewGames.h">
-      <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="NetReceiver.h">
       <Filter>Header Files\Networking</Filter>
@@ -601,6 +604,18 @@
     </ClInclude>
     <ClInclude Include="GuiAPIMode.h">
       <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Credits.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Options.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLobby.h">
+      <Filter>Header Files\Client\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewGames.h">
+      <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

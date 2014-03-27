@@ -92,10 +92,12 @@
     <ClCompile Include="ClientLiaison.cpp" />
     <ClCompile Include="ClientSettings.cpp" />
     <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="Credits.cpp" />
     <ClCompile Include="DatabaseAPI.cpp" />
     <ClCompile Include="Element.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="FrameLimiter.cpp" />
+    <ClCompile Include="GameLobby.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameModel.cpp" />
     <ClCompile Include="GridLayer.cpp" />
@@ -118,8 +120,10 @@
     <ClCompile Include="NetBroadcaster.cpp" />
     <ClCompile Include="NetClient.cpp" />
     <ClCompile Include="NetServer.cpp" />
+    <ClCompile Include="Options.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
+    <ClCompile Include="Page.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBase.cpp" />
@@ -147,6 +151,7 @@
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="Tooltip.cpp" />
     <ClCompile Include="Tower.cpp" />
+    <ClCompile Include="ViewGames.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
@@ -171,8 +176,10 @@
     <ClInclude Include="Command_CreateNewGame.h" />
     <ClInclude Include="Command_ServerReceive.h" />
     <ClInclude Include="Command_UpdateMinions.h" />
+    <ClInclude Include="Credits.h" />
     <ClInclude Include="DatabaseAPI.h" />
     <ClInclude Include="FrameLimiter.h" />
+    <ClInclude Include="GameLobby.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameModel.h" />
     <ClInclude Include="Gamestate.h" />
@@ -184,6 +191,7 @@
     <ClInclude Include="GuiProjectile.h" />
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Options.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="TestLocalDB.h" />
     <ClInclude Include="IngamePause.h" />
@@ -200,11 +208,9 @@
     <ClInclude Include="ServerCommand.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="ConnectionException.h" />
-    <ClInclude Include="Credits.h" />
     <ClInclude Include="DataDefinitions.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="GameLobby.h" />
     <ClInclude Include="GuiGridLayer.h" />
     <ClInclude Include="GridNode.h" />
     <ClInclude Include="GuiGridSquare.h" />
@@ -219,7 +225,6 @@
     <ClInclude Include="LoginPopup.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionPath.h" />
-    <ClInclude Include="Options.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Projectile.h" />

@@ -5,8 +5,13 @@
 class MainMenu :
 	public Page
 {
-public:
+protected:
 	MainMenu();
+
+	static MainMenu* instance;
+
+public:
+	static MainMenu* GetInstance();
 	~MainMenu();
 
 
