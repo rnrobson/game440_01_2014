@@ -36,6 +36,7 @@ void Options::Load()
 
 	//add font
 	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
+	ClientAPI::AddAudio("BtnAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/btnClick.ogg"));
 	API_Util::AddFont("OGWEAR", "Resources/Fonts/OGWEAR.ttf", 36);
 	API_Util::AddFont("Systema_11", "Resources/Fonts/9SYSTEMA.ttf", 11);
 	API_Util::AddFont("Systema_22", "Resources/Fonts/9SYSTEMA.ttf", 22);
@@ -46,7 +47,8 @@ void Options::Load()
 	API_Util::AddColor("Red", 255, 0, 0, 255);
 
 	ClientAPI::GetGuiContainer("Options")->SetBackgroundAudio(ClientAPI::GetAudio("OptionsAudio"));
-	ClientAPI::GetGuiContainer("Options")->Play();
+	ClientAPI::GetGuiContainer("Options")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
+	ClientAPI::GetGuiContainer("Options")->MusicPlay();
 
 	//add textures
 	API_Util::AddTexture("GameLogo", "Resources/Images/ManaCraft.png", API_Util::PNG);
@@ -79,6 +81,9 @@ void Options::Load()
 	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->AddGuiElement("SfxSlider", new Slider(APIHelper::RectHelper(410, 530, 200, 20),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 0, 0, 255)),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 255, 255, 255))));
+
+	//ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->OnMouseUp();
+	//ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("sfxSlider")->SubscribeOnMouseClick(setSfxVolume);
 
 	//add labels
 
@@ -136,12 +141,25 @@ void Options::OnEscapePressed()
 }
 
 void Options::ReturnToMainMenu() {
+	ClientAPI::GetGuiContainer("Options")->Sfx1Play();
 	ClientAPI::GetGuiContainer("Options")->Active = false;
 	ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 	ScreenFader::FadeOut();
 }
 
 void Options::MuteAll() {
+	ClientAPI::GetGuiContainer("Options")->Sfx1Play();
 	APIHelper::ToggleAllAudio();
 	printf("Mute Button Pressed");
+}
+
+void setMusicVolume() {
+	int newMusicVolume = ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->Value();
+	APIHelper::SetMusicVolume(newMusicVolume);
+	printf("TEST");
+}
+
+void setSfxVolume() {
+	int newSfxVolume = ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("SfxSlider")->Value();
+	APIHelper::SetSoundEffect1Volume(newSfxVolume);
 }

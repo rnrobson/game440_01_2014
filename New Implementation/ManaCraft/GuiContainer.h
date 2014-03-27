@@ -23,6 +23,8 @@ private:
 	std::map<std::string, GuiElement*> guiElements;
 
 	Mix_Chunk* music;
+	Mix_Chunk* sfx1;
+	Mix_Chunk* sfx2;
 
 	SDL_Rect position;
 
@@ -41,8 +43,16 @@ public:
 	~GuiContainer() { CleanMemory(); GuiObject::~GuiObject(); }
 
 	void SetBackgroundAudio(Mix_Chunk* _music) { music = _music; }
-	void Play() { if (music != nullptr) Mix_PlayChannel(AudioChannel::MusicChannel, music, -1); }
-	void Pause(){ Mix_Pause(AudioChannel::MusicChannel); }
+	void MusicPlay() { if (music != nullptr) Mix_PlayChannel(AudioChannel::MusicChannel, music, -1); }
+	void MusicPause(){ Mix_Pause(AudioChannel::MusicChannel); }
+
+	void SetSfx1Audio(Mix_Chunk* _sfx1) { sfx1 = _sfx1; }
+	void Sfx1Play() { if (sfx1 != nullptr) Mix_PlayChannel(AudioChannel::SoundEffectChannel1, sfx1, 0); }
+	void Sfx1Pause(){ Mix_Pause(AudioChannel::SoundEffectChannel1); }
+
+	void SetSfx2Audio(Mix_Chunk* _sfx2) { sfx2 = _sfx2; }
+	void Sfx2Play() { if (sfx2 != nullptr) Mix_PlayChannel(AudioChannel::SoundEffectChannel2, sfx2, 0); }
+	void Sfx2Pause(){ Mix_Pause(AudioChannel::SoundEffectChannel2); }
 
 #pragma region Adds
 	void AddGuiContainer(std::string _key, GuiContainer* _guiContainer)

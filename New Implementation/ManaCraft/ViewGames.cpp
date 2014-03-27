@@ -39,6 +39,7 @@ void ViewGames::Load()
 	TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
 	TTF_Font *systemaLarge = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 30);
 
+	ClientAPI::AddAudio("BtnAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/btnClick.ogg"));
 	ClientAPI::AddFont("Systema", systema);
 	ClientAPI::AddFont("SystemaL", systemaLarge);
 
@@ -130,6 +131,8 @@ void ViewGames::Load()
 	ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 	ClientAPI::GetGuiContainer("ViewGames")->GetButton("BackBtn")->SubscribeOnMouseClick(ViewGames::Click_backButton);
 
+	ClientAPI::GetGuiContainer("ViewGames")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
+
 	ClientAPI::GetGuiContainer("ViewGames")->Active = false;
 
 	ClientAPI::GetGuiContainer("ViewGames")->SubscribeOnEscapeKeyPressed(ViewGames::Click_backButton);
@@ -162,6 +165,7 @@ void ViewGames::OnEscapePressed()
 void ViewGames::Click_checkbox()
 {
 	std::cout << "Fetch new values for Game List.\n";
+	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 	Click_refresh();
 	//Get new values for games list
 }
@@ -169,16 +173,19 @@ void ViewGames::Click_checkbox()
 void ViewGames::Click_join()
 {
 	std::cout << "Join game.\n";
+	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 }
 
 void ViewGames::Click_refresh()
 {
 	std::cout << "Refresh games.\n";
+	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 }
 
 void ViewGames::Click_backButton()
 {
 	std::cout << "Back to main menu.\n";
+	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 	ClientAPI::GetGuiContainer("ViewGames")->Active = false;
 	ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 	ScreenFader::FadeOut();
@@ -187,6 +194,7 @@ void ViewGames::Click_backButton()
 void ViewGames::Click_createGameButton()
 {
 	std::cout << "Go To Game Lobby.\n";
+	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 	ClientAPI::GetGuiContainer("ViewGames")->Active = false;
 	ClientAPI::GetGuiContainer("GameLobby")->Active = true;
 	ScreenFader::FadeOut();
