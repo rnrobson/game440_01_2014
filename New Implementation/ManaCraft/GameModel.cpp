@@ -278,6 +278,7 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 	using namespace ManaCraft::Database;
 
 	GameModel* temp = new GameModel();
+	temp->id = _id;
 
 	try {
 		Query query = DatabaseAPI::getQuery();
@@ -290,7 +291,7 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 
 		if (result = query.use()) {
 			if (row = result.fetch_row()) {
-				temp->id = atoi(row[TableInfo::Game::ID].c_str());	// Assign game ID
+				// ASSIGN VALUES HERE once there is something to assign
 			}
 			else {
 				throw DatabaseAPI::IDNotFoundException();

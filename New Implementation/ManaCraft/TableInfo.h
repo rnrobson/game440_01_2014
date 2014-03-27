@@ -97,6 +97,13 @@ namespace ManaCraft {
 				const static unsigned char PLAYER_ID		 = 1;
 			};
 
+			const struct Player {
+			public:
+				static std::string TABLE_NAME() { return "Player"; }
+				const static unsigned char ID = 0;
+				const static unsigned char Name = 1;
+			};
+
 		};
 
 	}

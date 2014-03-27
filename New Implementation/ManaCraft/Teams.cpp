@@ -107,8 +107,12 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 	
 	// Create teams
 	Teams* temp = new Teams();
+
 	temp->Team1 = vector<ServerPlayer*>();
+	temp->team1ID = _team1ID;
+
 	temp->Team2 = vector<ServerPlayer*>();
+	temp->team2ID = _team2ID;
 
 	try {
 		Query query = DatabaseAPI::getQuery();
@@ -128,7 +132,7 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 						ServerPlayer* player;
 						int playerID = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());
 
-						//player = ServerPlayer::LoadPlayerByID(playerID);
+						player = ServerPlayer::LoadPlayerByID(playerID);
 
 						if (i == 0) {
 							temp->Team1.push_back(player);
