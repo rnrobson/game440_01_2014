@@ -214,7 +214,7 @@ namespace ManaCraft {
 			/// </summary>
 			SEND_LOBBY_MSG,
 			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
-			/// <para>Data: [1] Username Length, [n] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message</para>
+			/// <para>Data: [1] Username Length, [1] Username Length (R), [1] Message Length, [N] Username (S), [N] Username (R), [N] Message</para>
 			/// </summary>
 			SEND_WHISPER,
 		

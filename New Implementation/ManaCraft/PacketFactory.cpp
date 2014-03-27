@@ -139,13 +139,13 @@ CommandPacket::CommandPacket(const Networking::Packet* packet) : Packet(*packet)
 #pragma region CS Packet Constructors
 
 CloseGamePacket::CloseGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
+	__int8 usernameLength = 0;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
-	__int16 len = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	__int16 len = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 	std::cout << "Username Length: " << len << std::endl;
 
 	char* name = new char[len + 1];
@@ -159,48 +159,48 @@ CloseGamePacket::CloseGamePacket(const Networking::Packet* packet) : CommandPack
 }
 
 LoginPlayerPacket::LoginPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
+	__int8 usernameLength = 0;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
-	__int16 len = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-	std::cout << "Username Length: " << len << std::endl;
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << std::endl;
 
-	char* name = new char[len + 1];
-	for(int i = 0; i < len; ++i) {
+	char* name = new char[usernameLength + 1];
+	for(int i = 0; i < usernameLength; ++i) {
 		name[i] = data[index];
 		++index;
 	}
-	name[len] = '\0';
+	name[usernameLength] = '\0';
 
 	username.append(name);
 }
 
 LogoutPlayerPacket::LogoutPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
+	__int8 usernameLength = 0;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
-	__int16 len = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-	std::cout << "Username Length: " << len << std::endl;
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << std::endl;
 
-	char* name = new char[len + 1];
-	for (int i = 0; i < len; ++i) {
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; ++i) {
 		name[i] = data[index];
 		++index;
 	}
-	name[len] = '\0';
+	name[usernameLength] = '\0';
 
 	username.append(name);
 }
 
 SendMessageIGPacket::SendMessageIGPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
-	__int16 messageLength = 0;
+	__int8 usernameLength = 0;
+	__int8 messageLength = 0;
 	gameID = 0;
 
 	unsigned int index = 0;
@@ -209,11 +209,11 @@ SendMessageIGPacket::SendMessageIGPacket(const Networking::Packet* packet) : Com
 	gameID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
 
-	usernameLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
-	messageLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
 	char* name = new char[usernameLength + 1];
 	for (int i = 0; i < usernameLength; ++i) {
@@ -235,8 +235,8 @@ SendMessageIGPacket::SendMessageIGPacket(const Networking::Packet* packet) : Com
 }
 
 SendMessageGLPacket::SendMessageGLPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
-	__int16 messageLength = 0;
+	__int8 usernameLength = 0;
+	__int8 messageLength = 0;
 	lobbyID = 0;
 
 	unsigned int index = 0;
@@ -245,11 +245,11 @@ SendMessageGLPacket::SendMessageGLPacket(const Networking::Packet* packet) : Com
 	lobbyID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
 
-	usernameLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
-	messageLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
 	char* name = new char[usernameLength + 1];
 	for (int i = 0; i < usernameLength; ++i) {
@@ -271,26 +271,28 @@ SendMessageGLPacket::SendMessageGLPacket(const Networking::Packet* packet) : Com
 }
 
 SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 sendingUserLength = 0;
-	__int16 receivingUserLength = 0;
-	__int16 messageLength = 0;
+	__int8 sendingUserLength = 0;
+	__int8 receivingUserLength = 0;
+	__int8 messageLength = 0;
 	gameID = 0;
 	teamID = 0;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
+	/* i don't see this in the protocol
 	gameID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
+	*/
+	
+	sendingUserLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
-	sendingUserLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	receivingUserLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
-	receivingUserLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-
-	messageLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
 	char* sendingName = new char[sendingUserLength + 1];
 	for (int i = 0; i < sendingUserLength; ++i) {
@@ -321,8 +323,8 @@ SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : Command
 }
 
 SendPartyMsgIGPacket::SendPartyMsgIGPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
-	__int16 messageLength = 0;
+	__int8 usernameLength = 0;
+	__int8 messageLength = 0;
 	gameID = 0;
 	teamID = 0;
 
@@ -335,11 +337,11 @@ SendPartyMsgIGPacket::SendPartyMsgIGPacket(const Networking::Packet* packet) : C
 	teamID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
 
-	usernameLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
-	messageLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
 	char* name = new char[usernameLength + 1];
 	for (int i = 0; i < usernameLength; ++i) {
@@ -361,8 +363,8 @@ SendPartyMsgIGPacket::SendPartyMsgIGPacket(const Networking::Packet* packet) : C
 }
 
 SendPartyMsgGLPacket::SendPartyMsgGLPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int16 usernameLength = 0;
-	__int16 messageLength = 0;
+	__int8 usernameLength = 0;
+	__int8 messageLength = 0;
 	lobbyID = 0;
 
 	unsigned int index = 0;
@@ -371,11 +373,11 @@ SendPartyMsgGLPacket::SendPartyMsgGLPacket(const Networking::Packet* packet) : C
 	lobbyID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
 
-	usernameLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
-	messageLength = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
 	char* name = new char[usernameLength + 1];
 	for (int i = 0; i < usernameLength; ++i) {
@@ -401,7 +403,8 @@ RefreshGamesPacket::RefreshGamesPacket(const Networking::Packet* packet) : Comma
 }
 
 JoinGamePacket::JoinGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	GameID = Networking::Deserialize::Int16(data, 0);
 }
 
 CreateGamePacket::CreateGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -410,22 +413,99 @@ CreateGamePacket::CreateGamePacket(const Networking::Packet* packet) : CommandPa
 
 JoinTeamPacket::JoinTeamPacket(const Networking::Packet* packet) : CommandPacket(packet) {
 
+	__int8 usernameLength;
+
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData;
+
+	lobbyID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	teamID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength;i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 LeaveGamePacket::LeaveGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
 
+	__int8 usernameLength;
+
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	lobbyID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++){
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 BenchPlayerPacket::BenchPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	lobbyID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++){
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 ReadyStatusPacket::ReadyStatusPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	status = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++){
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 DisbandGamePacket::DisbandGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	gameID = Networking::Deserialize::Int16(data, 0);
 }
 
 SetGameplayOptionsPacket::SetGameplayOptionsPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -433,7 +513,30 @@ SetGameplayOptionsPacket::SetGameplayOptionsPacket(const Networking::Packet* pac
 }
 
 PlaceTowerPacket::PlaceTowerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	towerID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	gridspace = Networking::Deserialize::Int32(data, index);
+	index += sizeof(__int32);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 SummonMinionPacket::SummonMinionPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -473,33 +576,238 @@ QuitGamePacket::QuitGamePacket(const Networking::Packet* packet) : CommandPacket
 #pragma region SC Packet Constructors
 
 ClientLostPacket::ClientLostPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 ClientRejoinPacket::ClientRejoinPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 ReturnLoginStatusPacket::ReturnLoginStatusPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
+
+	successStatus = Networking::Deserialize::Int8(data, index);
 
 }
 
 BroadcastMessageInGamePacket::BroadcastMessageInGamePacket(const Packet* packet) : CommandPacket(packet) {
 
+	__int8 usernameLength;
+	__int8 messageLength;
+	
+	//get username length and fill the username
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
+
+	//get message length and fill the message
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* messagetemp = new char[messageLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		messagetemp[i] = data[index];
+		index++;
+	}
+	messagetemp[messageLength] = '\0';
+	message.append(name);
 }
 
 BroadcastMessageGameLobbyPacket::BroadcastMessageGameLobbyPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	__int8 messageLength;
 
+	//get username length and fill the username
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
+
+	//get message length and fill the message
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* messagetemp = new char[messageLength + 1];
+	for (int i = 0; i < messageLength; i++)
+	{
+		messagetemp[i] = data[index];
+		index++;
+	}
+	messagetemp[messageLength] = '\0';
+	message.append(name);
 }
 
 DisplayWhisperPacket::DisplayWhisperPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	__int8 recipentUsernameLength;
 
+	//get username length and fill the username
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
+
+	//get reciever length and fill the recipents username
+	recipentUsernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* recipent = new char[recipentUsernameLength + 1];
+	for (int i = 0; i < recipentUsernameLength; i++)
+	{
+		recipent[i] = data[index];
+		index++;
+	}
+	recipent[recipentUsernameLength] = '\0';
+	receiver.append(name);
 }
 
 BroadcastPartyMessageInGamePacket::BroadcastPartyMessageInGamePacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	__int8 messageLength;
 
+	//get username length and fill the username
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
+
+	//get message length and fill the message
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* messagetemp = new char[messageLength + 1];
+	for (int i = 0; i < messageLength; i++)
+	{
+		messagetemp[i] = data[index];
+		index++;
+	}
+	messagetemp[messageLength] = '\0';
+	message.append(name);
 }
 
+BroadcastPartyMessageGameLobbyPacket::BroadcastPartyMessageGameLobbyPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	__int8 messageLength;
+
+	//get username length and fill the username
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
+
+	//get message length and fill the message
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* messagetemp = new char[messageLength + 1];
+	for (int i = 0; i < messageLength; i++)
+	{
+		messagetemp[i] = data[index];
+		index++;
+	}
+	messagetemp[messageLength] = '\0';
+	message.append(name);
+}
 
 
 PopulateGamesPacket::PopulateGamesPacket(const Packet* packet) : CommandPacket(packet) {
@@ -507,11 +815,21 @@ PopulateGamesPacket::PopulateGamesPacket(const Packet* packet) : CommandPacket(p
 }
 
 ReturnJoinGameStatusPacket::ReturnJoinGameStatusPacket(const Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
+	joinedGame = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	gameID = Networking::Deserialize::Int32(data, index);
 }
 
 ReturnCreatedGamePacket::ReturnCreatedGamePacket(const Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
+	createdGame = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	gameID = Networking::Deserialize::Int32(data, index);
 }
 
 RefreshLobbyPacket::RefreshLobbyPacket(const Packet* packet) : CommandPacket(packet) {
@@ -519,7 +837,8 @@ RefreshLobbyPacket::RefreshLobbyPacket(const Packet* packet) : CommandPacket(pac
 }
 
 ReturnDisbandGamePacket::ReturnDisbandGamePacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	disbanded = Networking::Deserialize::Int8(data, 0);
 }
 
 BroadcastDisbandGamePacket::BroadcastDisbandGamePacket(const Packet* packet) : CommandPacket(packet) {
@@ -527,71 +846,154 @@ BroadcastDisbandGamePacket::BroadcastDisbandGamePacket(const Packet* packet) : C
 }
 
 ReturnJoinTeamPacket::ReturnJoinTeamPacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	joined = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnBenchPlayerPacket::ReturnBenchPlayerPacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	benched = Networking::Deserialize::Int8(data, 0);
 }
 
 UpdateGameplayOptionsPacket::UpdateGameplayOptionsPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 MinionSummonedPacket::MinionSummonedPacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	minionSummoned = Networking::Deserialize::Int8(data, 0);
 }
 
 BroadcastSummonMinionPacket::BroadcastSummonMinionPacket(const Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
+	minionType = Networking::Deserialize::Int8(data, 0);
+	index += sizeof(__int8);
+	posX = Networking::Deserialize::Int8(data, 0);
+	index += sizeof(__int8);
+	posY = Networking::Deserialize::Int8(data, 0);
+	index += sizeof(__int8);
+	teamID = Networking::Deserialize::Int8(data, 0);
 }
 
 TowerPlacedPacket::TowerPlacedPacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	towerPlaced = Networking::Deserialize::Int8(data, 0);
 }
 
 BroadcastTowerPlacedPacket::BroadcastTowerPlacedPacket(const Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
+	towerType = Networking::Deserialize::Int8(data, 0);
+	index += sizeof(__int8);
+	posX = Networking::Deserialize::Int8(data, 0);
+	index += sizeof(__int8);
+	posY = Networking::Deserialize::Int8(data, 0);
+	index += sizeof(__int8);
+	teamID = Networking::Deserialize::Int8(data, 0);
 }
 
 UpdateEconomyPacket::UpdateEconomyPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
+
+	economyValue = Networking::Deserialize::Int8(data, index);
 
 }
 
 UpdateBaseHealthPacket::UpdateBaseHealthPacket(const Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
+	teamID = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	hpValue = Networking::Deserialize::Int8(data, index);
 }
 
 AssignResourceNodePacket::AssignResourceNodePacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	resourceAssigned = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnResearchMinionPacket::ReturnResearchMinionPacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	minionResearched = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnResearchTowerPacket::ReturnResearchTowerPacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	towerResearched = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnKickStatusPacket::ReturnKickStatusPacket(const Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+	username.append(name);
 }
 
 ReturnPauseGamePacket::ReturnPauseGamePacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	paused = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnEndGamePacket::ReturnEndGamePacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	ended = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnResumeGamePacket::ReturnResumeGamePacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	resumed = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnQuitGamePacket::ReturnQuitGamePacket(const Packet* packet) : CommandPacket(packet) {
-
+	std::vector<char> data = packet->GetData();
+	quit = Networking::Deserialize::Int8(data, 0);
 }
 
 
