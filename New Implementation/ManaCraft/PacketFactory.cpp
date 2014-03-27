@@ -416,7 +416,7 @@ JoinTeamPacket::JoinTeamPacket(const Networking::Packet* packet) : CommandPacket
 	__int8 usernameLength;
 
 	unsigned int index = 0;
-	std::vector<char> data = packet->GetData;
+	std::vector<char> data = packet->GetData();
 
 	lobbyID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
