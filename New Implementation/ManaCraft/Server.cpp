@@ -1,12 +1,7 @@
 #include "Server.h"
 #include "PacketFactory.h"
 
-BlockingQueue<CommandPacket*> InitQueue()
-{
-	BlockingQueue<CommandPacket*> temp;
-	return temp;
-}
-BlockingQueue<CommandPacket*> Server::workQueue(InitQueue());
+BlockingQueue<CommandPacket*> Server::workQueue;
 
 Server::Server()
 {
@@ -107,7 +102,7 @@ void Server::Init()
 	elapsedTime = 0;
 
 	gameManager = new GameManager();
-
+	workCrew = new ThreadPool(1);
 	CommandPacket* newGameCMD = new Command_CreateNewGame(1);
 	Server::AddWork(newGameCMD);
 
@@ -123,7 +118,7 @@ void Server::Update() {
 }
 void Server::AddWork(CommandPacket* command)
 {
-	Server::workQueue.push(command);
+	workQueue.push(command);
 }
 
 void Server::Shutdown()

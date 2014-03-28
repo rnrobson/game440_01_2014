@@ -28,7 +28,7 @@ private:
 	static BlockingQueue<CommandPacket*> workQueue;
 
 	GameManager* gameManager;
-	//ThreadPool* workCrew;
+	ThreadPool* workCrew; //obsolte - use Server::AddWork()
 	LocalDB* localDB;
 
 	const uint numWorkers = 3;
