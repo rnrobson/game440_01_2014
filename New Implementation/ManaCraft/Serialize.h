@@ -3,11 +3,146 @@
 
 #include <vector>
 #include <cassert>
+#include <iostream>
 
 namespace ManaCraft {
 	namespace Networking {
 		/// <summary>
-		/// Provides tools to data into arrays of characters.
+		/// Provides a clean and abstracted interface for simple serialization and deserialization.
+		/// </summary>
+		class Serializer {
+		public:
+			/// <summary>
+			/// Represents where the data will be serialized to, or deserialized from.
+			/// </summary>
+			std::vector<char> mBytes;
+
+
+			/// <summary> Converts an 8 bit integer into 1 char(s) and adds it to the container of characters.
+			/// <para>[__int8 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const __int8 num);
+
+			/// <summary> Converts an unsigned 8 bit integer into 1 char(s) and adds it to the container of characters.
+			/// <para>[unsigned __int8 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const unsigned __int8 num);
+
+			/// <summary> Converts an 16 bit integer into 2 char(s) and adds it to the container of characters.
+			/// <para>[__int16 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const __int16 num);
+
+			/// <summary> Converts an unsigned 16 bit integer into 2 char(s) and adds it to the container of characters.
+			/// <para>[unsigned __int16 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const unsigned __int16 num);
+
+			/// <summary> Converts an 32 bit integer into 4 char(s) and adds it to the container of characters.
+			/// <para>[__int32 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const __int32 num);
+
+			/// <summary> Converts an unsigned 32 bit integer into 4 char(s) and adds it to the container of characters.
+			/// <para>[unsigned __int32 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const unsigned __int32 num);
+
+			/// <summary> Converts an 64 bit integer into 8 char(s) and adds it to the container of characters.
+			/// <para>[__int64 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const __int64 num);
+
+			/// <summary> Converts an unsigned 64 bit integer into 8 char(s) and adds it to the container of characters.
+			/// <para>[unsigned __int64 num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const unsigned __int64 num);
+
+			/// <summary> Converts an 32 bit floating point type into 4 char(s) and adds it to the container of characters.
+			/// <para>[float num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const float num);
+
+			/// <summary> Converts an 64 bit floating point type into 8 char(s) and adds it to the container of characters.
+			/// <para>[double num] Represents the number that will be converted and added to the container of characters.</para>
+			/// </summary>
+			Serializer& operator<<(const double num);
+
+
+			/// <summary> Converts the 1 char(s) at the top of the container into an 8 bit integer removing it.
+			/// <para>[__int8 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(__int8& num);
+
+			/// <summary> Converts the 1 char(s) at the top of the container into an unsigned 8 bit integer removing it.
+			/// <para>[unsigned __int8 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(unsigned __int8& num);
+
+			/// <summary> Converts the 2 char(s) at the top of the container into an 16 bit integer removing it.
+			/// <para>[__int16 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(__int16& num);
+
+			/// <summary> Converts the 2 char(s) at the top of the container into an unsigned 16 bit integer removing it.
+			/// <para>[unsigned __int16 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(unsigned __int16& num);
+
+			/// <summary> Converts the 4 char(s) at the top of the container into an 32 bit integer removing it.
+			/// <para>[__int32 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(__int32& num);
+
+			/// <summary> Converts the 4 char(s) at the top of the container into an unsigned 32 bit integer removing it.
+			/// <para>[unsigned __int32 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(unsigned __int32& num);
+
+			/// <summary> Converts the 8 char(s) at the top of the container into an 64 bit integer removing it.
+			/// <para>[__int64 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(__int64& num);
+
+			/// <summary> Converts the 8 char(s) at the top of the container into an unsigned 32 bit integer removing it.
+			/// <para>[unsigned __int64 num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(unsigned __int64& num);
+
+			/// <summary> Converts the 4 char(s) at the top of the container into an 32 bit floating point type removing it.
+			/// <para>[float num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(float& num);
+
+			/// <summary> Converts the 8 char(s) at the top of the container into an 64 bit floating point type before removing it.
+			/// <para>[double num] Represents the number that will be set in the function.</para>
+			/// <para>[WARNING] This function asserts that the vector is at least of size sizeof(num)</para>
+			/// </summary>
+			Serializer& operator>>(double& num);
+
+		private:
+			/// <summary> Adds characters to the top of the container for later use.
+			/// <para>[unsigned int num] Represents how many characters will be added to the top of the container.</para>
+			/// </summary>
+			void AddSpace(const unsigned int num);
+
+			/// <summary> Removes characters from the top of the container.
+			/// <para>[unsigned int num] Represents how many characters will be removed from the top of the container.</para>
+			/// </summary>
+			void RemoveSpace(const unsigned int num);
+		};
+
+		/// <summary>
+		/// Provides tools to convert data into arrays of characters.
 		/// </summary>
 		class Serialize {
 		public:
@@ -16,7 +151,7 @@ namespace ManaCraft {
 			/// <para>[__int8 num] Num represents a 8 bit integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(__int8) for convenience.</returns>
 			/// </summary>
-			static char* Int8(char* data, __int8 num);
+			static char* Int8(char* data, const __int8 num);
 
 			/// <summary> Converts a 8 bit integer into 1 char and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -31,7 +166,7 @@ namespace ManaCraft {
 			/// <para>[unsigned __int8 num] Num represents a 8 bit unsigned integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(unsigned __int8) for convenience.</returns>
 			/// </summary>
-			static char* UInt8(char* data, unsigned __int8 num);
+			static char* UInt8(char* data, const unsigned __int8 num);
 
 			/// <summary> Converts a 8 bit unsigned integer into 1 char and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -46,7 +181,7 @@ namespace ManaCraft {
 			/// <para>[__int16 num] Num represents a 16 bit integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(__int16) for convenience.</returns>
 			/// </summary>
-			static char* Int16(char* data, __int16 num);
+			static char* Int16(char* data, const __int16 num);
 
 			/// <summary> Converts a 16 bit integer into 2 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -61,7 +196,7 @@ namespace ManaCraft {
 			/// <para>[unsigned __int16 num] Num represents a 16 bit unsigned integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(unsigned __int16) for convenience.</returns>
 			/// </summary>
-			static char* UInt16(char* data, unsigned __int16 num);
+			static char* UInt16(char* data, const unsigned __int16 num);
 
 			/// <summary> Converts a 16 bit unsigned integer into 2 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -76,7 +211,7 @@ namespace ManaCraft {
 			/// <para>[__int32 num] Num represents a 32 bit integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(__int32) for convenience.</returns>
 			/// </summary>
-			static char* Int32(char* data, __int32 num);
+			static char* Int32(char* data, const __int32 num);
 
 			/// <summary> Converts a 32 bit integer into 4 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -91,7 +226,7 @@ namespace ManaCraft {
 			/// <para>[unsigned __int32 num] Num represents a 32 bit unsigned integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(unsigned __int32) for convenience.</returns>
 			/// </summary>
-			static char* UInt32(char* data, unsigned __int32 num);
+			static char* UInt32(char* data, const unsigned __int32 num);
 
 			/// <summary> Converts a 32 bit unsigned integer into 4 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -106,7 +241,7 @@ namespace ManaCraft {
 			/// <para>[__int64 num] Num represents a 64 bit integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(__int64) for convenience.</returns>
 			/// </summary>
-			static char* Int64(char* data, __int64 num);
+			static char* Int64(char* data, const __int64 num);
 
 			/// <summary> Converts a 64 bit integer into 8 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -121,7 +256,7 @@ namespace ManaCraft {
 			/// <para>[__int64 num] Num represents a 64 bit unsigned integer.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(unsigned __int64) for convenience.</returns>
 			/// </summary>
-			static char* UInt64(char* data, unsigned __int64 num);
+			static char* UInt64(char* data, const unsigned __int64 num);
 
 			/// <summary> Converts a 64 bit unsigned integer into 8 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -136,7 +271,7 @@ namespace ManaCraft {
 			/// <para>[float num] Num represents a 32 bit floating point number.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(float) for convenience.</returns>
 			/// </summary>
-			static char* Float(char* data, float num);
+			static char* Float(char* data, const float num);
 
 			/// <summary> Converts a 32 bit floating point type into 4 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>
@@ -151,7 +286,7 @@ namespace ManaCraft {
 			/// <para>[double num] Num represents a 64 bit floating point number.</para>
 			/// <returns>[Returns] a pointer to the data that's been incremented by the sizeof(double) for convenience.</returns>
 			/// </summary>
-			static char* Double(char* data, double num);
+			static char* Double(char* data, const double num);
 
 			/// <summary> Converts a 64 bit floating point type into 8 chars and stores it at the specified index in the provided vector of chars.
 			/// <para>[std::vector char buffer] Buffer should point to a valid char vector.</para>

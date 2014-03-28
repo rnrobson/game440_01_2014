@@ -1,4 +1,4 @@
-#define CLIENT_BUILD 1
+#define CLIENT_BUILD 0
 #define SERVER_BUILD 0
 
 
@@ -25,6 +25,7 @@ void TransferControlToServer();
 #if !CLIENT_BUILD && !SERVER_BUILD
 #include "TestDatabase.h"
 #include "TestLocalDB.h"
+#include "Serialize.h"
 #endif
 
 int main(int argc, char* argcs[]) {
@@ -49,12 +50,12 @@ int main(int argc, char* argcs[]) {
 		std::cout << "SDLNET_Init failed." << std::endl;
 	}
 
-	ManaCraft::Testbed::TestLocalDB *testLocalDB;
+	/*ManaCraft::Testbed::TestLocalDB *testLocalDB;
 	testLocalDB = new ManaCraft::Testbed::TestLocalDB(10);
 
 	testLocalDB->Run();
 
-	delete testLocalDB;
+	delete testLocalDB;*/
 
 	SDLNet_Quit();
 	TTF_Quit();
