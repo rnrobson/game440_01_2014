@@ -127,6 +127,7 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBase.cpp" />
+    <ClCompile Include="PlayerInfoTable.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Resistances.cpp" />
     <ClCompile Include="ScreenFader.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Message.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="Page.h" />
+    <ClInclude Include="PlayerInfoTable.h" />
     <ClInclude Include="TestLocalDB.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />

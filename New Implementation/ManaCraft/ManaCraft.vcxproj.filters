@@ -303,6 +303,9 @@
     <ClCompile Include="ViewGames.cpp">
       <Filter>Source Files\Client\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerInfoTable.cpp">
+      <Filter>Source Files\Server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -619,6 +622,9 @@
     </ClInclude>
     <ClInclude Include="Message.h">
       <Filter>Header Files\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInfoTable.h">
+      <Filter>Header Files\Server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
