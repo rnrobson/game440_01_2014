@@ -1,4 +1,4 @@
-#define CLIENT_BUILD 1
+#define CLIENT_BUILD 0
 #define SERVER_BUILD 0
 
 
@@ -49,19 +49,19 @@ int main(int argc, char* argcs[]) {
 		std::cout << "SDLNET_Init failed." << std::endl;
 	}
 
-	ManaCraft::Testbed::TestLocalDB *testLocalDB;
+	/*ManaCraft::Testbed::TestLocalDB *testLocalDB;
 	testLocalDB = new ManaCraft::Testbed::TestLocalDB(10);
 
 	testLocalDB->Run();
 
-	delete testLocalDB;
+	delete testLocalDB;*/
 
 	SDLNet_Quit();
 	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 
-	//ManaCraft::Database::TestDatabase::runTests();
+	ManaCraft::Database::TestDatabase::runTests();
 
 	std::cin.get();
 #endif

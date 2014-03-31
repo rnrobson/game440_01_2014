@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 21, 2014 at 01:33 AM
+-- Generation Time: Mar 27, 2014 at 08:08 PM
 -- Server version: 5.5.33
 -- PHP Version: 5.4.4-14+deb7u7
 
@@ -55,7 +55,31 @@ CREATE TABLE IF NOT EXISTS `Game` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+
+--
+-- Dumping data for table `Game`
+--
+
+INSERT INTO `Game` (`ID`, `Name`) VALUES
+(23, 'GameOfDEATH');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Game_Player_Towers`
+--
+
+CREATE TABLE IF NOT EXISTS `Game_Player_Towers` (
+  `GameID` int(10) unsigned NOT NULL,
+  `PlayerID` int(10) unsigned NOT NULL,
+  `TowerID` int(10) unsigned NOT NULL,
+  `xPos` int(10) unsigned NOT NULL,
+  `yPos` int(10) unsigned NOT NULL,
+  KEY `GameID` (`GameID`,`PlayerID`,`TowerID`),
+  KEY `PlayerID` (`PlayerID`),
+  KEY `TowerID` (`TowerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -69,6 +93,14 @@ CREATE TABLE IF NOT EXISTS `Game_Teams` (
   KEY `GameID` (`GameID`,`TeamID`),
   KEY `TeamID` (`TeamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Game_Teams`
+--
+
+INSERT INTO `Game_Teams` (`GameID`, `TeamID`) VALUES
+(23, 1),
+(23, 2);
 
 -- --------------------------------------------------------
 
@@ -126,7 +158,15 @@ CREATE TABLE IF NOT EXISTS `Player` (
   `Name` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `Name` (`Name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+
+--
+-- Dumping data for table `Player`
+--
+
+INSERT INTO `Player` (`ID`, `Name`) VALUES
+(24, 'Rob'),
+(23, 'Vinny');
 
 -- --------------------------------------------------------
 
@@ -166,7 +206,17 @@ CREATE TABLE IF NOT EXISTS `Team` (
   `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Name` varchar(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `Team`
+--
+
+INSERT INTO `Team` (`ID`, `Name`) VALUES
+(1, 'Light'),
+(2, 'Dark'),
+(3, 'Light'),
+(4, 'Dark');
 
 -- --------------------------------------------------------
 
@@ -181,23 +231,25 @@ CREATE TABLE IF NOT EXISTS `Team_Players` (
   KEY `TeamID` (`TeamID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `Team_Players`
+--
+
+INSERT INTO `Team_Players` (`TeamID`, `PlayerID`) VALUES
+(1, 23),
+(2, 24);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `testTable`
+-- Table structure for table `Test_Table`
 --
 
-CREATE TABLE IF NOT EXISTS `testTable` (
-  `num` int(11) DEFAULT NULL,
-  `str` varchar(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `testTable`
---
-
-INSERT INTO `testTable` (`num`, `str`) VALUES
-(1, 'one');
+CREATE TABLE IF NOT EXISTS `Test_Table` (
+  `ID` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `Name` varchar(20) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -246,6 +298,14 @@ INSERT INTO `Towers` (`ID`, `Element`, `Name`, `Damage`, `Range`, `FiringRate`, 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `Game_Player_Towers`
+--
+ALTER TABLE `Game_Player_Towers`
+  ADD CONSTRAINT `Game_Player_Towers_ibfk_3` FOREIGN KEY (`TowerID`) REFERENCES `Towers` (`ID`),
+  ADD CONSTRAINT `Game_Player_Towers_ibfk_1` FOREIGN KEY (`GameID`) REFERENCES `Game` (`ID`),
+  ADD CONSTRAINT `Game_Player_Towers_ibfk_2` FOREIGN KEY (`PlayerID`) REFERENCES `Player` (`ID`);
 
 --
 -- Constraints for table `Game_Teams`
