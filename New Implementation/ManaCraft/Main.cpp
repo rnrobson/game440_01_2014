@@ -62,7 +62,7 @@ int main(int argc, char* argcs[]) {
 	IMG_Quit();
 	SDL_Quit();
 
-	//ManaCraft::Database::TestDatabase::runTests();
+	ManaCraft::Database::TestDatabase::runTests();
 
 	std::cin.get();
 #endif
