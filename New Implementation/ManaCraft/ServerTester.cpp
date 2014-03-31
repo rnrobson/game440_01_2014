@@ -223,13 +223,22 @@ void ServerTester::Test_ServerLobby(ThreadPool *workCrew)
 	//Initial info:
 	printf("\n TeamSize: %i", serverLobby->teams.MaxPlayers / 2);
 	printf("\n MaxPlayers: %i", serverLobby->teams.MaxPlayers);
-	printLobbyState(serverLobby, 1);
+	printLobbyState(serverLobby, 0);
 
 	//Tests:
 	serverLobby->EnterNewPlayer(new ServerPlayer());
-	printLobbyState(serverLobby, 2);
+	printLobbyState(serverLobby, 1);
+
 	serverLobby->ReadyPlayer(serverLobby->teams.Bench[0]);
+	printLobbyState(serverLobby, 2);
+
+	serverLobby->PlayerChangeTeam(serverLobby->teams.Bench[0], &serverLobby->teams.Team1);
+	serverLobby->ReadyPlayer(serverLobby->teams.Team1[0]);
+	serverLobby->ReadyPlayer(serverLobby->teams.Team1[0]);
 	printLobbyState(serverLobby, 3);
+
+	serverLobby->KickPlayer(serverLobby->teams.Team1[0]);
+	printLobbyState(serverLobby, 4);
 
 	//Testing Complete:
 	printf("\nServerLobby testing completed.\nPress Enter key to continue...\n");

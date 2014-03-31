@@ -27,8 +27,8 @@ void ServerLobby::StartGame()
 		CommandPacket *newGameCMD = new Command_CreateNewGame(gameID);
 		WorkCrew->addWork(newGameCMD);
 		//newGameCMD->Execute();
-		//CommandPacket *initNewGameCMD = new Command_InitializeNewGame(gameID, teams, host);
-		//WorkCrew->addWork(initNewGameCMD);
+		CommandPacket *initNewGameCMD = new Command_InitializeNewGame(gameID, &teams, host);
+		WorkCrew->addWork(initNewGameCMD);
 	}
 
 }
