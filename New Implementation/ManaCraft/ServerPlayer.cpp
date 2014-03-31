@@ -48,3 +48,25 @@ ServerPlayer* ServerPlayer::LoadPlayerByID(int _id) {
 	delete temp;
 	return nullptr;
 }
+
+void ServerPlayer::SavePlayer(unsigned int TeamID)
+{
+	using namespace ManaCraft::Database;
+
+	try {
+		Query query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "INSERT INTO Team_Players VALUES (" << TeamID << ", " << mysqlpp::quote << id << ")";
+		query.execute();
+
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+}

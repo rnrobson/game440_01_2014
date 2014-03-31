@@ -374,6 +374,41 @@ void GameModel::DeleteGame() {
 	}
 }
 
+void GameModel::SaveGame()
+{
+	using namespace ManaCraft::Database;
+
+	// Game Table
+	Query query = DatabaseAPI::getQuery();
+	query.clear();
+	query << "SELECT * FROM Game WHERE ID = " << mysqlpp::quote << id;
+
+	if (UseQueryResult result = query.use()) {
+		if (Row row = result.fetch_row()) {
+			DeleteGame();
+		}
+	}
+
+	try {
+		query = DatabaseAPI::getQuery();
+		query.clear();
+		query << "INSERT INTO Game VALUES(" << mysqlpp::quote << id << ", " << mysqlpp::quote << "Another Game" << ")";
+		query.execute();
+
+		teams->SaveTeams(id);
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+
+}
+
 void GameModel::LoadNextID() {
 	using namespace ManaCraft::Database;
 

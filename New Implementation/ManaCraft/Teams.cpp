@@ -193,3 +193,47 @@ void Teams::DeleteTeams() {
 		throw e;
 	}
 }
+
+void Teams::SaveTeams(unsigned int GameID) {
+	using namespace ManaCraft::Database;
+
+	try {
+		for (int i = 0; i < 2; ++i) {	// for each team
+			
+			Query query = DatabaseAPI::getQuery();
+			query.clear();
+			query << "INSERT INTO Team VALUES (" << mysqlpp::quote << (i == 0 ? this->team1ID : this->team2ID) << ", " << mysqlpp::quote << "Team LEEET" << ")";
+			query.execute();
+
+			query = DatabaseAPI::getQuery();
+			query.clear();
+			query << "INSERT INTO Game_Teams VALUES (" << mysqlpp::quote << GameID << ", " << mysqlpp::quote << (i == 0 ? this->team1ID : this->team2ID) << ")";
+			query.execute();
+
+			if (i == 0)
+			{
+				for (ServerPlayer* p : Team1)
+				{
+					p->SavePlayer(team1ID);
+				}
+			}
+			else
+			{
+				for (ServerPlayer* p : Team2)
+				{
+					p->SavePlayer(team2ID);
+				}
+			}
+		}
+
+	}
+	catch (mysqlpp::BadConversion e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (mysqlpp::BadIndex e) {
+		std::cout << e.what() << "\n";
+	}
+	catch (Exception e) {
+		throw e;
+	}
+}

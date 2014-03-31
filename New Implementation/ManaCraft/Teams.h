@@ -25,7 +25,7 @@ public:
 	void KickPlayer(ServerPlayer *player);
 
 	static Teams* LoadTeamsByIDs(int _team1ID, int _team2ID);
-	void SaveTeams();
+	void SaveTeams(unsigned int GameID);
 	void DeleteTeams();
 
 private:

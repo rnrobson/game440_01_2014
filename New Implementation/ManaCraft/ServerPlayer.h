@@ -17,5 +17,6 @@ public:
 	vector<ServerPlayer*> *Team;
 
 	static ServerPlayer* LoadPlayerByID(int _id);
+	void SavePlayer(unsigned int TeamID);
 };
 
