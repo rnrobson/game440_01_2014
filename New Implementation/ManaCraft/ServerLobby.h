@@ -5,6 +5,7 @@
 #include "Teams.h"
 #include "GameModel.h"
 #include "Command_CreateNewGame.h"
+#include "Command_InitializeNewGame.h"
 #include "ThreadPool.h"
 #include "GameManager.h"
 

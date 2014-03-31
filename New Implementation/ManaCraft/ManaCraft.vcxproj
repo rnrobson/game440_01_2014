@@ -175,6 +175,7 @@
     <ClInclude Include="ClientSettings.h" />
     <ClInclude Include="Command_ClientReceive.h" />
     <ClInclude Include="Command_CreateNewGame.h" />
+    <ClInclude Include="Command_InitializeNewGame.h" />
     <ClInclude Include="Command_ServerReceive.h" />
     <ClInclude Include="Command_UpdateMinions.h" />
     <ClInclude Include="Credits.h" />

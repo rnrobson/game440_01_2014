@@ -626,5 +626,8 @@
     <ClInclude Include="PlayerInfoTable.h">
       <Filter>Header Files\Server</Filter>
     </ClInclude>
+    <ClInclude Include="Command_InitializeNewGame.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

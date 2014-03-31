@@ -27,11 +27,8 @@ void ServerLobby::StartGame()
 		CommandPacket *newGameCMD = new Command_CreateNewGame(gameID);
 		WorkCrew->addWork(newGameCMD);
 		//newGameCMD->Execute();
-
-		GameModel *gameModel;
-		gameModel = GameManager::FindGame(gameID);
-		gameModel->teams = &teams;
-		gameModel->host = host;
+		//CommandPacket *initNewGameCMD = new Command_InitializeNewGame(gameID, teams, host);
+		//WorkCrew->addWork(initNewGameCMD);
 	}
 
 }
