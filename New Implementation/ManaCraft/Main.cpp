@@ -25,6 +25,7 @@ void TransferControlToServer();
 #if !CLIENT_BUILD && !SERVER_BUILD
 #include "TestDatabase.h"
 #include "TestLocalDB.h"
+#include "Serialize.h"
 #endif
 
 int main(int argc, char* argcs[]) {
