@@ -70,7 +70,7 @@ void Server::Run()
 
 
 		//spoofing commands coming in from the client to the workQueue every 2 secs
-		Uint32 timeToSimulateCommand = 2000;
+		/*Uint32 timeToSimulateCommand = 2000;
 		if (testTimeSnapShot == elapsedTime)
 			dontTest = true;
 		else
@@ -83,7 +83,7 @@ void Server::Run()
 			Server::AddWork(testCMD);
 
 		}
-		testTimeSnapShot = elapsedTime;
+		testTimeSnapShot = elapsedTime;*/
 	}
 
 	
@@ -105,6 +105,8 @@ void Server::Init()
 	workCrew = new ThreadPool(1);
 	CommandPacket* newGameCMD = new Command_CreateNewGame(1);
 	Server::AddWork(newGameCMD);
+	newGameCMD = new Command_CreateNewGame(2);
+	Server::AddWork(newGameCMD);
 
 	localDB = new LocalDB();
 
@@ -112,8 +114,17 @@ void Server::Init()
 
 void Server::Update() {
 	
-	CommandPacket* updateMinsCMD = new Command_UpdateMinions(1);
-	Server::AddWork(updateMinsCMD);
+	for (size_t i = 0; i < GameManager::games.size(); i++)
+	{
+		CommandPacket* updateMinionsCMD = new Command_UpdateMinions(GameManager::games[i]->id);
+		Server::AddWork(updateMinionsCMD);
+		CommandPacket* updateTowersCMD = new Command_UpdateTowers(GameManager::games[i]->id,deltaTime);
+		Server::AddWork(updateTowersCMD);
+		CommandPacket* updateProjectilesCMD = new Command_UpdateProjectiles(GameManager::games[i]->id);
+		Server::AddWork(updateProjectilesCMD);
+		CommandPacket* updateEconomyCMD = new Command_UpdateEconomy(GameManager::games[i]->id, deltaTime);
+		Server::AddWork(updateEconomyCMD);
+	}
 
 }
 void Server::AddWork(CommandPacket* command)

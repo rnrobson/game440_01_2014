@@ -7,5 +7,8 @@
 #include "Command_IntFloatProduct.h"
 #include "Command_CreateNewGame.h"
 #include "Command_UpdateMinions.h"
+#include "Command_UpdateTowers.h"
+#include "Command_UpdateProjectiles.h"
+#include "Command_UpdateEconomy.h"
 
 #endif

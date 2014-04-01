@@ -629,5 +629,14 @@
     <ClInclude Include="Command_InitializeNewGame.h">
       <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>
+    <ClInclude Include="Command_UpdateTowers.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_UpdateProjectiles.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_UpdateEconomy.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

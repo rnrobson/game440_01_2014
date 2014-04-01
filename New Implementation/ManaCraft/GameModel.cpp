@@ -120,8 +120,11 @@ void GameModel::UpdateTowers(Uint32 dt)
 		if (towers[i]->timer >= reloadTimer)
 		{
 			//the tower fires at the first minion in it's target list
-			towers[i]->FireAtMinion(towers[i]->targetList.front());
-			towers[i]->timer = 0;
+			if (!towers[i]->targetList.empty())
+			{
+				towers[i]->FireAtMinion(towers[i]->targetList.front());
+				towers[i]->timer = 0;
+			}
 		}
 		towers[i]->timer += dt;
 	}
@@ -195,6 +198,7 @@ void GameModel::UpdateEconomy(Uint32 dt)
 {
 		//loop through all players in the gameID
 			//add MpS value to total mana
+	
 }
 
 
@@ -257,14 +261,17 @@ void GameModel::Init()
 		tower->level = 1;
 		tower->researchCost = 100;
 		tower->upgradeCost = 50;
+		tower->infSquare = new InfluenceSquare();
+		tower->infSquare->xPos = 0;
+		tower->infSquare->yPos = 0;
 		towers.push_back(tower);
 
 	}
-	for (int i = 0; i < MAX_PROJECTILES; i++)
+	/*for (int i = 0; i < MAX_PROJECTILES; i++)
 	{
 		Projectile* projectile = new Projectile();
 		projectiles.push_back(projectile);
-	}
+	}*/
 	for (int i = 0; i < MAX_GRIDSQUARES; i++)
 	{
 		GridSquare* gridsquare = new GridSquare();

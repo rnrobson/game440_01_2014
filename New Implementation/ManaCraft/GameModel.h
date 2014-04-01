@@ -46,10 +46,10 @@ public:
 private:
 	static int nextID;
 
-	const int MAX_MINIONS = 500;
-	const int MAX_TOWERS = 100;
-	const int MAX_PROJECTILES = 600;
-	const int MAX_GRIDSQUARES = 128;
+	const int MAX_MINIONS = 5;
+	const int MAX_TOWERS = 5;
+	const int MAX_PROJECTILES = 5;
+	const int MAX_GRIDSQUARES = 5;
 	const float MAX_BASE_HP = 300.0f;
 
 	void Init();

@@ -177,7 +177,10 @@
     <ClInclude Include="Command_CreateNewGame.h" />
     <ClInclude Include="Command_InitializeNewGame.h" />
     <ClInclude Include="Command_ServerReceive.h" />
+    <ClInclude Include="Command_UpdateEconomy.h" />
     <ClInclude Include="Command_UpdateMinions.h" />
+    <ClInclude Include="Command_UpdateProjectiles.h" />
+    <ClInclude Include="Command_UpdateTowers.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="DatabaseAPI.h" />
     <ClInclude Include="FrameLimiter.h" />
