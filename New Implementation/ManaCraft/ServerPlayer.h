@@ -13,6 +13,7 @@ public:
 	string username;
 
 	ServerPlayer();
+	ServerPlayer(unsigned int _id);
 	~ServerPlayer();
 	vector<ServerPlayer*> *Team;
 

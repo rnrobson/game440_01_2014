@@ -9,6 +9,7 @@
 #include "Resistances.h"
 #include "GameModel.h"
 
+
 namespace ManaCraft {
 	namespace Database {
 		class TestDatabase {
@@ -43,6 +44,7 @@ namespace ManaCraft {
 			static void testSaveLoadGame();
 
 			static void testDelete();
+			static void testSave();
 
 		public:
 			/// <summary>

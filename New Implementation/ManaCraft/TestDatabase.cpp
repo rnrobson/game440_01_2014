@@ -21,9 +21,10 @@ void TestDatabase::runTests() {
 	testLoadTowers();
 	testLoadElements();
 	testLoadResistances();
-	testSaveLoadGame();
+	//testSaveLoadGame();
 
 	//testDelete();
+	testSave();
 
 	DatabaseAPI::disconnectFromDatabase();
 
@@ -285,4 +286,29 @@ void TestDatabase::testDelete()
 	query.clear();
 	query << "DELETE FROM Test_Table WHERE ID = 2";
 	query.execute();
+}
+
+void TestDatabase::testSave()
+{
+	DatabaseAPI::connectToDatabase();
+
+	GameModel* game = new GameModel(8008);
+	game->teams->team1ID = 666;
+	game->teams->team2ID = 999;
+
+	ServerPlayer* player1 = new ServerPlayer(220);
+	ServerPlayer* player2 = new ServerPlayer(225);
+	game->teams->Team1.push_back(player1);
+	game->teams->Team2.push_back(player2);
+
+	game->SaveGame();
+
+	game->teams->Team1.clear();
+	game->teams->Team2.clear();
+
+	delete player1;
+	delete player2;
+	delete game;
+
+
 }

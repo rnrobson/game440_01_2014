@@ -5,6 +5,11 @@ ServerPlayer::ServerPlayer()
 {
 }
 
+ServerPlayer::ServerPlayer(unsigned int _id) : id(_id)
+{
+
+}
+
 
 ServerPlayer::~ServerPlayer()
 {
@@ -56,7 +61,7 @@ void ServerPlayer::SavePlayer(unsigned int TeamID)
 	try {
 		Query query = DatabaseAPI::getQuery();
 		query.clear();
-		query << "INSERT INTO Team_Players VALUES (" << TeamID << ", " << mysqlpp::quote << id << ")";
+		query << "INSERT INTO Team_Players VALUES(" << mysqlpp::quote << TeamID << ", " << mysqlpp::quote << id << ")";
 		query.execute();
 
 	}
