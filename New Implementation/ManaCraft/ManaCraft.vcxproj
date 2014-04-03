@@ -117,10 +117,14 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Minion.cpp" />
     <ClCompile Include="MinionPath.cpp" />
+    <ClCompile Include="Navigator.cpp" />
+    <ClCompile Include="NavMap.cpp" />
+    <ClCompile Include="NavMapKDTree.cpp" />
     <ClCompile Include="NetBroadcaster.cpp" />
     <ClCompile Include="NetClient.cpp" />
     <ClCompile Include="NetServer.cpp" />
     <ClCompile Include="NetworkCommands.cpp" />
+    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
@@ -141,6 +145,7 @@
     <ClCompile Include="ServerPlayer.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Teams.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="TestDatabase.cpp" />
@@ -153,7 +158,9 @@
     <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="Tooltip.cpp" />
     <ClCompile Include="Tower.cpp" />
+    <ClCompile Include="Vec3f.cpp" />
     <ClCompile Include="ViewGames.cpp" />
+    <ClCompile Include="Waypoint.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="Worker.cpp" />
   </ItemGroup>
@@ -200,10 +207,16 @@
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="NavEvent.h" />
+    <ClInclude Include="Navigator.h" />
+    <ClInclude Include="NavMap.h" />
+    <ClInclude Include="NavMapKDTree.h" />
     <ClInclude Include="NetworkCommands.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="PlayerInfoTable.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="TestLocalDB.h" />
     <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />
@@ -266,7 +279,9 @@
     <ClInclude Include="Tooltip.h" />
     <ClInclude Include="Tower.h" />
     <ClInclude Include="Command_TripleAFloat.h" />
+    <ClInclude Include="Vec3f.h" />
     <ClInclude Include="ViewGames.h" />
+    <ClInclude Include="Waypoint.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="Worker.h" />
     <ClInclude Include="WorkItem.h" />
