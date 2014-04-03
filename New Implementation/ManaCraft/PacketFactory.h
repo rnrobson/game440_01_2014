@@ -115,6 +115,8 @@ public:
 };
 
 class RefreshGamesPacket : public CommandPacket {
+private:
+	std::string username;
 public:
 	RefreshGamesPacket(const Packet* packet);
 	void Execute();
@@ -123,12 +125,14 @@ public:
 class JoinGamePacket : public CommandPacket {
 private:
 	__int16 GameID;
+	std::string username;
 public:
 	JoinGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class CreateGamePacket : public CommandPacket {
+	__int16 GameID;
 public:
 	CreateGamePacket(const Packet* packet);
 	void Execute();
@@ -173,7 +177,8 @@ public:
 
 class DisbandGamePacket : public CommandPacket {
 private:
-	__int16 gameID;
+	//__int16 gameID;
+	__int16 lobbyID;
 public:
 	DisbandGamePacket(const Packet* packet);
 	void Execute();
@@ -197,18 +202,28 @@ public:
 };
 
 class SummonMinionPacket : public CommandPacket {
+private:
+	__int16 gameID;
+	__int16 minionID;
+	std::string username;
 public:
 	SummonMinionPacket(const Packet* packet);
 	void Execute();
 };
 
 class ResearchMinionPacket : public CommandPacket {
+private: 
+	__int16 minionID;
+	std::string username;
 public:
 	ResearchMinionPacket(const Packet* packet);
 	void Execute();
 };
 
 class ResearchTowerPacket : public CommandPacket {
+private:
+	__int16 towerID;
+	std::string username;
 public:
 	ResearchTowerPacket(const Packet* packet);
 	void Execute();
@@ -221,24 +236,36 @@ public:
 };
 
 class PauseGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	PauseGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class EndGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	EndGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class ResumeGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	ResumeGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class QuitGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	QuitGamePacket(const Packet* packet);
 	void Execute();
