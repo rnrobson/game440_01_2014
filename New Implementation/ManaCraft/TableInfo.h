@@ -87,7 +87,7 @@ namespace ManaCraft {
 			public:
 				static std::string TABLE_NAME() { return "Team"; }
 				const static unsigned char ID				= 0;
-				const static unsigned char Name				= 1;
+				const static unsigned char NAME				= 1;
 			};
 
 			const struct TeamPlayers {
@@ -100,8 +100,18 @@ namespace ManaCraft {
 			const struct Player {
 			public:
 				static std::string TABLE_NAME() { return "Player"; }
-				const static unsigned char ID = 0;
-				const static unsigned char Name = 1;
+				const static unsigned char ID				= 0;
+				const static unsigned char NAME				= 1;
+			};
+
+			const struct GamePlayerTowers {
+			public:
+				static std::string TABLE_NAME() { return "Game_Player_Towers"; }
+				const static unsigned char GAME_ID			= 0;
+				const static unsigned char PLAYER_ID		= 1;
+				const static unsigned char TOWER_ID			= 2;
+				const static unsigned char X_POS			= 3;
+				const static unsigned char Y_POS			= 4;
 			};
 
 		};

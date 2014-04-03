@@ -8,6 +8,7 @@
 #include "Projectile.h"
 #include "GridSquare.h"
 #include "PlayerBase.h"
+#include "ServerPlayer.h"
 
 class GameModel{
 

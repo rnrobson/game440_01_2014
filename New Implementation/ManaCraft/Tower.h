@@ -11,11 +11,12 @@
 class Tower : public Entity
 {
 private:
-	
 	static Tower* buildFromRow(mysqlpp::Row& row);
 
 public:
-	ManaCraft::Database::TowerTypes ID;
+	int xPos;
+	int yPos;
+	ManaCraft::Database::TowerTypes towerType;
 	std::string attackType;
 	InfluenceSquare* infSquare;
 	unsigned int range;
