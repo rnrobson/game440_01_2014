@@ -2,6 +2,7 @@
 #include "ClientAPI.h"
 #include "API_Util.h"
 #include "ScreenFader.h"
+#include "NetworkCommands.h"
 
 ViewGames* ViewGames::instance;
 
@@ -173,12 +174,14 @@ void ViewGames::Click_checkbox()
 void ViewGames::Click_join()
 {
 	std::cout << "Join game.\n";
+	ManaCraft::Client::NetworkCommands::JoinGame(1);//gameId set to 1 for now
 	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 }
 
 void ViewGames::Click_refresh()
 {
 	std::cout << "Refresh games.\n";
+	ManaCraft::Client::NetworkCommands::RefreshGames();
 	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 }
 
@@ -194,6 +197,7 @@ void ViewGames::Click_backButton()
 void ViewGames::Click_createGameButton()
 {
 	std::cout << "Go To Game Lobby.\n";
+	ManaCraft::Client::NetworkCommands::CreateGame();
 	ClientAPI::GetGuiContainer("ViewGames")->Sfx1Play();
 	ClientAPI::GetGuiContainer("ViewGames")->Active = false;
 	ClientAPI::GetGuiContainer("GameLobby")->Active = true;
