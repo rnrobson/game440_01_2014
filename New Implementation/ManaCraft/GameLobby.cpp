@@ -2,6 +2,7 @@
 #include "ClientAPI.h"
 #include "API_Util.h"
 #include "ScreenFader.h"
+#include <algorithm>
 
 GameLobby* GameLobby::instance;
 
@@ -351,23 +352,29 @@ void GameLobby::EnableGameOptions(bool _state)
 	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->Enabled = !_state;
 }
 
-void GameLobby::AddMessageToLog(std::string message, MessageType type)
+void GameLobby::AddToLog(std::string message, MessageType type)
 {
 	Message newMessage = Message(message, type);
-	//newMessage.message = message;
-	//newMessage.type = type;
 
-	messageLog.push_back(newMessage);
 	switch (type)
 	{
 	case MessageType::Team:
-
+		//Change color to team font color
+		teamLog.push_back(newMessage);
 		break;
-	case MessageType::Public:
-
+	case MessageType::Global:
+		//Change color to global font color
+		globalLog.push_back(newMessage);
 		break;
 	case MessageType::Whisper:
-
+		//Change color to whisper font color
+		teamLog.push_back(newMessage);
+		globalLog.push_back(newMessage);
 		break;
 	}
+}
+
+void GameLobby::PrintMessage()
+{
+	//Print a message to the game chat container
 }

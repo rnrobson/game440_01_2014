@@ -1,7 +1,7 @@
 enum MessageType
 {
 	Team,
-	Public,
+	Global,
 	Whisper
 };
 

@@ -6,8 +6,8 @@ class GameLobby :
 	public Page
 {
 private:
-	std::vector<Message> messageLog;
-
+	std::vector<Message> teamLog;
+	std::vector<Message> globalLog;
 protected:
 	GameLobby();
 
@@ -20,7 +20,8 @@ public:
 	virtual void Load();
 	virtual void Update(double time);
 	virtual void Draw();
-	virtual void AddMessageToLog(std::string message, MessageType type);
+	virtual void AddToLog(std::string message, MessageType type);
+	void PrintMessage();
 
 	//============
 	//--- Events 
