@@ -28,6 +28,9 @@ namespace ManaCraft {
 
 			static void ReturnToMainMenu();
 			static void MuteAll();
+
+			static void setMusicVolume(SDL_MouseButtonEvent e);
+			static void setSfxVolume(SDL_MouseButtonEvent e);
 		};
 
 	}
