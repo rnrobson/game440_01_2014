@@ -640,6 +640,7 @@
     </ClInclude>
     <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Command_CS_ResumeGame.h">
       <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>

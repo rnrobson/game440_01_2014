@@ -47,7 +47,8 @@ void GameModel::UpdateMinions()
 
 		//get reference to player to find out which base this minion should do damage to
 		//assuming this is a light minion - will do damage to dark base
-		if (SDL_IntersectRect(darkBase->collisionBox, minions[i]->collisionBox, new SDL_Rect()))
+		SDL_Rect result;
+		if (SDL_IntersectRect(darkBase->collisionBox, minions[i]->collisionBox, &result))
 		{
 			darkBase->TakeDamage(minions[i]->damage);
 			//remove MpS bonus from player who had spawned it
@@ -141,9 +142,10 @@ void GameModel::UpdateProjectiles()
 		projectiles[i]->yPos += projectiles[i]->yDir;
 
 		//unoptimized linear collision check for now
+		SDL_Rect result;
 		for (size_t j = 0; j < minions.size(); j++)
 		{
-			if (SDL_IntersectRect(projectiles[i]->collisionBox, minions[j]->collisionBox, new SDL_Rect()))
+			if (SDL_IntersectRect(projectiles[i]->collisionBox, minions[j]->collisionBox, &result))
 			{
 				//projectile has hit the minion - do damage calculations
 
