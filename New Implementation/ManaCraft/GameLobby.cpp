@@ -264,7 +264,7 @@ void GameLobby::TalkInTeamChat()
 void GameLobby::CloseGame()
 {
 	printf("host closed the game\n");
-
+	
 	//when host leaves, select another player to be host
 }
 

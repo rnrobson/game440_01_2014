@@ -198,6 +198,14 @@ void MainMenu::LoadLoginPopup()
 void MainMenu::Update(double time)
 {
 	Page::Update(time);
+	if (MainMenu::netIndicator == MainMenu::NetIndicator::Green)
+	{
+		content->GetGuiContainer("Menu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->Enabled = true;
+	}
+	else
+	{
+		content->GetGuiContainer("Menu")->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->Enabled = false;
+	}
 }
 
 void MainMenu::Draw()
@@ -205,8 +213,9 @@ void MainMenu::Draw()
 	Page::Draw();
 }
 
-void PlayerLoggedIn(std::string _username)
+void  MainMenu::PlayerLoggedIn(std::string _username)
 {
+	std::cout << "PlayerLoggedIn(_username)";
 	ManaCraft::Client::Client::GetInstance()->Settings()->Username = _username;
 	MainMenu::netIndicator = MainMenu::NetIndicator::Green;
 }
@@ -298,6 +307,10 @@ void MainMenu::Click_LoginPopup_Cancel()
 
 void MainMenu::Click_LoginPopup_Login()
 {
+	std::string _username = MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetTextField("UsernameField")->GetText();
+	//NetworkCommands::LogIn(_username);
+	MainMenu::GetInstance()->PlayerLoggedIn(_username);
+
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = true; // Enabled
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = false;

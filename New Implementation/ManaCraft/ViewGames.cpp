@@ -168,7 +168,7 @@ void ViewGames::Click_join()
 	std::cout << "Join game.\n";
 	ViewGames::GetInstance()->GetContent()->Sfx1Play();
 
-	//ManaCraft::Client::NetworkCommands::JoinGame(1);//gameId set to 1 for now
+	ManaCraft::Client::NetworkCommands::JoinGame(1);//gameId set to 1 for now
 }
 
 void ViewGames::Click_refresh()
@@ -176,7 +176,7 @@ void ViewGames::Click_refresh()
 	std::cout << "Refresh games.\n";
 	ViewGames::GetInstance()->GetContent()->Sfx1Play();
 
-	//ManaCraft::Client::NetworkCommands::RefreshGames();
+	ManaCraft::Client::NetworkCommands::RefreshGames();
 }
 
 void ViewGames::Click_backButton()
@@ -202,5 +202,5 @@ void ViewGames::Click_createGameButton()
 
 	ScreenFader::GetInstance()->FadeOut();
 
-	//ManaCraft::Client::NetworkCommands::CreateGame();
+	ManaCraft::Client::NetworkCommands::CreateGame();
 }
