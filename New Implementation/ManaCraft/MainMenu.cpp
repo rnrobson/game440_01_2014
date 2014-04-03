@@ -1,6 +1,7 @@
 #include "MainMenu.h"
 #include "ScreenFader.h"
 #include "ClientAPI.h"
+#include "ClientSettings.h"
 
 MainMenu* MainMenu::instance;
 MainMenu::NetIndicator MainMenu::netIndicator;
@@ -169,6 +170,12 @@ void MainMenu::Update(double time)
 void MainMenu::Draw()
 {
 	Page::Draw();
+}
+
+void PlayerLoggedIn(std::string _username)
+{
+	ClientSettings::Username = _username;
+	MainMenu::netIndicator = MainMenu::NetIndicator::Green;
 }
 
 //===================

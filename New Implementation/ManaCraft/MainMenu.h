@@ -23,6 +23,7 @@ public:
 		Red, Green
 	};
 	static NetIndicator netIndicator;
+	void PlayerLoggedIn(std::string _username);
 
 	//============
 	//--- Events 

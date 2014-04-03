@@ -14,7 +14,7 @@ public:
 
 	Gamestate GameState = GS_None;
 
-	std::string Username;
+	static std::string Username;
 	bool loggedIn;
 	bool isHost;
 };
