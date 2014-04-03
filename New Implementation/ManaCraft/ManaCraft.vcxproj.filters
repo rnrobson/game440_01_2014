@@ -306,7 +306,7 @@
     <ClCompile Include="PlayerInfoTable.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.cpp">
+    <ClCompile Include="..\..\..\..\..\Desktop\NetworkCommands.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
   </ItemGroup>
@@ -498,9 +498,6 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="ServerLiason.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="NetReceiver.h">

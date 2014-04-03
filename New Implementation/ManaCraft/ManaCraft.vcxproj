@@ -79,7 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\NetworkCommands.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="APIEvents.cpp" />
     <ClCompile Include="ArtLayer.cpp" />
@@ -209,7 +209,6 @@
     <ClInclude Include="NetClient.h" />
     <ClInclude Include="NetReceiver.h" />
     <ClInclude Include="NetServer.h" />
-    <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayerBase.h" />
