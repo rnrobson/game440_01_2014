@@ -2,8 +2,8 @@
 
 GuiContainer::GuiContainer() : GuiObject()
 {
-	guiContainers = std::map<std::string, GuiContainer*>{};
-	guiElements = std::map<std::string, GuiElement*>{};
+	guiContainers = std::unordered_map<std::string, GuiContainer*>{};
+	guiElements = std::unordered_map<std::string, GuiElement*>{};
 
 	onEscapeKeyPressed = nullptr;
 	onEnterKeyPressed = nullptr;
