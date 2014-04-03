@@ -3,12 +3,15 @@
 #include "ClientAPI.h"
 
 MainMenu* MainMenu::instance;
+MainMenu::NetIndicator MainMenu::netIndicator;
 
 MainMenu::MainMenu()
 :Page()
 {
 	content->SubscribeOnEnterKeyPressed(OnEnterPressed);
 	content->SubscribeOnEnterKeyPressed(OnEscapePressed);
+
+	MainMenu::netIndicator = MainMenu::NetIndicator::Red;
 
 	Load();
 }
@@ -124,6 +127,14 @@ void MainMenu::Load(){
 
 	content->GetGuiContainer("BtnHolder")->GetButton("LoginBtn")->SubscribeOnMouseClick(MainMenu::Click_loginButton);
 	content->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->SubscribeOnMouseClick(MainMenu::Click_viewButton);
+	if (MainMenu::netIndicator == MainMenu::NetIndicator::Green)
+	{
+		content->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->Enabled = true;
+	}
+	else
+	{
+		content->GetGuiContainer("BtnHolder")->GetButton("ViewGamesBtn")->Enabled = false;
+	}
 	content->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SubscribeOnMouseClick(MainMenu::Click_optionsButton);
 	content->GetGuiContainer("BtnHolder")->GetButton("TutorialBtn")->SubscribeOnMouseClick(MainMenu::Click_tutorialButton);
 	content->GetGuiContainer("BtnHolder")->GetButton("QuitBtn")->SubscribeOnMouseClick(MainMenu::Click_quitButton);

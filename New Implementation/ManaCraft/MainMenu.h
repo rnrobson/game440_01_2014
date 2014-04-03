@@ -14,10 +14,15 @@ public:
 	static MainMenu* GetInstance();
 	~MainMenu();
 
-
 	virtual void Load();
 	virtual void Update(double time);
 	virtual void Draw();
+
+	enum NetIndicator
+	{
+		Red, Green
+	};
+	static NetIndicator netIndicator;
 
 	//============
 	//--- Events 
