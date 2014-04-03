@@ -1,9 +1,11 @@
 #include "Client.h"
+#include "ServerLiason.h"
 
-Client* Client::instance;
+using namespace ManaCraft;
 
+Client::Client* Client::Client::instance;
 
-void Client::InitSDLNet(){
+void Client::Client::InitSDLNet() {
 	//Init SDL_net
 	if (SDLNet_Init() == -1)
 		std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
@@ -11,7 +13,8 @@ void Client::InitSDLNet(){
 		std::cout << "SDL_net was initialized properly" << std::endl;
 		// If it was properly initialized, start the threads.
 		try {
-			ManaCraft::Client::ServerLiason::Start();
+			// Comment this out if you're not testing networking
+			ServerLiason::Start();
 		}
 		catch (ManaCraft::Networking::ConnectionOpenException e) {
 			std::cout << "Unable to open socket: " << e.what() << std::endl;
@@ -19,7 +22,7 @@ void Client::InitSDLNet(){
 	}
 }
 
-Client::Client()
+Client::Client::Client()
 {
 	////-- Initialize the API
 	ClientAPI::Init();
@@ -50,13 +53,13 @@ Client::Client()
 	ClientAPI::AddTexture("TowerTex", _towerTexture);
 	ClientAPI::AddTexture("ProjectileTex", _projectileTexture);
 }
-Client::~Client()
+Client::Client::~Client()
 {
 	//-- Quit the API and clean up our memory once the APIs Main loop is over
 	ClientAPI::Quit();
 }
 
-void Client::LoadContent()
+void Client::Client::LoadContent()
 {
 	//--Call individual load methods
 	ScreenFader::Load();
@@ -74,7 +77,7 @@ void Client::LoadContent()
 
 }
 
-void Client::Update(double time)
+void Client::Client::Update(double time)
 {
 	//cout << "Entering Custom Update" << endl;
 	ScreenFader::Update(time);
@@ -102,7 +105,7 @@ void Client::Update(double time)
 	}
 }
 
-void Client::Draw()
+void Client::Client::Draw()
 {
 	//cout << "Entering Custom Draw" << endl;
 	ScreenFader::Draw();
@@ -130,12 +133,12 @@ void Client::Draw()
 	}
 }
 
-void Client::OnEscapePressed()
+void Client::Client::OnEscapePressed()
 {
 	//IngamePause::Pause();
 }
 
-void Client::OnEnterPressed()
+void Client::Client::OnEnterPressed()
 {
 	Client::GetInstance()->Settings()->isHost = true;
 }
