@@ -48,5 +48,12 @@ void NetworkCommands::CreateGame(){
 }
 
 void NetworkCommands::JoinGame(int gameID){
+
 }
+
+void NetworkCommands::PickTeam(short teamID){
+
+}
+
+
 
