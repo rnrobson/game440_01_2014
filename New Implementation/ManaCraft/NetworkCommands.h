@@ -70,27 +70,27 @@ namespace ManaCraft {
 			static void JoinGame(int gameID);
 
 			//Lobby
-			void PickTeam(short team);
-			void BenchMe();
-			void ToggleReadyStatus();
-			void UpdateOptions();
-			void LeaveGame(int gameID);
-			void DisbandGame(int gameID); //used only by Host
-			void SetOptions(); //used only by Host
-			void StartTheGame();//used only by Host
+			static void PickTeam(short team);
+			static void BenchMe();
+			static void ToggleReadyStatus();
+			static void UpdateOptions();
+			static void LeaveGame(int gameID);
+			static void DisbandGame(int gameID); //used only by Host
+			static void SetOptions(); //used only by Host
+			static void StartTheGame();//used only by Host
 
 			//Chat
-			void SendLobbyMessage(std::string *message);
-			void SendPartyMessage(std::string *message);
-			void SendWhisperMessage(std::string *recieverUserName, std::string *message);
+			static void SendLobbyMessage(std::string *message);
+			static void SendPartyMessage(std::string *message);
+			static void SendWhisperMessage(std::string *recieverUserName, std::string *message);
 
 			//Gameplay
-			void Pause();//TODO::aparently 2 people need to requests pause so maybe get username
-			void Unpause();
-			void RequestPlaceTower(short TowerType, float posX, float posY);//TODO::FIX dont know how client is handling towerType or positions//UniqueID?
-			void RequestSpawnMinion(short MinionType, short PathChosen);//PathChosen cause i think players can spawn minions at 3 positions
-			void ResearchTower();
-			void ResearchMinion();
+			static void Pause();//TODO::aparently 2 people need to requests pause so maybe get username
+			static void Unpause();
+			static void RequestPlaceTower(short TowerType, float posX, float posY);//TODO::FIX dont know how client is handling towerType or positions//UniqueID?
+			static void RequestSpawnMinion(short MinionType, short PathChosen);//PathChosen cause i think players can spawn minions at 3 positions
+			static void ResearchTower();
+			static void ResearchMinion();
 			void KillMinion(short UniqueID);//TODO::FIX dont know if server will need a unique ID to remove minion
 
 

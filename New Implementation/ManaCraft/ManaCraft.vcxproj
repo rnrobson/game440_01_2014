@@ -79,6 +79,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="APIEvents.cpp" />
     <ClCompile Include="ArtLayer.cpp" />

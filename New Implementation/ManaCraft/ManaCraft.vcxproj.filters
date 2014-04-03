@@ -306,6 +306,9 @@
     <ClCompile Include="PlayerInfoTable.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Rob%27s Project\New Implementation\ManaCraft\NetworkCommands.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">

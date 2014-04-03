@@ -40,3 +40,13 @@ void NetworkCommands::LogIn(std::string username){
 	}
 
 
+void NetworkCommands::RefreshGames(){
+
+}
+void NetworkCommands::CreateGame(){
+
+}
+
+void NetworkCommands::JoinGame(int gameID){
+}
+
