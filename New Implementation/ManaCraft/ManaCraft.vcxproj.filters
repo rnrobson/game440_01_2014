@@ -638,5 +638,8 @@
     <ClInclude Include="Command_UpdateEconomy.h">
       <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkCommands.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -198,6 +198,7 @@
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="PlayerInfoTable.h" />
