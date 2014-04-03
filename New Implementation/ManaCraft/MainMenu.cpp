@@ -27,12 +27,10 @@ MainMenu* MainMenu::GetInstance()
 	return MainMenu::instance;
 }
 
-
 MainMenu::~MainMenu()
 {
 	Page::~Page();
 }
-
 
 void MainMenu::Load()
 {	
@@ -53,25 +51,7 @@ void MainMenu::LoadMainMenu(){
 
 	ClientAPI::AddAudio("BtnAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/btnClick.ogg"));
 	ClientAPI::AddFont("Systema", systema);
-
-	//-- Main colors
-	SDL_Color black = APIHelper::ColourHelper(0, 0, 0, 255);
-	SDL_Color white = APIHelper::ColourHelper(255, 255, 255, 255);
-
-	ClientAPI::AddColour("Black", black);
-	ClientAPI::AddColour("White", white);
-
-	SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/background.png");
-	SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraft.png");
-	SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
-	SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
-	SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
-
-	ClientAPI::AddTexture("Background", backgroundTex);
-	ClientAPI::AddTexture("GameLogo", logoTex);
-	ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
-	ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
-	ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
+	
 	//-- Convienient rects
 	SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
 	SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
@@ -80,7 +60,6 @@ void MainMenu::LoadMainMenu(){
 
 	//-- Additional button rects
 	SDL_Rect creditsBtnRect = APIHelper::RectHelper(SCREEN_WIDTH - medBtnRect.w - BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
-
 
 	// THIS CAUSES PROBLEMS:
 	//content->AddGridLayer("Grid", new GridLayer());

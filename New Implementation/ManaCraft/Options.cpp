@@ -37,31 +37,9 @@ void Options::Load()
 	ClientAPI::AddGuiContainer("Options", content);
 	content->AddGuiContainer("OptionsForeground", new GuiContainer());
 
-	//add font
-	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
-	ClientAPI::AddAudio("BtnAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/btnClick.ogg"));
-	API_Util::AddFont("OGWEAR", "Resources/Fonts/OGWEAR.ttf", 36);
-	API_Util::AddFont("Systema_11", "Resources/Fonts/9SYSTEMA.ttf", 11);
-	API_Util::AddFont("Systema_22", "Resources/Fonts/9SYSTEMA.ttf", 22);
-
-	//add colors to be used for buttons, labels, etc
-	API_Util::AddColor("White", 255, 255, 255, 255);
-	API_Util::AddColor("LightBlue", 0, 162, 232, 255);
-	API_Util::AddColor("Red", 255, 0, 0, 255);
-
 	content->SetBackgroundAudio(ClientAPI::GetAudio("OptionsAudio"));
 	content->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
 	content->MusicPlay();
-
-	//add textures
-	API_Util::AddTexture("GameLogo", "Resources/Images/ManaCraft.png", API_Util::PNG);
-	API_Util::AddTexture("OptionsBG", "Resources/Images/backgroundPlain.png", API_Util::PNG);
-	API_Util::AddTexture("SmallBtnNormal", "Resources/GUITextures/smallBtnNormal.bmp", API_Util::BMP);
-	API_Util::AddTexture("SmallBtnHover", "Resources/GUITextures/smallBtnHover.bmp", API_Util::BMP);
-	API_Util::AddTexture("SmallBtnDown", "Resources/GUITextures/smallBtnDown.bmp", API_Util::BMP);
-	API_Util::AddTexture("MedBtnNormal", "Resources/GUITextures/medBtnNormal.bmp", API_Util::BMP);
-	API_Util::AddTexture("MedBtnHover", "Resources/GUITextures/medBtnHover.bmp", API_Util::BMP);
-	API_Util::AddTexture("MedBtnDown", "Resources/GUITextures/medBtnDown.bmp", API_Util::BMP);
 
 	//-- Convienient rects
 	SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
@@ -70,7 +48,7 @@ void Options::Load()
 	SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
 
 	//add background
-	API_Util::AddGuiElementToContainer(content, "bg", "OptionsBG", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+	API_Util::AddGuiElementToContainer(content, "bg", "BackgroundPlain", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 	//ClientAPI::GetGuiContainer("Options")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("Background"), { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }));
 
 	//add logo
@@ -93,7 +71,6 @@ void Options::Load()
 	API_Util::AddLabelToContainer(content->GetGuiContainer("OptionsForeground"), "Lbl_Options", "Options", { 450, 350, 200, 100 }, "OGWEAR", "White");
 	API_Util::AddLabelToContainer(content->GetGuiContainer("OptionsForeground"), "Lbl_Music", "Music Volume:", { 430, 420, 200, 100 }, "Systema_22", "Black");
 	API_Util::AddLabelToContainer(content->GetGuiContainer("OptionsForeground"), "Lbl_SFX", "SFX Volume:", { 430, 490, 200, 100 }, "Systema_22", "Black");
-
 
 	//add button
 	API_Util::AddButtonToContainer(content->GetGuiContainer("OptionsForeground"), "returnToMainMenu", { 900, 720, 100, 30 }, "MedBtnNormal");

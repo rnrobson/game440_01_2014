@@ -38,31 +38,6 @@ void Credits::Load()
 	std::string serverStrings[7] = { "Rohun Banerji", "Justin Kan", "Jordan Kjaer", "Patrick Barahona-Griffiths", "Chris Devlieger", "Alex McCann", "Wayne Gauthier" };
 	std::string databaseStrings[5] = { "Robert Evola", "Matt Mayo", "Vinny Crupi", "Kyle Nokes", "Jordan Hurst" };
 
-	TTF_Font *systema = APIHelper::LoadFont("Resources/Fonts/9SYSTEMA.ttf", 22);
-
-	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
-	ClientAPI::AddFont("Systema", systema);
-
-	//-- Main colors
-	SDL_Color black = APIHelper::ColourHelper(0, 0, 0, 255);
-	SDL_Color white = APIHelper::ColourHelper(255, 255, 255, 255);
-
-	ClientAPI::AddColour("Black", black);
-	ClientAPI::AddColour("White", white);
-
-	//-- Load Textures
-	SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/backgroundPlain.png");
-	SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraftLogoCredits.png");
-	SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
-	SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
-	SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
-
-	ClientAPI::AddTexture("BackgroundPlain", backgroundTex);
-	ClientAPI::AddTexture("GameLogoSmall", logoTex);
-	ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
-	ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
-	ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
-
 	//-- Convienient rects
 	SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
 	SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
@@ -85,7 +60,7 @@ void Credits::Load()
 	content->AddGuiContainer("DatabaseCredits", new GuiContainer());
 
 	content->AddGuiElement("BackBtn", new Button(ClientAPI::GetTexture("MedBtnNormal"), backBtnRect));
-	content->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+	content->GetButton("BackBtn")->AddLabel("Back", ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("Black"), true);
 	content->GetButton("BackBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 	content->GetButton("BackBtn")->SubscribeOnMouseClick(Credits::Click_backButton);
 	content->GetButton("BackBtn")->SubscribeOnEscapeKeyPressed(Credits::Click_backButton);
@@ -93,39 +68,39 @@ void Credits::Load()
 	content->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogoSmall"), APIHelper::RectHelper(SCREEN_WIDTH / 2 - 250, 0, 500, 250)));
 
 	content->GetGuiContainer("ClientCredits")->AddGuiElement("ClientHeader", new Label("Client Team", APIHelper::RectHelper(clientRect.x, clientRect.y - LABEL_SPACE_Y * 2, clientRect.w, LABEL_SPACE_Y),
-		ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	for (int i = 0; i < 9; i++)
 	{
 		content->GetGuiContainer("ClientCredits")->AddGuiElement("c" + i, new Label(clientStrings[i],
 			APIHelper::RectHelper(clientRect.x, clientRect.y + (i * LABEL_SPACE_Y), clientRect.w, LABEL_SPACE_Y),
-			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+			ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	}
 
 	content->GetGuiContainer("NetworkCredits")->AddGuiElement("NetworkHeader", new Label("Networking Team", APIHelper::RectHelper(networkRect.x, networkRect.y - LABEL_SPACE_Y * 2, networkRect.w, LABEL_SPACE_Y),
-		ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	for (int i = 0; i < 7; i++)
 	{
 		content->GetGuiContainer("NetworkCredits")->AddGuiElement("n" + i, new Label(networkStrings[i],
 			APIHelper::RectHelper(networkRect.x, networkRect.y + (i * LABEL_SPACE_Y), networkRect.w, LABEL_SPACE_Y),
-			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+			ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	}
 
 	content->GetGuiContainer("ServerCredits")->AddGuiElement("ServerHeader", new Label("Server Team", APIHelper::RectHelper(serverRect.x, serverRect.y - LABEL_SPACE_Y * 2, serverRect.w, LABEL_SPACE_Y),
-		ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	for (int i = 0; i < 7; i++)
 	{
 		content->GetGuiContainer("ServerCredits")->AddGuiElement("s" + i, new Label(serverStrings[i],
 			APIHelper::RectHelper(serverRect.x, serverRect.y + (i * LABEL_SPACE_Y), serverRect.w, LABEL_SPACE_Y),
-			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+			ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	}
 
 	content->GetGuiContainer("DatabaseCredits")->AddGuiElement("DatabaseHeader", new Label("Database Team", APIHelper::RectHelper(databaseRect.x, databaseRect.y - LABEL_SPACE_Y * 2, databaseRect.w, LABEL_SPACE_Y),
-		ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+		ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	for (int i = 0; i < 5; i++)
 	{
 		content->GetGuiContainer("DatabaseCredits")->AddGuiElement("d" + i, new Label(databaseStrings[i],
 			APIHelper::RectHelper(databaseRect.x, databaseRect.y + (i * LABEL_SPACE_Y), databaseRect.w, LABEL_SPACE_Y),
-			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+			ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	}
 
 	content->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));

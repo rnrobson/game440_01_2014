@@ -15,7 +15,7 @@ void ManaCraft::Client::Client::InitSDLNet() {
 		// If it was properly initialized, start the threads.
 		try {
 			// Comment this out if you're not testing networking
-			ServerLiason::Start();
+			//ServerLiason::Start();
 		}
 		catch (ManaCraft::Networking::ConnectionOpenException e) {
 			std::cout << "Unable to open socket: " << e.what() << std::endl;
@@ -67,6 +67,39 @@ void ManaCraft::Client::Client::LoadContent()
 {
 	//--Call individual load methods
 	ScreenFader::GetInstance()->Load();
+
+	//load shared assets
+	//fonts
+	API_Util::AddFont("OGWEAR_30", "Resources/Fonts/OGWEAR.ttf", 30);
+	API_Util::AddFont("OGWEAR", "Resources/Fonts/OGWEAR.ttf", 36);
+	API_Util::AddFont("Systema_11", "Resources/Fonts/9SYSTEMA.ttf", 11);
+	API_Util::AddFont("Systema_22", "Resources/Fonts/9SYSTEMA.ttf", 22);
+
+	//audios
+	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
+	ClientAPI::AddAudio("BtnAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/btnClick.ogg"));
+	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
+
+	//colors
+	API_Util::AddColor("White", 255, 255, 255, 255);
+	API_Util::AddColor("LightBlue", 0, 162, 232, 255);
+	API_Util::AddColor("Red", 255, 0, 0, 255);
+	API_Util::AddColor("Black", 0, 0, 0, 255);
+
+	//textures
+	SDL_Texture *backgroundTex = APIHelper::LoadPNGTexture("Resources/Images/background.png");
+	SDL_Texture *backgroundPlainTex = APIHelper::LoadPNGTexture("Resources/Images/backgroundPlain.png");
+	SDL_Texture *logoTex = APIHelper::LoadPNGTexture("Resources/Images/ManaCraft.png");
+	SDL_Texture *smallBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/smallBtnNormal.bmp");
+	SDL_Texture *medBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/medBtnNormal.bmp");
+	SDL_Texture *longBtnNormalTex = APIHelper::LoadBMPImage("Resources/GUITextures/longBtnNormal.bmp");
+
+	ClientAPI::AddTexture("Background", backgroundTex);
+	ClientAPI::AddTexture("BackgroundPlain", backgroundPlainTex);
+	ClientAPI::AddTexture("GameLogo", logoTex);
+	ClientAPI::AddTexture("SmallBtnNormal", smallBtnNormalTex);
+	ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
+	ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
 
 	mainMenu = MainMenu::GetInstance(); //MainMenu_O::Load();
 	options = Options::GetInstance(); //Options::Load();

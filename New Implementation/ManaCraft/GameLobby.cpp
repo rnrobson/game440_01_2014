@@ -36,25 +36,10 @@ void GameLobby::Load()
 
 	//add main container
 	ClientAPI::AddGuiContainer("GameLobby", content);
-
-	//add font
-	API_Util::AddFont("OGWEAR", "Resources/Fonts/OGWEAR.ttf", 36);
-	API_Util::AddFont("Systema_11", "Resources/Fonts/9SYSTEMA.ttf", 11);
-	API_Util::AddFont("Systema_22", "Resources/Fonts/9SYSTEMA.ttf", 22);
-
-	//add colors to be used for buttons, labels, etc
-	API_Util::AddColor("White", 255, 255, 255, 255);
+	
 	API_Util::AddColor("Blue", 0, 135, 193, 255);
-	API_Util::AddColor("Red", 255, 0, 0, 255);
 
-	//add textures
-	API_Util::AddTexture("Background", "Resources/Images/background.png", API_Util::PNG);
-	API_Util::AddTexture("SmallBtnNormal", "Resources/GUITextures/smallBtnNormal.bmp", API_Util::BMP);
-	API_Util::AddTexture("SmallBtnHover", "Resources/GUITextures/smallBtnHover.bmp", API_Util::BMP);
-	API_Util::AddTexture("SmallBtnDown", "Resources/GUITextures/smallBtnDown.bmp", API_Util::BMP);
-	API_Util::AddTexture("MedBtnNormal", "Resources/GUITextures/medBtnNormal.bmp", API_Util::BMP);
-	API_Util::AddTexture("MedBtnHover", "Resources/GUITextures/medBtnHover.bmp", API_Util::BMP);
-	API_Util::AddTexture("MedBtnDown", "Resources/GUITextures/medBtnDown.bmp", API_Util::BMP);
+	//add textures specific to gamelobby
 	API_Util::AddSolidTexture("popupBackground", { 0, 0, 0, 100 }, 400, 280);
 	API_Util::AddSolidTexture("gLobbyCover", { 0, 0, 0, 155 }, SCREEN_WIDTH, SCREEN_HEIGHT);
 	API_Util::AddSolidTexture("ITeamBg", { 0, 162, 232, 20 }, 300, 250);
