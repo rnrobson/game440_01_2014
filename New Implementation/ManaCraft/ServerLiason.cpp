@@ -25,10 +25,12 @@ void ServerLiason::Start() {
 
 		sendingQueue = new BlockingQueue<Packet*>();
 		executeQueue = new BlockingQueue<CommandPacket*>();
+		
 		sendingThread = SDL_CreateThread(SendingThread, "sending", NULL);
 		if (sendingThread == NULL) {
 			cout << "Failed to create Sending thread." << endl;
 		}
+		
 		executeThread = SDL_CreateThread(ExecuteThread, "execute", NULL);
 		if (executeThread == NULL) {
 			cout << "Failed to create Sending thread." << endl;
@@ -52,9 +54,14 @@ void ServerLiason::Start() {
 int ServerLiason::SendingThread(void* data) {
 	while (hasStarted) { // While it's started run through the queue
 		if (!sendingQueue->empty()) {
-			std::cout << "Sent Packet." << std::endl;
-			Packet* packet = sendingQueue->pop();
-			clientConnection->Send(*packet);
+			try {
+				std::cout << "Sending Packet..." << std::endl;
+				Packet* packet = sendingQueue->pop();
+				clientConnection->Send(*packet);
+			}
+			catch (ConnectionNotOpenException e) {
+				cout << "Unable to send packet: " << e.what() << endl;
+			}
 		}
 	}
 	return 0;
