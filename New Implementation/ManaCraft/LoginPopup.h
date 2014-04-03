@@ -52,9 +52,7 @@ namespace ManaCraft {
 			static void Click_Login()
 			{
 				//needs to be tested
-				//Client::NetworkCommands::LogIn(ClientAPI::GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->GetText());
-				//ClientAPI::GetGuiContainer("LoginPopup")->Active = false;
-				//ClientAPI::GetGuiContainer("MainMenu")->Enabled = true;
+				NetworkCommands::LogIn(ClientAPI::GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->GetText());
 			}
 
 			static void Click_Cancel()
@@ -72,9 +70,8 @@ namespace ManaCraft {
 			static void ButtonPress_Enter()
 			{
 				//needs to be tested
-				//Client::NetworkCommands::LogIn(ClientAPI::GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->GetText());
-				//ClientAPI::GetGuiContainer("LoginPopup")->Active = false;
-				//ClientAPI::GetGuiContainer("MainMenu")->Enabled = true;
+				NetworkCommands::LogIn(ClientAPI::GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->GetText());
+				
 			}
 		};
 	}

@@ -5,7 +5,7 @@
 #include "NavMap.h"
 
 #include <algorithm>
-#include <gl/glut.h>
+//#include <gl/glut.h>
 
 //
 //
