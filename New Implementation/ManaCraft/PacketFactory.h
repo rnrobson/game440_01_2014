@@ -17,14 +17,14 @@ public:
 	/// <para> [const Packet* packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <returns>Returns the converted packet.</returns>
 	/// </summary>
-	static Networking::Packet* CreateFromClientPacket(const Networking::Packet* packet);
+	static CommandPacket* CreateFromClientPacket(const Networking::Packet* packet);
 
 	/// <summary>[CreateClientServerPacket]
 	/// <para>Converts a regular packet into the Command Packet that corresponds to its Protocol.</para>
 	/// <para>[const Packet* packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <returns>Returns the converted packet.</returns>
 	/// </summary>
-	static Networking::Packet* CreateFromServerPacket(const Networking::Packet* packet);
+	static CommandPacket* CreateFromServerPacket(const Networking::Packet* packet);
 
 private: 
 	PacketFactory() { };
@@ -62,22 +62,13 @@ public:
 	void Execute();
 };
 
-class SendMessageIGPacket : public CommandPacket {
+class SendLobbyMessagePacket : public CommandPacket {
 private:
 	__int16 gameID;
 	std::string username;
 	std::string message;
 public:
-	SendMessageIGPacket(const Packet* packet);
-	void Execute();
-};
-
-class SendMessageGLPacket : public CommandPacket {
-	__int16 lobbyID;
-	std::string username;
-	std::string message;
-public:
-	SendMessageGLPacket(const Packet* packet);
+	SendLobbyMessagePacket(const Packet* packet);
 	void Execute();
 };
 
@@ -93,24 +84,14 @@ public:
 	void Execute();
 };
 
-class SendPartyMsgIGPacket : public CommandPacket {
+class SendPartyMsgPacket : public CommandPacket {
 private:
 	std::string username;
 	std::string message;
 	__int16 gameID;
 	__int16 teamID;
 public:
-	SendPartyMsgIGPacket(const Packet* packet);
-	void Execute();
-};
-
-class SendPartyMsgGLPacket : public CommandPacket {
-private:
-	std::string username;
-	std::string message;
-	__int16 lobbyID;
-public:
-	SendPartyMsgGLPacket(const Packet* packet);
+	SendPartyMsgPacket(const Packet* packet);
 	void Execute();
 };
 
