@@ -152,21 +152,18 @@ CloseGamePacket::CloseGamePacket(const Networking::Packet* packet) : CommandPack
 }
 
 LoginPlayerPacket::LoginPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength = 0;
-
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
-	usernameLength = Networking::Deserialize::Int8(data, index);
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
 	index += sizeof(__int8);
-	std::cout << "Username Length: " << usernameLength << std::endl;
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
 
-	char* name = new char[usernameLength + 1];
-	for(int i = 0; i < usernameLength; ++i) {
-		name[i] = data[index];
-		++index;
+	char* name = new char[usernameLength-1];
+	for(int i = 0; i < usernameLength-1; ++i) {
+		name[i] = data[index + i];
 	}
-	name[usernameLength] = '\0';
+	name[usernameLength-1] = '\0';
 
 	username.append(name);
 }

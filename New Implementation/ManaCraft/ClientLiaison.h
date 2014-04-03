@@ -11,6 +11,7 @@
 #include "Connection.h"
 #include "ConnectionException.h"
 #include "NetClient.h"
+#include "NetServer.h"
 #include "Packet.h"
 #include "PacketFactory.h"
 
@@ -20,10 +21,9 @@ using namespace ManaCraft;
 		private:
 			static bool running;
 
-			//static Networking::Connection master;
+			static Networking::NetServer* master;
 			static std::vector<Networking::NetClient*> connections;
-			static BlockingQueue<Networking::Packet> dataToWorker;
-			static BlockingQueue<int> dataToClient;
+			static BlockingQueue<Networking::Packet*> dataToWorker;
 
 			/// <summary>[InitLiaison]
 			/// <para>Initialize the Client Liaison.</para>

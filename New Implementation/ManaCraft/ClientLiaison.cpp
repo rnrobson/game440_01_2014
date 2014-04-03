@@ -1,15 +1,14 @@
 #include "ClientLiaison.h"
 #include "Serialize.h"
-#include"ServerIncludes.h"
+#include "ServerIncludes.h"
 #include "Packet.h"
+#include "ThreadedListener.h"
+#include "PacketFactory.h"
 
 bool ClientLiaison::running = false;
-Networking::NetServer master(27015);
+Networking::NetServer* ClientLiaison::master;
 std::vector<Networking::NetClient*> ClientLiaison::connections = std::vector<Networking::NetClient*>();
-BlockingQueue<int> ClientLiaison::dataToClient = BlockingQueue<int>();
-BlockingQueue<Networking::Packet> ClientLiaison::dataToWorker = BlockingQueue<Networking::Packet>();
-
-SDL_Thread *incoming, *outgoing;
+BlockingQueue<Networking::Packet*> ClientLiaison::dataToWorker = BlockingQueue<Networking::Packet*>();
 
 void ClientLiaison::InitLiaison() {
 	running = true;
@@ -17,72 +16,14 @@ void ClientLiaison::InitLiaison() {
 
 void ClientLiaison::Run() {
 	InitLiaison();
-
-	incoming = SDL_CreateThread(ClientListen, "Incoming", NULL);
-
-	if(incoming == NULL) {
-		std::cout << "Failed to create thread 'incoming': " << SDL_GetError << std::endl;
-	}
-
-	outgoing = SDL_CreateThread(SendToClient, "Outgoing", NULL);
-
-	if(outgoing == NULL) {
-		std::cout << "Failed to create thread 'outgoing': " << SDL_GetError << std::endl;
-	}
-
-	while(running) {
-		SendToWorker();
-	}
-
-	CloseLiaison();
+	master = new Networking::NetServer(27015);
+	Networking::ThreadedListener* listener = new Networking::ThreadedListener(master, 5);
 }
 
 int ClientLiaison::SendToClient(void*) {
-	while(false) {
+	while (false) {
 
 	}
-	return 0;
-}
-
-int ClientLiaison::ClientListen(void*) {
-	bool listening = true;
-	
-	int i = master.Open();	
-		
-	std::cout << std::endl << "Master connection attempted to open: " << i << std::endl;
-
-	if(i == 1) {
-		std::cout << "Listening on port: " << master.GetIP().port << std::endl;
-	} else {
-		std::cout << "Failed to open master connecton." << std::endl;
-	}
-
-	while(listening) {
-		try {
-			Networking::NetClient* connection = master.Listen();
-			
-			if(connection != nullptr) {
-				connections.push_back(connection);
-
-				for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
-					Networking::Packet *packet = (*iter)->Receive();
-
-					if(packet != nullptr) {
-						packet = PacketFactory::CreateFromServerPacket(packet);
-
-						packet->Execute();
-					}
-				}
-			}
-		}
-		catch(Networking::ConnectionNotServerTypeException e) {
-			std::cout << e.what() << std::endl;
-			std::cin.get();
-		}
-	}
-
-	master.Close();
-
 	return 0;
 }
 
@@ -91,9 +32,9 @@ void ClientLiaison::SendToWorker() {
 }
 
 void ClientLiaison::CloseLiaison() {
-	std::cout << "Closing master connection: " << master.Close() << std::endl;
+	std::cout << "Closing master connection: " << master->Close() << std::endl;
 
-	for(auto iter = connections.begin(); iter != connections.end(); ++iter) {
+	for (auto iter = connections.begin(); iter != connections.end(); ++iter) {
 		std::cout << "Closing connection: " << (*iter)->Close() << std::endl;
 		delete *iter;
 	}

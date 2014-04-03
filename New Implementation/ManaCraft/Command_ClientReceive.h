@@ -1,7 +1,8 @@
 #pragma once
 #include "PacketFactory.h"
 #include "NetClient.h"
-#include "PacketFactory.h"
+#include "Server.h"
+#include "Client.h"
 
 using namespace ManaCraft::Networking;
 
@@ -22,7 +23,13 @@ public:
 		while (true) {
 			Packet* receivedPacket = client->Receive();
 			if (receivedPacket != nullptr) {
-				PacketFactory::CreateFromServerPacket(receivedPacket);
+				CommandPacket* commandPacket = PacketFactory::CreateFromServerPacket(receivedPacket);
+				//ManaCraft::Client::Client::workQueue.push(commandPacket);
+				std::cout << "Received packet from server: ";
+				for (size_t i = 0; i < receivedPacket->GetDataLength(); i++) {
+					std::cout << receivedPacket->GetData()[i];
+				}
+				std::cout << std::endl;
 			}
 		}
 	}

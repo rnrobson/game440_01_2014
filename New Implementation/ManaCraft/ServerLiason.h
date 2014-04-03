@@ -5,25 +5,28 @@
 #include "Packet.h"
 #include "NetClient.h"
 #include "BlockingQueue.h"
+#include "Packet.h"
+#include "PacketFactory.h"
 
 namespace ManaCraft {
 	namespace Client {
 		class ServerLiason {
 			private:
-				static int StaticSendToServer(void* data);
-				int SendToServer();
+				static int SendingThread(void* data);
+				static int ExecuteThread(void* data);
 				static int StaticListenToServer(void* data);
-				int ListenToServer();
-				void CloseConnection();
-
-				SDL_Thread* listening;
-				SDL_Thread* sending;
 				
+				void CloseConnection();
+				static BlockingQueue<Networking::Packet*>* sendingQueue;
+				static BlockingQueue<CommandPacket*>* executeQueue;
+				static SDL_Thread* sendingThread;
+				static SDL_Thread* executeThread;
 
 			public:
 				ServerLiason();
 				static void Start();
-				static void AddMessage(ManaCraft::Networking::Packet* packet);
+				static void Stop();
+				static void SendPacket(Networking::Packet* packet);
 		};
 	}
 }

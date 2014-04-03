@@ -228,7 +228,7 @@ void MainMenu::Draw()
 
 void PlayerLoggedIn(std::string _username)
 {
-	Client::GetInstance()->Settings()->Username = _username;
+	ManaCraft::Client::Client::GetInstance()->Settings()->Username = _username;
 	MainMenu::netIndicator = MainMenu::NetIndicator::Green;
 }
 
