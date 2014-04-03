@@ -79,7 +79,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\NetworkCommands.cpp" />
     <ClCompile Include="AnimatedSprite.cpp" />
     <ClCompile Include="APIEvents.cpp" />
     <ClCompile Include="ArtLayer.cpp" />
@@ -121,6 +120,7 @@
     <ClCompile Include="NetBroadcaster.cpp" />
     <ClCompile Include="NetClient.cpp" />
     <ClCompile Include="NetServer.cpp" />
+    <ClCompile Include="NetworkCommands.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PacketFactory.cpp" />

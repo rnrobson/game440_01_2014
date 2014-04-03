@@ -306,7 +306,7 @@
     <ClCompile Include="PlayerInfoTable.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\Desktop\NetworkCommands.cpp">
+    <ClCompile Include="NetworkCommands.cpp">
       <Filter>Source Files\Client</Filter>
     </ClCompile>
   </ItemGroup>
