@@ -9,6 +9,8 @@
 
 using namespace ManaCraft;
 
+class CommandPacket;
+
 class PacketFactory
 { 
 public:
@@ -84,14 +86,14 @@ public:
 	void Execute();
 };
 
-class SendPartyMsgPacket : public CommandPacket {
+class SendPartyMessagePacket : public CommandPacket {
 private:
 	std::string username;
 	std::string message;
 	__int16 gameID;
 	__int16 teamID;
 public:
-	SendPartyMsgPacket(const Packet* packet);
+	SendPartyMessagePacket(const Packet* packet);
 	void Execute();
 };
 

@@ -18,7 +18,7 @@ CommandPacket* PacketFactory::CreateFromClientPacket(const Networking::Packet* p
 	case Networking::SEND_WHISPER:
 		return new SendWhisperPacket(packet);
 	case Networking::SEND_PARTY_MSG:
-		return new SendPartyMsgPacket(packet);
+		return new SendPartyMessagePacket(packet);
 	case Networking::REFRESH_GAMES:
 		return new RefreshGamesPacket(packet);
 	case Networking::JOIN_GAME:
@@ -274,7 +274,7 @@ SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : Command
 	message.append(msg);
 }
 
-SendPartyMsgPacket::SendPartyMsgPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+SendPartyMessagePacket::SendPartyMessagePacket(const Networking::Packet* packet) : CommandPacket(packet) {
 	__int8 usernameLength = 0;
 	__int8 messageLength = 0;
 	gameID = 0;
@@ -1071,16 +1071,10 @@ void LogoutPlayerPacket::Execute() {
 	//let client know
 }
 
-void SendMessageIGPacket::Execute() {
+void SendLobbyMessagePacket::Execute() {
 		//find all players in the player's game
 		//send the message to all those players
 }
-
-void SendMessageGLPacket::Execute() {
-	//find all players in the player's lobby
-	//send the message to all those players
-}
-
 void SendWhisperPacket::Execute() {
 		//find the recipient from collection of online players
 		//if found
@@ -1089,14 +1083,9 @@ void SendWhisperPacket::Execute() {
 			//display a message to player indicating that the recipient was not found
 }
 
-void SendPartyMsgIGPacket::Execute() {
+void SendPartyMessagePacket::Execute() {
 		//find all players in the player's team in the game
 		//send the message to all those players
-}
-
-void SendPartyMsgGLPacket::Execute() {
-	//find all players in the player's team in the lobby
-	//send the message to all those players
 }
 
 void RefreshGamesPacket::Execute() {
