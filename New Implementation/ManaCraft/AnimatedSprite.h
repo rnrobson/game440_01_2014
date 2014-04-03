@@ -1,36 +1,41 @@
 #pragma once
 #include "Sprite.h"
 #include <vector>
-class AnimatedSprite :
-	public Sprite
-{
-public:
-	
-	AnimatedSprite(SDL_Texture *t, int posX, int posY, int sheetSzX, int sheetSzY);
-	~AnimatedSprite();
-	void Left();
-	void Right();
-	void Up();
-	void Down();
-	void Update(double time);
-	virtual void Draw();
-private:
 
-	int width;
-	int height;
-	int lastUpdated;
-	int timeElapsed;
-	int currentFrame;
-	int sheetX;
-	int sheetY;
-	int row;
-	std::vector<SDL_Rect>clips;
+namespace ManaCraft {
+	namespace Client {
+		class AnimatedSprite :
+			public Sprite
+		{
+		public:
 
-	enum Direction { DOWN, LEFT, UP, RIGHT };
+			AnimatedSprite(SDL_Texture *t, int posX, int posY, int sheetSzX, int sheetSzY);
+			~AnimatedSprite();
+			void Left();
+			void Right();
+			void Up();
+			void Down();
+			void Update(double time);
+			virtual void Draw();
+		private:
 
-	SDL_Texture *sheet;
+			int width;
+			int height;
+			int lastUpdated;
+			int timeElapsed;
+			int currentFrame;
+			int sheetX;
+			int sheetY;
+			int row;
+			std::vector<SDL_Rect>clips;
 
-	int x;
-	int y;
-};
+			enum Direction { DOWN, LEFT, UP, RIGHT };
+
+			SDL_Texture *sheet;
+
+			int x;
+			int y;
+		};
+	}
+}
 

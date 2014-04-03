@@ -205,11 +205,11 @@ namespace ManaCraft {
 			// Chat oriented protocols are: 2200 - 2224
 			// There are currently: 5/25
 
-			/// <summary>Will send a message to the server meant for all the players within that game
-			/// <para>Data: [2] GameID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
+			/// <summary>Will send a message to the server meant for all the players the specified team
+			/// <para>Data: [2] GameID, [2] TeamID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
 			SEND_PARTY_MSG = 2200,
-			/// <summary>Will send a message to the server meant for all the players within the game prep. lobby
+			/// <summary>Will send a message to the server meant for all the players within the game or lobby
 			/// <para>Data: [2] LobbyID, [1] Username Length, [1] Message Length, [N] Username, [N] Message</para>
 			/// </summary>
 			SEND_LOBBY_MSG,

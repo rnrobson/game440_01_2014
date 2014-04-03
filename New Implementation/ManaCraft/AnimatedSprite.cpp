@@ -1,4 +1,5 @@
 #include "AnimatedSprite.h"
+using namespace ManaCraft::Client;
 
 AnimatedSprite::AnimatedSprite(SDL_Texture *tex, int posX, int posY, int sheetSzX, int sheetSzY)
 :Sprite(tex, posX, posY)

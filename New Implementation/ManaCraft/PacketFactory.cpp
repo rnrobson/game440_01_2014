@@ -1,13 +1,9 @@
 #include "PacketFactory.h"
 #include "GameManager.h"
 
-Networking::Packet* PacketFactory::CreateFromClientPacket(const Networking::Packet* packet) {
+CommandPacket* PacketFactory::CreateFromClientPacket(const Networking::Packet* packet) {
 
-	std::cout << "PacketFactory creating packet." << std::endl;
-
-	__int16 protocol = packet->GetProtocolID();
-
-	std::cout << "Protocol: " << protocol << std::endl;
+	Networking::CS_Protocol protocol = (Networking::CS_Protocol)packet->GetProtocolID();
 
 	switch ((Networking::CS_Protocol)protocol) {
 	default:
@@ -17,16 +13,12 @@ Networking::Packet* PacketFactory::CreateFromClientPacket(const Networking::Pack
 		return new LoginPlayerPacket(packet);
 	case Networking::LOGOUT_PLAYER:
 		return new LogoutPlayerPacket(packet);
-	/*case Networking::SEND_MESSAGE_IG:
-		return new SendMessageIGPacket(packet);
-	case Networking::SEND_MESSAGE_GL:
-		return new SendMessageGLPacket(packet);*/
+	case Networking::SEND_LOBBY_MSG:
+		return new SendLobbyMessagePacket(packet);
 	case Networking::SEND_WHISPER:
 		return new SendWhisperPacket(packet);
-	/*case Networking::SEND_PARTY_MSG_IG:
-		return new SendPartyMsgIGPacket(packet);
-	case Networking::SEND_PARTY_MSG_GL:
-		return new SendPartyMsgGLPacket(packet);*/
+	case Networking::SEND_PARTY_MSG:
+		return new SendPartyMessagePacket(packet);
 	case Networking::REFRESH_GAMES:
 		return new RefreshGamesPacket(packet);
 	case Networking::JOIN_GAME:
@@ -66,7 +58,7 @@ Networking::Packet* PacketFactory::CreateFromClientPacket(const Networking::Pack
 	}
 }
 
-Networking::Packet* PacketFactory::CreateFromServerPacket(const Networking::Packet* packet) {
+CommandPacket* PacketFactory::CreateFromServerPacket(const Networking::Packet* packet) {
 	switch (packet->GetProtocolID()) {
 	case Networking::CLIENT_LOST:
 		return new ClientLostPacket(packet);
@@ -160,21 +152,18 @@ CloseGamePacket::CloseGamePacket(const Networking::Packet* packet) : CommandPack
 }
 
 LoginPlayerPacket::LoginPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength = 0;
-
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
-	usernameLength = Networking::Deserialize::Int8(data, index);
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
 	index += sizeof(__int8);
-	std::cout << "Username Length: " << usernameLength << std::endl;
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
 
-	char* name = new char[usernameLength + 1];
-	for(int i = 0; i < usernameLength; ++i) {
-		name[i] = data[index];
-		++index;
+	char* name = new char[usernameLength-1];
+	for(int i = 0; i < usernameLength-1; ++i) {
+		name[i] = data[index + i];
 	}
-	name[usernameLength] = '\0';
+	name[usernameLength-1] = '\0';
 
 	username.append(name);
 }
@@ -199,76 +188,40 @@ LogoutPlayerPacket::LogoutPlayerPacket(const Networking::Packet* packet) : Comma
 	username.append(name);
 }
 
-SendMessageIGPacket::SendMessageIGPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength = 0;
-	__int8 messageLength = 0;
-	gameID = 0;
-
-	unsigned int index = 0;
-	std::vector<char> data = packet->GetData();
-
-	gameID = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-
-	usernameLength = Networking::Deserialize::Int8(data, index);
-	index += sizeof(__int8);
-
-	messageLength = Networking::Deserialize::Int8(data, index);
-	index += sizeof(__int8);
-
-	char* name = new char[usernameLength + 1];
-	for (int i = 0; i < usernameLength; ++i) {
-		name[i] = data[index];
-		++index;
-	}
-	name[usernameLength] = '\0';
-
-	username.append(name);
-
-	char* msg = new char[messageLength + 1];
-	for (int i = 0; i < messageLength; ++i) {
-		msg[i] = data[index];
-		++index;
-	}
-	msg[messageLength] = '\0';
-
-	message.append(msg);
-}
-
-SendMessageGLPacket::SendMessageGLPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength = 0;
-	__int8 messageLength = 0;
-	lobbyID = 0;
-
-	unsigned int index = 0;
-	std::vector<char> data = packet->GetData();
-
-	lobbyID = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-
-	usernameLength = Networking::Deserialize::Int8(data, index);
-	index += sizeof(__int8);
-
-	messageLength = Networking::Deserialize::Int8(data, index);
-	index += sizeof(__int8);
-
-	char* name = new char[usernameLength + 1];
-	for (int i = 0; i < usernameLength; ++i) {
-		name[i] = data[index];
-		++index;
-	}
-	name[usernameLength] = '\0';
-
-	username.append(name);
-
-	char* msg = new char[messageLength + 1];
-	for (int i = 0; i < messageLength; ++i) {
-		msg[i] = data[index];
-		++index;
-	}
-	msg[messageLength] = '\0';
-
-	message.append(msg);
+SendLobbyMessagePacket::SendLobbyMessagePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+		__int8 usernameLength = 0;
+		__int8 messageLength = 0;
+		gameID = 0;
+	
+		unsigned int index = 0;
+		std::vector<char> data = packet->GetData();
+	
+		gameID = Networking::Deserialize::Int16(data, index);
+		index += sizeof(__int16);
+	
+		usernameLength = Networking::Deserialize::Int8(data, index);
+		index += sizeof(__int8);
+	
+		messageLength = Networking::Deserialize::Int8(data, index);
+		index += sizeof(__int8);
+	
+		char* name = new char[usernameLength + 1];
+		for (int i = 0; i < usernameLength; ++i) {
+			name[i] = data[index];
+			++index;
+		}
+		name[usernameLength] = '\0';
+	
+		username.append(name);
+	
+		char* msg = new char[messageLength + 1];
+		for (int i = 0; i < messageLength; ++i) {
+			msg[i] = data[index];
+			++index;
+		}
+		msg[messageLength] = '\0';
+	
+		message.append(msg);
 }
 
 SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -280,11 +233,6 @@ SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : Command
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
-
-	/* i don't see this in the protocol
-	gameID = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-	*/
 	
 	sendingUserLength = Networking::Deserialize::Int8(data, index);
 	index += sizeof(__int8);
@@ -323,7 +271,7 @@ SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : Command
 	message.append(msg);
 }
 
-SendPartyMsgIGPacket::SendPartyMsgIGPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+SendPartyMessagePacket::SendPartyMessagePacket(const Networking::Packet* packet) : CommandPacket(packet) {
 	__int8 usernameLength = 0;
 	__int8 messageLength = 0;
 	gameID = 0;
@@ -336,42 +284,6 @@ SendPartyMsgIGPacket::SendPartyMsgIGPacket(const Networking::Packet* packet) : C
 	index += sizeof(__int16);
 
 	teamID = Networking::Deserialize::Int16(data, index);
-	index += sizeof(__int16);
-
-	usernameLength = Networking::Deserialize::Int8(data, index);
-	index += sizeof(__int8);
-
-	messageLength = Networking::Deserialize::Int8(data, index);
-	index += sizeof(__int8);
-
-	char* name = new char[usernameLength + 1];
-	for (int i = 0; i < usernameLength; ++i) {
-		name[i] = data[index];
-		++index;
-	}
-	name[usernameLength] = '\0';
-
-	username.append(name);
-
-	char* msg = new char[messageLength + 1];
-	for (int i = 0; i < messageLength; ++i) {
-		msg[i] = data[index];
-		++index;
-	}
-	msg[messageLength] = '\0';
-
-	message.append(msg);
-}
-
-SendPartyMsgGLPacket::SendPartyMsgGLPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength = 0;
-	__int8 messageLength = 0;
-	lobbyID = 0;
-
-	unsigned int index = 0;
-	std::vector<char> data = packet->GetData();
-
-	lobbyID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
 
 	usernameLength = Networking::Deserialize::Int8(data, index);
@@ -1156,16 +1068,10 @@ void LogoutPlayerPacket::Execute() {
 	//let client know
 }
 
-void SendMessageIGPacket::Execute() {
+void SendLobbyMessagePacket::Execute() {
 		//find all players in the player's game
 		//send the message to all those players
 }
-
-void SendMessageGLPacket::Execute() {
-	//find all players in the player's lobby
-	//send the message to all those players
-}
-
 void SendWhisperPacket::Execute() {
 		//find the recipient from collection of online players
 		//if found
@@ -1174,14 +1080,9 @@ void SendWhisperPacket::Execute() {
 			//display a message to player indicating that the recipient was not found
 }
 
-void SendPartyMsgIGPacket::Execute() {
+void SendPartyMessagePacket::Execute() {
 		//find all players in the player's team in the game
 		//send the message to all those players
-}
-
-void SendPartyMsgGLPacket::Execute() {
-	//find all players in the player's team in the lobby
-	//send the message to all those players
 }
 
 void RefreshGamesPacket::Execute() {

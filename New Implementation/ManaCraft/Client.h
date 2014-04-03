@@ -23,6 +23,7 @@
 #include "LoginPopup.h"
 #include "GUI.h"
 #include "InGameGUI.h"
+
 namespace ManaCraft {
 	namespace Client {
 		class Client {

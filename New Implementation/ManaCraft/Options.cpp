@@ -1,6 +1,9 @@
 #include "Options.h"
+#include "MainMenu.h"
+
 #include "ScreenFader.h"
 #include "API_Util.h"
+using namespace ManaCraft::Client;
 
 Options* Options::instance;
 
@@ -32,7 +35,7 @@ void Options::Load()
 
 	//add main container
 	ClientAPI::AddGuiContainer("Options", content);
-	ClientAPI::GetGuiContainer("Options")->AddGuiContainer("OptionsForeground", new GuiContainer());
+	content->AddGuiContainer("OptionsForeground", new GuiContainer());
 
 	//add font
 	ClientAPI::AddAudio("OptionsAudio", APIHelper::LoadAudioFile("Resources/Audios/Menu/Bg.ogg"));
@@ -46,9 +49,9 @@ void Options::Load()
 	API_Util::AddColor("LightBlue", 0, 162, 232, 255);
 	API_Util::AddColor("Red", 255, 0, 0, 255);
 
-	ClientAPI::GetGuiContainer("Options")->SetBackgroundAudio(ClientAPI::GetAudio("OptionsAudio"));
-	ClientAPI::GetGuiContainer("Options")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
-	ClientAPI::GetGuiContainer("Options")->MusicPlay();
+	content->SetBackgroundAudio(ClientAPI::GetAudio("OptionsAudio"));
+	content->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
+	content->MusicPlay();
 
 	//add textures
 	API_Util::AddTexture("GameLogo", "Resources/Images/ManaCraft.png", API_Util::PNG);
@@ -67,18 +70,18 @@ void Options::Load()
 	SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
 
 	//add background
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("Options"), "bg", "OptionsBG", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+	API_Util::AddGuiElementToContainer(content, "bg", "OptionsBG", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 	//ClientAPI::GetGuiContainer("Options")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("Background"), { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }));
 
 	//add logo
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
+	content->GetGuiContainer("OptionsForeground")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
 
 	//add sliders
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->AddGuiElement("musicSlider", new Slider(APIHelper::RectHelper(410, 460, 200, 20),
+	content->GetGuiContainer("OptionsForeground")->AddGuiElement("musicSlider", new Slider(APIHelper::RectHelper(410, 460, 200, 20),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 0, 0, 255)),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 255, 255, 255))));
 
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->AddGuiElement("SfxSlider", new Slider(APIHelper::RectHelper(410, 530, 200, 20),
+	content->GetGuiContainer("OptionsForeground")->AddGuiElement("SfxSlider", new Slider(APIHelper::RectHelper(410, 530, 200, 20),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 0, 0, 255)),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 255, 255, 255))));
 
@@ -87,33 +90,33 @@ void Options::Load()
 
 	//add labels
 
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"), "Lbl_Options", "Options", { 450, 350, 200, 100 }, "OGWEAR", "White");
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"), "Lbl_Music", "Music Volume:", { 430, 420, 200, 100 }, "Systema_22", "Black");
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"), "Lbl_SFX", "SFX Volume:", { 430, 490, 200, 100 }, "Systema_22", "Black");
+	API_Util::AddLabelToContainer(content->GetGuiContainer("OptionsForeground"), "Lbl_Options", "Options", { 450, 350, 200, 100 }, "OGWEAR", "White");
+	API_Util::AddLabelToContainer(content->GetGuiContainer("OptionsForeground"), "Lbl_Music", "Music Volume:", { 430, 420, 200, 100 }, "Systema_22", "Black");
+	API_Util::AddLabelToContainer(content->GetGuiContainer("OptionsForeground"), "Lbl_SFX", "SFX Volume:", { 430, 490, 200, 100 }, "Systema_22", "Black");
 
 
 	//add button
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"), "returnToMainMenu", { 900, 720, 100, 30 }, "MedBtnNormal");
+	API_Util::AddButtonToContainer(content->GetGuiContainer("OptionsForeground"), "returnToMainMenu", { 900, 720, 100, 30 }, "MedBtnNormal");
 
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("OptionsForeground"),
 		"returnToMainMenu", "Back", "Systema_11", "Black");
 
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->GetLabel()->SetPadding({ 29, 8, 0, 0 });
+	content->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->GetLabel()->SetPadding({ 29, 8, 0, 0 });
 
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->SubscribeOnMouseClick(ReturnToMainMenu);
+	content->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->SubscribeOnMouseClick(ReturnToMainMenu);
 	//
 
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"), "muteBtn", { 460, 590, 100, 30 }, "MedBtnNormal");
+	API_Util::AddButtonToContainer(content->GetGuiContainer("OptionsForeground"), "muteBtn", { 460, 590, 100, 30 }, "MedBtnNormal");
 
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("OptionsForeground"),
 		"muteBtn", "Mute All", "Systema_11", "Black");
 
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetButton("muteBtn")->GetLabel()->SetPadding({ 20, 8, 0, 0 });
+	content->GetGuiContainer("OptionsForeground")->GetButton("muteBtn")->GetLabel()->SetPadding({ 20, 8, 0, 0 });
 
-	ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetButton("muteBtn")->SubscribeOnMouseClick(MuteAll);
+	content->GetGuiContainer("OptionsForeground")->GetButton("muteBtn")->SubscribeOnMouseClick(MuteAll);
 
 	//Making options container not visible
-	ClientAPI::GetGuiContainer("Options")->Active = false;
+	//content->Active = false;
 }
 
 void Options::Update(double time)
@@ -141,25 +144,29 @@ void Options::OnEscapePressed()
 }
 
 void Options::ReturnToMainMenu() {
-	ClientAPI::GetGuiContainer("Options")->Sfx1Play();
-	ClientAPI::GetGuiContainer("Options")->Active = false;
-	ClientAPI::GetGuiContainer("MainMenu")->Active = true;
-	ScreenFader::FadeOut();
+	Options::GetInstance()->GetContent()->Sfx1Play();
+
+	//ClientAPI::GetGuiContainer("Options")->Active = false;
+	//ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+	ClientAPI::SetFocus(MainMenu::GetInstance());
+
+	ScreenFader::GetInstance()->FadeOut();
 }
 
 void Options::MuteAll() {
-	ClientAPI::GetGuiContainer("Options")->Sfx1Play();
+	Options::GetInstance()->GetContent()->Sfx1Play();
+
 	APIHelper::ToggleAllAudio();
 	printf("Mute Button Pressed");
 }
 
 void setMusicVolume() {
-	int newMusicVolume = ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->Value();
+	int newMusicVolume = Options::GetInstance()->GetContent()->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->Value();
 	APIHelper::SetMusicVolume(newMusicVolume);
 	printf("TEST");
 }
 
 void setSfxVolume() {
-	int newSfxVolume = ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("SfxSlider")->Value();
+	int newSfxVolume = Options::GetInstance()->GetContent()->GetGuiContainer("OptionsForeground")->GetSlider("SfxSlider")->Value();
 	APIHelper::SetSoundEffect1Volume(newSfxVolume);
 }

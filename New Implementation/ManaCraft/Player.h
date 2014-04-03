@@ -1,23 +1,32 @@
 #pragma once
 
-#include <list>
+#include <vector>
 
-#include "Entity.h"
+#include "Minion.h"
+#include "Tower.h"
 #include "InfluenceSquare.h"
+#include "DatabaseAPI.h"
 
-class Player
-{
+using namespace std;
+
+class Player {
 private:
-	std::list<Entity*> towers;
-	std::list<Entity*> minions;
-	std::list<InfluenceSquare*> infSquares; //the diagram says Player has an Influence Square
+	vector<InfluenceSquare*> infSquares;	//the diagram says Player has an Influence Square
 											//I'm guessing it's supposed to be a list of Influence Squares?
 public:
-	unsigned int mana;
-	unsigned int totalManaPerSecond;
-	char teamID;
+	uint id;
+	uint mana;
+	uint totalManaPerSecond;
+	vector<Player*> *Team;
 
-	Player(void);
-	~Player(void);
+	vector<Tower*> towers;
+	vector<Minion*> minions;
+
+	Player();
+	Player(uint _id);
+	~Player();
+
+	static Player* LoadPlayerByID(int _id);
+	void SavePlayer(unsigned int TeamID);
 };
 

@@ -306,6 +306,9 @@
     <ClCompile Include="PlayerInfoTable.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkCommands.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -497,9 +500,6 @@
     <ClInclude Include="ServerLiason.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkCommands.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
     <ClInclude Include="NetReceiver.h">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
@@ -638,6 +638,8 @@
     <ClInclude Include="Command_UpdateEconomy.h">
       <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkCommands.h">
+      <Filter>Header Files</Filter>
     <ClInclude Include="Command_CS_ResumeGame.h">
       <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>

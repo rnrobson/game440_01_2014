@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "ServerPlayer.h"
 #include "DatabaseAPI.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -12,22 +12,22 @@ public:
 	unsigned int team1ID, team2ID;
 	int PlayerCount;
 	int MaxPlayers;
-	vector<ServerPlayer*> Bench;
-	vector<ServerPlayer*> Team1;
-	vector<ServerPlayer*> Team2;
+	vector<Player*> Bench;
+	vector<Player*> Team1;
+	vector<Player*> Team2;
 
 	Teams(int teamSize);
 	Teams();
 	~Teams(void);
 
-	void EnterNewPlayer(ServerPlayer *player);
-	void PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam);
-	void KickPlayer(ServerPlayer *player);
+	void EnterNewPlayer(Player *player);
+	void PlayerChangeTeam(Player *player, vector<Player*> *toTeam);
+	void KickPlayer(Player *player);
 
 	static Teams* LoadTeamsByIDs(int _team1ID, int _team2ID);
 	void SaveTeams(unsigned int GameID);
 	void DeleteTeams();
 
 private:
-	bool FindAndRemove(ServerPlayer *player);
+	bool FindAndRemove(Player *player);
 };

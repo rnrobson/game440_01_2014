@@ -49,7 +49,8 @@ void GuiContainer::Draw()
 			it->second->Draw();
 		}
 
-		for (auto it = guiContainers.begin(); it != guiContainers.end(); ++it) {
+		for (auto it = guiContainers.begin(); it != guiContainers.end(); it++) {
+			//std::cout << it->first << std::endl;
 			it->second->Draw();
 		}
 	}

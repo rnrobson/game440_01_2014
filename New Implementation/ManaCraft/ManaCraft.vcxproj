@@ -120,6 +120,7 @@
     <ClCompile Include="NetBroadcaster.cpp" />
     <ClCompile Include="NetClient.cpp" />
     <ClCompile Include="NetServer.cpp" />
+    <ClCompile Include="NetworkCommands.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="PacketFactory.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="GuiTower.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Message.h" />
+    <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="Page.h" />
     <ClInclude Include="PlayerInfoTable.h" />
@@ -210,7 +212,6 @@
     <ClInclude Include="NetClient.h" />
     <ClInclude Include="NetReceiver.h" />
     <ClInclude Include="NetServer.h" />
-    <ClInclude Include="NetworkCommands.h" />
     <ClInclude Include="PacketFactory.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlayerBase.h" />

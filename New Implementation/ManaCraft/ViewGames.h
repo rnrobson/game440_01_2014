@@ -1,31 +1,35 @@
 #pragma once
 #include "Page.h"
-class ViewGames :
-	public Page
-{
-protected:
-	ViewGames();
 
-	static ViewGames* instance;
+namespace ManaCraft {
+	namespace Client {
+		class ViewGames :
+			public Page
+		{
+		protected:
+			ViewGames();
 
-public:
-	static ViewGames* GetInstance();
-	~ViewGames();
+			static ViewGames* instance;
 
-	virtual void Load();
-	virtual void Update(double time);
-	virtual void Draw();
+		public:
+			static ViewGames* GetInstance();
+			~ViewGames();
 
-	//============
-	//--- Events 
-	//============
-	static void OnEnterPressed();
-	static void OnEscapePressed();
+			virtual void Load();
+			virtual void Update(double time);
+			virtual void Draw();
 
-	static void Click_checkbox();
-	static void Click_join();
-	static void Click_refresh();
-	static void Click_backButton();
-	static void Click_createGameButton();
-};
+			//============
+			//--- Events 
+			//============
+			static void OnEnterPressed();
+			static void OnEscapePressed();
 
+			static void Click_checkbox();
+			static void Click_join();
+			static void Click_refresh();
+			static void Click_backButton();
+			static void Click_createGameButton();
+		};
+	}
+}

@@ -1,5 +1,8 @@
 #include "Credits.h"
+#include "MainMenu.h"
+
 #include "ScreenFader.h"
+using namespace ManaCraft::Client;
 
 Credits* Credits::instance;
 
@@ -125,9 +128,7 @@ void Credits::Load()
 			ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
 	}
 
-	ClientAPI::GetGuiContainer("Credits")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
-
-	content->Active = false;
+	content->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
 }
 
 void Credits::Update(double time)
@@ -157,8 +158,12 @@ void Credits::OnEscapePressed()
 void Credits::Click_backButton()
 {
 	std::cout << "Back to main menu.\n";
-	ClientAPI::GetGuiContainer("Credits")->Sfx1Play();
-	ClientAPI::GetGuiContainer("Credits")->Active = false;
-	ClientAPI::GetGuiContainer("MainMenu")->Active = true;
-	ScreenFader::FadeOut();
+	//ClientAPI::GetGuiContainer("Credits")->Sfx1Play();
+	//ClientAPI::GetGuiContainer("Credits")->Active = false;
+	//ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+
+	Credits::GetInstance()->GetContent()->Sfx1Play();
+	ClientAPI::SetFocus(MainMenu::GetInstance());
+
+	ScreenFader::GetInstance()->FadeOut();
 }

@@ -1,22 +1,37 @@
+#pragma once
+#ifndef SCREEN_FADER_H
+#define SCREEN_FADER_H
+
 #include <SDL.h>
 #include <math.h>
 #include "ClientAPI.h"
 #include <stdio.h>
 
-class ScreenFader
-{
-public:
-	static void Load();
-	static void Update(double _time);
-	static void FadeIn();
-	static void FadeOut();
-	static void FadeToNewScreen(std::string _currentScr, std::string _newScr);
-	static void Draw();
-	static void SetColor(SDL_Color _color);
-private:
-	static SDL_Texture *fader;
-	static SDL_Color color;
-	static bool isFadingIn, isFadingOut;
-	static int alpha;
-	~ScreenFader(){ SDL_DestroyTexture(fader); }
-};
+namespace ManaCraft {
+	namespace Client {
+		class ScreenFader
+		{
+		protected:
+			ScreenFader();
+			static ScreenFader* instance;
+
+		public:
+			static ScreenFader* GetInstance();
+			~ScreenFader();
+
+			void Load();
+			void Update(double _time);
+			void FadeIn();
+			void FadeOut();
+			void FadeToNewScreen(std::string _currentScr, std::string _newScr);
+			void Draw();
+			void SetColor(SDL_Color _color);
+		private:
+			SDL_Texture *fader;
+			SDL_Color color;
+			bool isFadingIn, isFadingOut;
+			int alpha;
+		};
+	}
+}
+#endif

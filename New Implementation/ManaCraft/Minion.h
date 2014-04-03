@@ -11,7 +11,7 @@ private:
 	static Minion* buildFromRow(mysqlpp::Row& row);
 
 public:
-	ManaCraft::Database::MinionTypes ID;
+	ManaCraft::Database::MinionTypes minionType;
 
 	
 	float xPos;

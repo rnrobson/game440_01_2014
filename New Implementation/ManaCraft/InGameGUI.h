@@ -1,6 +1,7 @@
 #pragma once
 #include "ClientAPI.h"
 #include "API_Util.h"
+using namespace ManaCraft::Client;
 
 class InGameGUI
 {

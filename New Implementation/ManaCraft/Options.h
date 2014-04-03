@@ -1,29 +1,34 @@
 #pragma once
 #include "Page.h"
 #include "ClientAPI.h"
-class Options :
-	public Page
-{
-protected:
-	Options();
 
-	static Options* instance;
+namespace ManaCraft {
+	namespace Client {
+		class Options :
+			public Page
+		{
+		protected:
+			Options();
 
-public:
-	static Options* GetInstance();
-	~Options();
+			static Options* instance;
 
-	virtual void Load();
-	virtual void Update(double time);
-	virtual void Draw();
+		public:
+			static Options* GetInstance();
+			~Options();
 
-	//============
-	//--- Events 
-	//============
-	static void OnEnterPressed();
-	static void OnEscapePressed();
+			virtual void Load();
+			virtual void Update(double time);
+			virtual void Draw();
 
-	static void ReturnToMainMenu();
-	static void MuteAll();
-};
+			//============
+			//--- Events 
+			//============
+			static void OnEnterPressed();
+			static void OnEscapePressed();
 
+			static void ReturnToMainMenu();
+			static void MuteAll();
+		};
+
+	}
+}

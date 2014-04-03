@@ -25,11 +25,12 @@ ThreadedListener::ThreadedListener(NetServer* server, unsigned int numberOfThrea
 
 ThreadedListener::ThreadedListener(NetClient* client, unsigned int numberOfThreads) {
 	if (!client->Open()) {
-		std::cout << "Failed to connect to server: " << client->GetIP().host << ":" << client->GetIP().port;
+		std::cout << "Failed to connect to server: " << client->GetIP().host << ":" << client->GetIP().port << std::endl;
 	}
 	else {
+		std::cout << "Successfully connected to server: " << client->GetIP().host << ":" << client->GetIP().port << std::endl;
 		ThreadedListener::threadPool = new ThreadPool(numberOfThreads);
-		Command_ServerReceive* receiveFromServer = new Command_ServerReceive(client);
+		Command_ClientReceive* receiveFromServer = new Command_ClientReceive(client);
 		threadPool->addWork(receiveFromServer);
 	}
 }
@@ -44,8 +45,21 @@ int ThreadedListener::Accept(void* server) {
 		NetClient* client = masterServer->Listen();
 		if (client != nullptr) {
 			std::cout << "Client Connected." << std::endl;
-			Command_ClientReceive* receiveFromClient = new Command_ClientReceive(client);
+			Command_ServerReceive* receiveFromClient = new Command_ServerReceive(client);
 			threadPool->addWork(receiveFromClient);
+
+			// Test Packet
+			std::string str = "What's good, client?";
+			int payloadSize = str.length() + sizeof(__int8);
+			std::vector<char> data = std::vector<char>(payloadSize);
+			unsigned int pos = 0;
+			Serialize::Int8(data, pos, payloadSize);
+			pos += sizeof(__int8);
+			for (unsigned int i = 0; i < str.length(); ++i) {
+				data[pos + i] = str[i];
+			}
+			Packet* packet = new Packet(Networking::SEC_HEAD, Networking::LOGIN_PLAYER, data);
+			masterServer->Send(*client, *packet);
 		}
 	}
 	return 0;
