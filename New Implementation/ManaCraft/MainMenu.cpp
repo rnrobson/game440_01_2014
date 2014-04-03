@@ -35,9 +35,9 @@ MainMenu::~MainMenu()
 
 
 void MainMenu::Load()
-{
-	//ClientAPI::AddGuiContainer("MainMenu", content);
-	//content->Active = true;
+{	
+	content->AddGuiContainer("Menu", new GuiContainer());
+	content->AddGuiContainer("LoginPopup", new GuiContainer());
 
 	LoadMainMenu();
 	LoadLoginPopup();
@@ -81,17 +81,17 @@ void MainMenu::LoadMainMenu(){
 	//-- Additional button rects
 	SDL_Rect creditsBtnRect = APIHelper::RectHelper(SCREEN_WIDTH - medBtnRect.w - BUTTON_SPC_X, SCREEN_HEIGHT - medBtnRect.h - BUTTON_SPC_Y, medBtnRect.w, medBtnRect.h);
 
-	//-- Add in menu assets
-	content->AddGuiContainer("Menu", new GuiContainer());
 
 	// THIS CAUSES PROBLEMS:
 	//content->AddGridLayer("Grid", new GridLayer());
 
 	//-- Background
 	content->GetGuiContainer("Menu")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("Background"), APIHelper::RectHelper(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)));
+	content->GetGuiContainer("LoginPopup")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("Background"), APIHelper::RectHelper(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)));
 
 	//-- Logo
 	content->GetGuiContainer("Menu")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
+	content->GetGuiContainer("LoginPopup")->AddGuiElement("Logo", new GuiElement(ClientAPI::GetTexture("GameLogo"), APIHelper::RectHelper(centerRect.x - 350, MARGIN_Y, 700, 300)));
 
 	//-- Buttons
 	content->GetGuiContainer("Menu")->AddGuiContainer("BtnHolder", new GuiContainer());
@@ -182,34 +182,34 @@ void MainMenu::LoadLoginPopup()
 	SDL_Rect loginBtn = APIHelper::RectHelper(33, 0, 95, 35);
 	SDL_Rect cancelBtn = APIHelper::RectHelper(190, 0, 95, 35);
 
-	//-- Create the Container
-	content->AddGuiContainer("LoginPopup", new GuiContainer());
-
 	//-- Add the Login Bar
 	content->GetGuiContainer("LoginPopup")->AddGuiElement("Background", new GuiElement(APIHelper::SolidColourTexture(300, 150, APIHelper::ColourHelper(0, 0, 0, 225)), APIHelper::RectHelper(10, -100, 300, 150)));
 	content->GetGuiContainer("LoginPopup")->AddGuiElement("Username", new Label("Username", APIHelper::RectHelper(102, -80, 200, 100), ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+	
+	//-- Add Container for Elements
+	content->GetGuiContainer("LoginPopup")->AddGuiContainer("ElementContainer", new GuiContainer());
 
 	//-- Setup the text field
-	content->GetGuiContainer("LoginPopup")->AddGuiElement("UsernameField", new TextField(APIHelper::RectHelper(35, -50, 250, 20), ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
-	content->GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->CharacterLimit = 20;
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->AddGuiElement("UsernameField", new TextField(APIHelper::RectHelper(35, -50, 250, 20), ClientAPI::GetFont("Systema"), ClientAPI::GetColor("White")));
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetTextField("UsernameField")->CharacterLimit = 20;
 
 	//-- Add in Login and Cancel Buttons
-	content->GetGuiContainer("LoginPopup")->AddGuiElement("Login", new Button(ClientAPI::GetTexture("MedBtnNormal"), loginBtn));
-	content->GetGuiContainer("LoginPopup")->GetButton("Login")->AddLabel("Login", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
-	content->GetGuiContainer("LoginPopup")->GetButton("Login")->GetLabel()->SetPadding(APIHelper::RectHelper(12, 2, 0, 0));
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->AddGuiElement("Login", new Button(ClientAPI::GetTexture("MedBtnNormal"), loginBtn));
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetButton("Login")->AddLabel("Login", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetButton("Login")->GetLabel()->SetPadding(APIHelper::RectHelper(12, 2, 0, 0));
 
-	content->GetGuiContainer("LoginPopup")->AddGuiElement("Cancel", new Button(ClientAPI::GetTexture("MedBtnNormal"), cancelBtn));
-	content->GetGuiContainer("LoginPopup")->GetButton("Cancel")->AddLabel("Cancel", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
-	content->GetGuiContainer("LoginPopup")->GetButton("Cancel")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->AddGuiElement("Cancel", new Button(ClientAPI::GetTexture("MedBtnNormal"), cancelBtn));
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetButton("Cancel")->AddLabel("Cancel", ClientAPI::GetFont("Systema"), ClientAPI::GetColor("Black"), true);
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetButton("Cancel")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
 
 	//-- Subscribe to Events
-	content->GetGuiContainer("LoginPopup")->GetButton("Login")->SubscribeOnMouseClick(LoginPopup::Click_Login);
-	content->GetGuiContainer("LoginPopup")->GetButton("Cancel")->SubscribeOnMouseClick(LoginPopup::Click_Cancel);
-	content->GetGuiContainer("LoginPopup")->SubscribeOnEscapeKeyPressed(LoginPopup::ButtonPress_Escape);
-	content->GetGuiContainer("LoginPopup")->SubscribeOnEnterKeyPressed(LoginPopup::ButtonPress_Enter);
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetButton("Login")->SubscribeOnMouseClick(MainMenu::Click_LoginPopup_Login);
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetButton("Cancel")->SubscribeOnMouseClick(MainMenu::Click_LoginPopup_Cancel);
+	//content->GetGuiContainer("LoginPopup")->SubscribeOnEscapeKeyPressed(LoginPopup::ButtonPress_Escape);
+	//content->GetGuiContainer("LoginPopup")->SubscribeOnEnterKeyPressed(LoginPopup::ButtonPress_Enter);
 
 	//-- Set Menu Position
-	content->GetGuiContainer("LoginPopup")->SetPosition(APIHelper::RectHelper((int)(SCREEN_WIDTH / 2.9), (int)(SCREEN_HEIGHT / 2.5), 0, 0));
+	content->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->SetPosition(APIHelper::RectHelper((int)(SCREEN_WIDTH / 2.9), (int)(SCREEN_HEIGHT / 1.5), 0, 0));
 
 	// Turn off
 	content->GetGuiContainer("LoginPopup")->Active = false;
@@ -254,7 +254,7 @@ void MainMenu::Click_loginButton()
 	//ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
 
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
-	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Enabled = false;
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = true;
 }
 
@@ -313,13 +313,13 @@ void MainMenu::Click_creditsButton()
 void MainMenu::Click_LoginPopup_Cancel()
 {
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
-	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Enabled = true;
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = true; // Enabled
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = false;
 }
 
 void MainMenu::Click_LoginPopup_Login()
 {
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
-	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Enabled = true;
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = true; // Enabled
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = false;
 }

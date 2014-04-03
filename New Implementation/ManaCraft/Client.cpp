@@ -1,11 +1,12 @@
 #include "Client.h"
 #include "ServerLiason.h"
 
-using namespace ManaCraft::Client;
+using namespace ManaCraft;
+//using namespace ManaCraft::Client;
 
-Client* Client::instance;
+ManaCraft::Client::Client* ManaCraft::Client::Client::instance;
 
-void Client::InitSDLNet() {
+void ManaCraft::Client::Client::InitSDLNet() {
 	//Init SDL_net
 	if (SDLNet_Init() == -1)
 		std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
@@ -22,7 +23,7 @@ void Client::InitSDLNet() {
 	}
 }
 
-Client::Client()
+ManaCraft::Client::Client::Client()
 {
 	////-- Initialize the API
 	ClientAPI::Init();
@@ -56,13 +57,13 @@ Client::Client()
 	ClientAPI::AddTexture("TowerTex", _towerTexture);
 	ClientAPI::AddTexture("ProjectileTex", _projectileTexture);
 }
-Client::~Client()
+ManaCraft::Client::Client::~Client()
 {
 	//-- Quit the API and clean up our memory once the APIs Main loop is over
 	ClientAPI::Quit();
 }
 
-void Client::LoadContent()
+void ManaCraft::Client::Client::LoadContent()
 {
 	//--Call individual load methods
 	ScreenFader::GetInstance()->Load();
@@ -80,7 +81,7 @@ void Client::LoadContent()
 
 }
 
-void Client::Update(double time)
+void ManaCraft::Client::Client::Update(double time)
 {
 	//cout << "Entering Custom Update" << endl;
 	ScreenFader::GetInstance()->Update(time);
@@ -108,7 +109,7 @@ void Client::Update(double time)
 	}
 }
 
-void Client::Draw()
+void ManaCraft::Client::Client::Draw()
 {
 	//cout << "Entering Custom Draw" << endl;
 	ScreenFader::GetInstance()->Draw();
@@ -136,12 +137,12 @@ void Client::Draw()
 	}
 }
 
-void Client::OnEscapePressed()
+void ManaCraft::Client::Client::OnEscapePressed()
 {
 	//IngamePause::Pause();
 }
 
-void Client::OnEnterPressed()
+void ManaCraft::Client::Client::OnEnterPressed()
 {
 	Client::GetInstance()->Settings()->isHost = true;
 }
