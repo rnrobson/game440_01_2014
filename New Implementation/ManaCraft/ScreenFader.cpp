@@ -1,10 +1,27 @@
 #include "ScreenFader.h"
+using namespace ManaCraft::Client;
 
-SDL_Texture *ScreenFader::fader = NULL;
-SDL_Color ScreenFader::color = { 0, 0, 0, 255 };
-bool ScreenFader::isFadingIn = false;
-bool ScreenFader::isFadingOut = true;
-int ScreenFader::alpha = color.a;
+ScreenFader* ScreenFader::instance;
+
+ScreenFader::ScreenFader()
+{
+	fader = NULL;
+	color = { 0, 0, 0, 255 };
+	isFadingIn = false;
+	isFadingOut = true;
+	alpha = color.a;
+}
+
+ScreenFader::~ScreenFader()
+{ 
+	SDL_DestroyTexture(fader); 
+}
+
+ScreenFader* ScreenFader::GetInstance()
+{
+	if (instance == nullptr) instance = new ScreenFader();
+	return instance;
+}
 
 void ScreenFader::Load()
 {

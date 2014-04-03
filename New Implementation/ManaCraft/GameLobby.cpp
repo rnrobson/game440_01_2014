@@ -1,8 +1,11 @@
 #include "GameLobby.h"
+#include "MainMenu.h"
+
 #include "ClientAPI.h"
 #include "API_Util.h"
 #include "ScreenFader.h"
 #include <algorithm>
+using namespace ManaCraft::Client;
 
 GameLobby* GameLobby::instance;
 
@@ -59,162 +62,162 @@ void GameLobby::Load()
 	API_Util::AddSolidTexture("chatBoxBg", { 0, 0, 0, 70 }, 1000, 250);
 
 	//add background
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby"), "bg", "Background", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
+	API_Util::AddGuiElementToContainer(content, "bg", "Background", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
 
 	//add labels
-	ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("lblCon", new GuiContainer());
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("lblCon"),
+	content->AddGuiContainer("lblCon", new GuiContainer());
+	API_Util::AddLabelToContainer(content->GetGuiContainer("lblCon"),
 		"Illuminated", "The Illuminated", { 70, 50, 300, 100 }, "OGWEAR", "Blue");
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("lblCon"),
+	API_Util::AddLabelToContainer(content->GetGuiContainer("lblCon"),
 		"DarkOnes", "The Dark Ones", { SCREEN_WIDTH - 345, 50, 300, 100 }, "OGWEAR", "Red");
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("lblCon"),
+	API_Util::AddLabelToContainer(content->GetGuiContainer("lblCon"),
 		"Versus", "Versus", { (SCREEN_WIDTH / 2) - 60, 200, 200, 100 }, "OGWEAR", "White");
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("lblCon"),
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("lblCon"),
 		"ITeamBg", "ITeamBg", { 60, 80, 300, 300 });
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("lblCon"),
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("lblCon"),
 		"DOTeamBg", "DOTeamBg", { SCREEN_WIDTH - 360, 80, 300, 300 });
 
 	//add join and leave buttons to container
-	ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("teamAllocBtnsCon", new GuiContainer());
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
+	content->AddGuiContainer("teamAllocBtnsCon", new GuiContainer());
+	API_Util::AddButtonToContainer(content->GetGuiContainer("teamAllocBtnsCon"),
 		"JoinI", { 100, 480, 100, 50 }, "MedBtnNormal");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("teamAllocBtnsCon"),
 		"JoinDO", { SCREEN_WIDTH - 200, 480, 100, 50 }, "MedBtnNormal");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("teamAllocBtnsCon"),
 		"backToBench", { (SCREEN_WIDTH / 2) - 48, 520, 100, 60 }, "MedBtnNormal");
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->SetPosition({ 0, -80, 0, 0 });
+	content->GetGuiContainer("teamAllocBtnsCon")->SetPosition({ 0, -80, 0, 0 });
 	//start with backToBench button disabled
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->Enabled = false;
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->Enabled = false;
 
 	////add hosting and game options buttons to container
-	ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("gameSetBtnsCon", new GuiContainer());
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	content->AddGuiContainer("gameSetBtnsCon", new GuiContainer());
+	API_Util::AddButtonToContainer(content->GetGuiContainer("gameSetBtnsCon"),
 		"startGame", { 900, 620, 100, 30 }, "MedBtnNormal");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("gameSetBtnsCon"),
 		"closeGame", { 900, 650, 100, 30 }, "MedBtnNormal");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("gameSetBtnsCon"),
 		"gameOptions", { 900, 680, 100, 30 }, "MedBtnNormal");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("gameSetBtnsCon"),
 		"returnToMainMenu", { 900, 720, 100, 30 }, "MedBtnNormal");
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->SetPosition({ 8, 0, 0, 0 });
+	content->GetGuiContainer("gameSetBtnsCon")->SetPosition({ 8, 0, 0, 0 });
 
 	//add game start menu to container
-	ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("startGameCon", new GuiContainer());
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon"),
+	content->AddGuiContainer("startGameCon", new GuiContainer());
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("startGameCon"),
 		"gSBackground", "popupBackground", { (SCREEN_WIDTH / 2) - 200, (SCREEN_HEIGHT / 2) - 90, 400, 180 });
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("startGameCon"),
 		"exitStartGame", { (SCREEN_WIDTH / 2) + 90, (SCREEN_HEIGHT / 2) + 50, 100, 30 }, "MedBtnNormal");
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon"),
+	API_Util::AddLabelToContainer(content->GetGuiContainer("startGameCon"),
 		"gStartLbl", "Start Game", { (SCREEN_WIDTH / 2) - 190, (SCREEN_HEIGHT / 2) - 110, 200, 30 }, "Systema_22", "White");
 
 	//add chat textfield to container
-	ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("chatBoxCon", new GuiContainer());
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon"),
+	content->AddGuiContainer("chatBoxCon", new GuiContainer());
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("chatBoxCon"),
 		"chatBoxBg", "chatBoxBg", { 10, SCREEN_HEIGHT - 250, 880, 250 });
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("chatBoxCon"),
 		"globalChatBtn", { 10, SCREEN_HEIGHT - 285, 80, 30 }, "MedBtnNormal");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("chatBoxCon"),
 		"teamChatBtn", { 90, SCREEN_HEIGHT - 280, 80, 30 }, "MedBtnNormal");
 
 	//start with the global chat disabled since it's the default chat
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->Enabled = false;
+	content->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->Enabled = false;
 
 	//add game options menu to container
-	ClientAPI::GetGuiContainer("GameLobby")->AddGuiContainer("gameOptionsCon", new GuiContainer());
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon"),
+	content->AddGuiContainer("gameOptionsCon", new GuiContainer());
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("gameOptionsCon"),
 		"gOBackground", "popupBackground", { (SCREEN_WIDTH / 2) - 200, (SCREEN_HEIGHT / 2) - 90, 400, 180 });
-	API_Util::AddGuiElementToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon"),
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("gameOptionsCon"),
 		"gLobbyCover", "gLobbyCover", { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
-	API_Util::AddLabelToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon"),
+	API_Util::AddLabelToContainer(content->GetGuiContainer("gameOptionsCon"),
 		"optionsLbl", "Options", { (SCREEN_WIDTH / 2) - 190, (SCREEN_HEIGHT / 2) - 110, 100, 30 }, "Systema_22", "White");
-	API_Util::AddButtonToContainer(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon"),
+	API_Util::AddButtonToContainer(content->GetGuiContainer("gameOptionsCon"),
 		"exitOptions", { (SCREEN_WIDTH / 2) + 90, (SCREEN_HEIGHT / 2) + 50, 100, 30 }, "MedBtnNormal");
 
 	//game start and game options should be disabled at start
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon")->Active = false;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon")->Active = false;
+	content->GetGuiContainer("startGameCon")->Active = false;
+	content->GetGuiContainer("gameOptionsCon")->Active = false;
 
 	//add texts to buttons
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("teamAllocBtnsCon"),
 		"JoinI", "JOIN", "Systema_22", "Blue");
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("teamAllocBtnsCon"),
 		"JoinDO", "JOIN", "Systema_22", "Red");
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("teamAllocBtnsCon"),
 		"backToBench", "Leave Team", "Systema_22", "Black");
 
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("gameSetBtnsCon"),
 		"startGame", "Start Game", "Systema_11", "Black");
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("gameSetBtnsCon"),
 		"closeGame", "Close Game", "Systema_11", "Black");
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("gameSetBtnsCon"),
 		"gameOptions", "Game Options", "Systema_11", "Black");
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("gameSetBtnsCon"),
 		"returnToMainMenu", "Back", "Systema_11", "Black");
 
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("chatBoxCon"),
 		"globalChatBtn", "Global", "Systema_11", "Black");
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("chatBoxCon"),
 		"teamChatBtn", "Team", "Systema_11", "Black");
 
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("startGameCon"),
 		"exitStartGame", "Exit", "Systema_11", "Black");
 
-	API_Util::AddLabelToContainerButton(ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon"),
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("gameOptionsCon"),
 		"exitOptions", "Exit", "Systema_11", "Black");
 
 	//position the texts on buttons
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinI")->
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinI")->
 		GetLabel()->SetPadding({ 18, 12, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinDO")->
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinDO")->
 		GetLabel()->SetPadding({ 18, 12, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->
 		GetLabel()->SetPadding({ 12, 3, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("startGame")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("startGame")->
 		GetLabel()->SetPadding({ 12, 8, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("closeGame")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("closeGame")->
 		GetLabel()->SetPadding({ 11, 8, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("gameOptions")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("gameOptions")->
 		GetLabel()->SetPadding({ 7, 8, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("returnToMainMenu")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("returnToMainMenu")->
 		GetLabel()->SetPadding({ 29, 8, 0, 0 });
 
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->
+	content->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->
 		GetLabel()->SetPadding({ 18, 8, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->
+	content->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->
 		GetLabel()->SetPadding({ 18, 8, 0, 0 });
 
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon")->GetButton("exitStartGame")->
+	content->GetGuiContainer("startGameCon")->GetButton("exitStartGame")->
 		GetLabel()->SetPadding({ 32, 8, 0, 0 });
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon")->GetButton("exitOptions")->
+	content->GetGuiContainer("gameOptionsCon")->GetButton("exitOptions")->
 		GetLabel()->SetPadding({ 32, 8, 0, 0 });
 
 	//add events to buttons
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinI")->
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinI")->
 		SubscribeOnMouseClick(JoinITeam);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinDO")->
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinDO")->
 		SubscribeOnMouseClick(JoinDOTeam);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->
+	content->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->
 		SubscribeOnMouseClick(ReturnToBench);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->
+	content->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->
 		SubscribeOnMouseClick(TalkInGlobalChat);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->
+	content->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->
 		SubscribeOnMouseClick(TalkInTeamChat);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("closeGame")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("closeGame")->
 		SubscribeOnMouseClick(CloseGame);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("startGame")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("startGame")->
 		SubscribeOnMouseClick(ShowGameStart);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon")->GetButton("exitStartGame")->
+	content->GetGuiContainer("startGameCon")->GetButton("exitStartGame")->
 		SubscribeOnMouseClick(ExitGameStart);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("gameOptions")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("gameOptions")->
 		SubscribeOnMouseClick(ShowGameOptions);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon")->GetButton("exitOptions")->
+	content->GetGuiContainer("gameOptionsCon")->GetButton("exitOptions")->
 		SubscribeOnMouseClick(ExitOptions);
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->GetButton("returnToMainMenu")->
+	content->GetGuiContainer("gameSetBtnsCon")->GetButton("returnToMainMenu")->
 		SubscribeOnMouseClick(ReturnToMainMenu);
 
 	//start with Game Lobby not active
 	//when the player clicks "Create Game" in the Main Menu, make Game Lobby active
-	ClientAPI::GetGuiContainer("GameLobby")->Active = false;
+	//content->Active = false;
 }
 
 void GameLobby::Update(double time)
@@ -303,53 +306,55 @@ void GameLobby::ExitOptions()
 
 void GameLobby::ReturnToMainMenu()
 {
-	ClientAPI::GetGuiContainer("GameLobby")->Active = false;
-	ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+	//GameLobby::GetInstance()->GetContent()->Active = false;
+	//ClientAPI::GetGuiContainer("MainMenu")->Active = true;
+	ClientAPI::SetFocus(MainMenu::GetInstance());
+
 	IsInGlobalChat(true);
-	ScreenFader::FadeOut();
+	ScreenFader::GetInstance()->FadeOut();
 }
 
 void GameLobby::IsInGlobalChat(bool _state)
 {
 	if (_state)
 	{
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->SetOffset({ 0, 0, 0, 0 });
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->SetOffset({ 0, 0, 0, 0 });
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->Enabled = false;
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->Enabled = true;
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->SetOffset({ 0, 0, 0, 0 });
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->SetOffset({ 0, 0, 0, 0 });
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->Enabled = false;
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->Enabled = true;
 	}
 	else if (!_state)
 	{
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->SetOffset({ 0, 5, 0, 0 });
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->SetOffset({ 0, -5, 0, 0 });
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->Enabled = false;
-		ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->Enabled = true;
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->SetOffset({ 0, 5, 0, 0 });
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->SetOffset({ 0, -5, 0, 0 });
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("teamChatBtn")->Enabled = false;
+		GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->GetButton("globalChatBtn")->Enabled = true;
 	}
 }
 
 void GameLobby::EnableJoinBtns(bool _state)
 {
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinI")->Enabled = _state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinDO")->Enabled = _state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinI")->Enabled = _state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("teamAllocBtnsCon")->GetButton("JoinDO")->Enabled = _state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("teamAllocBtnsCon")->GetButton("backToBench")->Enabled = !_state;
 
 	//_state ? SDL_SetTextureAlphaMod(ClientAPI::GetTexture("ITeamBg"), 40) : SDL_SetTextureAlphaMod(ClientAPI::GetTexture("ITeamBg"), 100);
 }
 
 void GameLobby::EnableGameStart(bool _state)
 {
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("startGameCon")->Active = _state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->Enabled = !_state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->Enabled = !_state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("startGameCon")->Active = _state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("teamAllocBtnsCon")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("gameSetBtnsCon")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->Enabled = !_state;
 }
 
 void GameLobby::EnableGameOptions(bool _state)
 {
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameOptionsCon")->Active = _state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("teamAllocBtnsCon")->Enabled = !_state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("gameSetBtnsCon")->Enabled = !_state;
-	ClientAPI::GetGuiContainer("GameLobby")->GetGuiContainer("chatBoxCon")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("gameOptionsCon")->Active = _state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("teamAllocBtnsCon")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("gameSetBtnsCon")->Enabled = !_state;
+	GameLobby::GetInstance()->GetContent()->GetGuiContainer("chatBoxCon")->Enabled = !_state;
 }
 
 void GameLobby::AddToLog(std::string message, MessageType type)

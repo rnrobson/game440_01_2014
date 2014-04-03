@@ -1,11 +1,11 @@
 #include "Client.h"
 #include "ServerLiason.h"
 
-using namespace ManaCraft;
+using namespace ManaCraft::Client;
 
-Client::Client* Client::Client::instance;
+Client* Client::instance;
 
-void Client::Client::InitSDLNet() {
+void Client::InitSDLNet() {
 	//Init SDL_net
 	if (SDLNet_Init() == -1)
 		std::cout << "Failed to initialize SDL_net, can't start connection" << std::endl;
@@ -22,7 +22,7 @@ void Client::Client::InitSDLNet() {
 	}
 }
 
-Client::Client::Client()
+Client::Client()
 {
 	////-- Initialize the API
 	ClientAPI::Init();
@@ -31,7 +31,7 @@ Client::Client::Client()
 	InitSDLNet();
 
 	// Set the API Mode
-	ClientAPI::SetAPIHandleMode(GuiAPIMode::APIHandleMode);
+	ClientAPI::SetAPIHandleMode(GuiAPIMode::ProgrammerHandleMode);
 
 	// Set Custom Events
 	ClientAPI::SubscribeCustomUpdate(Update);
@@ -40,10 +40,13 @@ Client::Client::Client()
 	ClientAPI::SubscribeEscapeKeyFunc(OnEscapePressed);
 
 	// Create the Settings
-	settings = new ClientSettings();
+	settings = ClientSettings::GetInstance();
 
 	// Load the Content
 	LoadContent();
+
+	// Set the Focus
+	ClientAPI::SetFocus(mainMenu);
 
 	//--Temporary asset loading
 	SDL_Texture *_minionTexture = APIHelper::LoadPNGTexture("Resources/Sprites/MinionSS.png");
@@ -53,16 +56,16 @@ Client::Client::Client()
 	ClientAPI::AddTexture("TowerTex", _towerTexture);
 	ClientAPI::AddTexture("ProjectileTex", _projectileTexture);
 }
-Client::Client::~Client()
+Client::~Client()
 {
 	//-- Quit the API and clean up our memory once the APIs Main loop is over
 	ClientAPI::Quit();
 }
 
-void Client::Client::LoadContent()
+void Client::LoadContent()
 {
 	//--Call individual load methods
-	ScreenFader::Load();
+	ScreenFader::GetInstance()->Load();
 
 	mainMenu = MainMenu::GetInstance(); //MainMenu_O::Load();
 	options = Options::GetInstance(); //Options::Load();
@@ -77,10 +80,10 @@ void Client::Client::LoadContent()
 
 }
 
-void Client::Client::Update(double time)
+void Client::Update(double time)
 {
 	//cout << "Entering Custom Update" << endl;
-	ScreenFader::Update(time);
+	ScreenFader::GetInstance()->Update(time);
 
 	switch (GetInstance()->Settings()->GameState)
 	{
@@ -105,10 +108,10 @@ void Client::Client::Update(double time)
 	}
 }
 
-void Client::Client::Draw()
+void Client::Draw()
 {
 	//cout << "Entering Custom Draw" << endl;
-	ScreenFader::Draw();
+	ScreenFader::GetInstance()->Draw();
 
 	switch (GetInstance()->Settings()->GameState)
 	{
@@ -133,12 +136,12 @@ void Client::Client::Draw()
 	}
 }
 
-void Client::Client::OnEscapePressed()
+void Client::OnEscapePressed()
 {
 	//IngamePause::Pause();
 }
 
-void Client::Client::OnEnterPressed()
+void Client::OnEnterPressed()
 {
 	Client::GetInstance()->Settings()->isHost = true;
 }
