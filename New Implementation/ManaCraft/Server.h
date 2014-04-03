@@ -30,6 +30,7 @@ private:
 	GameManager* gameManager;
 	ThreadPool* workCrew; //obsolte - use Server::AddWork()
 	LocalDB* localDB;
+	ClientLiaison* clientLiaison;
 
 	const uint numWorkers = 3;
 

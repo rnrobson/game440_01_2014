@@ -638,5 +638,11 @@
     <ClInclude Include="Command_UpdateEconomy.h">
       <Filter>Header Files\ServerCommands</Filter>
     </ClInclude>
+    <ClInclude Include="Command_CS_ResumeGame.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_CS_PauseGame.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

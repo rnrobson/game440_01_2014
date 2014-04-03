@@ -109,6 +109,7 @@ void Server::Init()
 	Server::AddWork(newGameCMD);
 
 	localDB = new LocalDB();
+	clientLiaison = new ClientLiaison();
 
 }
 

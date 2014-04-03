@@ -1,5 +1,8 @@
+
 #include "LocalDB.h"
 #include <algorithm>
+#include "Minion.h"
+#include "GameManager.h"
 
 std::vector<GameModel*> LocalDB::games;
 
@@ -11,6 +14,7 @@ LocalDB::LocalDB()
 	{
 		cout << "[LocalDB]: Connected to DB...\n";
 	}
+	LoadTables();
 }
 
 LocalDB::~LocalDB()
@@ -31,6 +35,11 @@ LocalDB::~LocalDB()
 	}
 }
 
+void LocalDB::LoadTables()
+{
+	//dbConnection->loadMinionsTable();
+}
+
 bool LocalDB::InitConnection()
 {
 	dbConnection->connectToDatabase();
@@ -39,7 +48,7 @@ bool LocalDB::InitConnection()
 
 bool LocalDB::CloseConnection()
 {
-	if (dbConnection->isConnected)
+	if (dbConnection->isConnected())
 	{
 		dbConnection->disconnectFromDatabase();
 	}
@@ -76,6 +85,16 @@ bool LocalDB::UnloadGame(uint _gameID)
 
 bool LocalDB::SaveGame(uint _gameID)
 {
-	//dbConnection->saveGame(); //this should take a gameModel and write the tables to the DB
+	GameModel* gm = GameManager::FindGame(_gameID);
+	//persist game locally
+	games.push_back(gm);
+
+	//save game to DB
+	gm->SaveGame();
+
+	// delete game from running games
+	gm->DeleteGame();
+
+
 	return true;
 }
