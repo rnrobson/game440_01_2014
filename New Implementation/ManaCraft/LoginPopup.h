@@ -1,6 +1,6 @@
 #pragma once
 #include "ClientAPI.h"
-
+#include "NetworkCommands.h"
 class LoginPopup
 {
 public:
@@ -48,7 +48,10 @@ public:
 
 	static void Click_Login()
 	{
-
+		//needs to be tested
+		//Client::NetworkCommands::LogIn(ClientAPI::GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->GetText());
+		//ClientAPI::GetGuiContainer("LoginPopup")->Active = false;
+		//ClientAPI::GetGuiContainer("MainMenu")->Enabled = true;
 	}
 
 	static void Click_Cancel()
@@ -65,6 +68,9 @@ public:
 
 	static void ButtonPress_Enter()
 	{
-
+		//needs to be tested
+		//Client::NetworkCommands::LogIn(ClientAPI::GetGuiContainer("LoginPopup")->GetTextField("UsernameField")->GetText());
+		//ClientAPI::GetGuiContainer("LoginPopup")->Active = false;
+		//ClientAPI::GetGuiContainer("MainMenu")->Enabled = true;
 	}
 };
