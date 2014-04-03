@@ -1,4 +1,5 @@
 #include "PacketFactory.h"
+#include "GameManager.h"
 
 Networking::Packet* PacketFactory::CreateFromClientPacket(const Networking::Packet* packet) {
 
@@ -399,7 +400,23 @@ SendPartyMsgGLPacket::SendPartyMsgGLPacket(const Networking::Packet* packet) : C
 }
 
 RefreshGamesPacket::RefreshGamesPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength = 0;
 
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << std::endl;
+
+	char* name = new char[usernameLength + 1];
+	for (int i = 0; i < usernameLength; ++i) {
+		name[i] = data[index];
+		++index;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 JoinGamePacket::JoinGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -408,8 +425,9 @@ JoinGamePacket::JoinGamePacket(const Networking::Packet* packet) : CommandPacket
 }
 
 CreateGamePacket::CreateGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
-
-}
+	std::vector<char> data = packet->GetData();
+	GameID = Networking::Deserialize::Int16(data, 0);
+	}
 
 JoinTeamPacket::JoinTeamPacket(const Networking::Packet* packet) : CommandPacket(packet) {
 
@@ -505,7 +523,7 @@ ReadyStatusPacket::ReadyStatusPacket(const Networking::Packet* packet) : Command
 
 DisbandGamePacket::DisbandGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
 	std::vector<char> data = packet->GetData();
-	gameID = Networking::Deserialize::Int16(data, 0);
+	lobbyID = Networking::Deserialize::Int16(data, 0);
 }
 
 SetGameplayOptionsPacket::SetGameplayOptionsPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -540,15 +558,68 @@ PlaceTowerPacket::PlaceTowerPacket(const Networking::Packet* packet) : CommandPa
 }
 
 SummonMinionPacket::SummonMinionPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
+	
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	minionID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
 
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 ResearchMinionPacket::ResearchMinionPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
 
+	minionID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 ResearchTowerPacket::ResearchTowerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
 
+	towerID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 KickPlayerPacket::KickPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -556,19 +627,87 @@ KickPlayerPacket::KickPlayerPacket(const Networking::Packet* packet) : CommandPa
 }
 
 PauseGamePacket::PauseGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
 
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 EndGamePacket::EndGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
 
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 ResumeGamePacket::ResumeGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
 
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 QuitGamePacket::QuitGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	__int8 usernameLength;
+	uint index = 0;
+	std::vector<char> data = packet->GetData();
 
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+	usernameLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	char* name = new char[usernameLength + 1];
+
+	for (int i = 0; i < usernameLength; i++)
+	{
+		name[i] = data[index];
+		index++;
+	}
+	name[usernameLength] = '\0';
+
+	username.append(name);
 }
 
 #pragma endregion
@@ -943,8 +1082,8 @@ UpdateBaseHealthPacket::UpdateBaseHealthPacket(const Packet* packet) : CommandPa
 }
 
 AssignResourceNodePacket::AssignResourceNodePacket(const Packet* packet) : CommandPacket(packet) {
-	std::vector<char> data = packet->GetData();
-	resourceAssigned = Networking::Deserialize::Int8(data, 0);
+std::vector<char> data = packet->GetData();
+resourceAssigned = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnResearchMinionPacket::ReturnResearchMinionPacket(const Packet* packet) : CommandPacket(packet) {
@@ -1001,67 +1140,111 @@ ReturnQuitGamePacket::ReturnQuitGamePacket(const Packet* packet) : CommandPacket
 
 #pragma region CS Packet Executes
 void CloseGamePacket::Execute() {
-
+		//find player from playerInfoTable
+		//remove reference of player from current game
+		//return player to main menu
 }
 
 void LoginPlayerPacket::Execute() {
 	std::cout << "Logged in: " << username << std::endl;
+	//add player to PlayerInfoTable 
+	//let client know
 }
 
 void LogoutPlayerPacket::Execute() {
-
+	//remove player from playerInfoTable
+	//let client know
 }
 
 void SendMessageIGPacket::Execute() {
-
+		//find all players in the player's game
+		//send the message to all those players
 }
 
 void SendMessageGLPacket::Execute() {
-
+	//find all players in the player's lobby
+	//send the message to all those players
 }
 
 void SendWhisperPacket::Execute() {
-
+		//find the recipient from collection of online players
+		//if found
+			//send message to recipient
+		//else
+			//display a message to player indicating that the recipient was not found
 }
 
 void SendPartyMsgIGPacket::Execute() {
-
+		//find all players in the player's team in the game
+		//send the message to all those players
 }
 
 void SendPartyMsgGLPacket::Execute() {
-
+	//find all players in the player's team in the lobby
+	//send the message to all those players
 }
 
 void RefreshGamesPacket::Execute() {
-
+		//go through list of all avaialble games on the server
+		//display them to current player's client
 }
 
 void JoinGamePacket::Execute() {
-
+		//if this is a saved game
+		//	create a lobby with the game model from the saved game
+		//	check if the players associated with this game are online
+		//		if so, send invites to them to join this game
+		//		else, leave the spots open and open them to public
+		//if not a saved game, 
+		//	check if the game is full
+		//		if not, 
+		//			add player to the game
 }
 
 void CreateGamePacket::Execute() {
-
+	GameModel* game = new GameModel(GameID);
+	if (GameManager::games.size() < GameManager::MAX_GAMES)
+	{
+		GameManager::games.push_back(game);
+		cout << "Game created with ID: " << GameID << endl;
+	}
+	else
+	{
+		cout << "Max Games Reached - Unable to create new game";
+		cout << endl;
+	}
 }
 
 void JoinTeamPacket::Execute() {
-
+	//check if teamID has room for the player
+		//if yes:
+			//remove player from bench
+			//add player to team list
+			//return true
+		//if no:
+			//return false;
 }
 
 void LeaveGamePacket::Execute() {
-
+		//remove player from collection of players in the lobbyID
+		//if that was the last player, remove the lobby from the collection of lobbies on the server
+		//return player to main menu
 }
 
 void BenchPlayerPacket::Execute() {
-
+		//find the lobby that player is in
+		//if the player is not already in the bench list: 
+			//remove player from a team list if he/she is in one
+			//add player to bench list
 }
 
 void ReadyStatusPacket::Execute() {
-
+		//toggle player's readyStatus bool
 }
 
 void DisbandGamePacket::Execute() {
-
+		//return all players in the lobby to main menu
+		//remove the lobby from the collection of lobbies on the server
 }
 
 void SetGameplayOptionsPacket::Execute() {
@@ -1069,19 +1252,50 @@ void SetGameplayOptionsPacket::Execute() {
 }
 
 void PlaceTowerPacket::Execute() {
-
+		//check if tower has been researched for the player
+		//check if player has enough mana to build it
+		//check if grid is a buildable tile
+		//check if anything else is on that gridspace already
+		//check if gridspace is in player's team's zone of influence
+		//if the above is yes
+			//deduct cost from mana
+			//add towerID to gridspace
+			//add tower to tower list in the game representation
+			//check if gridspaces in ZoI of tower are already marked as ZoI for the team
+				//if not, mark as ZoI for team
+			//return true
+		//else return false
 }
 
 void SummonMinionPacket::Execute() {
-
+		//check if minion has been researched for the player
+		//check if player has enough mana to summon the minion
+		//if yes:
+			//deduct cost from mana
+			//increase MpS (mana per second) as per minions MpS value
+			//spawn minion at player's team's portals
+			//add minion to minion list in the game representation
+			//update game representation
+			//return true
+		//else return false
 }
 
 void ResearchMinionPacket::Execute() {
-
+		//check if player has enough mana to research the minion
+		//if yes:
+			//flag minion as researched for player
+			//deduct cost from mana
+			//return true		
+		//else return false
 }
 
 void ResearchTowerPacket::Execute() {
-
+		//check if player has enough mana to research the tower
+		//if yes:
+			//flag tower as researched for player
+			//deduct cost from mana
+			//return true		
+		//else return false
 }
 
 void KickPlayerPacket::Execute() {
@@ -1089,19 +1303,26 @@ void KickPlayerPacket::Execute() {
 }
 
 void PauseGamePacket::Execute() {
-
+		//check for another pause request from the same gameID but from a different player
+		//if a 2nd one is received within X seconds
+			//pause the game
 }
 
 void EndGamePacket::Execute() {
-
+	//make sure player is host
+			//save all game info to db
+			//remove all players to game viewer/main menu
+			//remove gameID from list of running games
 }
 
 void ResumeGamePacket::Execute() {
-
+		//check to make sure player is host
+			//resume game
 }
 
 void QuitGamePacket::Execute() {
-
+		//remove player from game
+		//notify other players
 }
 #pragma endregion
 
