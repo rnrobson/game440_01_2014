@@ -4,6 +4,7 @@
 #include "ClientAPI.h"
 #include "API_Util.h"
 #include "ScreenFader.h"
+#include "NetworkCommands.h"
 #include <algorithm>
 using namespace ManaCraft::Client;
 
@@ -226,7 +227,7 @@ void GameLobby::OnEnterPressed()
 
 void GameLobby::OnEscapePressed()
 {
-
+	
 }
 
 void GameLobby::JoinITeam()
@@ -264,7 +265,7 @@ void GameLobby::TalkInTeamChat()
 void GameLobby::CloseGame()
 {
 	printf("host closed the game\n");
-	
+	NetworkCommands::CloseGame();
 	//when host leaves, select another player to be host
 }
 
