@@ -101,16 +101,16 @@ void ManaCraft::Client::Client::LoadContent()
 	ClientAPI::AddTexture("MedBtnNormal", medBtnNormalTex);
 	ClientAPI::AddTexture("LongBtnNormal", longBtnNormalTex);
 
-	mainMenu = MainMenu::GetInstance(); //MainMenu_O::Load();
-	options = Options::GetInstance(); //Options::Load();
-	credits = Credits::GetInstance(); //Credits::Load();
-	gameLobby = GameLobby::GetInstance(); //GameLobby::Load();
-	viewGames = ViewGames::GetInstance(); //ViewGames::Load();
+	mainMenu = MainMenu::GetInstance();		//MainMenu_O::Load();
+	options = Options::GetInstance();		//Options::Load();
+	credits = Credits::GetInstance();		//Credits::Load();
+	gameLobby = GameLobby::GetInstance();	//GameLobby::Load();
+	viewGames = ViewGames::GetInstance();	//ViewGames::Load();
 
-	IngamePause::Load();
-	LoginPopup::Load();
-	GUI::Load();
-	InGameGUI::Load();
+	gamePage = GamePage::GetInstance();		//IngamePause::Load(); 
+											//LoginPopup::Load();
+											//GUI::Load();
+											//InGameGUI::Load();
 
 }
 

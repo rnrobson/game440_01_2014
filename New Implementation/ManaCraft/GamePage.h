@@ -25,6 +25,10 @@ namespace ManaCraft
 			virtual void Update(double time);
 			virtual void Draw();
 
+			// Standard Events
+			static void ButtonPress_OnEscapePressed();
+			static void ButtonPress_OnEnterPressed();
+
 			//GUI events
 			static void Click_scrollUpButton();
 			static void Click_scrollDownButton();

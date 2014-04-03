@@ -272,12 +272,15 @@ void MainMenu::Click_optionsButton()
 void MainMenu::Click_tutorialButton()
 {
 	std::cout << "Disabled until things are hooked up" << std::endl;
-	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+
 	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
 	//ClientAPI::GetGuiContainer("GUI")->Active = true;
 	//ClientAPI::GetGuiContainer("InGameGUI")->Active = true;
 
+	GamePage::GetInstance()->isTutorial = true;
 
+	ClientAPI::SetFocus(GamePage::GetInstance());
 	ScreenFader::GetInstance()->FadeOut();
 }
 
@@ -290,9 +293,7 @@ void MainMenu::Click_quitButton()
 void MainMenu::Click_creditsButton()
 {
 	std::cout << "Show credits.\n";
-	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
-	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
-	//ClientAPI::GetGuiContainer("Credits")->Active = true;
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 
 	ClientAPI::SetFocus(Credits::GetInstance());
 	ScreenFader::GetInstance()->FadeOut();

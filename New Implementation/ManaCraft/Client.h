@@ -3,6 +3,7 @@
 #define CLIENT_H
 
 #include "ClientAPI.h"
+#include "API_Util.h"
 #include "ClientSettings.h"
 
 //-- Networking
@@ -17,12 +18,7 @@
 #include "Options.h"
 #include "GameLobby.h"
 #include "ViewGames.h"
-
-//-- Need to be converted to new Menu Format
-#include "IngamePause.h"
-#include "LoginPopup.h"
-#include "GUI.h"
-#include "InGameGUI.h"
+#include "GamePage.h"
 
 namespace ManaCraft {
 	namespace Client {
@@ -35,6 +31,7 @@ namespace ManaCraft {
 			Options* options;
 			GameLobby* gameLobby;
 			ViewGames* viewGames;
+			GamePage* gamePage;
 
 		public:
 			static Client* GetInstance() {

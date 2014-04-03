@@ -10,6 +10,9 @@ GamePage* GamePage::instance;
 
 GamePage::GamePage() : Page()
 {
+	content->SubscribeOnEnterKeyPressed(ButtonPress_OnEscapePressed);
+	content->SubscribeOnEnterKeyPressed(ButtonPress_OnEnterPressed);
+
 	Load();
 }
 
@@ -37,7 +40,7 @@ void GamePage::Load()
 	LoadInGamePause();
 
 	//start with gamepage disabled
-	content->Active = false;
+	//content->Active = false;
 }
 
 void GamePage::LoadGUI()
@@ -157,6 +160,16 @@ void GamePage::LoadInGameGUI()
 }
 
 void GamePage::LoadInGamePause()
+{
+
+}
+
+void GamePage::ButtonPress_OnEscapePressed()
+{
+
+}
+
+void GamePage::ButtonPress_OnEnterPressed()
 {
 
 }
