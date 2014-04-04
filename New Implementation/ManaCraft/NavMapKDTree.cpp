@@ -4,22 +4,25 @@
 
 #include "NavMapKDTree.h"
 
-//
-//
-// NavMapKDTree()
-//
-//
-//NavMapKDTree::NavMapKDTree() {
+////
+////
+//// NavMapKDTree()
+////
+////
+//NavMapKDTree::NavMapKDTree(int dimen) {
 //
 //}
 
 //
 //
-// NavMapKDTree::Insert()
+// ~NavMapKDTree()
 //
 //
-void NavMapKDTree::Insert(Waypoint* wp) {
-	Insert(m_root, new Node(wp), 0);
+NavMapKDTree::~NavMapKDTree() {
+	if (m_root) {
+		delete m_root;
+		m_root = nullptr;
+	}
 }
 
 //
@@ -27,29 +30,71 @@ void NavMapKDTree::Insert(Waypoint* wp) {
 // NavMapKDTree::Insert()
 //
 //
-void NavMapKDTree::Insert(Node*& rootNode, Node* newNode, unsigned int depth) {
+void NavMapKDTree::Insert(Waypoint* wp) {
+	Insert(m_root, new Node(wp));
+}
+
+//
+//
+// NavMapKDTree::Insert()
+//
+//
+void NavMapKDTree::Insert(Node*& rootNode, Node* newNode) {
 	// This or NearestWaypoint() isn't working properly
 	// It's because of depth.. working on it
 	if (rootNode == NULL) {
 		rootNode = newNode;
 	}
 	else {
-		if (depth % 2 == 0) {
-			printf("X %i \n", depth);
-			if (newNode->m_waypoint->Position().x < rootNode->m_waypoint->Position().x) {
-				Insert(rootNode->left, newNode, depth + 1);
+		Node* parent = m_root;
+		Node* current = m_root;
+
+		int currentDepth = 0;
+
+		while (true) {
+			parent = current;
+
+			if (currentDepth % 2 == 0) {
+				if (newNode->m_waypoint->Position().x < parent->m_waypoint->Position().x) {
+					printf("Depth x: %i\n", currentDepth);
+					current = current->left;
+
+					if (!current) {
+						parent->left = newNode;
+						return;
+					}
+				}
+				else {
+					current = current->right;
+
+					if (!current) {
+						parent->right = newNode;
+						return;
+					}
+				}
 			}
 			else {
-				Insert(rootNode->right, newNode, depth + 1);
+				printf("Depth y: %i", currentDepth);
+				if (newNode->m_waypoint->Position().y < parent->m_waypoint->Position().y) {
+					current = current->left;
+
+					if (!current) {
+						parent->left = newNode;
+						return;
+					}
+				}
+				else {
+					current = current->right;
+
+					if (!current) {
+						parent->right = newNode;
+						return;
+					}
+				}
 			}
-		}
-		else {
-			printf("Y %i \n", depth);
-			if (newNode->m_waypoint->Position().y < rootNode->m_waypoint->Position().y) {
-				Insert(rootNode->left, newNode, depth + 1);
-			}
-			else {
-				Insert(rootNode->right, newNode, depth + 1);
+
+			if (++currentDepth >= m_dimensions) {
+				currentDepth = 0;
 			}
 		}
 	}
@@ -90,9 +135,7 @@ void NavMapKDTree::TestTraverseInOrder(Node* rootNode) {
 Waypoint* NavMapKDTree::NearestWaypoint(Vec3f pos) {
 	m_nearestWP = m_root->m_waypoint;
 
-	NearestWaypoint(m_root, pos, 0);
-
-	Vec3f tmp = m_nearestWP->Position();
+	NearestWaypoint(m_root, pos);
 
 	return m_nearestWP;
 }
@@ -102,7 +145,7 @@ Waypoint* NavMapKDTree::NearestWaypoint(Vec3f pos) {
 // NavMapKDTree::NearestWaypoint()
 //
 //
-void NavMapKDTree::NearestWaypoint(Node* rootNode, Vec3f pos, unsigned int depth) {
+void NavMapKDTree::NearestWaypoint(Node* rootNode, Vec3f pos) {
 	if (rootNode == NULL) {
 		return;
 	}
@@ -117,6 +160,6 @@ void NavMapKDTree::NearestWaypoint(Node* rootNode, Vec3f pos, unsigned int depth
 		m_nearestWP = rootNode->m_waypoint;
 	}
 
-	NearestWaypoint(rootNode->left, pos, depth + 1);
-	NearestWaypoint(rootNode->right, pos, depth + 1);
+	NearestWaypoint(rootNode->left, pos);
+	NearestWaypoint(rootNode->right, pos);
 }

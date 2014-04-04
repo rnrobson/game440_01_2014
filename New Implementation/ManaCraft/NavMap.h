@@ -15,10 +15,13 @@ private:
 	const int MAX_WAYPOINT_DIST = 2;
 
 	std::list<Waypoint*> m_waypoints;
-	NavMapKDTree mapTree;
+	NavMapKDTree m_mapTree;
+
+	void CleanUp();
 
 public:
 	NavMap();
+	~NavMap();
 
 	void AddWaypoint(Vec3f pos, int weight);
 	void AddWaypointObserver(Observer* observer, Vec3f pos);
@@ -26,5 +29,4 @@ public:
 	Waypoint* First();
 	Waypoint* NearestWaypoint(Vec3f pos);
 	void GetNavigatorsInRange(Waypoint* entry, Waypoint* exit, std::vector<Navigator*>& container);
-
 };

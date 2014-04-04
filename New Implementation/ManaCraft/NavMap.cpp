@@ -5,7 +5,6 @@
 #include "NavMap.h"
 
 #include <algorithm>
-//#include <gl/glut.h>
 
 //
 //
@@ -13,6 +12,30 @@
 //
 //
 NavMap::NavMap() {
+	m_mapTree = NavMapKDTree(2);
+}
+
+//
+//
+// ~NavMap()
+//
+//
+NavMap::~NavMap() {
+	CleanUp();
+}
+
+//
+//
+// NavMap::CleanUp()
+//
+//
+void NavMap::CleanUp() {
+	std::list<Waypoint*>::iterator wpit;
+	for (wpit = m_waypoints.begin(); wpit != m_waypoints.end(); ++wpit) {
+		Waypoint* wp = (*wpit);
+		wpit = m_waypoints.erase(wpit);
+		delete wp;
+	}
 }
 
 //
@@ -31,7 +54,7 @@ void NavMap::AddWaypoint(Vec3f pos, int weight) {
 
 	wp->m_isLastWaypoint = true;
 	m_waypoints.push_back(wp);
-	mapTree.Insert(wp);
+	m_mapTree.Insert(wp);
 
 	if (!m_waypoints.front()->m_isFirstWaypoint) {
 		m_waypoints.front()->m_isFirstWaypoint = true;
@@ -44,7 +67,7 @@ void NavMap::AddWaypoint(Vec3f pos, int weight) {
 //
 //
 void NavMap::AddWaypointObserver(Observer* observer, Vec3f pos) {
-	Waypoint* wp = mapTree.NearestWaypoint(pos);
+	Waypoint* wp = m_mapTree.NearestWaypoint(pos);
 
 	Waypoint* entry = wp, *exit = wp;
 
@@ -82,7 +105,7 @@ Waypoint* NavMap::First() {
 //
 //
 Waypoint* NavMap::NearestWaypoint(Vec3f pos) {
-	return mapTree.NearestWaypoint(pos);
+	return m_mapTree.NearestWaypoint(pos);
 }
 
 //
