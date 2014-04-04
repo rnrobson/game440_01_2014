@@ -686,9 +686,6 @@
     <ClInclude Include="NavMapKDTree.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkCommands.h">
-      <Filter>Header Files\AI</Filter>
-    </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
@@ -697,6 +694,9 @@
     </ClInclude>
     <ClInclude Include="Vec3f.h">
       <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkCommands.h">
+      <Filter>Header Files\Client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
