@@ -1,0 +1,61 @@
+Pseudocode for GameLogic in GameModel.cpp
+
+- The server.run() method pushes the Update commands for each running game to the workqueue on deltaTime.
+- The server creates a command for each of the update methods with a gameID
+
+Pseudocode for UpdateMinions()
+
+// Iterate through all the minions in the gameID
+	//Update position using the speed 
+	(no pathing logic right now because no map or pathing info exists)
+
+	//If minion is dead (health<=0)
+		//remove MpS (Mana per second) from player who owns the minion
+		//find all the towers' target lists this minion is in and remove itself from them
+
+	//Check for collision with the enemy base
+		//if there is a collision
+			//do damage to enemy base
+			//despawn minion
+
+// let the clients in this game know to update it's minions
+
+Pseudocode for UpdateTowers()
+
+// loop through all towers in this game
+	//loop through all minions in the game
+		//if the minion is in range of the tower
+		//check if the minion is already present in the tower's target list
+
+		//if the minion does NOT exist in the tower's target list already
+			//if the minion is in range
+				//add minion to this tower's target list
+
+		//if the minion is already in the tower's target list
+			//if minion moves past tower's range, remove it from the target list
+
+		//check if the tower's reload timer is up
+			//if yes, the tower fires at the first minion in it's target list
+
+//let the clients in this game know to update it's towers
+
+Pseudocode for UpdateProjectiles()
+
+// iterate through all the projectiles in the game
+	//move projectile based on it's velocity
+
+	//loop through all the minions in the game
+
+		//check for collision with the minion
+			//if there is a collision
+				//do damage calculation based on tower's damage, minion's armour and resistances
+
+			//despawn projectile after doing damage
+
+//let the clients in this game know to update it's projectiles
+
+Pseudocode for UpdateEconomy
+
+	//loop through all players in the gameID
+		//add MpS value to total mana
+	//let client's know to update their MpS and Mana values

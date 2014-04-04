@@ -19,8 +19,8 @@
 class GuiContainer : public GuiObject
 {
 private:
-	std::map<std::string, GuiContainer*> guiContainers;
-	std::map<std::string, GuiElement*> guiElements;
+	std::unordered_map<std::string, GuiContainer*> guiContainers;
+	std::unordered_map<std::string, GuiElement*> guiElements;
 
 	Mix_Chunk* music;
 	Mix_Chunk* sfx1;

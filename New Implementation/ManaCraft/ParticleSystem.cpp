@@ -1,4 +1,5 @@
 #include "ParticleSystem.h"
+using namespace ManaCraft::Client;
 
 /* Default Particle System */
 ParticleSystem::ParticleSystem(){};

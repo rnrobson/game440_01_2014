@@ -215,34 +215,35 @@ void ServerTester::Test_Command_UpdateMinions()
 
 void ServerTester::Test_ServerLobby(ThreadPool *workCrew)
 {
-	printf("\nTesting ServerLobby:");
+	// COMMENTED BY DATABASE
+	//printf("\nTesting ServerLobby:");
 
-	ServerPlayer *hostPlayer = new ServerPlayer();
-	ServerLobby *serverLobby = new ServerLobby(workCrew, hostPlayer, 3);
+	//ServerPlayer *hostPlayer = new ServerPlayer();
+	//ServerLobby *serverLobby = new ServerLobby(workCrew, hostPlayer, 3);
 
-	//Initial info:
-	printf("\n TeamSize: %i", serverLobby->teams.MaxPlayers / 2);
-	printf("\n MaxPlayers: %i", serverLobby->teams.MaxPlayers);
-	printLobbyState(serverLobby, 0);
+	////Initial info:
+	//printf("\n TeamSize: %i", serverLobby->teams.MaxPlayers / 2);
+	//printf("\n MaxPlayers: %i", serverLobby->teams.MaxPlayers);
+	//printLobbyState(serverLobby, 0);
 
-	//Tests:
-	serverLobby->EnterNewPlayer(new ServerPlayer());
-	printLobbyState(serverLobby, 1);
+	////Tests:
+	//serverLobby->EnterNewPlayer(new ServerPlayer());
+	//printLobbyState(serverLobby, 1);
 
-	serverLobby->ReadyPlayer(serverLobby->teams.Bench[0]);
-	printLobbyState(serverLobby, 2);
+	//serverLobby->ReadyPlayer(serverLobby->teams.Bench[0]);
+	//printLobbyState(serverLobby, 2);
 
-	serverLobby->PlayerChangeTeam(serverLobby->teams.Bench[0], &serverLobby->teams.Team1);
-	serverLobby->ReadyPlayer(serverLobby->teams.Team1[0]);
-	serverLobby->ReadyPlayer(serverLobby->teams.Team1[0]);
-	printLobbyState(serverLobby, 3);
+	//serverLobby->PlayerChangeTeam(serverLobby->teams.Bench[0], &serverLobby->teams.Team1);
+	//serverLobby->ReadyPlayer(serverLobby->teams.Team1[0]);
+	//serverLobby->ReadyPlayer(serverLobby->teams.Team1[0]);
+	//printLobbyState(serverLobby, 3);
 
-	serverLobby->KickPlayer(serverLobby->teams.Team1[0]);
-	printLobbyState(serverLobby, 4);
+	//serverLobby->KickPlayer(serverLobby->teams.Team1[0]);
+	//printLobbyState(serverLobby, 4);
 
-	//Testing Complete:
-	printf("\nServerLobby testing completed.\nPress Enter key to continue...\n");
-	getchar();
+	////Testing Complete:
+	//printf("\nServerLobby testing completed.\nPress Enter key to continue...\n");
+	//getchar();
 }
 
 void ServerTester::printLobbyState(ServerLobby *lobby, int testNumber)

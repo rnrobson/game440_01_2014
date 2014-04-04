@@ -76,6 +76,12 @@
     <Filter Include="Source Files\Client\ClientGUI">
       <UniqueIdentifier>{ce6cf9ad-04b4-4f6f-9fe5-9e352d0a7c3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\AI">
+      <UniqueIdentifier>{6920a15d-ff69-4d8b-9704-8c26b19e8c01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AI">
+      <UniqueIdentifier>{fe9de527-e692-4718-886c-6d236eb732fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -195,9 +201,6 @@
     <ClCompile Include="ServerCommand.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
-    <ClCompile Include="IngamePause.cpp">
-      <Filter>Source Files\Client\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="Teams.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
@@ -306,6 +309,33 @@
     <ClCompile Include="PlayerInfoTable.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
+    <ClCompile Include="NetworkCommands.cpp">
+      <Filter>Source Files\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="Waypoint.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Navigator.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMap.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="NavMapKDTree.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Subject.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Vec3f.cpp">
+      <Filter>Source Files\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePage.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -407,12 +437,6 @@
     <ClInclude Include="DataDefinitions.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginPopup.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="API_Util.h">
       <Filter>Header Files\Client\Utilities</Filter>
     </ClInclude>
@@ -448,9 +472,6 @@
     </ClInclude>
     <ClInclude Include="ServerIncludes.h">
       <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="IngamePause.h">
-      <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Teams.h">
       <Filter>Header Files\Server</Filter>
@@ -495,9 +516,6 @@
       <Filter>Header Files\Server</Filter>
     </ClInclude>
     <ClInclude Include="ServerLiason.h">
-      <Filter>Header Files\Client</Filter>
-    </ClInclude>
-    <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
     </ClInclude>
     <ClInclude Include="NetReceiver.h">
@@ -637,6 +655,44 @@
     </ClInclude>
     <ClInclude Include="Command_UpdateEconomy.h">
       <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_CS_ResumeGame.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command_CS_PauseGame.h">
+      <Filter>Header Files\ServerCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Waypoint.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="NavEvent.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Navigator.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMap.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="NavMapKDTree.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec3f.h">
+      <Filter>Header Files\AI</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="NetworkCommands.h">
+      <Filter>Header Files\Client</Filter>
+=======
+    <ClInclude Include="GamePage.h">
+      <Filter>Header Files\Client\Menus</Filter>
+>>>>>>> ec35bb0c87e78db408867aeb7b48ae92ef3a20ea
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -15,7 +15,7 @@ bool Minion::Serialize(char* data, Uint16 dataFlags) {
 	data = Serialize::UInt16(data, dataFlags);
 
 	if (dataFlags & NetData::FLAG_01) {
-		data = Serialize::Int32(data, ID);
+		data = Serialize::Int32(data, minionType);
 	}
 	if (dataFlags & NetData::FLAG_02) {
 		data = Serialize::Float(data, xPos);
@@ -43,7 +43,7 @@ int Minion::SerializedSize(Uint16 dataFlags) const {
 	int size = sizeof(Uint16); // data flags
 
 	if (dataFlags & NetData::FLAG_01) {
-		size += sizeof(int); // id
+		size += sizeof(int); // minionType
 	}
 	if (dataFlags & NetData::FLAG_02) {
 		size += sizeof(float); // x pos
@@ -72,7 +72,7 @@ bool Minion::Deserialize(char* data) {
 	data += sizeof(Uint16);
 
 	if (dataFlags & NetData::FLAG_01) {
-		ID = (MinionTypes)Deserialize::Int32(data);
+		minionType = (MinionTypes)Deserialize::Int32(data);
 		data += sizeof(int);
 	}
 	if (dataFlags & NetData::FLAG_02) {
@@ -114,7 +114,7 @@ Minion* Minion::buildFromRow(mysqlpp::Row& row) {
 
 		//Get Minion ID and cast it to MinionType
 		int rowID = atoi(row[TableInfo::Minions::ID].c_str());
-		temp->ID = static_cast<MinionTypes>(rowID);
+		temp->minionType = static_cast<MinionTypes>(rowID);
 
 		//Get Element ID and cast it to ElementType
 		int elementId = atoi(row[TableInfo::Minions::ELEMENT].c_str());
@@ -175,7 +175,7 @@ std::vector<Minion*> Minion::fetchAllFromDB() {
 }
 
 bool Minion::operator==(const Minion& rhs) {
-	return ID == rhs.ID &&
+	return minionType == rhs.minionType &&
 		xPos == rhs.xPos &&
 		yPos == rhs.yPos &&
 		manaPerSecond == rhs.manaPerSecond &&

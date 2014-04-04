@@ -20,7 +20,7 @@ Connection::Connection(TCPsocket socket) : mSocket(socket) {
 }
 
 int Connection::Open() {
-	if (mSocket) {
+	if (!mSocket) {
 		throw ConnectionOpenException();
 	}
 	else {

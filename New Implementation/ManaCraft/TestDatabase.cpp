@@ -132,7 +132,7 @@ void TestDatabase::testLoadMinions()
 		for (int i = 0; i < minions.size(); ++i)
 		{
 			
-			std::cout << "ID: " << minions[i]->ID;
+			std::cout << "ID: " << minions[i]->minionType;
 			std::cout << ", Name: " << minions[i]->name;
 			std::cout << ", Level: " << minions[i]->level;
 			std::cout << ", Health: " << minions[i]->health;
@@ -167,7 +167,7 @@ void TestDatabase::testLoadTowers()
 		for (int i = 0; i < towers.size(); ++i)
 		{
 
-			std::cout << "ID: " << towers[i]->ID;
+			std::cout << "ID: " << towers[i]->towerType;
 			std::cout << ", ElementID: " << towers[i]->elementID;
 			std::cout << ", Name: " << towers[i]->name;
 			std::cout << ", AtkType: " << towers[i]->attackType;
@@ -255,13 +255,13 @@ void TestDatabase::testSaveLoadGame() {
 	if (g->id == id) {
 		std::cout << "GameModel Success!" << std::endl;
 		std::cout << "Team 1 ID: " << g->teams->team1ID << std::endl;
-		for (ServerPlayer* p : g->teams->Team1)
+		for (Player* p : g->teams->Team1)
 		{
 			std::cout << "\tPlayer " << p->id << "Loaded" << std::endl;
 		}
 
 		std::cout << "\nTeam 2 ID: " << g->teams->team2ID << std::endl;
-		for (ServerPlayer* p : g->teams->Team2)
+		for (Player* p : g->teams->Team2)
 		{
 			std::cout << "\tPlayer " << p->id << "Loaded" << std::endl;
 		}
@@ -296,8 +296,8 @@ void TestDatabase::testSave()
 	game->teams->team1ID = 666;
 	game->teams->team2ID = 999;
 
-	ServerPlayer* player1 = new ServerPlayer(220);
-	ServerPlayer* player2 = new ServerPlayer(225);
+	Player* player1 = new Player(220);
+	Player* player2 = new Player(225);
 	game->teams->Team1.push_back(player1);
 	game->teams->Team2.push_back(player2);
 

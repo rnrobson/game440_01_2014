@@ -1,5 +1,6 @@
 #include "ServerLiason.h"
 #include "PacketFactory.h"
+#include "ThreadedListener.h"
 
 using namespace ManaCraft::Networking;
 using namespace ManaCraft::Client;
@@ -7,89 +8,90 @@ using namespace std;
 
 NetClient* clientConnection = nullptr;
 bool hasStarted = false;
-BlockingQueue<ManaCraft::Networking::Packet> sendMsgQueue;
+SDL_Thread* ServerLiason::sendingThread;
+SDL_Thread* ServerLiason::executeThread;
+BlockingQueue<Packet*>* ServerLiason::sendingQueue;
+BlockingQueue<CommandPacket*>* ServerLiason::executeQueue;
 
 ServerLiason::ServerLiason() {
 	// Set the connection
-	clientConnection = new NetClient("192.168.2.18", 27015);
-	
-	// Open the connection
-	int openState = clientConnection->Open();
-
-	if (openState == 0) {
-		cout << "The connection didn't open. Host: " << clientConnection->GetIP().host << " Port: " << clientConnection->GetIP().port << endl;
-	}
-	else {
-		cout << "Client successfully connected on: " << clientConnection->GetIP().port << endl;
-		hasStarted = true;
-
-		listening = SDL_CreateThread(StaticListenToServer, "listening", this);
-		if (listening == NULL) {
-			cout << "Listening didn't create its thread." << endl;
-		}
-
-		sending = SDL_CreateThread(StaticSendToServer, "sending", this);
-		if (sending == NULL) {
-			cout << "Sending didn't create its thread." << endl;
-		}
-	}
 }
 
 void ServerLiason::Start() {
-	if (!hasStarted)
-		ServerLiason();
+	if (!hasStarted) {
+		hasStarted = true;
+		clientConnection = new NetClient("192.168.0.102", 27015);
+		ThreadedListener* listener = new ThreadedListener(clientConnection, 5);
+
+		sendingQueue = new BlockingQueue<Packet*>();
+		executeQueue = new BlockingQueue<CommandPacket*>();
+		
+		sendingThread = SDL_CreateThread(SendingThread, "sending", NULL);
+		if (sendingThread == NULL) {
+			cout << "Failed to create Sending thread." << endl;
+		}
+		
+		executeThread = SDL_CreateThread(ExecuteThread, "execute", NULL);
+		if (executeThread == NULL) {
+			cout << "Failed to create Sending thread." << endl;
+		}
+
+		// Send test packet
+		std::string str = "wobbier";
+		int payloadSize = str.length() + sizeof(__int8);
+		std::vector<char> data = std::vector<char>(payloadSize);
+		unsigned int pos = 0;
+		Serialize::Int8(data, pos, payloadSize);
+		pos += sizeof(__int8);
+		for (unsigned int i = 0; i < str.length(); ++i) {
+			data[pos + i] = str[i];
+		}
+		Packet* packet = new Packet(Networking::SEC_HEAD, Networking::LOGIN_PLAYER, data);
+		SendPacket(packet);
+	}
 }
 
-
-int ServerLiason::SendToServer() {
-	sendMsgQueue = BlockingQueue<Packet>();
-
+int ServerLiason::SendingThread(void* data) {
 	while (hasStarted) { // While it's started run through the queue
-		if (!sendMsgQueue.empty()) {
-			Packet* p = &sendMsgQueue.pop();
-
-			clientConnection->Send(*p);
+		if (!sendingQueue->empty()) {
+			try {
+				std::cout << "Sending Packet..." << std::endl;
+				Packet* packet = sendingQueue->pop();
+				clientConnection->Send(*packet);
+			}
+			catch (ConnectionNotOpenException e) {
+				cout << "Unable to send packet: " << e.what() << endl;
+			}
 		}
 	}
 	return 0;
 }
 
-int ServerLiason::StaticSendToServer(void* data) {
-	return ((ServerLiason*)data)->SendToServer();
-}
-
-
-int ServerLiason::ListenToServer() {
-	bool listen = true;
-
-	while (listen) {
-		Packet* packet = clientConnection->Receive();
-		packet = PacketFactory::CreateFromServerPacket(packet);
-		if (packet != nullptr) {
-			std::cout << "Data received." << std::endl;
+int ServerLiason::ExecuteThread(void* data) {
+	while (hasStarted) {
+		if (!executeQueue->empty()) {
+			CommandPacket* packet = executeQueue->pop();
 			packet->Execute();
-
 			delete packet;
 			packet = nullptr;
 		}
 	}
-	CloseConnection();
+
 	return 0;
 }
-
-int ServerLiason::StaticListenToServer(void* data) {
-	return((ServerLiason*)data)->ListenToServer();
-}
-
 
 void ServerLiason::CloseConnection() {
 	hasStarted = false;
 	clientConnection->Close();
 }
 
-void ServerLiason::AddMessage(Packet* packet) {
+void ServerLiason::SendPacket(Networking::Packet* packet) {
 	if (hasStarted)
-		sendMsgQueue.push(*packet);
+		sendingQueue->push(packet);
 	else
 		std::cout << "Unable to push due, liason between Client to Server has not been initialized" << std::endl;
+}
+
+void ServerLiason::Stop() {
+	//listening
 }

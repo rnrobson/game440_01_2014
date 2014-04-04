@@ -17,9 +17,8 @@ Tower* Tower::buildFromRow(mysqlpp::Row& row) {
 	Tower* temp = new Tower();
 
 	try {
-		
 		int rowID = atoi(row[TableInfo::Towers::ID].c_str());
-		temp->ID = static_cast<TowerTypes>(rowID);
+		temp->towerType = static_cast<TowerTypes>(rowID);
 
 		int elementId = atoi(row[TableInfo::Towers::ELEMENT].c_str());
 		temp->elementID = static_cast<ElementTypes>(elementId);

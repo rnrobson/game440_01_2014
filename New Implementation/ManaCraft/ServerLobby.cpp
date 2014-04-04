@@ -40,11 +40,12 @@ void ServerLobby::CloseLobby()
 
 void ServerLobby::ReadyPlayer(ServerPlayer *player)
 {
-	if (player->Team != &teams.Bench)
-	{
-		UnReadyPlayer(player);
-		readyPlayers.push_back(player);
-	}
+	// COMMENTED BY DATABASE
+	//if (player->Team != &teams.Bench)
+	//{
+	//	UnReadyPlayer(player);
+	//	readyPlayers.push_back(player);
+	//}
 }
 
 void ServerLobby::UnReadyPlayer(ServerPlayer *player)
@@ -65,17 +66,20 @@ void ServerLobby::PlayerMessage(ServerPlayer *player, string message)
 
 void ServerLobby::EnterNewPlayer(ServerPlayer *player)
 {
-	teams.EnterNewPlayer(player);
+	// COMMENTED BY DATABASE
+	//teams.EnterNewPlayer(player);
 }
 
 void ServerLobby::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam)
 {
-	UnReadyPlayer(player);
-	teams.PlayerChangeTeam(player, toTeam);
+	// COMMENTED BY DATABASE
+	//UnReadyPlayer(player);
+	//teams.PlayerChangeTeam(player, toTeam);
 }
 
 void ServerLobby::KickPlayer(ServerPlayer *player)
 {
-	teams.KickPlayer(player);
-	UnReadyPlayer(player);
+	// COMMENTED BY DATABASE
+	//teams.KickPlayer(player);
+	//UnReadyPlayer(player);
 }

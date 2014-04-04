@@ -6,17 +6,27 @@
 #include <vector>
 #include "Gamestate.h"
 
-class ClientSettings
-{
-public:
-	ClientSettings();
-	~ClientSettings();
+namespace ManaCraft {
+	namespace Client {
+		class ClientSettings
+		{
+		private:
+			static ClientSettings* instance;
 
-	Gamestate GameState = GS_None;
+		protected:
+			ClientSettings();
 
-	std::string Username;
-	bool loggedIn;
-	bool isHost;
-};
+		public:
+			static ClientSettings* GetInstance();
+			~ClientSettings();
+
+			Gamestate GameState = GS_None;
+
+			std::string Username;
+			bool loggedIn;
+			bool isHost;
+		};
+	}
+}
 
 #endif

@@ -3,17 +3,16 @@
 
 BlockingQueue<CommandPacket*> Server::workQueue;
 
-Server::Server()
-{
+Server::Server() {
 	Init();
-	
+
 }
-void Server::Run()
-{
+void Server::Run() {
 	running = true;
 
+	ClientLiaison::Run();
 	//uncomment this to run tests for the server commands before game loop starts
-	
+
 	//ServerTester* tester = new ServerTester(50);
 
 	//tester->Test_Command_TripleAFloat();
@@ -26,21 +25,18 @@ void Server::Run()
 	/*std::cout << "\nRunning all tests...";
 	tester->RunAllTests();*/
 
-	
+
 	bool dontUpdate; // There might be too many ticks per ms
 	int timeSnapshot = -1; // Temp var for comparing ms for above issue
-	
+
 	//spoofing commands coming in from the client to the workQueue
 	Uint32 testTimeSnapShot = -1;
 	bool dontTest;
 
-	while (running)
-	{
+	while (running) {
 		//pop a command off workqueu if any are present
-		if (!workQueue.empty())
-		{
-			workQueue.front()->Execute();
-			workQueue.pop();
+		if (!workQueue.empty()) {
+			workQueue.pop()->Execute();
 		}
 
 		//go into update loop
@@ -59,8 +55,7 @@ void Server::Run()
 
 		// If we're allowed to update, do so.
 		if (!dontUpdate) {
-			if (elapsedTime % deltaTime == 0)
-			{
+			if (elapsedTime % deltaTime == 0) {
 				printf("Update\n");
 				Update();
 			}
@@ -72,32 +67,30 @@ void Server::Run()
 		//spoofing commands coming in from the client to the workQueue every 2 secs
 		/*Uint32 timeToSimulateCommand = 2000;
 		if (testTimeSnapShot == elapsedTime)
-			dontTest = true;
+		dontTest = true;
 		else
-			dontTest = false;
+		dontTest = false;
 
 		if (!dontTest && elapsedTime % timeToSimulateCommand == 0)
 		{
-			float x = rand() % 99;
-			CommandPacket* testCMD = new Command_TripleAFloat(&x);
-			Server::AddWork(testCMD);
+		float x = rand() % 99;
+		CommandPacket* testCMD = new Command_TripleAFloat(&x);
+		Server::AddWork(testCMD);
 
 		}
 		testTimeSnapShot = elapsedTime;*/
 	}
 
-	
+
 
 	getchar();
 }
 
-Server::~Server()
-{
+Server::~Server() {
 
 }
 
-void Server::Init()
-{
+void Server::Init() {
 	running = true;
 	elapsedTime = 0;
 
@@ -109,34 +102,31 @@ void Server::Init()
 	Server::AddWork(newGameCMD);
 
 	localDB = new LocalDB();
+	clientLiaison = new ClientLiaison();
 
 }
 
 void Server::Update() {
-	
-	for (size_t i = 0; i < GameManager::games.size(); i++)
-	{
+
+	/*for (size_t i = 0; i < GameManager::games.size(); i++) {
 		CommandPacket* updateMinionsCMD = new Command_UpdateMinions(GameManager::games[i]->id);
 		Server::AddWork(updateMinionsCMD);
-		CommandPacket* updateTowersCMD = new Command_UpdateTowers(GameManager::games[i]->id,deltaTime);
+		CommandPacket* updateTowersCMD = new Command_UpdateTowers(GameManager::games[i]->id, deltaTime);
 		Server::AddWork(updateTowersCMD);
 		CommandPacket* updateProjectilesCMD = new Command_UpdateProjectiles(GameManager::games[i]->id);
 		Server::AddWork(updateProjectilesCMD);
 		CommandPacket* updateEconomyCMD = new Command_UpdateEconomy(GameManager::games[i]->id, deltaTime);
 		Server::AddWork(updateEconomyCMD);
-	}
+	}*/
 
 }
-void Server::AddWork(CommandPacket* command)
-{
+void Server::AddWork(CommandPacket* command) {
 	workQueue.push(command);
 }
 
-void Server::Shutdown()
-{
+void Server::Shutdown() {
 	running = false;
-	while (!workQueue.empty())
-	{
+	while (!workQueue.empty()) {
 		workQueue.pop();
 	}
 	delete gameManager;

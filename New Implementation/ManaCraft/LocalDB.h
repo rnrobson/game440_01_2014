@@ -13,6 +13,8 @@ private:
 	bool CloseConnection();
 	static std::vector<GameModel*> games;
 	ManaCraft::Database::DatabaseAPI *dbConnection;
+	std::vector<Minion*> minions;
+	void LoadTables();
 
 public:
 	static GameModel* LoadGame(uint _gameID);

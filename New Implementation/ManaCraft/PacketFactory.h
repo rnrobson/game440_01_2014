@@ -9,6 +9,8 @@
 
 using namespace ManaCraft;
 
+class CommandPacket;
+
 class PacketFactory
 { 
 public:
@@ -17,14 +19,14 @@ public:
 	/// <para> [const Packet* packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <returns>Returns the converted packet.</returns>
 	/// </summary>
-	static Networking::Packet* CreateFromClientPacket(const Networking::Packet* packet);
+	static CommandPacket* CreateFromClientPacket(const Networking::Packet* packet);
 
 	/// <summary>[CreateClientServerPacket]
 	/// <para>Converts a regular packet into the Command Packet that corresponds to its Protocol.</para>
 	/// <para>[const Packet* packet] A packet holding a protocol and the corresponding data for that command.</para>
 	/// <returns>Returns the converted packet.</returns>
 	/// </summary>
-	static Networking::Packet* CreateFromServerPacket(const Networking::Packet* packet);
+	static CommandPacket* CreateFromServerPacket(const Networking::Packet* packet);
 
 private: 
 	PacketFactory() { };
@@ -62,22 +64,13 @@ public:
 	void Execute();
 };
 
-class SendMessageIGPacket : public CommandPacket {
+class SendLobbyMessagePacket : public CommandPacket {
 private:
 	__int16 gameID;
 	std::string username;
 	std::string message;
 public:
-	SendMessageIGPacket(const Packet* packet);
-	void Execute();
-};
-
-class SendMessageGLPacket : public CommandPacket {
-	__int16 lobbyID;
-	std::string username;
-	std::string message;
-public:
-	SendMessageGLPacket(const Packet* packet);
+	SendLobbyMessagePacket(const Packet* packet);
 	void Execute();
 };
 
@@ -93,28 +86,20 @@ public:
 	void Execute();
 };
 
-class SendPartyMsgIGPacket : public CommandPacket {
+class SendPartyMessagePacket : public CommandPacket {
 private:
 	std::string username;
 	std::string message;
 	__int16 gameID;
 	__int16 teamID;
 public:
-	SendPartyMsgIGPacket(const Packet* packet);
-	void Execute();
-};
-
-class SendPartyMsgGLPacket : public CommandPacket {
-private:
-	std::string username;
-	std::string message;
-	__int16 lobbyID;
-public:
-	SendPartyMsgGLPacket(const Packet* packet);
+	SendPartyMessagePacket(const Packet* packet);
 	void Execute();
 };
 
 class RefreshGamesPacket : public CommandPacket {
+private:
+	std::string username;
 public:
 	RefreshGamesPacket(const Packet* packet);
 	void Execute();
@@ -123,12 +108,14 @@ public:
 class JoinGamePacket : public CommandPacket {
 private:
 	__int16 GameID;
+	std::string username;
 public:
 	JoinGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class CreateGamePacket : public CommandPacket {
+	__int16 GameID;
 public:
 	CreateGamePacket(const Packet* packet);
 	void Execute();
@@ -173,7 +160,8 @@ public:
 
 class DisbandGamePacket : public CommandPacket {
 private:
-	__int16 gameID;
+	//__int16 gameID;
+	__int16 lobbyID;
 public:
 	DisbandGamePacket(const Packet* packet);
 	void Execute();
@@ -197,18 +185,28 @@ public:
 };
 
 class SummonMinionPacket : public CommandPacket {
+private:
+	__int16 gameID;
+	__int16 minionID;
+	std::string username;
 public:
 	SummonMinionPacket(const Packet* packet);
 	void Execute();
 };
 
 class ResearchMinionPacket : public CommandPacket {
+private: 
+	__int16 minionID;
+	std::string username;
 public:
 	ResearchMinionPacket(const Packet* packet);
 	void Execute();
 };
 
 class ResearchTowerPacket : public CommandPacket {
+private:
+	__int16 towerID;
+	std::string username;
 public:
 	ResearchTowerPacket(const Packet* packet);
 	void Execute();
@@ -221,24 +219,36 @@ public:
 };
 
 class PauseGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	PauseGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class EndGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	EndGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class ResumeGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	ResumeGamePacket(const Packet* packet);
 	void Execute();
 };
 
 class QuitGamePacket : public CommandPacket {
+private:
+	__int16 gameID;
+	std::string username;
 public:
 	QuitGamePacket(const Packet* packet);
 	void Execute();

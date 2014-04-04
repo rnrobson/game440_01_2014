@@ -47,7 +47,8 @@ void GameModel::UpdateMinions()
 
 		//get reference to player to find out which base this minion should do damage to
 		//assuming this is a light minion - will do damage to dark base
-		if (SDL_IntersectRect(darkBase->collisionBox, minions[i]->collisionBox, new SDL_Rect()))
+		SDL_Rect result;
+		if (SDL_IntersectRect(darkBase->collisionBox, minions[i]->collisionBox, &result))
 		{
 			darkBase->TakeDamage(minions[i]->damage);
 			//remove MpS bonus from player who had spawned it
@@ -141,9 +142,10 @@ void GameModel::UpdateProjectiles()
 		projectiles[i]->yPos += projectiles[i]->yDir;
 
 		//unoptimized linear collision check for now
+		SDL_Rect result;
 		for (size_t j = 0; j < minions.size(); j++)
 		{
-			if (SDL_IntersectRect(projectiles[i]->collisionBox, minions[j]->collisionBox, new SDL_Rect()))
+			if (SDL_IntersectRect(projectiles[i]->collisionBox, minions[j]->collisionBox, &result))
 			{
 				//projectile has hit the minion - do damage calculations
 
@@ -329,8 +331,37 @@ GameModel* GameModel::LoadGameByID(unsigned int _id) {
 			// it dun broke, throw jank
 		}
 
-		// Load towers
-		// eventually
+		// For each team
+		for (int i = 0; i < 2; ++i) {
+			vector<Player*>* team = &(i == 0 ? temp->teams->Team1 : temp->teams->Team2);
+			
+			// For each player
+			for (size_t i = 0; i < team->size(); ++i) {
+				Player* player = team->at(i);
+
+				// Load towers
+				query.clear();
+				query << "SELECT * FROM Game_Player_Towers WHERE GameID = " << mysqlpp::quote << _id << "AND PlayerID = " << mysqlpp::quote << player->id;
+
+				if (UseQueryResult result = query.use()) {
+					while (Row row = result.fetch_row()) {
+						Tower* tower = new Tower();
+						tower->id = atoi(row[TableInfo::GamePlayerTowers::TOWER_ID].c_str());
+						tower->xPos = atoi(row[TableInfo::GamePlayerTowers::X_POS].c_str());
+						tower->yPos = atoi(row[TableInfo::GamePlayerTowers::Y_POS].c_str());
+
+						// Add to lists
+						player->towers.push_back(tower);
+						temp->towers.push_back(tower);
+
+						// After the GameModel is loaded, base tower info, which was loaded from the DB on startup, must be passed into their respective towers
+						// This cannot be done from this static implementation
+					}
+				}
+			}
+
+		}
+
 
 		return temp;
 	}

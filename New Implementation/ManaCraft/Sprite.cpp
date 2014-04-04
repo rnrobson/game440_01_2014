@@ -1,5 +1,5 @@
 #include "Sprite.h"
-
+using namespace ManaCraft::Client;
 
 Sprite::Sprite(SDL_Texture *tex, int posX,int posY)
 	:GuiElement(tex, { 0, 0, 0, 0 })

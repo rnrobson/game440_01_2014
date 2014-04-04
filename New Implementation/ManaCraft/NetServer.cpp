@@ -43,7 +43,8 @@ NetClient* NetServer::Listen() {
 	// Connection must be OPEN and set as a SERVER (host == NULL)
 	if (mSocket && mIPAddress.host == NULL) {
 		// Listen for a connection and grab it
-		TCPsocket sock = SDLNet_TCP_Accept(mSocket);
+		TCPsocket sock = NULL;
+		sock = SDLNet_TCP_Accept(mSocket);
 
 		// When we have a socket, wrap it in a Connection and return it.
 		if (sock) {

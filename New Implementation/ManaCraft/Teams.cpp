@@ -16,7 +16,7 @@ Teams::~Teams(void)
 {
 }
 
-void Teams::EnterNewPlayer(ServerPlayer *player)
+void Teams::EnterNewPlayer(Player *player)
 {
 	//If game is not full:
 	//++ player count.
@@ -29,7 +29,7 @@ void Teams::EnterNewPlayer(ServerPlayer *player)
 	}
 }
 
-void Teams::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam)
+void Teams::PlayerChangeTeam(Player *player, vector<Player*> *toTeam)
 {
 	//If target team is not full:
 	//If player exists in a team:
@@ -56,7 +56,7 @@ void Teams::PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam
 	}
 }
 
-void Teams::KickPlayer(ServerPlayer *player)
+void Teams::KickPlayer(Player *player)
 {
 	//If player exists in a team:
 	//Remove player from team.
@@ -67,7 +67,7 @@ void Teams::KickPlayer(ServerPlayer *player)
 	}
 }
 
-bool Teams::FindAndRemove(ServerPlayer *player)
+bool Teams::FindAndRemove(Player *player)
 {
 	for (unsigned int i = 0; i < Team1.size(); i++)
 	{
@@ -108,10 +108,10 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 	// Create teams
 	Teams* temp = new Teams();
 
-	temp->Team1 = vector<ServerPlayer*>();
+	temp->Team1 = vector<Player*>();
 	temp->team1ID = _team1ID;
 
-	temp->Team2 = vector<ServerPlayer*>();
+	temp->Team2 = vector<Player*>();
 	temp->team2ID = _team2ID;
 
 	try {
@@ -127,10 +127,10 @@ Teams* Teams::LoadTeamsByIDs(int _team1ID, int _team2ID) {
 					if (Row row = result.fetch_row()) {
 
 						// Create player
-						ServerPlayer* player;
+						Player* player;
 						int playerID = atoi(row[TableInfo::TeamPlayers::PLAYER_ID].c_str());
 
-						player = ServerPlayer::LoadPlayerByID(playerID);
+						player = Player::LoadPlayerByID(playerID);
 						player->Team = (i == 0 ? &(temp->Team1) : &(temp->Team2));
 
 						if (i == 0) {
@@ -212,14 +212,14 @@ void Teams::SaveTeams(unsigned int GameID) {
 
 			if (i == 0)
 			{
-				for (ServerPlayer* p : Team1)
+				for (Player* p : Team1)
 				{
 					p->SavePlayer(team1ID);
 				}
 			}
 			else
 			{
-				for (ServerPlayer* p : Team2)
+				for (Player* p : Team2)
 				{
 					p->SavePlayer(team2ID);
 				}
