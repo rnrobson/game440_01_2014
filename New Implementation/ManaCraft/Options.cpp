@@ -59,12 +59,13 @@ void Options::Load()
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 0, 0, 255)),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 255, 255, 255))));
 
-	content->GetGuiContainer("OptionsForeground")->AddGuiElement("SfxSlider", new Slider(APIHelper::RectHelper(410, 530, 200, 20),
+	content->GetGuiContainer("OptionsForeground")->AddGuiElement("sfxSlider", new Slider(APIHelper::RectHelper(410, 530, 200, 20),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 0, 0, 255)),
 		APIHelper::SolidColourTexture(1, 1, APIHelper::ColourHelper(255, 255, 255, 255))));
 
-	//ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->OnMouseUp();
-	//ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("sfxSlider")->SubscribeOnMouseClick(setSfxVolume);
+	content->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->SubscribeOnMouseUp(setMusicVolume);
+	content->GetGuiContainer("OptionsForeground")->GetSlider("sfxSlider")->SubscribeOnMouseUp(setSfxVolume);
+
 
 	//add labels
 
@@ -77,10 +78,6 @@ void Options::Load()
 
 	API_Util::AddLabelToContainerButton(content->GetGuiContainer("OptionsForeground"),
 		"returnToMainMenu", "Back", "Systema_11", "Black");
-
-	content->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->GetLabel()->SetPadding({ 29, 8, 0, 0 });
-
-	content->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->SubscribeOnMouseClick(ReturnToMainMenu);
 	//
 
 	API_Util::AddButtonToContainer(content->GetGuiContainer("OptionsForeground"), "muteBtn", { 460, 590, 100, 30 }, "MedBtnNormal");
@@ -91,6 +88,10 @@ void Options::Load()
 	content->GetGuiContainer("OptionsForeground")->GetButton("muteBtn")->GetLabel()->SetPadding({ 20, 8, 0, 0 });
 
 	content->GetGuiContainer("OptionsForeground")->GetButton("muteBtn")->SubscribeOnMouseClick(MuteAll);
+
+	content->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->GetLabel()->SetPadding({ 29, 8, 0, 0 });
+
+	content->GetGuiContainer("OptionsForeground")->GetButton("returnToMainMenu")->SubscribeOnMouseClick(ReturnToMainMenu);
 
 	//Making options container not visible
 	//content->Active = false;
@@ -137,13 +138,12 @@ void Options::MuteAll() {
 	printf("Mute Button Pressed");
 }
 
-void setMusicVolume() {
-	int newMusicVolume = Options::GetInstance()->GetContent()->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->Value();
+void Options::setMusicVolume(SDL_MouseButtonEvent e) {
+	int newMusicVolume = ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("musicSlider")->Value();
 	APIHelper::SetMusicVolume(newMusicVolume);
-	printf("TEST");
 }
 
-void setSfxVolume() {
-	int newSfxVolume = Options::GetInstance()->GetContent()->GetGuiContainer("OptionsForeground")->GetSlider("SfxSlider")->Value();
+void Options::setSfxVolume(SDL_MouseButtonEvent e) {
+	int newSfxVolume = ClientAPI::GetGuiContainer("Options")->GetGuiContainer("OptionsForeground")->GetSlider("sfxSlider")->Value();
 	APIHelper::SetSoundEffect1Volume(newSfxVolume);
 }

@@ -100,6 +100,7 @@
     <ClCompile Include="GameLobby.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameModel.cpp" />
+    <ClCompile Include="GamePage.cpp" />
     <ClCompile Include="GridLayer.cpp" />
     <ClCompile Include="GridNode.cpp" />
     <ClCompile Include="GridSquare.cpp" />
@@ -109,7 +110,6 @@
     <ClCompile Include="GuiObject.cpp" />
     <ClCompile Include="InfluenceLayer.cpp" />
     <ClCompile Include="InfluenceSquare.cpp" />
-    <ClCompile Include="IngamePause.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LocalDB.cpp" />
@@ -197,6 +197,7 @@
     <ClInclude Include="GameLobby.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameModel.h" />
+    <ClInclude Include="GamePage.h" />
     <ClInclude Include="Gamestate.h" />
     <ClInclude Include="GridLayer.h" />
     <ClInclude Include="GridSquare.h" />
@@ -218,7 +219,6 @@
     <ClInclude Include="PlayerInfoTable.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TestLocalDB.h" />
-    <ClInclude Include="IngamePause.h" />
     <ClInclude Include="Command_IntFloatProduct.h" />
     <ClInclude Include="LocalDB.h" />
     <ClInclude Include="NetBroadcaster.h" />
@@ -237,7 +237,6 @@
     <ClInclude Include="GuiGridLayer.h" />
     <ClInclude Include="GridNode.h" />
     <ClInclude Include="GuiGridSquare.h" />
-    <ClInclude Include="GUI.h" />
     <ClInclude Include="GuiContainer.h" />
     <ClInclude Include="GuiElement.h" />
     <ClInclude Include="Includes.h" />
@@ -245,7 +244,6 @@
     <ClInclude Include="InfluenceSquare.h" />
     <ClInclude Include="Label.h" />
     <ClInclude Include="Level.h" />
-    <ClInclude Include="LoginPopup.h" />
     <ClInclude Include="Minion.h" />
     <ClInclude Include="MinionPath.h" />
     <ClInclude Include="Packet.h" />

@@ -201,9 +201,6 @@
     <ClCompile Include="ServerCommand.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
-    <ClCompile Include="IngamePause.cpp">
-      <Filter>Source Files\Client\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="Teams.cpp">
       <Filter>Source Files\Server</Filter>
     </ClCompile>
@@ -336,6 +333,9 @@
     <ClCompile Include="Vec3f.cpp">
       <Filter>Source Files\AI</Filter>
     </ClCompile>
+    <ClCompile Include="GamePage.cpp">
+      <Filter>Source Files\Client\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Serializable.h">
@@ -437,12 +437,6 @@
     <ClInclude Include="DataDefinitions.h">
       <Filter>Header Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginPopup.h">
-      <Filter>Header Files\Client\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="API_Util.h">
       <Filter>Header Files\Client\Utilities</Filter>
     </ClInclude>
@@ -478,9 +472,6 @@
     </ClInclude>
     <ClInclude Include="ServerIncludes.h">
       <Filter>Header Files\Server</Filter>
-    </ClInclude>
-    <ClInclude Include="IngamePause.h">
-      <Filter>Header Files\Client\Menus</Filter>
     </ClInclude>
     <ClInclude Include="Teams.h">
       <Filter>Header Files\Server</Filter>
@@ -695,8 +686,13 @@
     <ClInclude Include="Vec3f.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
+=======
+    <ClInclude Include="GamePage.h">
+      <Filter>Header Files\Client\Menus</Filter>
+>>>>>>> ec35bb0c87e78db408867aeb7b48ae92ef3a20ea
     </ClInclude>
   </ItemGroup>
 </Project>
