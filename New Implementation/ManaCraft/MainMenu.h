@@ -19,6 +19,7 @@ namespace ManaCraft {
 
 		public:
 			static MainMenu* GetInstance();
+			std::string username;
 			~MainMenu();
 
 			virtual void Load();

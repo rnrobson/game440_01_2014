@@ -331,11 +331,11 @@ void MainMenu::Click_LoginPopup_Cancel()
 
 void MainMenu::Click_LoginPopup_Login()
 {
-	std::string _username = MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetTextField("UsernameField")->GetText();
+	MainMenu::GetInstance()->username = MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetTextField("UsernameField")->GetText();
 
 	//Network
-	NetworkCommands::LogIn(_username);
-	MainMenu::PlayerLoggedIn(_username);//TODO::Should be called only from commandPacket.execute, not from client itself
+	NetworkCommands::LogIn(MainMenu::GetInstance()->username);
+	MainMenu::PlayerLoggedIn(MainMenu::GetInstance()->username);//TODO::Should be called only from commandPacket.execute, not from client itself
 	//////////
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = true; // Enabled

@@ -165,7 +165,6 @@ void ViewGames::Click_checkbox()
 
 void ViewGames::Click_join()
 {
-	std::cout << "Join game.\n";
 	ViewGames::GetInstance()->GetContent()->Sfx1Play();
 
 	ManaCraft::Client::NetworkCommands::JoinGame(1);//gameId set to 1 for now
@@ -173,7 +172,6 @@ void ViewGames::Click_join()
 
 void ViewGames::Click_refresh()
 {
-	std::cout << "Refresh games.\n";
 	ViewGames::GetInstance()->GetContent()->Sfx1Play();
 
 	ManaCraft::Client::NetworkCommands::RefreshGames();
@@ -193,7 +191,7 @@ void ViewGames::Click_backButton()
 
 void ViewGames::Click_createGameButton()
 {
-	std::cout << "Go To Game Lobby.\n";
+	std::cout << "CreateGame";
 	ViewGames::GetInstance()->GetContent()->Sfx1Play();
 
 	//content->Active = false;

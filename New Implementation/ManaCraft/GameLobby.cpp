@@ -234,14 +234,14 @@ void GameLobby::JoinITeam()
 {
 	EnableJoinBtns(false);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("ITeamBg"), 50);
-
+	NetworkCommands::PickTeam(1);
 	printf("clicked join illuminated\n");
 }
 void GameLobby::JoinDOTeam()
 {
 	EnableJoinBtns(false);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("DOTeamBg"), 50);
-
+	NetworkCommands::PickTeam(2);
 	printf("clicked join dark ones\n");
 }
 void GameLobby::ReturnToBench()
@@ -249,6 +249,7 @@ void GameLobby::ReturnToBench()
 	EnableJoinBtns(true);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("ITeamBg"), 20);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("DOTeamBg"), 20);
+	NetworkCommands::BenchMe();
 	printf("left team\n");
 }
 
@@ -264,8 +265,9 @@ void GameLobby::TalkInTeamChat()
 
 void GameLobby::CloseGame()
 {
+	NetworkCommands::DisbandGame(1);//TODO, need to wire LobbyID
 	printf("host closed the game\n");
-	NetworkCommands::CloseGame();
+	
 	//when host leaves, select another player to be host
 }
 
@@ -292,6 +294,8 @@ void GameLobby::ExitOptions()
 
 void GameLobby::ReturnToMainMenu()
 {
+	NetworkCommands::LeaveGame(1);
+	std::cout << "Left the Lobby" << std::endl;
 	//GameLobby::GetInstance()->GetContent()->Active = false;
 	//ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 	ClientAPI::SetFocus(MainMenu::GetInstance());

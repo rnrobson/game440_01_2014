@@ -4,7 +4,7 @@
 #include "NetClient.h"
 #include "ServerLiason.h"
 #include <string>
-
+#include "MainMenu.h"
 
 /// <summary> author : Brian Lefrancois   
 /// <para>NetworkCommands are used by the client send messages over the network aswell as execute messages </para>

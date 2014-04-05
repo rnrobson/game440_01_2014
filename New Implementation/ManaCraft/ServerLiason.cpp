@@ -20,7 +20,7 @@ ServerLiason::ServerLiason() {
 void ServerLiason::Start() {
 	if (!hasStarted) {
 		hasStarted = true;
-		clientConnection = new NetClient("192.168.0.103", 27015);
+		clientConnection = new NetClient("192.168.0.107", 27015);
 		ThreadedListener* listener = new ThreadedListener(clientConnection, 5);
 
 		sendingQueue = new BlockingQueue<Packet*>();

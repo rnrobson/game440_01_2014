@@ -27,18 +27,43 @@ void NetworkCommands::LogIn(std::string username){
 
 void NetworkCommands::LogOut(){
 	CS_Protocol protocol = LOGOUT_PLAYER;
+	
+	unsigned int index = 0;
+	int payloadSize = 1; // MainMenu::GetInstance()->username.length() + sizeof(__int8);
 	std::vector<char> data = std::vector<char>(1);
+
 
 	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
 	ServerLiason::SendPacket(tempPacket);
+
+	//index += sizeof(__int8);
+
+	//for (unsigned int i = 0; i < MainMenu::GetInstance()->username.length(); ++i) {
+	//	data[index + i] = MainMenu::GetInstance()->username[i];
+	//}
+	
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::CloseGame(){
 	CS_Protocol protocol = CLOSE_GAME;
-	std::vector<char> data = std::vector<char>(1);
+	
+	unsigned int index = 0;
+	int payloadSize = MainMenu::GetInstance()->username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
-	Packet *tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	Serialize::UInt16(data, index, payloadSize);
+
+	/*index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::GetInstance()->username.length(); ++i) {
+		data[index + i] = MainMenu::GetInstance()->username[i];
+	}*/
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::RefreshGames(){
@@ -60,21 +85,46 @@ void NetworkCommands::CreateGame(){
 
 void NetworkCommands::JoinGame(int gameID){
 	CS_Protocol protocol = JOIN_GAME;
-	std::vector<char> data = std::vector<char>();
+	std::vector<char> data = std::vector<char>(1);
 
 
-	Packet tempPacket = Packet(SEC_HEAD, protocol, data);
-	//ServerLiason::SendPacket(Networking::Packet* packet)
+	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(tempPacket);
 }
 
 void NetworkCommands::PickTeam(short teamID){
 	CS_Protocol protocol = JOIN_TEAM;
-	std::vector<char> data = std::vector<char>();
+	std::vector<char> data = std::vector<char>(1);
 
 
-	Packet tempPacket = Packet(SEC_HEAD, protocol, data);
-	//ServerLiason::SendPacket(Networking::Packet* packet)
+	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(tempPacket);
 }
 
+void NetworkCommands::BenchMe(){
+	CS_Protocol protocol = BENCH_PLAYER;
+	std::vector<char> data = std::vector<char>(1);
 
 
+	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(tempPacket);
+}
+
+void NetworkCommands::DisbandGame(int GameID){
+	CS_Protocol protocol = DISBAND_GAME;
+	std::vector<char> data = std::vector<char>(1);
+
+
+	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(tempPacket);
+
+}
+
+void NetworkCommands::LeaveGame(int lobbyID){
+	CS_Protocol protocol = LEAVE_GAME;
+	std::vector<char> data = std::vector<char>(1);
+
+
+	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(tempPacket);
+}
