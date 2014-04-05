@@ -1052,18 +1052,20 @@ ReturnQuitGamePacket::ReturnQuitGamePacket(const Packet* packet) : CommandPacket
 
 #pragma region CS Packet Executes
 void CloseGamePacket::Execute() {
+	std::cout << "Request to close connection " << std::endl;
 		//find player from playerInfoTable
 		//remove reference of player from current game
 		//return player to main menu
 }
 
 void LoginPlayerPacket::Execute() {
-	std::cout << "Logged in: " << username << std::endl;
+	std::cout << "Request to Log in " << username << std::endl;
 	//add player to PlayerInfoTable 
 	//let client know
 }
 
 void LogoutPlayerPacket::Execute() {
+	std::cout << "Request to Log out" << std::endl;
 	//remove player from playerInfoTable
 	//let client know
 }
@@ -1086,6 +1088,8 @@ void SendPartyMessagePacket::Execute() {
 }
 
 void RefreshGamesPacket::Execute() {
+	std::cout << "Got request to refresh games" << std::endl;
+
 		//go through list of all avaialble games on the server
 		//display them to current player's client
 }

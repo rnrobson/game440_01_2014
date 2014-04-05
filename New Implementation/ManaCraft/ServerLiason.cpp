@@ -20,7 +20,7 @@ ServerLiason::ServerLiason() {
 void ServerLiason::Start() {
 	if (!hasStarted) {
 		hasStarted = true;
-		clientConnection = new NetClient("192.168.0.102", 27015);
+		clientConnection = new NetClient("192.168.0.103", 27015);
 		ThreadedListener* listener = new ThreadedListener(clientConnection, 5);
 
 		sendingQueue = new BlockingQueue<Packet*>();
@@ -37,7 +37,7 @@ void ServerLiason::Start() {
 		}
 
 		// Send test packet
-		std::string str = "wobbier";
+		/*std::string str = "wobbier";
 		int payloadSize = str.length() + sizeof(__int8);
 		std::vector<char> data = std::vector<char>(payloadSize);
 		unsigned int pos = 0;
@@ -47,7 +47,7 @@ void ServerLiason::Start() {
 			data[pos + i] = str[i];
 		}
 		Packet* packet = new Packet(Networking::SEC_HEAD, Networking::LOGIN_PLAYER, data);
-		SendPacket(packet);
+		SendPacket(packet);*/
 	}
 }
 

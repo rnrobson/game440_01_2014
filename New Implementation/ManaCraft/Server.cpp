@@ -56,7 +56,7 @@ void Server::Run() {
 		// If we're allowed to update, do so.
 		if (!dontUpdate) {
 			if (elapsedTime % deltaTime == 0) {
-				printf("Update\n");
+				//printf("Update\n");
 				Update();
 			}
 		}

@@ -213,12 +213,22 @@ void MainMenu::Draw()
 	Page::Draw();
 }
 
+//Network Commands - will be called from CommandPacket->Execute();
 void  MainMenu::PlayerLoggedIn(std::string _username)
 {
-	std::cout << "PlayerLoggedIn(_username)";
+	std::cout << "PlayerLoggedIn with " + _username << std::endl;
 	ManaCraft::Client::Client::GetInstance()->Settings()->Username = _username;
 	MainMenu::netIndicator = MainMenu::NetIndicator::Green;
 }
+
+void  MainMenu::PlayerLoggedOut()
+{
+	std::cout << "PlayerLoggedOut" << std::endl;
+	//ManaCraft::Client::Client::GetInstance()->Settings()->Username = ' ';
+	MainMenu::netIndicator = MainMenu::NetIndicator::Red;
+}
+//End of Network Commands
+
 
 //===================
 //----------- Events
@@ -236,14 +246,26 @@ void MainMenu::OnEscapePressed()
 
 void MainMenu::Click_loginButton()
 {
-	std::cout << "Login to network.\n";
+	switch (MainMenu::netIndicator)
+	{
+	case Red:
+		MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+		MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
+		MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = true;
+		break;
+
+	case Green:
+		NetworkCommands::LogOut();
+		PlayerLoggedOut();//TODO:: Should be called only from commandPacket.execute, not from client itself
+		break;			  //
+
+	default:
+		break;
+	}
+	
 	//ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	//ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
 	//ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
-
-	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
-	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
-	MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = true;
 }
 
 void MainMenu::Click_viewButton()
@@ -287,6 +309,7 @@ void MainMenu::Click_tutorialButton()
 void MainMenu::Click_quitButton()
 {
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+	NetworkCommands::CloseGame();
 	ClientAPI::ExitMainLoop();
 }
 
@@ -309,9 +332,11 @@ void MainMenu::Click_LoginPopup_Cancel()
 void MainMenu::Click_LoginPopup_Login()
 {
 	std::string _username = MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->GetGuiContainer("ElementContainer")->GetTextField("UsernameField")->GetText();
-	//NetworkCommands::LogIn(_username);
-	MainMenu::GetInstance()->PlayerLoggedIn(_username);
 
+	//Network
+	NetworkCommands::LogIn(_username);
+	MainMenu::PlayerLoggedIn(_username);//TODO::Should be called only from commandPacket.execute, not from client itself
+	//////////
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = true; // Enabled
 	MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = false;

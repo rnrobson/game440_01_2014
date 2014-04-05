@@ -49,7 +49,7 @@ int ThreadedListener::Accept(void* server) {
 			threadPool->addWork(receiveFromClient);
 
 			// Test Packet
-			std::string str = "What's good, client?";
+			/*std::string str = "What's good, client?";
 			int payloadSize = str.length() + sizeof(__int8);
 			std::vector<char> data = std::vector<char>(payloadSize);
 			unsigned int pos = 0;
@@ -59,7 +59,7 @@ int ThreadedListener::Accept(void* server) {
 				data[pos + i] = str[i];
 			}
 			Packet* packet = new Packet(Networking::SEC_HEAD, Networking::LOGIN_PLAYER, data);
-			masterServer->Send(*client, *packet);
+			masterServer->Send(*client, *packet);*/
 		}
 	}
 	return 0;

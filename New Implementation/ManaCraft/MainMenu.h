@@ -1,6 +1,7 @@
 #pragma once
 #include "Page.h"
 #include "ClientAPI.h"
+#include "NetworkCommands.h"
 
 namespace ManaCraft {
 	namespace Client {
@@ -29,8 +30,12 @@ namespace ManaCraft {
 				Red, Green
 			};
 			static NetIndicator netIndicator;
+			//================
+			//Network Commands
+			//================
 			static void PlayerLoggedIn(std::string _username);
-
+			static void PlayerLoggedOut();
+			
 			//============
 			//--- Events 
 			//============

@@ -15,7 +15,7 @@ void ManaCraft::Client::Client::InitSDLNet() {
 		// If it was properly initialized, start the threads.
 		try {
 			// Comment this out if you're not testing networking
-			//ServerLiason::Start();
+			ServerLiason::Start();
 		}
 		catch (ManaCraft::Networking::ConnectionOpenException e) {
 			std::cout << "Unable to open socket: " << e.what() << std::endl;
@@ -29,7 +29,7 @@ ManaCraft::Client::Client::Client()
 	ClientAPI::Init();
 
 	// Initialize SDLNet and start connection
-	InitSDLNet();
+	//InitSDLNet();
 
 	// Set the API Mode
 	ClientAPI::SetAPIHandleMode(GuiAPIMode::ProgrammerHandleMode);
