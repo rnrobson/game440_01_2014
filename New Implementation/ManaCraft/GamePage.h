@@ -1,6 +1,7 @@
 #pragma once
 #include "Page.h"
 #include "ClientAPI.h"
+#include <sstream>
 
 namespace ManaCraft
 {
@@ -12,12 +13,17 @@ namespace ManaCraft
 			void LoadGUI();
 			void LoadInGameGUI();
 			void LoadInGamePause();
+
+			void UpdateManaText();
+
+			int mana;
 		protected:
 			GamePage();
 
 			static GamePage* instance;
 		public:
 			bool isTutorial;
+			bool isPaused;
 			static GamePage* GetInstance();
 			~GamePage();
 
@@ -32,22 +38,19 @@ namespace ManaCraft
 			//GUI events
 			static void Click_scrollUpButton();
 			static void Click_scrollDownButton();
-
-			//inGameGUI events
 			static void OpenResearchPage();
-			static void ConfirmResearchAllocation();
-			static void CancelResearchAllocation();
-			static void CloseResearchAllocation();
+			static void CloseResearchPage();
 			static void OpenTowerPurchaseTab();
-			static void ConfirmTowerPurchase();
-			static void CancelTowerPurchase();
 			static void CloseTowerPurchaseTab();
 			static void OpenMinionPurchaseTab();
-			static void ConfirmMinionPurchase();
-			static void CancelMinionPurchase();
 			static void CloseMinionPurchaseTab();
 
 			//inGamePause events
+			static void Click_resume();
+			static void Click_options();
+			static void Click_save();
+			static void Click_quitMenu();
+			static void Click_quitDesktop();
 		};
 	}
 }

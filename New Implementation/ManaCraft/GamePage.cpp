@@ -14,6 +14,7 @@ GamePage::GamePage() : Page()
 	content->SubscribeOnEnterKeyPressed(ButtonPress_OnEnterPressed);
 
 	Load();
+	mana = 0;
 }
 
 GamePage* GamePage::GetInstance()
@@ -36,11 +37,7 @@ void GamePage::Load()
 	content->AddGuiContainer("InGamePause", new GuiContainer());
 
 	LoadGUI();
-	LoadInGameGUI();
 	LoadInGamePause();
-
-	//start with gamepage disabled
-	//content->Active = false;
 }
 
 void GamePage::LoadGUI()
@@ -72,6 +69,9 @@ void GamePage::LoadGUI()
 
 	const int MPSCOUNTER_WIDTH = 77;
 	const int MPSCOUNTER_HEIGHT = 62;
+
+	const int btnsX = 640;
+	const int btnsY = 707;
 
 	//Convenient Rects
 	SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
@@ -129,15 +129,6 @@ void GamePage::LoadGUI()
 	//Button Listeners
 	content->GetGuiContainer("GUI")->GetGuiContainer("Chat")->GetButton("scrollUpButton")->SubscribeOnMouseClick(GamePage::Click_scrollUpButton);
 	content->GetGuiContainer("GUI")->GetGuiContainer("Chat")->GetButton("scrollDownButton")->SubscribeOnMouseClick(GamePage::Click_scrollDownButton);
-}
-
-void GamePage::LoadInGameGUI()
-{
-	const int SCREEN_WIDTH = Window::Box().w;
-	const int SCREEN_HEIGHT = Window::Box().h;
-
-	const int btnsX = 640;
-	const int btnsY = 707;
 
 	//temporary backgrounds for research, tower, and minion pages
 	API_Util::AddSolidTexture("researchPopUpBG", { 100, 100, 100, 100 }, 700, 400);
@@ -157,11 +148,166 @@ void GamePage::LoadInGameGUI()
 	API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "researchBtn", "R", "Systema_22", "Black");
 	content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("researchBtn")->GetLabel()->SetOffset({ 8, 0, 0, 0 });
 	content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("researchBtn")->SubscribeOnMouseClick(OpenResearchPage);
+
+	//add button to open the purchase tower tab and make it open the tower tab when clicked
+	API_Util::AddButtonToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyTowerBtn", { btnsX + 40, btnsY + 0, 40, 30 }, "MedBtnNormal");
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyTowerBtn", "T", "Systema_22", "Black");
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyTowerBtn")->GetLabel()->SetOffset({ 10, 0, 0, 0 });
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyTowerBtn")->SubscribeOnMouseClick(OpenTowerPurchaseTab);
+
+	//add button to open purchase minion tab and make it open the minions tab when clicked
+	API_Util::AddButtonToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyMinionBtn", { btnsX + 80, btnsY + 0, 40, 30 }, "MedBtnNormal");
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon"), "buyMinionBtn", "M", "Systema_22", "Black");
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->GetLabel()->SetOffset({ 5, 0, 0, 0 });
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->GetButton("buyMinionBtn")->SubscribeOnMouseClick(OpenMinionPurchaseTab);
+
+	//|reserved for the research page|
+
+	//|---------end reserve----------|
+
+	//add purchase tower container
+	SDL_Rect pTowerBGRect = { (SCREEN_WIDTH / 2) - 310, (SCREEN_HEIGHT / 2) - 90, 400, 180 };
+	content->GetGuiContainer("InGameGUI")->AddGuiContainer("PurchaseTowerCon", new GuiContainer());
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
+		"purchaseTowerBG", "purchaseTowerCover", pTowerBGRect);
+	API_Util::AddLabelToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
+		"towerLbl", "Tower", { pTowerBGRect.x + 5, pTowerBGRect.y - 20, 100, 40 }, "Systema_22", "White");
+	API_Util::AddButtonToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"),
+		"closeTPurchaseTab", { pTowerBGRect.x + pTowerBGRect.w - 27, pTowerBGRect.y + 2, 25, 25 }, "MedBtnNormal");
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), "closeTPurchaseTab", "X", "Systema_22", "Black");
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->GetButton("closeTPurchaseTab")->GetLabel()->SetPadding({ 2, 0, 0, 0 });
+
+	API_Util::AddLabelToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), "manaLeft", "Mana: 0",
+	{ pTowerBGRect.x + 20, pTowerBGRect.y + 15, 500, 60 }, "Systema_22", "White");
+
+	for (size_t tType = 0; tType < 4; tType++)
+	{
+		std::string towerName = types[tType] + "Tower";
+		API_Util::AddLabelToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), towerName + "Lbl", types[tType],
+		{ pTowerBGRect.x + 65 + (70 * tType), pTowerBGRect.y + 50, 100, 60 }, "Systema_11", "White");
+		API_Util::AddGuiElementToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), towerName, "towerIcon",
+		{ pTowerBGRect.x + 65 + (70 * tType), pTowerBGRect.y + 65, 60, 60 });
+		API_Util::AddButtonToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), towerName + "SelectBtn",
+		{ pTowerBGRect.x + 65 + (70 * tType), pTowerBGRect.y + pTowerBGRect.h - 40, 60, 30 }, "MedBtnNormal");
+		API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon"), towerName + "SelectBtn",
+			"Select", "Systema_11", "Black");
+		content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->GetButton(towerName + "SelectBtn")->GetLabel()->SetPadding({ 7, 8, 0, 0 });
+	}
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->GetButton("closeTPurchaseTab")->SubscribeOnMouseClick(CloseTowerPurchaseTab);
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->Active = false;
+
+	//add purchase minion container
+	SDL_Rect pMinionBGRect = { (SCREEN_WIDTH / 2) - 310, (SCREEN_HEIGHT / 2) - 90, 400, 180 };
+	content->GetGuiContainer("InGameGUI")->AddGuiContainer("PurchaseMinionCon", new GuiContainer());
+	API_Util::AddGuiElementToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"),
+		"purchaseMinionBG", "purchaseMinionCover", pMinionBGRect);
+	API_Util::AddLabelToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"),
+		"minionLbl", "Minions", { pMinionBGRect.x + 5, pMinionBGRect.y - 20, 100, 40 }, "Systema_22", "White");
+	API_Util::AddButtonToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"),
+		"closeMPurchaseTab", { pMinionBGRect.x + pMinionBGRect.w - 27, pMinionBGRect.y + 2, 25, 25 }, "MedBtnNormal");
+	API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"), "closeMPurchaseTab", "X", "Systema_22", "Black");
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->GetButton("closeMPurchaseTab")->GetLabel()->SetPadding({ 2, 0, 0, 0 });
+
+	API_Util::AddLabelToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"), "manaLeft", "Mana: 0",
+	{ pTowerBGRect.x + 20, pTowerBGRect.y + 15, 300, 30 }, "Systema_22", "White");
+
+	for (size_t mType = 0; mType < 4; mType++)
+	{
+		std::string minionName = types[mType] + "Tower";
+		API_Util::AddLabelToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"), minionName + "Lbl", types[mType],
+		{ pTowerBGRect.x + 65 + (70 * mType), pTowerBGRect.y + 50, 100, 60 }, "Systema_11", "White");
+		API_Util::AddGuiElementToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"), minionName, "minionIcon",
+		{ pTowerBGRect.x + 65 + (70 * mType), pTowerBGRect.y + 65, 60, 60 });
+		API_Util::AddButtonToContainer(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"), minionName + "SelectBtn",
+		{ pTowerBGRect.x + 65 + (70 * mType), pTowerBGRect.y + pTowerBGRect.h - 40, 60, 30 }, "MedBtnNormal");
+		API_Util::AddLabelToContainerButton(content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon"), minionName + "SelectBtn",
+			"Select", "Systema_11", "Black");
+		content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->GetButton(minionName + "SelectBtn")->GetLabel()->SetPadding({ 7, 8, 0, 0 });
+	}
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->GetButton("closeMPurchaseTab")->SubscribeOnMouseClick(CloseMinionPurchaseTab);
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->Active = false;
 }
 
 void GamePage::LoadInGamePause()
 {
+	const int SCREEN_WIDTH = Window::Box().w;
+	const int SCREEN_HEIGHT = Window::Box().h;
+	const int MARGIN_Y = 20;
+	const int BUTTON_SPC_Y = 10, BUTTON_SPC_X = 10;
 
+	//-- Convienient rects
+	SDL_Rect smallBtnRect = APIHelper::RectHelper(0, 0, 35, 35);
+	SDL_Rect medBtnRect = APIHelper::RectHelper(0, 0, 95, 35);
+	SDL_Rect longBtnRect = APIHelper::RectHelper(0, 0, 180, 35);
+	SDL_Rect centerRect = APIHelper::RectHelper(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 0);
+
+	//-- Additional rects
+	SDL_Rect pauseMenuRect = APIHelper::RectHelper(0, 0, 400, 300);
+
+	//-- Add in menu assets
+	ClientAPI::AddGuiContainer("IngamePause", new GuiContainer());
+
+	//-- Background
+	ClientAPI::GetGuiContainer("IngamePause")->AddGuiElement("Background", new GuiElement(ClientAPI::GetTexture("PausedBackground"), APIHelper::RectHelper(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)));
+
+	//-- Secondary container
+	ClientAPI::GetGuiContainer("IngamePause")->AddGuiContainer("PauseMenu", new GuiContainer());
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->AddGuiElement("Backing", new GuiElement(ClientAPI::GetTexture("ContainerBacking"), pauseMenuRect));
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->SetPosition(APIHelper::RectHelper(centerRect.x - 200, centerRect.y - 150, 400, 300));
+
+	//-- Header
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->AddGuiElement("Header",
+		new GuiElement(ClientAPI::GetTexture("PausedHeader"), APIHelper::RectHelper(pauseMenuRect.x + pauseMenuRect.w / 2 - 62, pauseMenuRect.y + MARGIN_Y, 125, 40)));
+
+	//-- Buttons
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->AddGuiContainer("BtnHolder", new GuiContainer());
+	SDL_Rect containerPos = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetPosition();
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->SetPosition(APIHelper::RectHelper(containerPos.x + (pauseMenuRect.w / 2 - longBtnRect.w / 2), containerPos.y + 65, 0, 0));
+
+	int xBtn, btnIndex = 0;
+
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("ResumeBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+	xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->GetX();
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->AddLabel("Resume", ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("Black"), true);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+	btnIndex++;
+
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("OptionsBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+	xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->GetX();
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->AddLabel("Options", ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("Black"), true);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+	btnIndex++;
+
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("SaveQuitBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+	xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->GetX();
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->AddLabel("Save & Quit", ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("Black"), true);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+	btnIndex++;
+
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("QuitMenuBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+	xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->GetX();
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->AddLabel("Quit > Menu", ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("Black"), true);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+	btnIndex++;
+
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->AddGuiElement("QuitDesktopBtn", new Button(ClientAPI::GetTexture("LongBtnNormal"), longBtnRect));
+	xBtn = ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->GetX();
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->SetPosition(xBtn, (btnIndex * (longBtnRect.h + BUTTON_SPC_Y)));
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->AddLabel("Quit > Desktop", ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("Black"), true);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->GetLabel()->SetPadding(APIHelper::RectHelper(7, 2, 0, 0));
+	btnIndex++;
+
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("ResumeBtn")->SubscribeOnMouseClick(Click_resume);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("OptionsBtn")->SubscribeOnMouseClick(Click_options);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("SaveQuitBtn")->SubscribeOnMouseClick(Click_save);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitMenuBtn")->SubscribeOnMouseClick(Click_quitMenu);
+	ClientAPI::GetGuiContainer("IngamePause")->GetGuiContainer("PauseMenu")->GetGuiContainer("BtnHolder")->GetButton("QuitDesktopBtn")->SubscribeOnMouseClick(Click_quitDesktop);
+
+	isPaused = false;
 }
 
 void GamePage::ButtonPress_OnEscapePressed()
@@ -186,70 +332,85 @@ void GamePage::Click_scrollDownButton()
 
 void GamePage::OpenResearchPage()
 {
-
+	//disabled for now. no idea what goes in here. the research idea has been removed, I think?
+	printf("opens research page. Disabled.\n");
 }
 
-void GamePage::ConfirmResearchAllocation()
-{
-
-}
-
-void GamePage::CancelResearchAllocation()
-{
-
-}
-
-void GamePage::CloseResearchAllocation()
+void GamePage::CloseResearchPage()
 {
 
 }
 
 void GamePage::OpenTowerPurchaseTab()
 {
-
-}
-
-void GamePage::ConfirmTowerPurchase()
-{
-
-}
-
-void GamePage::CancelTowerPurchase()
-{
-
+	printf("opens tower tab.\n");
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->Active = true;
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->Enabled = false;
 }
 
 void GamePage::CloseTowerPurchaseTab()
 {
-
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->Active = false;
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->Enabled = true;
 }
 
 void GamePage::OpenMinionPurchaseTab()
 {
-
-}
-
-void GamePage::ConfirmMinionPurchase()
-{
-
-}
-
-void GamePage::CancelMinionPurchase()
-{
-
+	printf("opens minions tab.\n");
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->Active = true;
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->Enabled = false;
 }
 
 void GamePage::CloseMinionPurchaseTab()
 {
-
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->Active = false;
+	GamePage::GetInstance()->GetContent()->GetGuiContainer("InGameGUI")->GetGuiContainer("btnsCon")->Enabled = true;
 }
 
+void GamePage::Click_resume()
+{
+	printf("resume game\n");
+}
+
+void GamePage::Click_options()
+{
+	printf("go to options\n");
+}
+
+void GamePage::Click_save()
+{
+	printf("save game\n");
+}
+
+void GamePage::Click_quitMenu()
+{
+	printf("quit to menu\n");
+	ClientAPI::SetFocus(MainMenu::GetInstance());
+}
+
+void GamePage::Click_quitDesktop()
+{
+	ClientAPI::ExitMainLoop();
+}
 void GamePage::Update(double time)
 {
-
+	UpdateManaText();
 }
 
 void GamePage::Draw()
 {
 	Page::Draw();
+}
+
+void GamePage::UpdateManaText()
+{
+	//temporary(for testing)
+	mana++;
+
+	std::string manaLeft = "MP:" + std::to_string(mana);
+
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->GetLabel("manaLeft")->text = manaLeft;
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseTowerCon")->GetLabel("manaLeft")->RenderText();
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->GetLabel("manaLeft")->text = manaLeft;
+	content->GetGuiContainer("InGameGUI")->GetGuiContainer("PurchaseMinionCon")->GetLabel("manaLeft")->RenderText();
 }
