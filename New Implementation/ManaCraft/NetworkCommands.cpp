@@ -32,10 +32,6 @@ void NetworkCommands::LogOut(){
 	int payloadSize = 1; // MainMenu::GetInstance()->username.length() + sizeof(__int8);
 	std::vector<char> data = std::vector<char>(1);
 
-
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
-
 	//index += sizeof(__int8);
 
 	//for (unsigned int i = 0; i < MainMenu::GetInstance()->username.length(); ++i) {
