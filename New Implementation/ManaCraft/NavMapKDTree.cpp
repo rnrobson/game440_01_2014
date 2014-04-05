@@ -40,8 +40,6 @@ void NavMapKDTree::Insert(Waypoint* wp) {
 //
 //
 void NavMapKDTree::Insert(Node*& rootNode, Node* newNode) {
-	// This or NearestWaypoint() isn't working properly
-	// It's because of depth.. working on it
 	if (rootNode == NULL) {
 		rootNode = newNode;
 	}
