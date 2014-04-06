@@ -686,13 +686,11 @@
     <ClInclude Include="Vec3f.h">
       <Filter>Header Files\AI</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="NetworkCommands.h">
       <Filter>Header Files\Client</Filter>
-=======
+    </ClInclude>
     <ClInclude Include="GamePage.h">
       <Filter>Header Files\Client\Menus</Filter>
->>>>>>> ec35bb0c87e78db408867aeb7b48ae92ef3a20ea
     </ClInclude>
   </ItemGroup>
 </Project>
