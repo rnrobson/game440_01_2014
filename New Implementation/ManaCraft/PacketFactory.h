@@ -6,13 +6,16 @@
 #include "Serialize.h"
 #include <iostream>
 #include <string>
+#include <iostream>
+#include "NetServer.h"
+#include "ClientLiaison.h"
 
 using namespace ManaCraft;
 
 class CommandPacket;
 
 class PacketFactory
-{ 
+{
 public:
 	/// <summary>[CreateServerClientPacket]
 	/// <para>Converts a regular packet into the Command Packet that corresponds to its Protocol.</para>
@@ -28,7 +31,7 @@ public:
 	/// </summary>
 	static CommandPacket* CreateFromServerPacket(const Networking::Packet* packet);
 
-private: 
+private:
 	PacketFactory() { };
 	~PacketFactory() { };
 };
@@ -116,6 +119,7 @@ public:
 
 class CreateGamePacket : public CommandPacket {
 	__int16 GameID;
+	std::string username;
 public:
 	CreateGamePacket(const Packet* packet);
 	void Execute();
@@ -160,6 +164,7 @@ public:
 
 class DisbandGamePacket : public CommandPacket {
 private:
+	std::string username;
 	//__int16 gameID;
 	__int16 lobbyID;
 public:
@@ -195,7 +200,7 @@ public:
 };
 
 class ResearchMinionPacket : public CommandPacket {
-private: 
+private:
 	__int16 minionID;
 	std::string username;
 public:
@@ -522,4 +527,5 @@ public:
 #pragma endregion
 
 #endif
+
 

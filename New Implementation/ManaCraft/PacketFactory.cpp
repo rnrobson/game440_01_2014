@@ -1,6 +1,7 @@
 #include "PacketFactory.h"
 #include "GameManager.h"
 
+using namespace ManaCraft::Networking;
 CommandPacket* PacketFactory::CreateFromClientPacket(const Networking::Packet* packet) {
 
 	Networking::CS_Protocol protocol = (Networking::CS_Protocol)packet->GetProtocolID();
@@ -122,7 +123,7 @@ CommandPacket* PacketFactory::CreateFromServerPacket(const Networking::Packet* p
 		return new ReturnResumeGamePacket(packet);
 	case Networking::RETURN_QUIT_GAME:
 		return new ReturnQuitGamePacket(packet);
-	} 
+	}
 }
 
 CommandPacket::CommandPacket(const Networking::Packet* packet) : Packet(*packet) {
@@ -159,24 +160,48 @@ LoginPlayerPacket::LoginPlayerPacket(const Networking::Packet* packet) : Command
 	index += sizeof(__int8);
 	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
 
-	char* name = new char[usernameLength-1];
-	for(int i = 0; i < usernameLength-1; ++i) {
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
 		name[i] = data[index + i];
 	}
-	name[usernameLength-1] = '\0';
+	name[usernameLength - 1] = '\0';
 
 	username.append(name);
 }
 
 LogoutPlayerPacket::LogoutPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
+
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
+	}
+	name[usernameLength - 1] = '\0';
+
+	username.append(name);
+}
+
+SendLobbyMessagePacket::SendLobbyMessagePacket(const Networking::Packet* packet) : CommandPacket(packet) {
 	__int8 usernameLength = 0;
+	__int8 messageLength = 0;
+	gameID = 0;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
+	gameID = Networking::Deserialize::Int16(data, index);
+	index += sizeof(__int16);
+
 	usernameLength = Networking::Deserialize::Int8(data, index);
 	index += sizeof(__int8);
-	std::cout << "Username Length: " << usernameLength << std::endl;
+
+	messageLength = Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
 
 	char* name = new char[usernameLength + 1];
 	for (int i = 0; i < usernameLength; ++i) {
@@ -186,42 +211,15 @@ LogoutPlayerPacket::LogoutPlayerPacket(const Networking::Packet* packet) : Comma
 	name[usernameLength] = '\0';
 
 	username.append(name);
-}
 
-SendLobbyMessagePacket::SendLobbyMessagePacket(const Networking::Packet* packet) : CommandPacket(packet) {
-		__int8 usernameLength = 0;
-		__int8 messageLength = 0;
-		gameID = 0;
-	
-		unsigned int index = 0;
-		std::vector<char> data = packet->GetData();
-	
-		gameID = Networking::Deserialize::Int16(data, index);
-		index += sizeof(__int16);
-	
-		usernameLength = Networking::Deserialize::Int8(data, index);
-		index += sizeof(__int8);
-	
-		messageLength = Networking::Deserialize::Int8(data, index);
-		index += sizeof(__int8);
-	
-		char* name = new char[usernameLength + 1];
-		for (int i = 0; i < usernameLength; ++i) {
-			name[i] = data[index];
-			++index;
-		}
-		name[usernameLength] = '\0';
-	
-		username.append(name);
-	
-		char* msg = new char[messageLength + 1];
-		for (int i = 0; i < messageLength; ++i) {
-			msg[i] = data[index];
-			++index;
-		}
-		msg[messageLength] = '\0';
-	
-		message.append(msg);
+	char* msg = new char[messageLength + 1];
+	for (int i = 0; i < messageLength; ++i) {
+		msg[i] = data[index];
+		++index;
+	}
+	msg[messageLength] = '\0';
+
+	message.append(msg);
 }
 
 SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -233,7 +231,7 @@ SendWhisperPacket::SendWhisperPacket(const Networking::Packet* packet) : Command
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
-	
+
 	sendingUserLength = Networking::Deserialize::Int8(data, index);
 	index += sizeof(__int8);
 
@@ -312,38 +310,76 @@ SendPartyMessagePacket::SendPartyMessagePacket(const Networking::Packet* packet)
 }
 
 RefreshGamesPacket::RefreshGamesPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength = 0;
-
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
 
-	usernameLength = Networking::Deserialize::Int8(data, index);
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
 	index += sizeof(__int8);
-	std::cout << "Username Length: " << usernameLength << std::endl;
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
 
-	char* name = new char[usernameLength + 1];
-	for (int i = 0; i < usernameLength; ++i) {
-		name[i] = data[index];
-		++index;
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
 	}
-	name[usernameLength] = '\0';
+	name[usernameLength - 1] = '\0';
 
 	username.append(name);
+
 }
 
 JoinGamePacket::JoinGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
-	GameID = Networking::Deserialize::Int16(data, 0);
+
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
+
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
+	}
+	name[usernameLength - 1] = '\0';
+
+	username.append(name);
+
+	//GameID = Networking::Deserialize::Int16(data, 0);
 }
 
 CreateGamePacket::CreateGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
-	GameID = Networking::Deserialize::Int16(data, 0);
+
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
+
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
 	}
+	name[usernameLength - 1] = '\0';
+
+	username.append(name);
+
+}
 
 JoinTeamPacket::JoinTeamPacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
-	__int8 usernameLength;
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
+
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
+	}
+	name[usernameLength - 1] = '\0';
+
+	username.append(name);
+	/*__int8 usernameLength;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
@@ -358,17 +394,30 @@ JoinTeamPacket::JoinTeamPacket(const Networking::Packet* packet) : CommandPacket
 	char* name = new char[usernameLength + 1];
 	for (int i = 0; i < usernameLength;i++)
 	{
-		name[i] = data[index];
-		index++;
+	name[i] = data[index];
+	index++;
 	}
 	name[usernameLength] = '\0';
 
-	username.append(name);
+	username.append(name);*/
 }
 
 LeaveGamePacket::LeaveGamePacket(const Networking::Packet* packet) : CommandPacket(packet) {
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
 
-	__int8 usernameLength;
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
+
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
+	}
+	name[usernameLength - 1] = '\0';
+
+	username.append(name);
+	/*__int8 usernameLength;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
@@ -381,16 +430,30 @@ LeaveGamePacket::LeaveGamePacket(const Networking::Packet* packet) : CommandPack
 	char* name = new char[usernameLength + 1];
 
 	for (int i = 0; i < usernameLength; i++){
-		name[i] = data[index];
-		index++;
+	name[i] = data[index];
+	index++;
 	}
 	name[usernameLength] = '\0';
 
-	username.append(name);
+	username.append(name);*/
 }
 
 BenchPlayerPacket::BenchPlayerPacket(const Networking::Packet* packet) : CommandPacket(packet) {
-	__int8 usernameLength;
+	unsigned int index = 0;
+	std::vector<char> data = packet->GetData();
+
+	__int8 usernameLength = (__int8)Networking::Deserialize::Int8(data, index);
+	index += sizeof(__int8);
+	std::cout << "Username Length: " << usernameLength << "!" << std::endl;
+
+	char* name = new char[usernameLength - 1];
+	for (int i = 0; i < usernameLength - 1; ++i) {
+		name[i] = data[index + i];
+	}
+	name[usernameLength - 1] = '\0';
+
+	username.append(name);
+	/*__int8 usernameLength;
 
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
@@ -403,12 +466,12 @@ BenchPlayerPacket::BenchPlayerPacket(const Networking::Packet* packet) : Command
 	char* name = new char[usernameLength + 1];
 
 	for (int i = 0; i < usernameLength; i++){
-		name[i] = data[index];
-		index++;
+	name[i] = data[index];
+	index++;
 	}
 	name[usernameLength] = '\0';
 
-	username.append(name);
+	username.append(name);*/
 }
 
 ReadyStatusPacket::ReadyStatusPacket(const Networking::Packet* packet) : CommandPacket(packet) {
@@ -473,7 +536,7 @@ SummonMinionPacket::SummonMinionPacket(const Networking::Packet* packet) : Comma
 	__int8 usernameLength;
 	uint index = 0;
 	std::vector<char> data = packet->GetData();
-	
+
 	gameID = Networking::Deserialize::Int16(data, index);
 	index += sizeof(__int16);
 	minionID = Networking::Deserialize::Int16(data, index);
@@ -693,7 +756,7 @@ BroadcastMessageInGamePacket::BroadcastMessageInGamePacket(const Packet* packet)
 
 	__int8 usernameLength;
 	__int8 messageLength;
-	
+
 	//get username length and fill the username
 	unsigned int index = 0;
 	std::vector<char> data = packet->GetData();
@@ -994,8 +1057,8 @@ UpdateBaseHealthPacket::UpdateBaseHealthPacket(const Packet* packet) : CommandPa
 }
 
 AssignResourceNodePacket::AssignResourceNodePacket(const Packet* packet) : CommandPacket(packet) {
-std::vector<char> data = packet->GetData();
-resourceAssigned = Networking::Deserialize::Int8(data, 0);
+	std::vector<char> data = packet->GetData();
+	resourceAssigned = Networking::Deserialize::Int8(data, 0);
 }
 
 ReturnResearchMinionPacket::ReturnResearchMinionPacket(const Packet* packet) : CommandPacket(packet) {
@@ -1053,60 +1116,78 @@ ReturnQuitGamePacket::ReturnQuitGamePacket(const Packet* packet) : CommandPacket
 #pragma region CS Packet Executes
 void CloseGamePacket::Execute() {
 	std::cout << "Request to close connection " << std::endl;
-		//find player from playerInfoTable
-		//remove reference of player from current game
-		//return player to main menu
+	//find player from playerInfoTable
+	//remove reference of player from current game
+	//return player to main menu
 }
 
 void LoginPlayerPacket::Execute() {
-	std::cout << "Request to Log in " << username << std::endl;
+	std::cout << "LoginPlayerPacket::Execute()" << std::endl << "This Packet belongs to " << username << std::endl;
+	/*SC_Protocol protocol = RETURN_LOGIN_STATUS;
+
+	unsigned int index = 0;
+	int payloadSize = username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
+
+	Serialize::UInt16(data, index, payloadSize);
+
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < username.length(); ++i) {
+	data[index + i] = username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	*///ClientLiaison::SendPacket(packet);
 	//add player to PlayerInfoTable 
 	//let client know
 }
 
 void LogoutPlayerPacket::Execute() {
-	std::cout << "Request to Log out" << std::endl;
+	std::cout << "LogoutPlayerPacket::Execute()" << std::endl << "This Packet belongs to " << username << std::endl;
 	//remove player from playerInfoTable
 	//let client know
 }
 
 void SendLobbyMessagePacket::Execute() {
-		//find all players in the player's game
-		//send the message to all those players
+	//find all players in the player's game
+	//send the message to all those players
 }
 void SendWhisperPacket::Execute() {
-		//find the recipient from collection of online players
-		//if found
-			//send message to recipient
-		//else
-			//display a message to player indicating that the recipient was not found
+	//find the recipient from collection of online players
+	//if found
+	//send message to recipient
+	//else
+	//display a message to player indicating that the recipient was not found
 }
 
 void SendPartyMessagePacket::Execute() {
-		//find all players in the player's team in the game
-		//send the message to all those players
+	//find all players in the player's team in the game
+	//send the message to all those players
 }
 
 void RefreshGamesPacket::Execute() {
-	std::cout << "Got request to refresh games" << std::endl;
-
-		//go through list of all avaialble games on the server
-		//display them to current player's client
+	std::cout << "Request to Refresh games" << std::endl << "This Packet belongs to " << username << std::endl;
+	//go through list of all avaialble games on the server
+	//display them to current player's client
 }
 
 void JoinGamePacket::Execute() {
-		//if this is a saved game
-		//	create a lobby with the game model from the saved game
-		//	check if the players associated with this game are online
-		//		if so, send invites to them to join this game
-		//		else, leave the spots open and open them to public
-		//if not a saved game, 
-		//	check if the game is full
-		//		if not, 
-		//			add player to the game
+	std::cout << "Request to join game. gameID: " << GameID << std::endl << "This Packet belongs to " << username << std::endl;
+
+	//if this is a saved game
+	//	create a lobby with the game model from the saved game
+	//	check if the players associated with this game are online
+	//		if so, send invites to them to join this game
+	//		else, leave the spots open and open them to public
+	//if not a saved game, 
+	//	check if the game is full
+	//		if not, 
+	//			add player to the game
 }
 
 void CreateGamePacket::Execute() {
+	cout << "CreateGameRequest" << std::endl << "This Packet belongs to " << username << std::endl;
 	GameModel* game = new GameModel(GameID);
 	if (GameManager::games.size() < GameManager::MAX_GAMES)
 	{
@@ -1121,35 +1202,39 @@ void CreateGamePacket::Execute() {
 }
 
 void JoinTeamPacket::Execute() {
+	std::cout << "Request for player  " << username << " to join team " << teamID << std::endl << "This Packet belongs to " << username << std::endl;
 	//check if teamID has room for the player
-		//if yes:
-			//remove player from bench
-			//add player to team list
-			//return true
-		//if no:
-			//return false;
+	//if yes:
+	//remove player from bench
+	//add player to team list
+	//return true
+	//if no:
+	//return false;
 }
 
 void LeaveGamePacket::Execute() {
-		//remove player from collection of players in the lobbyID
-		//if that was the last player, remove the lobby from the collection of lobbies on the server
-		//return player to main menu
+	std::cout << "Request to Leave the Lobby # " << lobbyID << std::endl << "This Packet belongs to " << username << std::endl;
+	//remove player from collection of players in the lobbyID
+	//if that was the last player, remove the lobby from the collection of lobbies on the server
+	//return player to main menu
 }
 
 void BenchPlayerPacket::Execute() {
-		//find the lobby that player is in
-		//if the player is not already in the bench list: 
-			//remove player from a team list if he/she is in one
-			//add player to bench list
+	std::cout << "Request to bench player" << std::endl << "This Packet belongs to " << username << std::endl;
+	//find the lobby that player is in
+	//if the player is not already in the bench list: 
+	//remove player from a team list if he/she is in one
+	//add player to bench list
 }
 
 void ReadyStatusPacket::Execute() {
-		//toggle player's readyStatus bool
+	//toggle player's readyStatus bool
 }
 
 void DisbandGamePacket::Execute() {
-		//return all players in the lobby to main menu
-		//remove the lobby from the collection of lobbies on the server
+	std::cout << "Request to disband the lobby. lobby # " << lobbyID << std::endl << "This Packet belongs to " << username << std::endl;
+	//return all players in the lobby to main menu
+	//remove the lobby from the collection of lobbies on the server
 }
 
 void SetGameplayOptionsPacket::Execute() {
@@ -1157,50 +1242,50 @@ void SetGameplayOptionsPacket::Execute() {
 }
 
 void PlaceTowerPacket::Execute() {
-		//check if tower has been researched for the player
-		//check if player has enough mana to build it
-		//check if grid is a buildable tile
-		//check if anything else is on that gridspace already
-		//check if gridspace is in player's team's zone of influence
-		//if the above is yes
-			//deduct cost from mana
-			//add towerID to gridspace
-			//add tower to tower list in the game representation
-			//check if gridspaces in ZoI of tower are already marked as ZoI for the team
-				//if not, mark as ZoI for team
-			//return true
-		//else return false
+	//check if tower has been researched for the player
+	//check if player has enough mana to build it
+	//check if grid is a buildable tile
+	//check if anything else is on that gridspace already
+	//check if gridspace is in player's team's zone of influence
+	//if the above is yes
+	//deduct cost from mana
+	//add towerID to gridspace
+	//add tower to tower list in the game representation
+	//check if gridspaces in ZoI of tower are already marked as ZoI for the team
+	//if not, mark as ZoI for team
+	//return true
+	//else return false
 }
 
 void SummonMinionPacket::Execute() {
-		//check if minion has been researched for the player
-		//check if player has enough mana to summon the minion
-		//if yes:
-			//deduct cost from mana
-			//increase MpS (mana per second) as per minions MpS value
-			//spawn minion at player's team's portals
-			//add minion to minion list in the game representation
-			//update game representation
-			//return true
-		//else return false
+	//check if minion has been researched for the player
+	//check if player has enough mana to summon the minion
+	//if yes:
+	//deduct cost from mana
+	//increase MpS (mana per second) as per minions MpS value
+	//spawn minion at player's team's portals
+	//add minion to minion list in the game representation
+	//update game representation
+	//return true
+	//else return false
 }
 
 void ResearchMinionPacket::Execute() {
-		//check if player has enough mana to research the minion
-		//if yes:
-			//flag minion as researched for player
-			//deduct cost from mana
-			//return true		
-		//else return false
+	//check if player has enough mana to research the minion
+	//if yes:
+	//flag minion as researched for player
+	//deduct cost from mana
+	//return true		
+	//else return false
 }
 
 void ResearchTowerPacket::Execute() {
-		//check if player has enough mana to research the tower
-		//if yes:
-			//flag tower as researched for player
-			//deduct cost from mana
-			//return true		
-		//else return false
+	//check if player has enough mana to research the tower
+	//if yes:
+	//flag tower as researched for player
+	//deduct cost from mana
+	//return true		
+	//else return false
 }
 
 void KickPlayerPacket::Execute() {
@@ -1208,26 +1293,26 @@ void KickPlayerPacket::Execute() {
 }
 
 void PauseGamePacket::Execute() {
-		//check for another pause request from the same gameID but from a different player
-		//if a 2nd one is received within X seconds
-			//pause the game
+	//check for another pause request from the same gameID but from a different player
+	//if a 2nd one is received within X seconds
+	//pause the game
 }
 
 void EndGamePacket::Execute() {
 	//make sure player is host
-			//save all game info to db
-			//remove all players to game viewer/main menu
-			//remove gameID from list of running games
+	//save all game info to db
+	//remove all players to game viewer/main menu
+	//remove gameID from list of running games
 }
 
 void ResumeGamePacket::Execute() {
-		//check to make sure player is host
-			//resume game
+	//check to make sure player is host
+	//resume game
 }
 
 void QuitGamePacket::Execute() {
-		//remove player from game
-		//notify other players
+	//remove player from game
+	//notify other players
 }
 #pragma endregion
 

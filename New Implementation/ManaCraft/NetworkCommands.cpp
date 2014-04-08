@@ -22,22 +22,21 @@ void NetworkCommands::LogIn(std::string username){
 
 	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
 	ServerLiason::SendPacket(packet);
-
-	}
+}
 
 void NetworkCommands::LogOut(){
 	CS_Protocol protocol = LOGOUT_PLAYER;
-	
 	unsigned int index = 0;
-	int payloadSize = 1; // MainMenu::GetInstance()->username.length() + sizeof(__int8);
-	std::vector<char> data = std::vector<char>(1);
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
-	//index += sizeof(__int8);
+	Serialize::UInt16(data, index, payloadSize);
 
-	//for (unsigned int i = 0; i < MainMenu::GetInstance()->username.length(); ++i) {
-	//	data[index + i] = MainMenu::GetInstance()->username[i];
-	//}
-	
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
 
 	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
 	ServerLiason::SendPacket(packet);
@@ -45,17 +44,16 @@ void NetworkCommands::LogOut(){
 
 void NetworkCommands::CloseGame(){
 	CS_Protocol protocol = CLOSE_GAME;
-	
 	unsigned int index = 0;
-	int payloadSize = MainMenu::GetInstance()->username.length() + sizeof(__int8);
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
 	std::vector<char> data = std::vector<char>(payloadSize);
 
-	Serialize::UInt16(data, index, payloadSize);
+	/*Serialize::UInt16(data, index, payloadSize);
 
-	/*index += sizeof(__int8);
+	index += sizeof(__int8);
 
-	for (unsigned int i = 0; i < MainMenu::GetInstance()->username.length(); ++i) {
-		data[index + i] = MainMenu::GetInstance()->username[i];
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
 	}*/
 
 	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
@@ -64,63 +62,127 @@ void NetworkCommands::CloseGame(){
 
 void NetworkCommands::RefreshGames(){
 	CS_Protocol protocol = REFRESH_GAMES;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
+	Serialize::UInt16(data, index, payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::CreateGame(){
 	CS_Protocol protocol = CREATE_GAME;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	Serialize::UInt16(data, index, payloadSize);
+
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::JoinGame(int gameID){
 	CS_Protocol protocol = JOIN_GAME;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
+	Serialize::UInt16(data, index, payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::PickTeam(short teamID){
 	CS_Protocol protocol = JOIN_TEAM;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
+	Serialize::UInt16(data, index, payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::BenchMe(){
 	CS_Protocol protocol = BENCH_PLAYER;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
+	Serialize::UInt16(data, index, payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }
 
 void NetworkCommands::DisbandGame(int GameID){
 	CS_Protocol protocol = DISBAND_GAME;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
+	Serialize::UInt16(data, index, payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 
 }
 
 void NetworkCommands::LeaveGame(int lobbyID){
 	CS_Protocol protocol = LEAVE_GAME;
-	std::vector<char> data = std::vector<char>(1);
+	unsigned int index = 0;
+	int payloadSize = MainMenu::username.length() + sizeof(__int8);
+	std::vector<char> data = std::vector<char>(payloadSize);
 
+	Serialize::UInt16(data, index, payloadSize);
 
-	Packet* tempPacket = new Packet(SEC_HEAD, protocol, data);
-	ServerLiason::SendPacket(tempPacket);
+	index += sizeof(__int8);
+
+	for (unsigned int i = 0; i < MainMenu::username.length(); ++i) {
+		data[index + i] = MainMenu::username[i];
+	}
+
+	Packet* packet = new Packet(Networking::SEC_HEAD, protocol, data);
+	ServerLiason::SendPacket(packet);
 }

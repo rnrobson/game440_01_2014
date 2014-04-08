@@ -5,7 +5,7 @@
 #include "ScreenFader.h"
 
 using namespace ManaCraft::Client;
-
+std::string MainMenu::username = "";
 MainMenu* MainMenu::instance;
 MainMenu::NetIndicator MainMenu::netIndicator;
 

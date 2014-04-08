@@ -29,7 +29,7 @@ ManaCraft::Client::Client::Client()
 	ClientAPI::Init();
 
 	// Initialize SDLNet and start connection
-	//InitSDLNet();
+	InitSDLNet();
 
 	// Set the API Mode
 	ClientAPI::SetAPIHandleMode(GuiAPIMode::ProgrammerHandleMode);
