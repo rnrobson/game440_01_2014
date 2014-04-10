@@ -17,6 +17,12 @@ GameModel::GameModel(unsigned int _id)
 }
 GameModel::~GameModel(){}
 
+void GameModel::PlaceTower()
+{
+	Tower* tower = new Tower();
+	towers.push_back(tower);
+	//add to navpath
+}
 
 void GameModel::UpdateMinions()
 {

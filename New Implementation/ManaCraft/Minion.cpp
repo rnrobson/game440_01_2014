@@ -10,7 +10,23 @@ manaPerSecond(0), health(0), armour(0), speed(0) {
 
 Minion::~Minion() {
 }
+void Minion::OnWaypointArrive()
+{
+	if (!GetCurrentWaypoint()->IsLastWaypoint()) {
+		GetCurrentWaypoint()->BroadcastArrive(this);
+	GetCurrentWaypoint()->BroadcastLeave(this);
 
+	if (GetCurrentWaypoint()->Prev()) {
+		GetCurrentWaypoint()->Prev()->UnRegisterNavigator(this);
+	}
+
+	GetCurrentWaypoint()->RegisterNavigator(this);
+
+	SetWaypoint(GetCurrentWaypoint()->Next());
+
+	SetDestination(GetCurrentWaypoint()->Position());
+}
+}
 bool Minion::Serialize(char* data, Uint16 dataFlags) {
 	data = Serialize::UInt16(data, dataFlags);
 

@@ -4,8 +4,10 @@
 #include "DataDefinitions.h"
 #include "Entity.h"
 #include "Resistances.h"
+#include "Navigator.h"
+#include "Waypoint.h"
 
-class Minion : public Entity
+class Minion : public Entity, public Navigator
 {
 private:
 	static Minion* buildFromRow(mysqlpp::Row& row);
@@ -28,6 +30,8 @@ public:
 
 	Minion();
 	~Minion();
+
+	void OnWaypointArrive();
 
 	virtual bool Serialize(char* data, Uint16 dataFlags);
 	virtual int SerializedSize(Uint16 dataFlags) const;

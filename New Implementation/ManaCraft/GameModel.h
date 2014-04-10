@@ -9,6 +9,7 @@
 #include "GridSquare.h"
 #include "PlayerBase.h"
 #include "ServerPlayer.h"
+#include "Level.h"
 
 class GameModel{
 
@@ -28,12 +29,16 @@ public:
 	PlayerBase* darkBase;
 	PlayerBase* lightBase;
 
+	Level* level;
+
 	static bool CompareGamesByID(GameModel *gameOne, GameModel *gameTwo);
 	static GameModel* LoadGameByID(unsigned int _id);
 	static void LoadNextID();
 
 	void SaveGame();
 	void DeleteGame();
+
+	void PlaceTower();
 
 	void UpdateMinions();
 	void UpdateTowers(Uint32 dt);

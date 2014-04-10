@@ -10,7 +10,20 @@ Tower::Tower(void)
 Tower::~Tower(void)
 {
 }
-
+void Tower::Execute(NavEvent navEvent)
+{
+	switch (navEvent.type)
+	{
+	case NavEventType::ARRIVE:
+		targetList.push_back(static_cast<Minion*>(navEvent.navigator));
+		break;
+	case NavEventType::LEAVE:
+		targetList.remove(static_cast<Minion*>(navEvent.navigator));
+		break;
+	default:
+		break;
+	}
+}
 Tower* Tower::buildFromRow(mysqlpp::Row& row) {
 	using namespace ManaCraft::Database;
 

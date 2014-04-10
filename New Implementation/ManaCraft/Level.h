@@ -5,6 +5,8 @@
 
 #include "GridLayer.h"
 #include "MinionPath.h"
+#include "NavMap.h"
+#include "Vec3f.h"
 
 class Level
 {
@@ -12,7 +14,10 @@ private:
 	GridLayer artLayer;
 	GridLayer assetLayer;
 	GridLayer infLayer;
-	std::vector<MinionPath> paths;
+	//std::vector<MinionPath> paths;
+	NavMap navPathTop;
+	NavMap navPathMid;
+	NavMap navPathBottom;
 
 public:
 	std::string name;

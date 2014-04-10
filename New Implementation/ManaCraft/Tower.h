@@ -5,10 +5,11 @@
 #include "Entity.h"
 #include "InfluenceSquare.h"
 #include "Minion.h"
+#include "Observer.h"
 #include <list>
 
 
-class Tower : public Entity
+class Tower : public Entity, public Observer
 {
 private:
 	static Tower* buildFromRow(mysqlpp::Row& row);
@@ -32,5 +33,7 @@ public:
 	static std::vector<Tower*> fetchAllFromDB();
 
 	void FireAtMinion(Minion* minion);
+
+	void Execute(NavEvent navEvent);
 };
 
