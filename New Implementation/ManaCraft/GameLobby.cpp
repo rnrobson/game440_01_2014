@@ -201,6 +201,8 @@ void GameLobby::Load()
 	content->GetGuiContainer("gameSetBtnsCon")->GetButton("returnToMainMenu")->
 		SubscribeOnMouseClick(ReturnToMainMenu);
 
+
+	content->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
 	//start with Game Lobby not active
 	//when the player clicks "Create Game" in the Main Menu, make Game Lobby active
 	//content->Active = false;
@@ -232,6 +234,7 @@ void GameLobby::OnEscapePressed()
 
 void GameLobby::JoinITeam()
 {
+	GameLobby::GetInstance()->GetContent()->Sfx1Play();
 	EnableJoinBtns(false);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("ITeamBg"), 50);
 	NetworkCommands::PickTeam(1);
@@ -239,6 +242,7 @@ void GameLobby::JoinITeam()
 }
 void GameLobby::JoinDOTeam()
 {
+	GameLobby::GetInstance()->GetContent()->Sfx1Play();
 	EnableJoinBtns(false);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("DOTeamBg"), 50);
 	NetworkCommands::PickTeam(2);
@@ -246,6 +250,7 @@ void GameLobby::JoinDOTeam()
 }
 void GameLobby::ReturnToBench()
 {
+	GameLobby::GetInstance()->GetContent()->Sfx1Play();
 	EnableJoinBtns(true);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("ITeamBg"), 20);
 	SDL_SetTextureAlphaMod(ClientAPI::GetTexture("DOTeamBg"), 20);
@@ -265,6 +270,7 @@ void GameLobby::TalkInTeamChat()
 
 void GameLobby::CloseGame()
 {
+	GameLobby::GetInstance()->GetContent()->Sfx1Play();
 	NetworkCommands::DisbandGame(1);//TODO, need to wire LobbyID
 	printf("host closed the game\n");
 	
@@ -283,6 +289,7 @@ void GameLobby::ExitGameStart()
 
 void GameLobby::ShowGameOptions()
 {
+	GameLobby::GetInstance()->GetContent()->Sfx1Play();
 	//pop up the game options
 	EnableGameOptions(true);
 }
@@ -296,6 +303,7 @@ void GameLobby::ReturnToMainMenu()
 {
 	NetworkCommands::LeaveGame(1);
 	std::cout << "Left the Lobby" << std::endl;
+	GameLobby::GetInstance()->GetContent()->Sfx1Play();
 	//GameLobby::GetInstance()->GetContent()->Active = false;
 	//ClientAPI::GetGuiContainer("MainMenu")->Active = true;
 	ClientAPI::SetFocus(MainMenu::GetInstance());

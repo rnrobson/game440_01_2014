@@ -89,7 +89,7 @@ void Credits::Load()
 		ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	for (int i = 0; i < 7; i++)
 	{
-		content->GetGuiContainer("ServerCredits")->AddGuiElement("s" + i, new Label(serverStrings[i],
+	content->GetGuiContainer("ServerCredits")->AddGuiElement("s" + i, new Label(serverStrings[i],
 			APIHelper::RectHelper(serverRect.x, serverRect.y + (i * LABEL_SPACE_Y), serverRect.w, LABEL_SPACE_Y),
 			ClientAPI::GetFont("Systema_22"), ClientAPI::GetColor("White")));
 	}

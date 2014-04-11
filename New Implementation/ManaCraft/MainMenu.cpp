@@ -249,12 +249,13 @@ void MainMenu::Click_loginButton()
 	switch (MainMenu::netIndicator)
 	{
 	case Red:
-		MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+		//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 		MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
 		MainMenu::GetInstance()->GetContent()->GetGuiContainer("LoginPopup")->Active = true;
 		break;
 
 	case Green:
+		//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 		NetworkCommands::LogOut();
 		PlayerLoggedOut();//TODO:: Should be called only from commandPacket.execute, not from client itself
 		break;			  //
@@ -262,7 +263,7 @@ void MainMenu::Click_loginButton()
 	default:
 		break;
 	}
-	
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 	//ClientAPI::GetGuiContainer("MainMenu")->Sfx1Play();
 	//ClientAPI::GetGuiContainer("MainMenu")->Enabled = false;
 	//ClientAPI::GetGuiContainer("LoginPopup")->Active = true;
@@ -271,7 +272,7 @@ void MainMenu::Click_loginButton()
 void MainMenu::Click_viewButton()
 {
 	std::cout << "View saved games.\n";
-	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
 	//ViewGames::GetInstance()->GetContent()->Active = false;	// GetGuiContainer("ViewGames")->Active = true;
 
@@ -283,7 +284,7 @@ void MainMenu::Click_viewButton()
 void MainMenu::Click_optionsButton()
 {
 	std::cout << "Open options menu.\n";
-	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
+	MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Sfx1Play();
 	//MainMenu::GetInstance()->GetContent()->GetGuiContainer("Menu")->Active = false;
 	//ClientAPI::GetGuiContainer("Options")->Active = true;
 	ClientAPI::SetFocus(Options::GetInstance());
