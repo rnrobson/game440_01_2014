@@ -9,10 +9,10 @@ class Command_InitializeNewGame : public CommandPacket
 private:
 	uint gameID;
 	Teams *teams;
-	ServerPlayer *host;
+	Player *host;
 	Packet nullPacket;
 public:
-	Command_InitializeNewGame(uint _gameID, Teams *_teams, ServerPlayer *_host) : CommandPacket(&nullPacket)
+	Command_InitializeNewGame(uint _gameID, Teams *_teams, Player *_host) : CommandPacket(&nullPacket)
 	{
 		gameID = _gameID;
 		teams = _teams;

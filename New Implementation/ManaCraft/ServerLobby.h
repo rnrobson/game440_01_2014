@@ -14,23 +14,23 @@ using namespace std;
 class ServerLobby
 {
 public:
-	ServerPlayer *host;
+	Player *host;
 	Teams teams;
-	vector<ServerPlayer*> readyPlayers;
+	vector<Player*> readyPlayers;
 	ThreadPool *WorkCrew;
 
-	ServerLobby(ThreadPool *workCrew, ServerPlayer *lobbyHost, int teamSize);
+	ServerLobby(ThreadPool *workCrew, Player *lobbyHost, int teamSize);
 	ServerLobby();
 	~ServerLobby();
 	
 	void StartGame();
 	void CloseLobby();
-	void ReadyPlayer(ServerPlayer *player);
-	void UnReadyPlayer(ServerPlayer *player);
-	void PlayerMessage(ServerPlayer *player, string message);
+	void ReadyPlayer(Player *player);
+	void UnReadyPlayer(Player *player);
+	void PlayerMessage(Player *player, string message);
 
-	void EnterNewPlayer(ServerPlayer *player);
-	void PlayerChangeTeam(ServerPlayer *player, vector<ServerPlayer*> *toTeam);
-	void KickPlayer(ServerPlayer *player);
+	void EnterNewPlayer(Player *player);
+	void PlayerChangeTeam(Player *player, vector<Player*> *toTeam);
+	void KickPlayer(Player *player);
 };
 

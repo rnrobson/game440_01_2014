@@ -16,7 +16,7 @@ class GameModel{
 public:
 	unsigned int id;
 	bool paused;
-	ServerPlayer* host;
+	Player* host;
 	Teams* teams;
 	float team1mps;
 	float team2mps;
