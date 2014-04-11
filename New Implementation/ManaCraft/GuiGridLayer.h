@@ -1,5 +1,6 @@
 #pragma once
 #include "GuiGridSquare.h"
+#include "GridLayer.h"
 
 class GuiGridLayer : public GuiElement {
 public:
@@ -12,7 +13,8 @@ public:
 	std::vector<GuiGridSquare*> layer;
 
 	GuiGridLayer();
-	GuiGridLayer(SDL_Texture* _tileTexture, unsigned int _rows, unsigned int _columns);
+	GuiGridLayer(GridLayer _gridLayer, GridSquare _gridSquares[]);
+	GuiGridLayer(SDL_Texture* _tileTexture, GridLayer _gridLayer, GridSquare _gridSquares[]);
 	~GuiGridLayer(void);
 
 	virtual void Update(double time);

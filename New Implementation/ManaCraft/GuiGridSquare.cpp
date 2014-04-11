@@ -11,6 +11,8 @@ GuiGridSquare::GuiGridSquare()
 }
 
 GuiGridSquare::GuiGridSquare(SDL_Texture* _tileSet, GridSquare _gridSquare, unsigned int _width, unsigned int _height){
+	Active = true;
+	Enabled = true;
 	int _widthInTiles, _heightInTiles;
 	int x = 0;
 	int y = 0;
@@ -30,10 +32,11 @@ GuiGridSquare::GuiGridSquare(SDL_Texture* _tileSet, GridSquare _gridSquare, unsi
 	}
 
 	m_sourceRectangle = APIHelper::RectHelper(x * _width, y * _height, _width, _height);
-	m_destinationRectangle = APIHelper::RectHelper(_gridSquare.xPos * _width, 
-																				   _gridSquare.yPos * _height,
-																				   _width, _height);
+	m_destinationRectangle = APIHelper::RectHelper(_gridSquare.xPos * _width, _gridSquare.yPos * _height, _width, _height);
 
+}
+GuiGridSquare::GuiGridSquare(GridSquare _gridSquare, unsigned int _width, unsigned int _height){
+	m_destinationRectangle = APIHelper::RectHelper(_gridSquare.xPos * _width, _gridSquare.yPos * _height, _width, _height);
 }
 
 GuiGridSquare::~GuiGridSquare(void) {}
@@ -49,6 +52,7 @@ void GuiGridSquare::HandleMouseClickEvent() {
 	if (Intersects({ m_destinationRectangle.x, m_destinationRectangle.y, 1, 1 }))
 	{
 		GuiElement::OnMouseClick();
+		std::cout << "ding";
 	}
 }
 void GuiGridSquare::HandleMouseHoverEvent(SDL_MouseMotionEvent e)

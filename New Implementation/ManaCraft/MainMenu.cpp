@@ -134,6 +134,36 @@ void MainMenu::LoadMainMenu(){
 	content->GetGuiContainer("Menu")->GetButton("CreditsBtn")->SubscribeOnMouseClick(MainMenu::Click_creditsButton);
 
 	content->GetGuiContainer("Menu")->SetSfx1Audio(ClientAPI::GetAudio("BtnAudio"));
+
+	//Test Grid Square
+	/*	GridSquare mySquare = GridSquare();
+	mySquare.id = 0;
+	mySquare.xPos = 0;
+	mySquare.yPos = 0;
+	content->GetGuiContainer("Menu")->AddGuiElement("mySquare", new GuiGridSquare(ClientAPI::GetTexture("MedBtnNormal"), mySquare, 32, 32));*/
+
+
+	//----------------- GRID LAYER ------------------//
+	////Array of GridSquares to pass through to the GuiGridLayer
+	//GridSquare mySquares[100];
+	//for (int i = 0; i < 100; i++){
+	//	mySquares[i].id = 15;
+	//}
+
+	////Texture of the resource, just for testing purposes.
+	//SDL_Texture *tiletexture = APIHelper::LoadPNGTexture("Resources/Tiles/grassAndRock.png");
+
+	////GridLayer
+	//GridLayer myLayer = GridLayer();
+	//myLayer.rows = 10;
+	//myLayer.columns = 10;
+	//myLayer.tileSize = 32;
+
+	////Add element to the Menu container.
+	//content->GetGuiContainer("Menu")->AddGuiElement("myLayer", new GuiGridLayer(tiletexture, myLayer, mySquares));
+	//-------------- GRID LAYER END ---------------//
+
+
 	//FOR TESTING ANIMATED SPRITE
 	//SDL_Texture *texture = nullptr;
 	//texture = IMG_LoadTexture(Window::Renderer(), "Resources/Sprites/MinionSS.png");

@@ -11,6 +11,7 @@ public:
 
 	GuiGridSquare();
 	GuiGridSquare(SDL_Texture* _tileSet, GridSquare _gridSquare, unsigned int width, unsigned int height);
+	GuiGridSquare(GridSquare _gridSquare, unsigned int width, unsigned int height);
 	~GuiGridSquare(void);
 
 	virtual void Draw();
