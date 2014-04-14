@@ -245,71 +245,133 @@ void ServerCommand::Execute()
 //	}
 //}
 //
-//void ServerCommand::CS_CloseGame(void* data)
-//{ 
-//	printf("\nPut CS_CloseGame Code Here\n"); 
-//	//args: string playerName
-//	//find player from collection of online players
-//	//remove reference of player from current game
-//	//return player to main menu
-//}
-//void ServerCommand::CS_LoginPlayer(void* data)
-//{ 
-//	printf("\nPut CS_LoginPlayer Code Here\n"); 
-//	//args: string playerName
-//	//add player to collection of online players
-//}
-//void ServerCommand::CS_LogoutPlayer(void* data)
-//{ 
-//	printf("\nPut CS_LogoutPlayer Code Here\n"); 
-//	//args: string playerName
-//	//remove player from collection of online players
-//	//return player to main menu (with the login option)
-//}
-//void ServerCommand::CS_RefreshGames(void* data)
-//{ 
-//	printf("\nPut CS_RefreshGames Code Here\n"); 
-//	//args: string playerName, uint lobbyID
-//	//go through list of all avaialble games connected to the server
-//	//display them to current player's client
-//}
-//void ServerCommand::CS_JoinGame(void* data)
-//{ 
-//	printf("\nPut CS_JoinGame Code Here\n"); 
-//	//args: string playerName, uint gameID
-//	//if this is a saved game
-//	//	create a lobby with the game model from the saved game
-//	//	check if the players associated with this game are online
-//	//		if so, send invites to them to join this game
-//	//		else, leave the spots open and open them to public
-//	//if not a saved game, 
-//	//	check if the game is full
-//	//		if not, 
-//	//			add player to the game
-//}
-//void ServerCommand::CS_CreateGame(void* data)
-//{ 
-//	printf("\nPut CS_CreateGame Code Here\n"); 
-//	//args: string playerName
-//	//create a new lobby and add it to the collection of lobbies on the server
-//	//add the player to the list of players in that lobby
-//	//flag player as host
-//}
-//void ServerCommand::CS_LeaveGame(void* data)
-//{ 
-//	printf("\nPut CS_LeaveGame Code Here\n"); 
-//	//args: string playerName, uint lobbyID
-//	//remove player from collection of players in the lobbyID
-//	//if that was the last player, remove the lobby from the collection of lobbies on the server
-//	//return player to main menu
-//}
-//void ServerCommand::CS_DisbandGame(void* data)
-//{
-//	printf("\nPut CS_DisbandGame Code Here\n"); 
-//	//args: uint lobby ID
-//	//return all players in the lobby to main menu
-//	//remove the lobby from the collection of lobbies on the server
-//}
+/*
+void ServerCommand::CS_CloseGame(void* data)
+{ 
+	printf("\nPut CS_CloseGame Code Here\n"); 
+	//args: string playerName
+	string *playerName = data;
+	//find player from collection of online players
+	string currentPlayer = gamePlayerList.front;
+	if(currentPlayer == playerName)
+	{
+		//remove reference of player from current game			
+		playerName.Remove;
+		//return player to main menu
+
+		}
+	}
+	else
+	{
+		currentPlayer = gamePlayerList.Next;	
+	}
+}
+
+void ServerCommand::CS_LoginPlayer(void* data)
+{ 
+	printf("\nPut CS_LoginPlayer Code Here\n"); 
+	//args: string playerName
+	string *playerName = data;
+
+	//add player to collection of online players
+	playerList.Push(playerName);
+}
+
+void ServerCommand::CS_LogoutPlayer(void* data)
+{ 
+	printf("\nPut CS_LogoutPlayer Code Here\n"); 
+	//args: string playerName
+		string *playerName = data;
+	//find player from collection of online players
+	string currentPlayer = serverPlayerList.front;
+	if(currentPlayer == playerName)
+	{
+		//remove reference of player from current game			
+		playerName.Remove;
+		//return player to main menu
+
+		}
+	}
+	else
+	{
+		currentPlayer = serverPlayerList.Next;	
+	}
+}
+	//return player to main menu (with the login option)
+}
+
+void ServerCommand::CS_RefreshGames(void* data)
+{ 
+	printf("\nPut CS_RefreshGames Code Here\n"); 
+	//args: string playerName, uint lobbyID
+	string *playerName = data;
+	GameData lobbyID = data;
+	//go through list of all avaialble games connected to the server
+	for (int i = 0; i <lobbyID.Length; i++)
+	(
+		//display them to current player's client
+		printf (lobbyID[i] "/n");
+	}
+}
+void ServerCommand::CS_JoinGame(void* data)
+{ 
+	printf("\nPut CS_JoinGame Code Here\n"); 
+	//args: string playerName, uint gameID
+	string *playerName;
+	GameData gameID;
+	//if this is a saved game
+	if (gameID.save = true)
+	{
+		//	create a lobby with the game model from the saved game
+		CS_createLobby(gameID.Model);
+	//	check if the players associated with this game are online
+		stack<bool> Status;
+		Status.push (gameID.playerID)
+		while(!Status.empty())
+		{
+		//		if so, send invites to them to join this game
+		if (Status)
+			invite(gameID.playerID);
+		//		else, leave the spots open and open them to public
+		else
+			gameRoom.OpenSpots = true;
+		}
+	
+	//if not a saved game, 
+	else
+	//	check if the game is full
+	//		if not,
+	//			add player to the game
+		if (!gameRoom.OpenSpots)
+		GameID.AddPlayer (playerID)
+
+}
+void ServerCommand::CS_CreateGame(void* data)
+{ 
+	printf("\nPut CS_CreateGame Code Here\n"); 
+	//args: string playerName
+	
+	//create a new lobby and add it to the collection of lobbies on the server
+	//add the player to the list of players in that lobby
+	//flag player as host
+}
+void ServerCommand::CS_LeaveGame(void* data)
+{ 
+	printf("\nPut CS_LeaveGame Code Here\n"); 
+	//args: string playerName, uint lobbyID
+	//remove player from collection of players in the lobbyID
+	//if that was the last player, remove the lobby from the collection of lobbies on the server
+	//return player to main menu
+}
+void ServerCommand::CS_DisbandGame(void* data)
+{
+	printf("\nPut CS_DisbandGame Code Here\n"); 
+	//args: uint lobby ID
+	//return all players in the lobby to main menu
+	
+	//remove the lobby from the collection of lobbies on the server
+}
+*/
 //void ServerCommand::CS_JoinTeam(void* data)
 //{ 
 //	printf("\nPut CS_JoinTeam Code Here\n"); 
