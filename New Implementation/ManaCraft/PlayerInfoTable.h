@@ -10,8 +10,6 @@
 //#include "ServerLobby.h"
 //#include "Teams.h"
 //
-///// <Untested and Unfinished> Will come back to later.
-//
 //class PlayerInfoTable
 //{
 //	private:
@@ -20,17 +18,22 @@
 //
 //		static PlayerInfoTable *playerInfoTable;
 //
-//		std::map<std::string, GameModel*> playerGameTable;
+//		//std::map<std::string, GameModel*> playerGameTable;
+//		std::map<std::string, std::pair<ServerLobby*, GameModel*>> playerGameTable;
 //
 //	public:
+//		std::map<std::string, std::pair<ServerLobby*, GameModel*>> GetTable();
+//
 //		static PlayerInfoTable *GetInstance();
 //		static GameModel *GetGame(std::string username);
-//		static ServerPlayer *GetPlayer(std::string username);
+//		static Player *GetPlayer(std::string username);
 //		static ServerLobby *GetLobby(std::string username);
-//		static Teams *GetTeams(std::string username);
-//		static std::list<ServerPlayer> GetPlayersInGame(GameModel game);
-//		static Insert(std::string username, GameModel game);
-//		static Erase(std::string username);
+//		static Teams *GetTeam(std::string username);
+//		static std::vector<Player*> *GetTeamPlayerIsOn(std::string username);
+//		static std::list<Player> *GetPlayersInGame(GameModel game);
+//		static void Insert(std::string username, ServerLobby *lobby); // Used when lobby is created
+//		static void Modify(std::string username, GameModel *game); // Used when GameModel is initialized and lobby left
+//		static void Erase(std::string username);
 //};
 //
 //#endif
